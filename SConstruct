@@ -23,6 +23,6 @@ env.Append(LIBS=['pthread'])
 
 env.Program(
     target='unit_tests',
-    source=["test_harness.cc", "md5_test.cc", gtest_all_path, gmock_all_path]
+    source=["test_harness.cc", "md5_test.cc", "mapper_test.cc", gtest_all_path, gmock_all_path]
 )
 
