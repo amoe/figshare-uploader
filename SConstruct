@@ -19,7 +19,7 @@ env = Environment(
 
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets'])
-env.Append(CCFLAGS=['-fPIC', '-std=c++1z'])
+env.Append(CCFLAGS=['-fPIC', '-std=c++14'])
 env.Append(LIBS=['pthread'])
 
 env.Program(
