@@ -1,2 +1,5 @@
 language: cpp
-script: scons
+script:
+  - scons
+  - ./unit_tests
+
