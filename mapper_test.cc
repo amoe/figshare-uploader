@@ -1,4 +1,5 @@
 #include <gmock/gmock.h>
+#include <QString>
 #include <QJsonObject>
 #include <QJsonDocument>
 
