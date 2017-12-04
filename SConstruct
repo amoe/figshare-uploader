@@ -10,11 +10,19 @@ googletest_include_paths = [
 gtest_all_path = googletest_framework_root + "/googletest/src/gtest-all.cc"
 gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
-env = Environment(CPPPATH=googletest_include_paths)
+env = Environment(
+    tools=['default', 'qt5'],
+    QT5DIR='/usr',
+    CPPPATH=googletest_include_paths,
+    
+)
+
+env.EnableQt5Modules(['QtCore'])
+env.Append(CCFLAGS=['-fPIC'])
+env.Append(LIBS=['pthread'])
 
 env.Program(
     target='unit_tests',
-    source=["test_harness.cc", gtest_all_path, gmock_all_path],
-    LIBS=['pthread']
+    source=["test_harness.cc", gtest_all_path, gmock_all_path]
 )
 
