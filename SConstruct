@@ -16,7 +16,7 @@ env = Environment(
     CPPPATH=googletest_include_paths,
     
 )
-
+env['QT5_DEBUG'] = 1
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets'])
 env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
@@ -24,6 +24,10 @@ env.Append(LIBS=['pthread', 'xlnt'])
 
 env.Program(
     target='unit_tests',
-    source=["test_harness.cc", "md5_test.cc", "mapper_test.cc", "xlsx.cc", gtest_all_path, gmock_all_path]
+    source=["view.cc", "test_harness.cc", "md5_test.cc", "mapper_test.cc", "xlsx.cc", gtest_all_path, gmock_all_path]
 )
 
+env.Program(
+    target='main',
+    source=["main.cc", "view.cc"]
+)

@@ -1,6 +1,11 @@
 #include <iostream>
+#include <QApplication>
+#include "view.hh"
 
 int main(int argc, char **argv) {
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+    QApplication app(argc, argv);
+    View view;
+
+    view.show();
+    return app.exec();
 }
