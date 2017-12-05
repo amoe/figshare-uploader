@@ -5,13 +5,19 @@
 
 using ::testing::Eq;
 
+
 class ArticleCreationRequest {
 public:
     ArticleCreationRequest(std::string title) : title(title) { }
     std::string toJson();
+    std::string getTitle();
 private:
     std::string title;
 };
+
+std::string ArticleCreationRequest::getTitle() {
+    return this->title;
+}
 
 std::string ArticleCreationRequest::toJson() {
     QJsonObject object;
@@ -27,6 +33,33 @@ std::string ArticleCreationRequest::toJson() {
 QJsonObject deserialize(std::string input) {
     auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
     return result.object();
+}
+
+class ArticleMapper {
+public:
+    ArticleMapper() { }
+
+    ArticleCreationRequest map(const std::vector<std::string> excelRow);
+};
+
+ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRow) {
+    std::string title = excelRow.at(0);
+    ArticleCreationRequest result(title);
+
+    // This will use the copy constructor for ArticleCreationRequest.
+    return result;
+}
+
+
+
+TEST(ArticleMapperTest, CorrectlyMapsRow) {
+    ArticleMapper myMapper;
+    std::vector<std::string> row;
+    row.push_back("To Serve Man");
+
+    ArticleCreationRequest request = myMapper.map(row);
+
+    ASSERT_THAT(request.getTitle(), Eq("To Serve Man"));
 }
 
 
