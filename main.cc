@@ -4,7 +4,8 @@
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
-    View view;
+    Presenter presenter;
+    View view(presenter);
 
     view.show();
     return app.exec();

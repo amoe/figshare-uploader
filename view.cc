@@ -2,13 +2,19 @@
 #include <QWidget>
 #include <QString>
 #include <QGridLayout>
+#include <QPushButton>
 #include "view.hh"
+#include "presenter.hh"
 
-View::View() : QWidget(0, Qt::Window) {
+View::View(Presenter presenter) : QWidget(0, Qt::Window), presenter(presenter) {
     QGridLayout layout;
 
     this->selectedFile = new QLineEdit(this);
     layout.addWidget(this->selectedFile, 0, 0);
+
+    this->actionButton = new QPushButton("Push me", this);
+    layout.addWidget(this->actionButton, 1, 0);
+
     setLayout(&layout);
 }
 

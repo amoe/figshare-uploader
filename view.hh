@@ -1,16 +1,19 @@
 #include <QObject>
 #include <QWidget>
+#include <QPushButton>
 #include <QLineEdit>
-
+#include "presenter.hh"
 
 class View : public QWidget {
     Q_OBJECT
 
 public:
-    View();
+    View(Presenter presenter);
 
     std::string getSelectedFile() const;
 
 private:
-    QLineEdit *selectedFile;
+    Presenter presenter;
+    QLineEdit* selectedFile;
+    QPushButton* actionButton;
 };
