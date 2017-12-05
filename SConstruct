@@ -20,10 +20,10 @@ env = Environment(
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets'])
 env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
-env.Append(LIBS=['pthread'])
+env.Append(LIBS=['pthread', 'xlnt'])
 
 env.Program(
     target='unit_tests',
-    source=["test_harness.cc", "md5_test.cc", "mapper_test.cc", gtest_all_path, gmock_all_path]
+    source=["test_harness.cc", "md5_test.cc", "mapper_test.cc", "xlsx.cc", gtest_all_path, gmock_all_path]
 )
 
