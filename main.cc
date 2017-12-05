@@ -8,5 +8,6 @@ int main(int argc, char **argv) {
     View view(presenter);
 
     view.show();
+
     return app.exec();
 }
