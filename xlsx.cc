@@ -18,6 +18,27 @@ public:
         auto cell = ws.cell(column, row);
         return cell.has_value();
     }
+
+    std::vector<std::string> rowToString(int row) {
+        xlnt::worksheet ws = wb.active_sheet();
+        
+        std::vector<std::string> result;
+
+        // select one and just one row
+        xlnt::range range = ws.range("A2:U2");
+
+        // this is equivalent to `strict-first`
+        xlnt::cell_vector cv = range.front();
+
+
+        for (auto cell : cv) {
+            auto strVersion = cell.to_string();
+            std::cout << strVersion;
+            result.push_back(strVersion);
+        }
+
+        return result;
+    }
     
 private:
     xlnt::workbook wb;
@@ -29,6 +50,9 @@ TEST(XlsxReaderTest, CanGetSheetCount) {
     ASSERT_THAT(foo.getSheetCount(), Eq(1));
     ASSERT_THAT(foo.cellHasValue("A", 2), Eq(true));
     ASSERT_THAT(foo.cellHasValue("A", 7), Eq(false));
+
+    
+    foo.rowToString(42);
 
     // slurp resources/testfile1.xslx
 
