@@ -1,9 +1,15 @@
 language: cpp
 dist: trusty
+
+install:
+  - cd ext/xlnt-1.2.0
+  - cmake
+  - make
+  - make install
+
 script:
   - scons
   - ./unit_tests
-
 
 before_install:
   - sudo apt-get update -qq
