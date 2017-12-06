@@ -6,7 +6,7 @@ dist: trusty
 
 install:
   - cd ext/xlnt-1.2.0
-  - cmake
+  - cmake .
   - make
   - make install
 
