@@ -36,7 +36,7 @@ env.Program(
     ]
 )
 
-# env.Program(
-#     target='main',
-#     source=["main.cc", "view.cc", "presenter.cc"]
-# )
+env.Program(
+    target='main',
+    source=["main.cc", "view.cc", "presenter.cc"]
+)
