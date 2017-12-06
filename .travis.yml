@@ -8,7 +8,7 @@ install:
   - cd ext/xlnt-1.2.0
   - cmake .
   - make
-  - make install
+  - sudo make install
 
 script:
   - scons
