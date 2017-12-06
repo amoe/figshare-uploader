@@ -29,5 +29,5 @@ env.Program(
 
 env.Program(
     target='main',
-    source=["main.cc", "view.cc"]
+    source=["main.cc", "view.cc", "presenter.cc"]
 )
