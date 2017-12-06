@@ -23,7 +23,7 @@ env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
 env.Append(
     LIBS=[
         'pthread',
-#        'xlnt'
+        'xlnt'
     ]
 )
 
