@@ -9,20 +9,27 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+using std::vector;
+using std::string;
 
 class ArticleCreationRequest {
 public:
     ArticleCreationRequest(
-        std::string title, std::string description, std::vector<std::string> keywords
-    ) : title(title), description(description), keywords(keywords) { }
+        std::string title, std::string description,
+        std::vector<std::string> keywords,
+        vector<string> references
+    ) : title(title), description(description), keywords(keywords),
+        references(references) { }
     std::string toJson();
     std::string getTitle();
     std::string getDescription();
     std::vector<std::string> getKeywords();
+    vector<string> getReferences() const;
 private:
     std::string title;
     std::string description;
     std::vector<std::string> keywords;
+    vector<string> references;
 };
 
 std::string ArticleCreationRequest::getTitle() {
@@ -37,6 +44,11 @@ std::vector<std::string> ArticleCreationRequest::getKeywords() {
     return this->keywords;
 }
 
+vector<string> ArticleCreationRequest::getReferences() const {
+    return this->references;
+}
+
+
 std::string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
@@ -50,6 +62,13 @@ std::string ArticleCreationRequest::toJson() {
         keywordsVal.push_back(thisTag);
     }
 
+    QJsonArray referencesVal;
+    for (string s : references) {
+        QJsonValue thisReference(QString::fromStdString(s));
+        referencesVal.push_back(thisReference);
+    }
+
+    object.insert("references", referencesVal);
     object.insert("keywords", keywordsVal);
     object.insert("title", titleVal);
     object.insert("description", descriptionVal);
@@ -75,8 +94,9 @@ ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRo
     std::string title = excelRow.at(0);
     std::string description = excelRow.at(5);
     std::vector<std::string> keywords;
+    vector<string> references;
 
-    ArticleCreationRequest result(title, description, keywords);
+    ArticleCreationRequest result(title, description, keywords, references);
 
     // This will use the copy constructor for ArticleCreationRequest.
     return result;
@@ -115,10 +135,14 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     keywords.push_back("Bethlehem");
     keywords.push_back("Crafts");
 
+    vector<string> references;
+    references.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
+
     ArticleCreationRequest request(
         "To Serve Man",
         "Some description",
-        keywords
+        keywords,
+        references
     );
     
     std::string serializedResult = request.toJson();
