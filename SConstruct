@@ -30,6 +30,7 @@ env.Append(
 env.Program(
     target='unit_tests',
     source=[
+        "category_test.cc",
         "fake_qt_core_application.cc",
         "stubs.cc",
         "view.cc",
