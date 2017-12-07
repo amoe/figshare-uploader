@@ -1,13 +1,10 @@
 #include <gmock/gmock.h>
+#include "article_types.hh"
 
 using ::testing::Eq;
 using std::string;
 using std::map;
 
-enum class ArticleType {
-    FIGURE, MEDIA, DATASET, FILESET, POSTER, PAPER, PRESENTATION, THESIS,
-    CODE, METADATA
-};
 
 class ArticleTypeMapper {
 public:

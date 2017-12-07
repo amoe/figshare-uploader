@@ -7,6 +7,7 @@
 #include "ext/optional.hpp"
 #include "test_utility.hh"
 #include "raw_literals.hh"
+#include "article_types.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
