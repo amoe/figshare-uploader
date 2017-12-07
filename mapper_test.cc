@@ -41,6 +41,7 @@ public:
     vector<int> getCategories() const;
     vector<string> getAuthors() const;
     optional<string> getFunding() const;
+    ArticleType getArticleType() const;
 private:
     string title;
     string description;
@@ -80,6 +81,10 @@ optional<string> ArticleCreationRequest::getFunding() const {
     return this->funding;
 }
 
+ArticleType ArticleCreationRequest::getArticleType() const {
+    return this->articleType;
+}
+
 
 class ArticleMapper {
 public:
@@ -90,6 +95,7 @@ public:
     
 private:
     ArticleTypeMapper typeMapper;
+    QJsonValue mapType(ArticleType type);
 };
 
 string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
@@ -133,6 +139,7 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
         authorsVal.push_back(authorObject);
     }
 
+    object.insert("defined_type", mapType(request.getArticleType()));
     object.insert("funding", fundingVal);
     object.insert("authors", authorsVal);
     object.insert("references", referencesVal);
@@ -144,6 +151,12 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
     return result.toStdString();
+}
+
+QJsonValue ArticleMapper::mapType(ArticleType type) {
+    return QJsonValue(
+        QString::fromStdString(typeMapper.toFigshare(type))
+    );
 }
 
 ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow) {
