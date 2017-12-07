@@ -3,8 +3,13 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+
+#include "ext/optional.hpp"
 #include "test_utility.hh"
 #include "raw_literals.hh"
+
+using nonstd::optional;
+using nonstd::nullopt;
 
 using ::testing::Eq;
 using ::testing::StartsWith;
@@ -20,9 +25,11 @@ public:
         vector<string> keywords,
         vector<string> references,
         vector<int> categories,
-        vector<string> authors
+        vector<string> authors,
+        string funding
     ) : title(title), description(description), keywords(keywords),
-        references(references), categories(categories),  authors(authors)
+        references(references), categories(categories),  authors(authors),
+        funding(funding)
         { }
     string toJson();
     string getTitle();
@@ -38,6 +45,7 @@ private:
     vector<string> references;
     vector<int> categories;
     vector<string> authors;
+    string funding;
 };
 
 vector<string> ArticleCreationRequest::getAuthors() const {
@@ -69,7 +77,8 @@ string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
-
+    QJsonValue fundingVal(QString::fromStdString(funding));
+    
     QJsonArray keywordsVal;
 
     for (string s : keywords) {
@@ -89,6 +98,7 @@ string ArticleCreationRequest::toJson() {
         categoriesVal.push_back(thisCategoryId);
     }
 
+    // Note that authors has special handling here.
     QJsonArray authorsVal;
     for (string a : authors) {
         QJsonObject authorObject;
@@ -98,6 +108,7 @@ string ArticleCreationRequest::toJson() {
         authorsVal.push_back(authorObject);
     }
 
+    object.insert("funding", fundingVal);
     object.insert("authors", authorsVal);
     object.insert("references", referencesVal);
     object.insert("keywords", keywordsVal);
@@ -124,9 +135,11 @@ ArticleCreationRequest ArticleMapper::map(const vector<string> excelRow) {
     vector<string> references;
     vector<int> categories;
     vector<string> authors;
+    string funding;
 
     ArticleCreationRequest result(
-        title, description, keywords, references, categories, authors
+        title, description, keywords, references, categories, authors,
+        funding
     );
 
     // This will use the copy constructor for ArticleCreationRequest.
@@ -181,7 +194,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         keywords,
         references,
         categories,
-        authors
+        authors,
+        "Some grant number"
     );
     
     string serializedResult = request.toJson();
