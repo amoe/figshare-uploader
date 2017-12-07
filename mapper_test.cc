@@ -12,16 +12,16 @@ using ::testing::EndsWith;
 class ArticleCreationRequest {
 public:
     ArticleCreationRequest(
-        std::string title, std::string description, std::vector<std::string> tags
-    ) : title(title), description(description), tags(tags) { }
+        std::string title, std::string description, std::vector<std::string> keywords
+    ) : title(title), description(description), keywords(keywords) { }
     std::string toJson();
     std::string getTitle();
     std::string getDescription();
-    std::vector<std::string> getTags();
+    std::vector<std::string> getKeywords();
 private:
     std::string title;
     std::string description;
-    std::vector<std::string> tags;
+    std::vector<std::string> keywords;
 };
 
 std::string ArticleCreationRequest::getTitle() {
@@ -32,8 +32,8 @@ std::string ArticleCreationRequest::getDescription() {
     return this->description;
 }
 
-std::vector<std::string> ArticleCreationRequest::getTags() {
-    return this->tags;
+std::vector<std::string> ArticleCreationRequest::getKeywords() {
+    return this->keywords;
 }
 
 std::string ArticleCreationRequest::toJson() {
@@ -41,15 +41,15 @@ std::string ArticleCreationRequest::toJson() {
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
 
-    QJsonArray tagsVal;
+    QJsonArray keywordsVal;
 
     // First, we need a QStringList
-    for (std::string s : tags) {
+    for (std::string s : keywords) {
         QJsonValue thisTag(QString::fromStdString(s));
-        tagsVal.push_back(thisTag);
+        keywordsVal.push_back(thisTag);
     }
 
-    object.insert("tags", tagsVal);
+    object.insert("keywords", keywordsVal);
     object.insert("title", titleVal);
     object.insert("description", descriptionVal);
 
@@ -73,9 +73,9 @@ public:
 ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRow) {
     std::string title = excelRow.at(0);
     std::string description = excelRow.at(5);
-    std::vector<std::string> tags;
+    std::vector<std::string> keywords;
 
-    ArticleCreationRequest result(title, description, tags);
+    ArticleCreationRequest result(title, description, keywords);
 
     // This will use the copy constructor for ArticleCreationRequest.
     return result;
@@ -110,25 +110,26 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
 
 TEST(ArticleCreationRequestTest, SerializesToJson) {
-    std::vector<std::string> tags;
-    tags.push_back("Bethlehem");
-    tags.push_back("Crafts");
+    std::vector<std::string> keywords;
+    keywords.push_back("Bethlehem");
+    keywords.push_back("Crafts");
 
     ArticleCreationRequest request(
         "To Serve Man",
         "Some description",
-        tags
+        keywords
     );
     
     std::string serializedResult = request.toJson();
 
     std::cout << serializedResult << std::endl;
-        
+
+    // This is a raw string literal
     std::string expectedResult = R"V0G0N(
         {
             "title": "To Serve Man",
             "description": "Some description",
-            "tags": [
+            "keywords": [
                 "Bethlehem", "Crafts"
             ]
         }
