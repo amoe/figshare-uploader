@@ -73,6 +73,9 @@ namespace raw_literals {
             ],
             "categories": [
                 1703
+            ],
+            "authors": [
+                {"name": "Freja Howat-Maxted"}
             ]
         }
     )V0G0N";

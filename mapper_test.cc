@@ -19,22 +19,30 @@ public:
         string title, string description,
         vector<string> keywords,
         vector<string> references,
-        vector<int> categories
+        vector<int> categories,
+        vector<string> authors
     ) : title(title), description(description), keywords(keywords),
-        references(references), categories(categories) { }
+        references(references), categories(categories),  authors(authors)
+        { }
     string toJson();
     string getTitle();
     string getDescription();
     vector<string> getKeywords();
     vector<string> getReferences() const;
     vector<int> getCategories() const;
+    vector<string> getAuthors() const;
 private:
     string title;
     string description;
     vector<string> keywords;
     vector<string> references;
     vector<int> categories;
+    vector<string> authors;
 };
+
+vector<string> ArticleCreationRequest::getAuthors() const {
+    return this->authors;
+}
 
 string ArticleCreationRequest::getTitle() {
     return this->title;
@@ -81,6 +89,16 @@ string ArticleCreationRequest::toJson() {
         categoriesVal.push_back(thisCategoryId);
     }
 
+    QJsonArray authorsVal;
+    for (string a : authors) {
+        QJsonObject authorObject;
+        QJsonValue authorName(QString::fromStdString(a));
+        
+        authorObject.insert("name", authorName);
+        authorsVal.push_back(authorObject);
+    }
+
+    object.insert("authors", authorsVal);
     object.insert("references", referencesVal);
     object.insert("keywords", keywordsVal);
     object.insert("title", titleVal);
@@ -105,9 +123,10 @@ ArticleCreationRequest ArticleMapper::map(const vector<string> excelRow) {
     vector<string> keywords;
     vector<string> references;
     vector<int> categories;
+    vector<string> authors;
 
     ArticleCreationRequest result(
-        title, description, keywords, references, categories
+        title, description, keywords, references, categories, authors
     );
 
     // This will use the copy constructor for ArticleCreationRequest.
@@ -153,12 +172,16 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     vector<int> categories;
     categories.push_back(1703);
 
+    vector<string> authors;
+    authors.push_back("Freja Howat-Maxted");
+
     ArticleCreationRequest request(
         "To Serve Man",
         "Some description",
         keywords,
         references,
-        categories
+        categories,
+        authors
     );
     
     string serializedResult = request.toJson();
@@ -170,4 +193,5 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         Eq(deserialize(raw_literals::expectedResult))
     );
 }
+
 
