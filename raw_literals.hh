@@ -76,7 +76,8 @@ namespace raw_literals {
             ],
             "authors": [
                 {"name": "Freja Howat-Maxted"}
-            ]
+            ],
+            "funding": "Some grant number"
         }
     )V0G0N";
 };

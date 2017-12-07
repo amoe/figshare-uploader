@@ -26,7 +26,7 @@ public:
         vector<string> references,
         vector<int> categories,
         vector<string> authors,
-        string funding
+        optional<string> funding
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
         funding(funding)
@@ -45,7 +45,7 @@ private:
     vector<string> references;
     vector<int> categories;
     vector<string> authors;
-    string funding;
+    optional<string> funding;
 };
 
 vector<string> ArticleCreationRequest::getAuthors() const {
@@ -77,7 +77,13 @@ string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
-    QJsonValue fundingVal(QString::fromStdString(funding));
+
+    QJsonValue fundingVal;
+    if (funding) {
+        fundingVal = QJsonValue(QString::fromStdString(funding.value()));
+    } else {
+        fundingVal = QJsonValue(QJsonValue::Null);
+    }
     
     QJsonArray keywordsVal;
 
@@ -135,7 +141,7 @@ ArticleCreationRequest ArticleMapper::map(const vector<string> excelRow) {
     vector<string> references;
     vector<int> categories;
     vector<string> authors;
-    string funding;
+    optional<string> funding = optional<string>("Some funding");
 
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
@@ -174,6 +180,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 }
 
 
+
 TEST(ArticleCreationRequestTest, SerializesToJson) {
     vector<string> keywords;
     keywords.push_back("Bethlehem");
@@ -195,7 +202,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         references,
         categories,
         authors,
-        "Some grant number"
+        optional<string>("Some grant number")
     );
     
     string serializedResult = request.toJson();
