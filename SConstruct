@@ -36,6 +36,7 @@ env.Program(
         "md5_test.cc",
         "mapper_test.cc",
         "xlsx.cc",
+        "test_utility.cc",
         gtest_all_path, gmock_all_path
     ]
 )

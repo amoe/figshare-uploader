@@ -12,7 +12,6 @@ private:
     string title;
 };
 
-
 class CategoryLister { 
 public:
     virtual vector<Category> listCategories() = 0;

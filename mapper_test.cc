@@ -3,6 +3,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include "test_utility.hh"
 #include "raw_literals.hh"
 
 using ::testing::Eq;
@@ -75,11 +76,6 @@ std::string ArticleCreationRequest::toJson() {
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
     return result.toStdString();
-}
-
-QJsonObject deserialize(std::string input) {
-    auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
-    return result.object();
 }
 
 class ArticleMapper {
