@@ -55,7 +55,7 @@ namespace raw_literals {
                 "parent_id": 50,
                 "title": "Comparative Law"
             }
-        }
+        ]
     )V0G0N";
 
     const std::string expectedResult = R"V0G0N(

@@ -24,9 +24,6 @@ CategoryMapper::CategoryMapper(string jsonInput) {
         QString::fromStdString(jsonInput).toUtf8()
     );
 
-    // For some reason the document is null again and I can't remember why.
-    std::cout << document.isNull() << std::endl;
-
     QJsonArray theArray = document.array();
 
     for (const QJsonValue& item : theArray) {
@@ -38,7 +35,6 @@ CategoryMapper::CategoryMapper(string jsonInput) {
         lookup.insert({title, id});
     }
 
-    std::cout << lookup.size() << std::endl;
     // now finsihed.
 }
 
@@ -47,8 +43,7 @@ int CategoryMapper::mapTitle(const string title) {
 }
 
 
-
-TEST(MyComponent, ActsAsIExpect) {
+TEST(CategoryMapper, MapsCategorySuccessfully) {
     CategoryMapper mapper(raw_literals::categoryResponse);
     int categoryId = mapper.mapTitle("Middle Eastern and African History");
 
