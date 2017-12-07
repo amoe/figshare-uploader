@@ -18,7 +18,7 @@ env = Environment(
 )
 env['QT5_DEBUG'] = 1
 
-env.EnableQt5Modules(['QtCore', 'QtWidgets'])
+env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
 env.Append(
     LIBS=[
@@ -30,6 +30,7 @@ env.Append(
 env.Program(
     target='unit_tests',
     source=[
+        "fake_qt_core_application.cc",
         "stubs.cc",
         "view.cc",
         "test_harness.cc",
@@ -37,6 +38,7 @@ env.Program(
         "mapper_test.cc",
         "xlsx.cc",
         "test_utility.cc",
+        "integration_tests.cc",
         gtest_all_path, gmock_all_path
     ]
 )

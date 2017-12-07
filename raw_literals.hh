@@ -2,6 +2,12 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string httpbinResponse = R"V0G0N(
+        {
+          "user-agent": "Mozilla/5.0"
+        }
+    )V0G0N";
+
     const std::string categoryResponse = R"V0G0N(
         {
             "id": 1699,
