@@ -16,32 +16,32 @@ using std::string;
 class ArticleCreationRequest {
 public:
     ArticleCreationRequest(
-        std::string title, std::string description,
-        std::vector<std::string> keywords,
+        string title, string description,
+        vector<string> keywords,
         vector<string> references
     ) : title(title), description(description), keywords(keywords),
         references(references) { }
-    std::string toJson();
-    std::string getTitle();
-    std::string getDescription();
-    std::vector<std::string> getKeywords();
+    string toJson();
+    string getTitle();
+    string getDescription();
+    vector<string> getKeywords();
     vector<string> getReferences() const;
 private:
-    std::string title;
-    std::string description;
-    std::vector<std::string> keywords;
+    string title;
+    string description;
+    vector<string> keywords;
     vector<string> references;
 };
 
-std::string ArticleCreationRequest::getTitle() {
+string ArticleCreationRequest::getTitle() {
     return this->title;
 }
 
-std::string ArticleCreationRequest::getDescription() {
+string ArticleCreationRequest::getDescription() {
     return this->description;
 }
 
-std::vector<std::string> ArticleCreationRequest::getKeywords() {
+vector<string> ArticleCreationRequest::getKeywords() {
     return this->keywords;
 }
 
@@ -50,14 +50,14 @@ vector<string> ArticleCreationRequest::getReferences() const {
 }
 
 
-std::string ArticleCreationRequest::toJson() {
+string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
 
     QJsonArray keywordsVal;
 
-    for (std::string s : keywords) {
+    for (string s : keywords) {
         QJsonValue thisTag(QString::fromStdString(s));
         keywordsVal.push_back(thisTag);
     }
@@ -82,13 +82,13 @@ class ArticleMapper {
 public:
     ArticleMapper() { }
 
-    ArticleCreationRequest map(const std::vector<std::string> excelRow);
+    ArticleCreationRequest map(const vector<string> excelRow);
 };
 
-ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRow) {
-    std::string title = excelRow.at(0);
-    std::string description = excelRow.at(5);
-    std::vector<std::string> keywords;
+ArticleCreationRequest ArticleMapper::map(const vector<string> excelRow) {
+    string title = excelRow.at(0);
+    string description = excelRow.at(5);
+    vector<string> keywords;
     vector<string> references;
 
     ArticleCreationRequest result(title, description, keywords, references);
@@ -101,7 +101,7 @@ ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRo
 
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
     ArticleMapper myMapper;
-    std::vector<std::string> row;
+    vector<string> row;
     row.push_back("To Serve Man");
     row.push_back("Freja Howat-Maxted");
     row.push_back("Middle Eastern and African Library");
@@ -126,7 +126,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
 
 TEST(ArticleCreationRequestTest, SerializesToJson) {
-    std::vector<std::string> keywords;
+    vector<string> keywords;
     keywords.push_back("Bethlehem");
     keywords.push_back("Crafts");
 
@@ -140,7 +140,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         references
     );
     
-    std::string serializedResult = request.toJson();
+    string serializedResult = request.toJson();
 
     std::cout << serializedResult << std::endl;
 
