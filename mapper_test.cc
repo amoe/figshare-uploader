@@ -1,6 +1,7 @@
 #include <gmock/gmock.h>
 #include <QString>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QJsonDocument>
 
 using ::testing::Eq;
@@ -40,11 +41,15 @@ std::string ArticleCreationRequest::toJson() {
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
 
+    QJsonArray tagsVal;
+
     // First, we need a QStringList
     for (std::string s : tags) {
-        std::cout << "FOO" << std::endl;
+        QJsonValue thisTag(QString::fromStdString(s));
+        tagsVal.push_back(thisTag);
     }
 
+    object.insert("tags", tagsVal);
     object.insert("title", titleVal);
     object.insert("description", descriptionVal);
 
@@ -116,6 +121,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     );
     
     std::string serializedResult = request.toJson();
+
+    std::cout << serializedResult << std::endl;
         
     std::string expectedResult = R"V0G0N(
         {
