@@ -61,6 +61,47 @@ namespace raw_literals {
         ]
     )V0G0N";
 
+    const std::string licensesResponse = R"V0G0N(
+        [
+            {
+                "name": "CC BY 4.0",
+                "url": "https://creativecommons.org/licenses/by/4.0/",
+                "value": 1
+            },
+            {
+                "name": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "value": 2
+            },
+            {
+                "name": "MIT",
+                "url": "https://opensource.org/licenses/MIT",
+                "value": 3
+            },
+            {
+                "name": "GPL",
+                "url": "https://www.gnu.org/copyleft/gpl.html",
+                "value": 4
+            },
+            {
+                "name": "GPL 2.0+",
+                "url": "https://www.gnu.org/licenses/gpl-2.0.html",
+                "value": 5
+            },
+            {
+                "name": "GPL 3.0+",
+                "url": "https://www.gnu.org/licenses/gpl-3.0.html",
+                "value": 6
+            },
+            {
+                "name": "Apache 2.0",
+                "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+                "value": 7
+            }
+        ]
+    )V0G0N";
+
+
     const std::string expectedResult = R"V0G0N(
         {
             "title": "To Serve Man",
@@ -78,7 +119,8 @@ namespace raw_literals {
                 {"name": "Freja Howat-Maxted"}
             ],
             "funding": "Some grant number",
-            "defined_type": "figure"
+            "defined_type": "figure",
+            "license": 1
         }
     )V0G0N";
 };

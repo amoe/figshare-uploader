@@ -30,6 +30,7 @@ env.Append(
 env.Program(
     target='unit_tests',
     source=[
+        "license_test.cc",
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",
         "category_test.cc",

@@ -29,10 +29,11 @@ public:
         vector<int> categories,
         vector<string> authors,
         optional<string> funding,
-        ArticleType articleType
+        ArticleType articleType,
+        int license
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
-        funding(funding), articleType(articleType)
+        funding(funding), articleType(articleType), license(license)
         { }
     string getTitle() const;
     string getDescription() const;
@@ -42,6 +43,8 @@ public:
     vector<string> getAuthors() const;
     optional<string> getFunding() const;
     ArticleType getArticleType() const;
+    int getLicense() const;
+    
 private:
     string title;
     string description;
@@ -51,6 +54,7 @@ private:
     vector<string> authors;
     optional<string> funding;
     ArticleType articleType;
+    int license;
 };
 
 vector<string> ArticleCreationRequest::getAuthors() const {
@@ -85,6 +89,10 @@ ArticleType ArticleCreationRequest::getArticleType() const {
     return this->articleType;
 }
 
+int ArticleCreationRequest::getLicense() const {
+    return this->license;
+}
+
 
 class ArticleMapper {
 public:
@@ -102,6 +110,7 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(request.getTitle()));
     QJsonValue descriptionVal(QString::fromStdString(request.getDescription()));
+    QJsonValue licenseVal(request.getLicense());
 
     QJsonValue fundingVal;
     if (request.getFunding()) {
@@ -139,6 +148,7 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
         authorsVal.push_back(authorObject);
     }
 
+    object.insert("license", licenseVal);
     object.insert("defined_type", mapType(request.getArticleType()));
     object.insert("funding", fundingVal);
     object.insert("authors", authorsVal);
@@ -168,10 +178,11 @@ ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow
     vector<string> authors;
     optional<string> funding = optional<string>("Some funding");
     ArticleType articleType = ArticleType::CODE;
-
+    int license = 1;
+    
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
-        funding, articleType
+        funding, articleType, license
     );
 
     // This will use the copy constructor for ArticleCreationRequest.
@@ -233,7 +244,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         categories,
         authors,
         optional<string>("Some grant number"),
-        ArticleType::FIGURE
+        ArticleType::FIGURE,
+        1
     );
     
     ArticleTypeMapper typeMapper;
