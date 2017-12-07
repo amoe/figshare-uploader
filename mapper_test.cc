@@ -8,18 +8,19 @@ using ::testing::StartsWith;
 using ::testing::EndsWith;
 
 
-
 class ArticleCreationRequest {
 public:
     ArticleCreationRequest(
-        std::string title, std::string description
-    ) : title(title), description(description) { }
+        std::string title, std::string description, std::vector<std::string> tags
+    ) : title(title), description(description), tags(tags) { }
     std::string toJson();
     std::string getTitle();
     std::string getDescription();
+    std::vector<std::string> getTags();
 private:
     std::string title;
     std::string description;
+    std::vector<std::string> tags;
 };
 
 std::string ArticleCreationRequest::getTitle() {
@@ -30,10 +31,19 @@ std::string ArticleCreationRequest::getDescription() {
     return this->description;
 }
 
+std::vector<std::string> ArticleCreationRequest::getTags() {
+    return this->tags;
+}
+
 std::string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
     QJsonValue descriptionVal(QString::fromStdString(this->description));
+
+    // First, we need a QStringList
+    for (std::string s : tags) {
+        std::cout << "FOO" << std::endl;
+    }
 
     object.insert("title", titleVal);
     object.insert("description", descriptionVal);
@@ -58,8 +68,9 @@ public:
 ArticleCreationRequest ArticleMapper::map(const std::vector<std::string> excelRow) {
     std::string title = excelRow.at(0);
     std::string description = excelRow.at(5);
+    std::vector<std::string> tags;
 
-    ArticleCreationRequest result(title, description);
+    ArticleCreationRequest result(title, description, tags);
 
     // This will use the copy constructor for ArticleCreationRequest.
     return result;
@@ -94,12 +105,26 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
 
 TEST(ArticleCreationRequestTest, SerializesToJson) {
-    ArticleCreationRequest request("To Serve Man", "Some description");
+    std::vector<std::string> tags;
+    tags.push_back("Bethlehem");
+    tags.push_back("Crafts");
+
+    ArticleCreationRequest request(
+        "To Serve Man",
+        "Some description",
+        tags
+    );
     
     std::string serializedResult = request.toJson();
         
     std::string expectedResult = R"V0G0N(
-        {"title": "To Serve Man", "description": "Some description"}
+        {
+            "title": "To Serve Man",
+            "description": "Some description",
+            "tags": [
+                "Bethlehem", "Crafts"
+            ]
+        }
     )V0G0N";
 
     ASSERT_THAT(deserialize(serializedResult), Eq(deserialize(expectedResult)));
