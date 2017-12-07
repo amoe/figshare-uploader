@@ -1,4 +1,7 @@
+// -*- fundamental -*-
 // This namespace only even exists because of emacs cc-mode's bizarre and broken
+// handling of C++11 raw string literals.
+
 #include <string>
 
 namespace raw_literals {
@@ -67,6 +70,9 @@ namespace raw_literals {
             ],
             "references": [
                 "https://www.loc.gov/item/mpc2004001373/PP/"
+            ],
+            "categories": [
+                1703
             ]
         }
     )V0G0N";

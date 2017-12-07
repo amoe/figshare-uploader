@@ -48,3 +48,8 @@ env.Program(
     target='main',
     source=["main.cc", "view.cc", "presenter.cc"]
 )
+
+# env.Program(
+#     target='category_demo',
+#     source=['category_demo.cc']
+# )
