@@ -3,6 +3,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include "raw_literals.hh"
 
 using ::testing::Eq;
 using ::testing::StartsWith;
@@ -124,17 +125,10 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 
     std::cout << serializedResult << std::endl;
 
-    // This is a raw string literal
-    std::string expectedResult = R"V0G0N(
-        {
-            "title": "To Serve Man",
-            "description": "Some description",
-            "keywords": [
-                "Bethlehem", "Crafts"
-            ]
-        }
-    )V0G0N";
 
-    ASSERT_THAT(deserialize(serializedResult), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(
+        deserialize(serializedResult),
+        Eq(deserialize(raw_literals::expectedResult))
+    );
 }
 
