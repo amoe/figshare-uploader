@@ -33,8 +33,10 @@ std::string ArticleCreationRequest::getDescription() {
 std::string ArticleCreationRequest::toJson() {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(this->title));
+    QJsonValue descriptionVal(QString::fromStdString(this->description));
 
     object.insert("title", titleVal);
+    object.insert("description", descriptionVal);
 
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
@@ -96,7 +98,9 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     
     std::string serializedResult = request.toJson();
         
-    std::string expectedResult = "{\"title\": \"To Serve Man\"}";
+    std::string expectedResult = R"V0G0N(
+        {"title": "To Serve Man", "description": "Some description"}
+    )V0G0N";
 
     ASSERT_THAT(deserialize(serializedResult), Eq(deserialize(expectedResult)));
 }
