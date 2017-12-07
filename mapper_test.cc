@@ -56,7 +56,6 @@ std::string ArticleCreationRequest::toJson() {
 
     QJsonArray keywordsVal;
 
-    // First, we need a QStringList
     for (std::string s : keywords) {
         QJsonValue thisTag(QString::fromStdString(s));
         keywordsVal.push_back(thisTag);
