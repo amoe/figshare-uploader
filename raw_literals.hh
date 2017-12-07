@@ -1,8 +1,8 @@
 // This namespace only even exists because of emacs cc-mode's bizarre and broken
-// 
+#include <string>
 
 namespace raw_literals {
-    std::string categoryResponse = R"V0G0N(
+    const std::string categoryResponse = R"V0G0N(
         {
             "id": 1699,
             "parent_id": 1138,
@@ -48,9 +48,9 @@ namespace raw_literals {
             "parent_id": 50,
             "title": "Comparative Law"
         }
-    )";
+    )V0G0N";
 
-    std::string expectedResult = R"V0G0N(
+    const std::string expectedResult = R"V0G0N(
         {
             "title": "To Serve Man",
             "description": "Some description",

@@ -30,7 +30,11 @@ env.Append(
 env.Program(
     target='unit_tests',
     source=[
-        "view.cc", "test_harness.cc", "md5_test.cc", "mapper_test.cc",
+        "stubs.cc",
+        "view.cc",
+        "test_harness.cc",
+        "md5_test.cc",
+        "mapper_test.cc",
         "xlsx.cc",
         gtest_all_path, gmock_all_path
     ]

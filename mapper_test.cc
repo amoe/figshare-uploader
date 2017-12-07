@@ -148,7 +148,6 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 
     std::cout << serializedResult << std::endl;
 
-
     ASSERT_THAT(
         deserialize(serializedResult),
         Eq(deserialize(raw_literals::expectedResult))
