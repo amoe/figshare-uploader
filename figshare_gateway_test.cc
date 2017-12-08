@@ -1,7 +1,10 @@
 #include <iostream>
 #include <gmock/gmock.h>
 #include "requests.hh"
+#include "raw_literals.hh"
 #include "responses.hh"
+#include "http_poster.hh"
+#include "stubs.hh"
 
 using ::testing::Eq;
 
@@ -17,7 +20,11 @@ public:
 
 class HttpFigshareGateway : public FigshareGateway {
 public:
+    HttpFigshareGateway(HttpPoster* poster) : poster(poster) {}
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
+
+private:
+    HttpPoster* poster;
 };
 
 ArticleCreationResponse HttpFigshareGateway::createArticle(
@@ -30,7 +37,10 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
 
 
 TEST(FigshareGatewayTest, ActsAsIExpect) {
-    FigshareGateway* gateway = new HttpFigshareGateway;
+    HttpPoster* poster = new StubHttpPoster(
+        raw_literals::fakeArticleCreationResponse
+    );
+    FigshareGateway* gateway = new HttpFigshareGateway(poster);
     
     vector<string> keywords;
     keywords.push_back("Bethlehem");
@@ -56,8 +66,9 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
         ArticleType::FIGURE,
         1
     );
-    
 
     ArticleCreationResponse response = gateway->createArticle(request);
+
+    ASSERT_THAT(response.location, Eq("http://nonexistent.net/"));
 }
 

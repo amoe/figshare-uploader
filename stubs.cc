@@ -1,6 +1,10 @@
 #include <string>
 #include <vector>
 
+#include "http_poster.hh"
+#include "responses.hh"
+#include "stubs.hh"
+
 using std::string;
 using std::vector;
 
@@ -29,4 +33,11 @@ private:
 
 vector<Category> StubCategoryLister::listCategories() {
     return this->cannedData;
+}
+
+
+// HTTP stubs
+
+string StubHttpPoster::request(const string url, const string payload) {
+    return this->cannedResponse;
 }

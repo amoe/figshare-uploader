@@ -123,4 +123,10 @@ namespace raw_literals {
             "license": 1
         }
     )V0G0N";
+
+    const std::string fakeArticleCreationResponse = R"V0G0N(
+        {
+            "location": "http://nonexistent.net/"
+        }
+    )V0G0N";
 };

@@ -1,3 +1,6 @@
+#ifndef HTTP_POSTER_HH
+#define HTTP_POSTER_HH
+
 #include <string>
 
 using std::string;
@@ -11,3 +14,5 @@ class QtHttpPoster : public HttpPoster {
 public:
     string request(const string url, const string payload);
 };
+
+#endif // HTTP_POSTER_HH 
