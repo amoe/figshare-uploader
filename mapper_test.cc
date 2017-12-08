@@ -42,8 +42,12 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     expectedAuthors.push_back("Freja Howat-Maxted");
     expectedAuthors.push_back("Jacob Norris");
     expectedAuthors.push_back("Leila Sansour");
-
     ASSERT_THAT(request.getAuthors(), Eq(expectedAuthors));
+
+    vector<string> expectedKeywords;
+    expectedKeywords.push_back("Bethlehem");
+    expectedKeywords.push_back("Crafts");
+    ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
 }
 
 

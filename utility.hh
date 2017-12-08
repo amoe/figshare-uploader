@@ -9,3 +9,4 @@ string fetchString(
 );
 
 vector<string> splitCommas(const string input);
+vector<string> splitSpaces(const string input);

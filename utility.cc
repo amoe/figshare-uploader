@@ -18,16 +18,25 @@ string fetchString(
     return result.object().value(qKey).toString().toStdString();
 }
 
-vector<string> splitCommas(const string input) {
+static vector<string> splitByRegexp(const string input, const string regexp) {
     auto qInput = QString::fromStdString(input);
-    QRegExp separator(",\\s*");
+
+    QRegExp separator(QString::fromStdString(regexp));
+
     QStringList items = qInput.split(separator);
     
-
     vector<string> results;
     for (auto item : items) {
         results.push_back(item.toStdString());
     }
 
     return results;
+}
+
+vector<string> splitCommas(const string input) {
+    return splitByRegexp(input, ",\\s*");
+}
+
+vector<string> splitSpaces(const string input) {
+    return splitByRegexp(input, "\\s+");
 }
