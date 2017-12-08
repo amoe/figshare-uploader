@@ -17,7 +17,7 @@ TEST(ArticleMapperTest, CorrectlyMapsRow) {
 
     vector<string> row;
     row.push_back("To Serve Man");
-    row.push_back("Freja Howat-Maxted");
+    row.push_back("Freja Howat-Maxted, Jacob Norris, Leila Sansour");
     row.push_back("Middle Eastern and African Library");
     row.push_back("Figure");
     row.push_back("Bethlehem Crafts");
@@ -37,6 +37,13 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     ASSERT_THAT(request.getTitle(), Eq("To Serve Man"));
     ASSERT_THAT(request.getDescription(), StartsWith("This is a digital "));
     ASSERT_THAT(request.getDescription(), EndsWith("Planet Bethlehem Archive."));
+
+    vector<string> expectedAuthors;
+    expectedAuthors.push_back("Freja Howat-Maxted");
+    expectedAuthors.push_back("Jacob Norris");
+    expectedAuthors.push_back("Leila Sansour");
+
+    ASSERT_THAT(request.getAuthors(), Eq(expectedAuthors));
 }
 
 

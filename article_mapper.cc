@@ -83,10 +83,12 @@ QJsonValue ArticleMapper::mapType(ArticleType type) {
 ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow) {
     string title = excelRow.at(0);
     string description = excelRow.at(5);
-    vector<string> keywords = excelRow.at(4);
-    vector<string> references = excelRow.at(6);
-    vector<int> categories = excelRow.at(2);
-    vector<string> authors = excelRow.at(1);
+
+    // vector<string> keywords = excelRow.at(4);
+    vector<string> keywords;
+    vector<string> references;// = excelRow.at(6);
+    vector<int> categories;// = excelRow.at(2);
+    vector<string> authors;// = excelRow.at(1);
 
     optional<string> funding = optional<string>("Some funding");
 
