@@ -1,5 +1,6 @@
 #include <iostream>
 #include <gmock/gmock.h>
+#include "requests.hh"
 #include "responses.hh"
 
 using ::testing::Eq;
