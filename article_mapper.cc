@@ -9,6 +9,7 @@
 #include "article_types.hh"
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
+#include "utility.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -88,7 +89,8 @@ ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow
     vector<string> keywords;
     vector<string> references;// = excelRow.at(6);
     vector<int> categories;// = excelRow.at(2);
-    vector<string> authors;// = excelRow.at(1);
+    vector<string> authors = splitCommas(excelRow.at(1));
+
 
     optional<string> funding = optional<string>("Some funding");
 
