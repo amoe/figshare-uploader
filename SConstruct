@@ -36,6 +36,7 @@ test_utility = env.Object("test_utility.cc")
 env.Program(
     target='unit_tests',
     source=[
+#        "figshare_gateway_test.cc",
         "license_test.cc",
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",

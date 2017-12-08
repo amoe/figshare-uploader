@@ -1,0 +1,19 @@
+{
+    "title": "To Serve Man",
+    "description": "Some description",
+    "keywords": [
+        "Bethlehem", "Crafts"
+    ],
+    "references": [
+        "https://www.loc.gov/item/mpc2004001373/PP/"
+    ],
+    "categories": [
+        1703
+    ],
+    "authors": [
+        {"name": "Freja Howat-Maxted"}
+    ],
+    "funding": "Some grant number",
+    "defined_type": "figure",
+    "license": 1
+}
