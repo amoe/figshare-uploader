@@ -5,6 +5,7 @@ dist: trusty
 # https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
 
 install:
+  - set -e
   - cd ext/xlnt-1.2.0
   - cmake .
   - make
@@ -13,6 +14,7 @@ install:
   - cd ../..
 
 script:
+  - set -e
   - scons
   - ./unit_tests
 
