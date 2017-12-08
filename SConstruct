@@ -1,3 +1,4 @@
+
 googletest_framework_root = "./ext/googletest-release-1.8.0"
 
 googletest_include_paths = [
@@ -27,6 +28,11 @@ env.Append(
     ]
 )
 
+gtest = env.Object(gtest_all_path)
+gmock = env.Object(gmock_all_path)
+test_harness = env.Object("test_harness.cc")
+test_utility = env.Object("test_utility.cc")
+
 env.Program(
     target='unit_tests',
     source=[
@@ -34,25 +40,27 @@ env.Program(
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",
         "category_test.cc",
-        "fake_qt_core_application.cc",
         "stubs.cc",
         "view.cc",
-        "test_harness.cc",
         "md5_test.cc",
         "mapper_test.cc",
         "xlsx.cc",
-        "test_utility.cc",
-        "integration_tests.cc",
-        gtest_all_path, gmock_all_path
+        test_harness, test_utility, gtest, gmock
     ]
 )
 
-test_harness_path = 'test_harness.cc'
+integration_environment = env.Clone()
+integration_environment.Append(CPPPATH=".")
 
 integration_tests = Glob("./test/integration/*.cc")
-integration_tests.extend([test_harness_path, gtest_all_path, gmock_all_path])
+integration_tests.extend(
+    [test_harness, test_utility,  gtest, gmock]
+)
 
-env.Program(target='integration_tests', source=integration_tests)
+integration_environment.Program(
+    target='integration_tests',
+    source=integration_tests,
+)
 
 env.Program(
     target='main',
