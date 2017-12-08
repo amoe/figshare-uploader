@@ -47,6 +47,13 @@ env.Program(
     ]
 )
 
+test_harness_path = 'test_harness.cc'
+
+integration_tests = Glob("./test/integration/*.cc")
+integration_tests.extend([test_harness_path, gtest_all_path, gmock_all_path])
+
+env.Program(target='integration_tests', source=integration_tests)
+
 env.Program(
     target='main',
     source=["main.cc", "view.cc", "presenter.cc"]
