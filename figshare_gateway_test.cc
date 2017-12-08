@@ -5,6 +5,9 @@
 #include "responses.hh"
 #include "http_poster.hh"
 #include "stubs.hh"
+#include "utility.hh"
+#include "article_mapper.hh"
+#include "article_type_mapper.hh"
 
 using ::testing::Eq;
 
@@ -20,7 +23,8 @@ public:
 
 class HttpFigshareGateway : public FigshareGateway {
 public:
-    HttpFigshareGateway(HttpPoster* poster) : poster(poster) {}
+    HttpFigshareGateway(HttpPoster* poster) : poster(poster) {
+    }
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
 
 private:
@@ -30,9 +34,14 @@ private:
 ArticleCreationResponse HttpFigshareGateway::createArticle(
     ArticleCreationRequest request
 ) {
-    return ArticleCreationResponse(
-        "http://nonexistent"
-    );
+    ArticleTypeMapper typeMapper;
+    ArticleMapper mapper(typeMapper);
+
+    const string url = "https://api.figshare.com/v2/account/articles";
+    const string payload = mapper.mapToFigshare(request);
+    const string response = poster->request(url, payload);
+    string location = fetchString(response, "location");
+    return ArticleCreationResponse(location);
 }
 
 

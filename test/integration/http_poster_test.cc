@@ -1,7 +1,8 @@
 #include <gmock/gmock.h>
 #include "fake_qt_core_application.hh"
 #include "http_poster.hh"
-#include "test_utility.hh"
+#include "utility.hh"
+
 
 using ::testing::Eq;
 using std::string;

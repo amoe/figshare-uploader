@@ -10,11 +10,3 @@ QJsonObject deserialize(const std::string input) {
     return result.object();
 }
 
-string fetchString(
-    const string input, const string key
-) {
-    auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
-    const auto qKey = QString::fromStdString(key);
-    
-    return result.object().value(qKey).toString().toStdString();
-}

@@ -1,3 +1,6 @@
+#ifndef ARTICLE_TYPE_MAPPER_HH
+#define ARTICLE_TYPE_MAPPER_HH
+
 #include "article_types.hh"
 
 using std::string;
@@ -12,3 +15,5 @@ private:
     map<string, ArticleType> articleTypeFriendlyNames;
     map<ArticleType, string> articleTypeFigshareNames;
 };
+
+#endif // ARTICLE_TYPE_MAPPER_HH

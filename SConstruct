@@ -32,6 +32,7 @@ gtest = env.Object(gtest_all_path)
 gmock = env.Object(gmock_all_path)
 test_harness = env.Object("test_harness.cc")
 test_utility = env.Object("test_utility.cc")
+utility = env.Object("utility.cc")
 http_getter = env.Object("http_getter.cc")
 http_poster = env.Object("http_poster.cc")
 
@@ -43,12 +44,14 @@ env.Program(
         "license_test.cc",
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",
+        "article_mapper.cc",
         "category_test.cc",
         "stubs.cc",
         "view.cc",
         "md5_test.cc",
         "mapper_test.cc",
         "xlsx.cc",
+        utility,
         test_harness, test_utility, gtest, gmock
     ]
 )
@@ -58,7 +61,7 @@ integration_environment.Append(CPPPATH=".")
 
 integration_tests = Glob("./test/integration/*.cc")
 integration_tests.extend(
-    [http_getter, http_poster]
+    [http_getter, http_poster, utility]
 )
 
 integration_tests.extend(
