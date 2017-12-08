@@ -32,6 +32,8 @@ gtest = env.Object(gtest_all_path)
 gmock = env.Object(gmock_all_path)
 test_harness = env.Object("test_harness.cc")
 test_utility = env.Object("test_utility.cc")
+http_getter = env.Object("http_getter.cc")
+http_poster = env.Object("http_poster.cc")
 
 env.Program(
     target='unit_tests',
@@ -55,6 +57,10 @@ integration_environment = env.Clone()
 integration_environment.Append(CPPPATH=".")
 
 integration_tests = Glob("./test/integration/*.cc")
+integration_tests.extend(
+    [http_getter, http_poster]
+)
+
 integration_tests.extend(
     [test_harness, test_utility,  gtest, gmock]
 )
