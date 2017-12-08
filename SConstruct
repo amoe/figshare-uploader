@@ -37,7 +37,7 @@ env.Program(
     target='unit_tests',
     source=[
         "requests.cc",
-#        "figshare_gateway_test.cc",
+        "figshare_gateway_test.cc",
         "license_test.cc",
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",

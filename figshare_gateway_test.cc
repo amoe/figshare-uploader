@@ -20,7 +20,9 @@ public:
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
 };
 
-ArticleCreationResponse createArticle(ArticleCreationRequest request) {
+ArticleCreationResponse HttpFigshareGateway::createArticle(
+    ArticleCreationRequest request
+) {
     return ArticleCreationResponse(
         "http://nonexistent"
     );
@@ -57,7 +59,5 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
     
 
     ArticleCreationResponse response = gateway->createArticle(request);
-
-    std::cout << response.location << std::endl;
 }
 
