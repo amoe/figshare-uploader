@@ -9,7 +9,7 @@
 class IOSlicer {
 public:
     // Pure virtual.
-    virtual std::vector<std::byte> getDataSlice(
+    virtual std::vector<char> getDataSlice(
         const int64_t start, const int64_t end
     ) = 0;
 };
@@ -17,7 +17,7 @@ public:
 class FileSlicer : public IOSlicer {
 public:
     FileSlicer(std::string filePath) : filePath(filePath) { }
-    std::vector<std::byte> getDataSlice(const int64_t start, const int64_t end);
+    std::vector<char> getDataSlice(const int64_t start, const int64_t end);
 
 private:
     std::string filePath;

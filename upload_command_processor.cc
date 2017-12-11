@@ -23,7 +23,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
     QUrl theUrl(urlString);
     QNetworkRequest request(theUrl);
 
-    std::vector<std::byte> commandData = command.getData();
+    std::vector<char> commandData = command.getData();
     int size = commandData.size();
     // initialize and zero the buffer
     QByteArray theData(size, 0);
@@ -32,8 +32,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
     // Convert the data.
     for (int i = 0; i < size; i++) {
         // XXX: signedness?
-        std::byte thisByte = commandData[i];
-        char charVersion = std::to_integer<char>(thisByte);
+        char charVersion = commandData[i];
         theData[i] = charVersion;
     }
 

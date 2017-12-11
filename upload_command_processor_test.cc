@@ -7,10 +7,10 @@ TEST(UploadCommandProcessorTest, ActsAsIExpect) {
 
     std::cout << "hello world" << std::endl;
 
-    std::vector<std::byte> testData;
+    std::vector<char> testData;
     
-    testData.push_back(std::byte{42});
-    testData.push_back(std::byte{64});
+    testData.push_back(42);
+    testData.push_back(64);
 
     std::cout << "size: " << testData.size() << std::endl;
 

@@ -9,6 +9,6 @@ std::string UploadCommand::getUrl() {
     return this->url;
 }
 
-std::vector<std::byte> UploadCommand::getData() {
+std::vector<char> UploadCommand::getData() {
     return this->data;
 }

@@ -15,7 +15,7 @@ UploadCommand PartPreparer::prepareUpload(
     std::cout << "will try start" << start << std::endl;
     std::cout << "will try end" << end << std::endl;
 
-    std::vector<std::byte> data = this->slicer->getDataSlice(
+    std::vector<char> data = this->slicer->getDataSlice(
         part.getStartOffset(), part.getEndOffset()
     );
 

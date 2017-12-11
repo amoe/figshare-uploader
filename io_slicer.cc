@@ -6,7 +6,7 @@
 #include <QDataStream>
 #include "io_slicer.hh"
 
-std::vector<std::byte> FileSlicer::getDataSlice(
+std::vector<char> FileSlicer::getDataSlice(
     const int64_t start, const int64_t end
 ) {
     // We're going to very inefficiently open the file, seek, read the buffer,
@@ -24,7 +24,7 @@ std::vector<std::byte> FileSlicer::getDataSlice(
 
     int readSize = end - start;
 
-    std::vector<std::byte> result(readSize);
+    std::vector<char> result(readSize);
 
 
     // Preallocate a sink buffer
@@ -41,17 +41,7 @@ std::vector<std::byte> FileSlicer::getDataSlice(
 
     // copy from the sink to the result
     for (int i = 0; i < readSize; i++) {
-        // can we use uint8_t?
-        signed char signedCharVersion = sink.at(i);
-
-//        printf("buffer version is %u\n", signedCharVersion);
-
-        unsigned char unsignedCharVersion
-            = static_cast<unsigned char>(signedCharVersion);
-
-        std::byte byteVersion = std::byte{unsignedCharVersion};
-
-        result[i] = byteVersion;
+        result[i] = sink.at(i);
     }
 
     theFile.close();
