@@ -57,6 +57,9 @@ env.Program(
         "file_part.cc",
         "upload_command.cc",
         "io_slicer.cc",
+        "io_slicer_test.cc",
+        "upload_command_processor.cc",
+        "upload_command_processor_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
