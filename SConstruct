@@ -60,6 +60,11 @@ env.Program(
         "io_slicer_test.cc",
         "upload_command_processor.cc",
         "upload_command_processor_test.cc",
+        "fake_qt_core_application.cc",
+        "http_getter.cc",
+        "http_poster.cc",
+        "http_getter_test.cc",
+        "http_poster_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
