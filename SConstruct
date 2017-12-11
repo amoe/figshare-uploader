@@ -20,7 +20,7 @@ env = Environment(
 env['QT5_DEBUG'] = 1
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
-env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
+env.Append(CCFLAGS=['-fPIC', '-std=c++17'])
 env.Append(
     LIBS=[
         'pthread',
@@ -51,6 +51,12 @@ env.Program(
         "md5_test.cc",
         "mapper_test.cc",
         "xlsx.cc",
+        "part_preparer_test.cc",
+        "part_preparer.cc",
+        "file_info.cc",
+        "file_part.cc",
+        "upload_command.cc",
+        "io_slicer.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
