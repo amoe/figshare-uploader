@@ -15,7 +15,9 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ArticleMapper myMapper(typeMapper);
 
 
-    vector<string> row;
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
 
@@ -62,8 +64,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     ASSERT_THAT(request.getAuthors(), Eq(expectedAuthors));
 
     vector<string> expectedKeywords;
-    expectedKeywords.push_back("Bethlehem");
-    expectedKeywords.push_back("Crafts");
+    expectedKeywords.push_back("Bethlehem Crafts");
     ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
 }
 
