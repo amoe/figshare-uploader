@@ -10,6 +10,23 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
+    ArticleTypeMapper typeMapper;
+    ArticleMapper myMapper(typeMapper);
+
+
+    vector<string> row;
+    // strange lvalue shit
+    row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    vector<string> expectedKeywords;
+    expectedKeywords = {"Bethlehem Crafts", "Olive Wood", "Mother-of-pearl"};
+
+    ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
+}
+
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
     ArticleTypeMapper typeMapper;
     ArticleMapper myMapper(typeMapper);
