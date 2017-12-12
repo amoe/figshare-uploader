@@ -30,13 +30,16 @@ int main(int argc, char **argv) {
     HttpPoster* poster = new QtHttpPoster;
     FigshareGateway* gateway = new HttpFigshareGateway(poster, categoryMapper);
 
+
     for (int i = 2; i <= 6; i++) {
         vector<string> row = theReader.rowToString(i);
         ArticleCreationRequest request = mapper.mapFromExcel(row);
         
         string uploadJson = mapper.mapToFigshare(request);
+
+        string relationField = row.at(15);
         
-        std::cout << uploadJson << std::endl;
+        std::cout << relationField << std::endl;
     }
 
     return 0;
