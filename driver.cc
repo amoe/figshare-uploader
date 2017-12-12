@@ -22,27 +22,27 @@ int main(int argc, char **argv) {
     string result = getter->request("https://api.figshare.com/v2/categories");
     
     CategoryMapper mapper(result);
-    
+
     return 0;
 }
 
 void foo() {
-    qDebug() << "starting";
+    // qDebug() << "starting";
 
-    string inputPath("resources/test.xlsx");
+    // string inputPath("resources/test.xlsx");
 
-    XlsxReader theReader(inputPath);
-    ArticleTypeMapper typeMapper;
-    ArticleMapper mapper(typeMapper);
-    HttpPoster* poster = new QtHttpPoster;
-    FigshareGateway* gateway = new HttpFigshareGateway(poster);
+    // XlsxReader theReader(inputPath);
+    // ArticleTypeMapper typeMapper;
+    // ArticleMapper mapper(typeMapper);
+    // HttpPoster* poster = new QtHttpPoster;
+    // FigshareGateway* gateway = new HttpFigshareGateway(poster);
 
-    for (int i = 2; i <= 6; i++) {
-        vector<string> row = theReader.rowToString(i);
-        ArticleCreationRequest request = mapper.mapFromExcel(row);
+    // for (int i = 2; i <= 6; i++) {
+    //     vector<string> row = theReader.rowToString(i);
+    //     ArticleCreationRequest request = mapper.mapFromExcel(row);
         
-        string uploadJson = mapper.mapToFigshare(request);
+    //     string uploadJson = mapper.mapToFigshare(request);
         
-        std::cout << uploadJson << std::endl;
-    }
+    //     std::cout << uploadJson << std::endl;
+    // }
 }

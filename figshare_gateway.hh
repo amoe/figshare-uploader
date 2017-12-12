@@ -1,6 +1,7 @@
 #include "responses.hh"
 #include "requests.hh"
 #include "http_poster.hh"
+#include "category_mapper.hh"
 
 class FigshareGateway {
 public:
@@ -11,10 +12,12 @@ public:
 
 class HttpFigshareGateway : public FigshareGateway {
 public:
-    HttpFigshareGateway(HttpPoster* poster) : poster(poster) {
+    HttpFigshareGateway(HttpPoster* poster, CategoryMapper categoryMapper)
+      : poster(poster), categoryMapper(categoryMapper) {
     }
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
 
 private:
     HttpPoster* poster;
+    CategoryMapper categoryMapper;
 };

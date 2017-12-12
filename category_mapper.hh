@@ -1,3 +1,6 @@
+#ifndef CATEGORY_MAPPER_HH
+#define CATEGORY_MAPPER_HH
+
 #include <map>
 #include <string>
 
@@ -12,3 +15,5 @@ public:
 private:
     map<string, int> lookup;
 };
+
+#endif // CATEGORY_MAPPER_HH

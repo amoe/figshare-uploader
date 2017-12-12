@@ -12,7 +12,8 @@ using ::testing::EndsWith;
 
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ArticleTypeMapper typeMapper;
-    ArticleMapper myMapper(typeMapper);
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
 
 
     // fill up the whole row with blanks
@@ -31,8 +32,8 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
 
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
     ArticleTypeMapper typeMapper;
-    ArticleMapper myMapper(typeMapper);
-
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
 
     vector<string> row = {
         "To Serve Man",
@@ -118,7 +119,9 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     );
     
     ArticleTypeMapper typeMapper;
-    ArticleMapper myMapper(typeMapper);
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
+
 
     string serializedResult = myMapper.mapToFigshare(request);
 

@@ -9,7 +9,8 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
     HttpPoster* poster = new StubHttpPoster(
         raw_literals::fakeArticleCreationResponse
     );
-    FigshareGateway* gateway = new HttpFigshareGateway(poster);
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    FigshareGateway* gateway = new HttpFigshareGateway(poster, categoryMapper);
     
     vector<string> keywords;
     keywords.push_back("Bethlehem");
