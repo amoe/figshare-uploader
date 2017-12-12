@@ -2,6 +2,10 @@
 #include "xlsx.hh"
 
 using ::testing::Eq;
+using ::testing::Ne;
+
+using std::vector;
+using std::string;
 
 
 TEST(XlsxReaderTest, CanGetSheetCount) {
@@ -19,4 +23,12 @@ TEST(XlsxReaderTest, CanGetSheetCount) {
     // and then load
 
     // it loads from a std::istream
+}
+
+TEST(XlsxReaderTest, CanGetRow) {
+    XlsxReader foo("resources/test.xlsx");
+    vector<string> result1 = foo.rowToString(2);
+    vector<string> result2 = foo.rowToString(3);
+
+    ASSERT_THAT(result1, Ne(result2));
 }

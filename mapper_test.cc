@@ -34,13 +34,13 @@ TEST(ArticleMapperTest, CorrectlyMapsRow) {
     ArticleMapper myMapper(typeMapper);
 
 
-    vector<string> row;
-    row.push_back("To Serve Man");
-    row.push_back("Freja Howat-Maxted, Jacob Norris, Leila Sansour");
-    row.push_back("Middle Eastern and African Library");
-    row.push_back("Figure");
-    row.push_back("Bethlehem Crafts");
-    row.push_back(R"(This is a digital reproduction of a black and white photographic print held in the Library of Congress.
+    vector<string> row = {
+        "To Serve Man",
+        "Freja Howat-Maxted, Jacob Norris, Leila Sansour",
+        "Middle Eastern and African Library",
+        "Figure",
+        "Bethlehem Crafts",
+        R"(This is a digital reproduction of a black and white photographic print held in the Library of Congress.
 
 Olive wood carving is an ancient tradition in Palestine that continues to the present day. It involves the skillful chiseling of olive wood and is most common in the Bethlehem region. The trade of olive wood ties in more broadly to the fact that the olive tree is symbolic for Palestinians; the olive tree is connected to the earth, they affirm Palestinian roots in the land.
 
@@ -48,7 +48,23 @@ Bethlehem merchants were already trading in locally produced religious devotiona
 
 Taken in the early 20th century, the image exists as part of a wider series produced of traditional dress and people living in the area by G. Eric Matson.
 
-This image exists as part of the Bethlehem Crafts collection in the Planet Bethlehem Archive.)");
+This image exists as part of the Bethlehem Crafts collection in the Planet Bethlehem Archive.)",
+        "https://www.loc.gov/item/mpc2004001373/PP/",
+        "",    // funding
+        "CC BY 4.0",
+        "",    // creator
+        "American Colony (Jerusalem). Photo Dept., photographer",
+        "c.1900-1920",
+        "Digital scan of image: 1 negative : glass, stereograph, dry plate ; 5 x 7 in.",
+        "Library of Congress, Washington DC, USA, Prints & Photographs Division, reproduction number: LC-DIG-matpc-01281 (digital file from original photo)",
+        "English",
+        "pb_lc_bcr_c18980000-0004aa.tiff",
+        "",    // temporal
+        "31.7053804, 35.1849329",
+        "Place associated, place of production",
+        "pb_lc_bcr_c19000000-0001aa.tiff",
+        "Library of Congress. No known restrictions on publication."
+    };
 
 
     ArticleCreationRequest request = myMapper.mapFromExcel(row);
