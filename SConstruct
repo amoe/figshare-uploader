@@ -1,3 +1,4 @@
+import os
 
 googletest_framework_root = "./ext/googletest-release-1.8.0"
 
@@ -18,6 +19,7 @@ env = Environment(
     
 )
 env['QT5_DEBUG'] = 1
+env['ENV']['TERM'] = os.environ['TERM']
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 env.Append(CCFLAGS=['-fPIC', '-std=c++11'])

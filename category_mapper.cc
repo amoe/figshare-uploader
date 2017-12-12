@@ -31,8 +31,8 @@ CategoryMapper::CategoryMapper(string jsonInput) {
 int CategoryMapper::mapTitle(const string title) {
     auto it = lookup.find(title);
     if (it == lookup.end()) {
-        qDebug() << "Bad and wrong";
+        throw std::runtime_error("category title not found");
+    } else {
+        return it->second;
     }
-
-    return lookup[title];
 }

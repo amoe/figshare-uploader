@@ -10,6 +10,25 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
+
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    // Superfluously ensure that category is also blank
+    row.at(2) = "";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    vector<int> expectedCategories = {};
+
+//    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
+}
+
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
