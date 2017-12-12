@@ -18,6 +18,15 @@ string fetchString(
     return result.object().value(qKey).toString().toStdString();
 }
 
+bool containsKey(
+    const string input, const string key
+) {
+    auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
+    const auto qKey = QString::fromStdString(key);
+    
+    return result.object().contains(qKey);
+}
+
 static vector<string> splitByRegexp(const string input, const string regexp) {
     auto qInput = QString::fromStdString(input);
 
@@ -40,3 +49,4 @@ vector<string> splitCommas(const string input) {
 vector<string> splitSpaces(const string input) {
     return splitByRegexp(input, "\\s+");
 }
+

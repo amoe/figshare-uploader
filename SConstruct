@@ -117,3 +117,19 @@ env.Program(
         "category_mapper.cc"
     ]
 )
+
+env.Program(
+    target='test_foo',
+    source=[
+        "test_foo.cc",
+        "xlsx.cc",
+        "article_type_mapper.cc",
+        "requests.cc",
+        "article_mapper.cc",
+        "utility.cc",
+        "http_poster.cc",
+        "figshare_gateway.cc",
+        "http_getter.cc",
+        "category_mapper.cc"
+    ]
+)

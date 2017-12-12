@@ -41,3 +41,9 @@ vector<Category> StubCategoryLister::listCategories() {
 string StubHttpPoster::request(const string url, const string payload) {
     return this->cannedResponse;
 }
+
+
+// {
+//     "code": "BadRequest",
+//     "message": "funding: None is not of type 'string'"
+// }

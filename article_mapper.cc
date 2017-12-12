@@ -26,10 +26,12 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
 
     // Not really clear if this should be mapped at all.
     QJsonValue fundingVal;
+
     if (request.getFunding()) {
         fundingVal = QJsonValue(QString::fromStdString(request.getFunding().value()));
+        object.insert("funding", fundingVal);
     } else {
-        fundingVal = QJsonValue(QJsonValue::Null);
+        // Do nothing!
     }
     
     QJsonArray keywordsVal;
@@ -63,7 +65,6 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
 
     object.insert("license", licenseVal);
     object.insert("defined_type", mapType(request.getArticleType()));
-    object.insert("funding", fundingVal);
     object.insert("authors", authorsVal);
     object.insert("references", referencesVal);
     object.insert("keywords", keywordsVal);

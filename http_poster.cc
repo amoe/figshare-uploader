@@ -8,9 +8,14 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QString>
+#include <QDebug>
 #include "http_poster.hh"
 
 using std::string;
+
+// File qtbase/src/network/access/qhttpthreaddelegate.cpp
+// static QNetworkReply::NetworkError statusCodeFromHttp(int httpStatusCode, const QUrl &url)
+// http://code.qt.io/cgit/qt/qtbase.git/tree/src/network/access/qhttpthreaddelegate.cpp?h=dev
 
 string QtHttpPoster::request(const string url, const string payload) {
     QEventLoop waitLoop;
@@ -26,7 +31,17 @@ string QtHttpPoster::request(const string url, const string payload) {
 
     QObject::connect(reply, &QNetworkReply::finished, &waitLoop, &QEventLoop::quit);
     waitLoop.exec();
+
     QByteArray result = reply->readAll();
+
+    auto error = reply->error();
+    if (error != QNetworkReply::NoError) {
+        qDebug() << result;
+        throw std::runtime_error(
+            "something went wrong in the network request"
+        );
+    }
+
 
     return QString(result).toStdString();
 }

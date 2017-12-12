@@ -5,6 +5,11 @@
 #include "article_types.hh"
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
+#include "utility.hh"
+
+
+using nonstd::optional;
+using nonstd::nullopt;
 
 using ::testing::Eq;
 using ::testing::StartsWith;
@@ -28,6 +33,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
 //    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
 }
+
 
 TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     ArticleTypeMapper typeMapper;
@@ -169,6 +175,46 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     ASSERT_THAT(
         deserialize(serializedResult),
         Eq(deserialize(raw_literals::expectedResult))
+    );
+}
+
+TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
+    vector<string> keywords;
+    keywords.push_back("Bethlehem");
+    keywords.push_back("Crafts");
+
+    vector<string> references;
+    references.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
+
+    vector<int> categories;
+    categories.push_back(1703);
+
+    vector<string> authors;
+    authors.push_back("Freja Howat-Maxted");
+
+    ArticleCreationRequest request(
+        "To Serve Man",
+        "Some description",
+        keywords,
+        references,
+        categories,
+        authors,
+        nullopt,
+        ArticleType::FIGURE,
+        1
+    );
+    
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
+
+    string serializedResult = myMapper.mapToFigshare(request);
+
+    std::cout << serializedResult << std::endl;
+
+    ASSERT_THAT(
+        containsKey(serializedResult, "funding"),
+        Eq(false)
     );
 }
 
