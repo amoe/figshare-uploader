@@ -96,3 +96,8 @@ env.Program(
 #     target='category_demo',
 #     source=['category_demo.cc']
 # )
+
+env.Program(
+    target='driver',
+    source=['driver.cc']
+)
