@@ -92,7 +92,11 @@ ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow
     vector<string> references;
     references.push_back(excelRow.at(6));
 
-    vector<int> categories;// = excelRow.at(2);
+
+    vector<int> categories;
+    string categoryTitle = excelRow.at(2);
+    categories.push_back(categoryMapper.mapTitle(categoryTitle));
+    
     vector<string> authors = splitCommas(excelRow.at(1));
 
 
