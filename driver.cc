@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include <QDebug>
 #include <QApplication>
 #include "xlsx.hh"
@@ -18,6 +19,14 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
     qDebug() << "starting";
 
+    char* token_ = getenv("TOKEN");
+    
+    if (token_ == NULL) {
+        throw std::runtime_error("token must exist in environment");
+    }
+
+    std::string token(token_);
+
     string inputPath("resources/test.xlsx");
 
 
@@ -27,8 +36,10 @@ int main(int argc, char **argv) {
     XlsxReader theReader(inputPath);
     ArticleTypeMapper typeMapper;
     ArticleMapper mapper(typeMapper, categoryMapper);
-    HttpPoster* poster = new QtHttpPoster;
-    FigshareGateway* gateway = new HttpFigshareGateway(poster, categoryMapper);
+    HttpPoster* poster = new QtHttpPoster(token);
+    FigshareGateway* gateway = new HttpFigshareGateway(
+        poster, categoryMapper
+    );
 
 
     for (int i = 2; i <= 6; i++) {

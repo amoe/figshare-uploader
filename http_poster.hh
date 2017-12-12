@@ -12,7 +12,11 @@ public:
 
 class QtHttpPoster : public HttpPoster {
 public:
+    QtHttpPoster(string token) : token(token) { }
     string request(const string url, const string payload);
+
+private:
+    string token;
 };
 
 #endif // HTTP_POSTER_HH 

@@ -9,7 +9,7 @@ using std::string;
 
 TEST(HttpPoster, CanPost) {
     bootQtEventLoop();
-    HttpPoster* getter = new QtHttpPoster;
+    HttpPoster* getter = new QtHttpPoster("");
     string body = getter->request("https://httpbin.org/post", "nonesuch");
 
     std::cout << body << std::endl;

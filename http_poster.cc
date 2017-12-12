@@ -26,6 +26,12 @@ string QtHttpPoster::request(const string url, const string payload) {
     QNetworkRequest request(endpoint);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
+
+    QByteArray authorizationValue("token ");
+    authorizationValue.append(QString::fromStdString(token));
+
+    request.setRawHeader(QByteArray("Authorization"), authorizationValue);
+
     QByteArray content =  QString::fromStdString(payload).toUtf8();
     QNetworkReply* reply = manager.post(request, content);
 
