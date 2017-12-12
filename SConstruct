@@ -70,6 +70,8 @@ env.Program(
         "http_getter_test.cc",
         "http_poster_test.cc",
         "xlsx.cc",
+        "size_getter_integration_test.cc",
+        "size_getter.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]

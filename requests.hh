@@ -47,4 +47,14 @@ private:
     int license;
 };
 
+struct UploadCreationRequest {
+    UploadCreationRequest(string name, string md5, int64_t size)
+        : name(name), md5(md5), size(size) { }
+
+    string name;
+    string md5;   // This is the hex representation not the binary one
+    int64_t size;
+};
+
+
 #endif // REQUESTS_HH
