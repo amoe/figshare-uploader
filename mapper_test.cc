@@ -82,6 +82,11 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     vector<string> expectedKeywords;
     expectedKeywords.push_back("Bethlehem Crafts");
     ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
+
+    vector<string> expectedReferences;
+    expectedReferences.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
+
+    ASSERT_THAT(request.getReferences(), Eq(expectedReferences));
 }
 
 
