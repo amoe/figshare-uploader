@@ -5,6 +5,7 @@
 #include "article_mapper.hh"
 #include "http_poster.hh"
 #include "figshare_gateway.hh"
+#include "requests.hh"
 
 using std::string;
 using std::vector;
@@ -22,8 +23,11 @@ int main(int argc, char **argv) {
 
     for (int i = 2; i <= 6; i++) {
         vector<string> row = theReader.rowToString(i);
-        auto request = mapper.mapFromExcel(row);
+        ArticleCreationRequest request = mapper.mapFromExcel(row);
         
+        string uploadJson = mapper.mapToFigshare(request);
+        
+        std::cout << uploadJson << std::endl;
     }
 
     return 0;
