@@ -2,6 +2,7 @@
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDir>
 
 using std::string;
 
@@ -10,3 +11,8 @@ QJsonObject deserialize(const std::string input) {
     return result.object();
 }
 
+
+std::string currentDirectory() {
+    QString result = QDir::currentPath();
+    return result.toStdString();
+}

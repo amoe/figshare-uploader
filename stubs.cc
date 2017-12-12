@@ -47,3 +47,10 @@ string StubHttpPoster::request(const string url, const string payload) {
 //     "code": "BadRequest",
 //     "message": "funding: None is not of type 'string'"
 // }
+
+
+// file sizes
+
+int64_t StubFileSizeGetter::getSize(string path) {
+    return cannedResponse;
+}
