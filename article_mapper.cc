@@ -24,6 +24,7 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
     QJsonValue descriptionVal(QString::fromStdString(request.getDescription()));
     QJsonValue licenseVal(request.getLicense());
 
+    // Not really clear if this should be mapped at all.
     QJsonValue fundingVal;
     if (request.getFunding()) {
         fundingVal = QJsonValue(QString::fromStdString(request.getFunding().value()));
@@ -91,7 +92,15 @@ ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow
     vector<string> authors = splitCommas(excelRow.at(1));
 
 
-    optional<string> funding = optional<string>("Some funding");
+    string rawFunding = excelRow.at(7);
+    optional<string> funding;
+
+    // XXX: whitespace only is not handled here
+    if (rawFunding.empty()) {
+        funding = nullopt;
+    } else {
+        funding = optional<string>(rawFunding);
+    }
 
     ArticleType articleType = ArticleType::CODE;
     int license = 1;
