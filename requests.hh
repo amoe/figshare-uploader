@@ -1,3 +1,6 @@
+#ifndef REQUESTS_HH
+#define REQUESTS_HH
+
 #include <string>
 #include <vector>
 #include "ext/optional.hpp"
@@ -43,3 +46,5 @@ private:
     ArticleType articleType;
     int license;
 };
+
+#endif // REQUESTS_HH

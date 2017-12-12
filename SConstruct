@@ -41,6 +41,7 @@ env.Program(
     source=[
         "requests.cc",
         "figshare_gateway_test.cc",
+        "figshare_gateway.cc",
         "license_test.cc",
         "article_type_mapper.cc",
         "article_type_mapper_test.cc",
@@ -50,7 +51,7 @@ env.Program(
         "view.cc",
         "md5_test.cc",
         "mapper_test.cc",
-        "xlsx.cc",
+        "xlsx_test.cc",
         "part_preparer_test.cc",
         "part_preparer.cc",
         "file_info.cc",
@@ -65,6 +66,7 @@ env.Program(
         "http_poster.cc",
         "http_getter_test.cc",
         "http_poster_test.cc",
+        "xlsx.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
@@ -99,5 +101,14 @@ env.Program(
 
 env.Program(
     target='driver',
-    source=['driver.cc']
+    source=[
+        "driver.cc",
+        "xlsx.cc",
+        "article_type_mapper.cc",
+        "requests.cc",
+        "article_mapper.cc",
+        "utility.cc",
+        "http_poster.cc",
+        "figshare_gateway.cc"
+    ]
 )

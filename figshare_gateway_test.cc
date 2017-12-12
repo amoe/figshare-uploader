@@ -1,49 +1,9 @@
-#include <iostream>
 #include <gmock/gmock.h>
-#include "requests.hh"
-#include "raw_literals.hh"
-#include "responses.hh"
-#include "http_poster.hh"
+#include "figshare_gateway.hh"
 #include "stubs.hh"
-#include "utility.hh"
-#include "article_mapper.hh"
-#include "article_type_mapper.hh"
+#include "raw_literals.hh"
 
 using ::testing::Eq;
-
-// Note that the authorization header needs to be provided in the format
-// `Authorization: token <blah>`
-
-class FigshareGateway {
-public:
-    virtual ArticleCreationResponse createArticle(
-        ArticleCreationRequest request
-    ) = 0;
-};
-
-class HttpFigshareGateway : public FigshareGateway {
-public:
-    HttpFigshareGateway(HttpPoster* poster) : poster(poster) {
-    }
-    ArticleCreationResponse createArticle(ArticleCreationRequest request);
-
-private:
-    HttpPoster* poster;
-};
-
-ArticleCreationResponse HttpFigshareGateway::createArticle(
-    ArticleCreationRequest request
-) {
-    ArticleTypeMapper typeMapper;
-    ArticleMapper mapper(typeMapper);
-
-    const string url = "https://api.figshare.com/v2/account/articles";
-    const string payload = mapper.mapToFigshare(request);
-    const string response = poster->request(url, payload);
-    string location = fetchString(response, "location");
-    return ArticleCreationResponse(location);
-}
-
 
 TEST(FigshareGatewayTest, ActsAsIExpect) {
     HttpPoster* poster = new StubHttpPoster(

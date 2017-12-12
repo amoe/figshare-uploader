@@ -5,6 +5,7 @@
 #include <vector>
 #include <QJsonValue>
 #include "article_type_mapper.hh"
+#include "requests.hh"
 
 class ArticleMapper {
 public:

@@ -32,7 +32,6 @@ std::vector<std::string> XlsxReader::rowToString(int row) {
 
     for (auto cell : cv) {
         auto strVersion = cell.to_string();
-        std::cout << strVersion;
         result.push_back(strVersion);
     }
 

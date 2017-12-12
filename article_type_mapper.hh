@@ -1,6 +1,8 @@
 #ifndef ARTICLE_TYPE_MAPPER_HH
 #define ARTICLE_TYPE_MAPPER_HH
 
+#include <string>
+#include <map>
 #include "article_types.hh"
 
 using std::string;
