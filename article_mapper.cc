@@ -112,7 +112,8 @@ ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow
         funding = optional<string>(rawFunding);
     }
 
-    ArticleType articleType = ArticleType::CODE;
+    ArticleType articleType = typeMapper.mapFromString(excelRow.at(3));
+
     int license = 1;
     
     ArticleCreationRequest result(

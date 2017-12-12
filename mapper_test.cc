@@ -29,6 +29,23 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 //    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
 }
 
+TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapper myMapper(typeMapper, categoryMapper);
+
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    // Superfluously ensure that category is also blank
+    row.at(3) = "Figure";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    ASSERT_THAT(request.getArticleType(), Eq(ArticleType::FIGURE));
+}
+
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);

@@ -16,33 +16,29 @@ using std::cout;
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
+    qDebug() << "starting";
+
+    string inputPath("resources/test.xlsx");
+
 
     HttpGetter* getter = new QtHttpGetter;
-
     string result = getter->request("https://api.figshare.com/v2/categories");
-    
-    CategoryMapper mapper(result);
+    CategoryMapper categoryMapper(result);
+    XlsxReader theReader(inputPath);
+    ArticleTypeMapper typeMapper;
+    ArticleMapper mapper(typeMapper, categoryMapper);
+    HttpPoster* poster = new QtHttpPoster;
+    FigshareGateway* gateway = new HttpFigshareGateway(poster, categoryMapper);
+
+    for (int i = 2; i <= 6; i++) {
+        vector<string> row = theReader.rowToString(i);
+        ArticleCreationRequest request = mapper.mapFromExcel(row);
+        
+        string uploadJson = mapper.mapToFigshare(request);
+        
+        std::cout << uploadJson << std::endl;
+    }
 
     return 0;
 }
 
-void foo() {
-    // qDebug() << "starting";
-
-    // string inputPath("resources/test.xlsx");
-
-    // XlsxReader theReader(inputPath);
-    // ArticleTypeMapper typeMapper;
-    // ArticleMapper mapper(typeMapper);
-    // HttpPoster* poster = new QtHttpPoster;
-    // FigshareGateway* gateway = new HttpFigshareGateway(poster);
-
-    // for (int i = 2; i <= 6; i++) {
-    //     vector<string> row = theReader.rowToString(i);
-    //     ArticleCreationRequest request = mapper.mapFromExcel(row);
-        
-    //     string uploadJson = mapper.mapToFigshare(request);
-        
-    //     std::cout << uploadJson << std::endl;
-    // }
-}
