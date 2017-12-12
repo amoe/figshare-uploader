@@ -18,9 +18,7 @@ string fetchString(
     return result.object().value(qKey).toString().toStdString();
 }
 
-bool containsKey(
-    const string input, const string key
-) {
+bool containsKey(const string input, const string key) {
     auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
     const auto qKey = QString::fromStdString(key);
     
