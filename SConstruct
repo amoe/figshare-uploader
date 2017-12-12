@@ -47,6 +47,7 @@ env.Program(
         "article_type_mapper_test.cc",
         "article_mapper.cc",
         "category_test.cc",
+        "category_mapper.cc",
         "stubs.cc",
         "view.cc",
         "md5_test.cc",
@@ -109,6 +110,8 @@ env.Program(
         "article_mapper.cc",
         "utility.cc",
         "http_poster.cc",
-        "figshare_gateway.cc"
+        "figshare_gateway.cc",
+        "http_getter.cc",
+        "category_mapper.cc"
     ]
 )
