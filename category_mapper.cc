@@ -23,6 +23,8 @@ CategoryMapper::CategoryMapper(string jsonInput) {
         lookup.insert({title, id});
     }
 
+    qDebug() << "initialized with table size" << lookup.size();
+
     // now finsihed.
 }
 

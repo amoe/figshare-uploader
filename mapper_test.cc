@@ -38,7 +38,7 @@ TEST(ArticleMapperTest, CorrectlyMapsRow) {
     vector<string> row = {
         "To Serve Man",
         "Freja Howat-Maxted, Jacob Norris, Leila Sansour",
-        "Middle Eastern and African Library",
+        "Middle Eastern and African History",
         "Figure",
         "Bethlehem Crafts",
         R"(This is a digital reproduction of a black and white photographic print held in the Library of Congress.
