@@ -1,6 +1,7 @@
+#include <string>
 #include "upload_container_info.hh"
 
-static UploadContainerInfo UploadContainerInfo::fromJson(string jsonText) {
+UploadContainerInfo UploadContainerInfo::fromJson(string jsonText) {
     string name;
     int64_t size;
     string md5;
