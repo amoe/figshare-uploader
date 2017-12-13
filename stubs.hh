@@ -2,9 +2,21 @@
 #define STUBS_HH
 
 #include "http_poster.hh"
+#include "http_getter.hh"
 #include "size_getter.hh"
 
 using std::string;
+
+class StubHttpGetter : public HttpGetter {
+public:
+    StubHttpGetter(string cannedResponse)
+        : cannedResponse(cannedResponse) {} 
+
+    string request(const string url);
+
+private:
+    string cannedResponse;
+};
 
 class StubHttpPoster : public HttpPoster {
 public:

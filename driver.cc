@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     ArticleMapper mapper(typeMapper, categoryMapper);
     HttpPoster* poster = new QtHttpPoster(token);
     FigshareGateway* gateway = new HttpFigshareGateway(
-        poster, categoryMapper
+        getter, poster, categoryMapper
     );
 
     SizeGetter* sg = new QtSizeGetter();

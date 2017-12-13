@@ -42,6 +42,10 @@ string StubHttpPoster::request(const string url, const string payload) {
     return this->cannedResponse;
 }
 
+string StubHttpGetter::request(const string url) {
+    return this->cannedResponse;
+}
+
 
 // {
 //     "code": "BadRequest",

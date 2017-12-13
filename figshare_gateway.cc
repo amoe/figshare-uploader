@@ -34,3 +34,4 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
     string location = fetchString(response, "location");
     return UploadCreationResponse(location);
 }
+

@@ -6,11 +6,15 @@
 using ::testing::Eq;
 
 TEST(FigshareGatewayTest, ActsAsIExpect) {
+    HttpGetter* getter = new StubHttpGetter("");
+
     HttpPoster* poster = new StubHttpPoster(
         raw_literals::fakeArticleCreationResponse
     );
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    FigshareGateway* gateway = new HttpFigshareGateway(poster, categoryMapper);
+    FigshareGateway* gateway = new HttpFigshareGateway(
+        getter, poster, categoryMapper
+    );
     
     vector<string> keywords;
     keywords.push_back("Bethlehem");
