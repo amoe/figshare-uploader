@@ -3,30 +3,11 @@
 #include "test_utility.hh"
 #include "stubs.hh"
 #include "requests.hh"
+#include "file_spec_generator.hh"
 
 using ::testing::Eq;
 
 using std::string;
-
-class FileSpecGenerator {
-public:
-    virtual UploadCreationRequest getFileSpec(string path) = 0;
-};
-
-class FileSpecGeneratorImpl : public FileSpecGenerator {
-public:
-    FileSpecGeneratorImpl(SizeGetter* sizeGetter) : sizeGetter(sizeGetter) { }
-    UploadCreationRequest getFileSpec(string path);
-
-private:
-    SizeGetter* sizeGetter;
-};
-
-UploadCreationRequest FileSpecGeneratorImpl::getFileSpec(string path) {
-    UploadCreationRequest result("", "", sizeGetter->getSize(path));
-    return result;
-}
-
 
 TEST(SizeGetterTest, CanGetSize) {
     SizeGetter* getter = new QtSizeGetter;

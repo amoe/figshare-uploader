@@ -116,7 +116,8 @@ env.Program(
         "http_poster.cc",
         "figshare_gateway.cc",
         "http_getter.cc",
-        "category_mapper.cc"
+        "category_mapper.cc",
+        "size_getter.cc"
     ]
 )
 
@@ -132,6 +133,6 @@ env.Program(
         "http_poster.cc",
         "figshare_gateway.cc",
         "http_getter.cc",
-        "category_mapper.cc"
+        "category_mapper.cc",
     ]
 )

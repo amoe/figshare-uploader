@@ -10,6 +10,8 @@
 #include "requests.hh"
 #include "http_getter.hh"
 #include "category_mapper.hh"
+#include "size_getter.hh"
+#include "file_spec_generator.hh"
 
 using std::string;
 using std::vector;
@@ -41,22 +43,30 @@ int main(int argc, char **argv) {
         poster, categoryMapper
     );
 
+    SizeGetter* sg = new QtSizeGetter();
+    FileSpecGenerator* fsg = new FileSpecGeneratorImpl(sg);
+
+    string stemArticle = "https://api.figshare.com/v2/account/articles/5697091";
 
     for (int i = 2; i <= 6; i++) {
         vector<string> row = theReader.rowToString(i);
-        ArticleCreationRequest request = mapper.mapFromExcel(row);
-        
-        string uploadJson = mapper.mapToFigshare(request);
+        // ArticleCreationRequest request = mapper.mapFromExcel(row);
+        // string uploadJson = mapper.mapToFigshare(request);
 
-        std::cout << uploadJson << std::endl;
+        // std::cout << uploadJson << std::endl;
 
-        auto response = gateway->createArticle(request);
+        // auto response = gateway->createArticle(request);
 
-        std::cout << response.location << std::endl;
+        // std::cout << response.location << std::endl;
 
         string relationField = row.at(15);
-        
         std::cout << relationField << std::endl;
+
+        UploadCreationRequest ucr = fsg->getFileSpec(relationField);
+
+        std::cout << ucr.size << std::endl;
+
+
         return 0;
     }
 
