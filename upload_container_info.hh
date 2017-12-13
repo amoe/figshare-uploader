@@ -26,4 +26,7 @@ struct UploadContainerInfo {
     string token;
     UploadContainerStatus status;
     vector<FilePart> parts;
+
+private:
+    static UploadContainerStatus mapStatus(string status);
 };
