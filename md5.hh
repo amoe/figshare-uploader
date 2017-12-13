@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cstring>
 
+using std::string;
+
 class DataSource {
 public:
     virtual bool isReadable()  = 0;
@@ -80,7 +82,7 @@ private:
 
 class MD5Calculator {
 public:
-    QString getMD5(DataSource *source) {
+    string getMD5(DataSource *source) {
         QCryptographicHash hash(QCryptographicHash::Md5);
 
         if (!source->isReadable())
@@ -101,6 +103,6 @@ public:
         if (!isAtEnd) 
             qFatal("something went wrong");
 
-        return QString(hash.result().toHex());
+        return QString(hash.result().toHex()).toStdString();
     }
 };
