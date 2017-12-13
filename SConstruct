@@ -122,7 +122,10 @@ env.Program(
         "category_mapper.cc",
         "size_getter.cc",
         "upload_container_info.cc",
-        "file_part.cc"
+        "file_part.cc",
+        "io_slicer.cc",
+        "part_preparer.cc",
+        "upload_command.cc"
     ]
 )
 

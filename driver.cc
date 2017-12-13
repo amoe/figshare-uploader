@@ -14,6 +14,8 @@
 #include "category_mapper.hh"
 #include "size_getter.hh"
 #include "file_spec_generator.hh"
+#include "io_slicer.hh"
+#include "part_preparer.hh"
 
 using std::string;
 using std::vector;
@@ -48,6 +50,8 @@ int main(int argc, char **argv) {
     SizeGetter* sg = new QtSizeGetter();
     FileSpecGenerator* fsg = new FileSpecGeneratorImpl(sg);
 
+
+
     string stemArticle = "https://api.figshare.com/v2/account/articles/5697091";
 
     for (int i = 2; i <= 6; i++) {
@@ -62,6 +66,10 @@ int main(int argc, char **argv) {
         // std::cout << response.location << std::endl;
 
         string relationField = row.at(15);
+
+        IOSlicer* slicer = new FileSlicer(relationField);
+        PartPreparer pp(slicer);
+
         std::cout << relationField << std::endl;
 
         UploadCreationRequest ucr = fsg->getFileSpec(relationField);
@@ -85,6 +93,13 @@ int main(int argc, char **argv) {
 
         std::cout << "token is " << uci.token << std::endl;
         std::cout << "size is " << uci.size << std::endl;
+
+
+        for (int j = 0; j < uci.parts.size(); j++) {
+            UploadCommand uc = pp.prepareUpload(info, uci.parts.at(j));
+            std::cout  << "would put to " << uc.getUrl() << std::endl;
+        }
+
 
         return 0;
     }
