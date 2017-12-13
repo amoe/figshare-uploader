@@ -40,7 +40,7 @@ public:
 
     // These methods are part of the "upload service", which is a separate API.
     // This doesn't need authentication.
-    // UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl)
+//    UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl);
 
 private:
     HttpGetter* getter;

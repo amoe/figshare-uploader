@@ -5,6 +5,40 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string serializedUploadContainerInfo = R"V0G0N(
+        {
+            "md5": "7b6a523ae2adc8ed0f55e7bb27f39ffc",
+            "name": "9981382/pb_lc_bcr_c189800000004aa.tiff",
+            "parts": [
+                {
+                    "endOffset": 10485759,
+                    "locked": false,
+                    "partNo": 1,
+                    "startOffset": 0,
+                    "status": "PENDING"
+                },
+                {
+                    "endOffset": 20971519,
+                    "locked": false,
+                    "partNo": 2,
+                    "startOffset": 10485760,
+                    "status": "PENDING"
+                },
+                {
+                    "endOffset": 23561499,
+                    "locked": false,
+                    "partNo": 3,
+                    "startOffset": 20971520,
+                    "status": "PENDING"
+                }
+            ],
+            "size": 23561500,
+            "status": "PENDING",
+            "token": "1d71cd99-6695-420e-884a-e889571b307b"
+        }
+    )V0G0N";
+
+
     const std::string serializedUploadCreationRequest = R"V0G0N(
         {
           "name": "nonesuch.png",

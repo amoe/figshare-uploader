@@ -72,6 +72,7 @@ env.Program(
         "size_getter_integration_test.cc",
         "size_getter.cc",
         "requests_test.cc",
+        "upload_container_info_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
