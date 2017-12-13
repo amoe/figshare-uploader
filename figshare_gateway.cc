@@ -1,3 +1,4 @@
+#include <iostream>
 #include "figshare_gateway.hh"
 #include "http_poster.hh"
 #include "requests.hh"
@@ -5,6 +6,7 @@
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
 #include "utility.hh"
+#include "file_info.hh"
 #include <QDebug>
 
 // Note that the authorization header needs to be provided in the format
@@ -35,3 +37,13 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
     return UploadCreationResponse(location);
 }
 
+
+FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
+    const string response = getter->request(uploadUrl);
+    
+    string fileName = fetchString(response, "name");
+    string uploadUrlWithToken = fetchString(response, "upload_url");
+    FileInfo info(uploadUrlWithToken, fileName);
+
+    return info;
+}

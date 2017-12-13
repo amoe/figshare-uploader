@@ -5,6 +5,7 @@
 #include <QApplication>
 #include "xlsx.hh"
 #include "article_mapper.hh"
+#include "file_info.hh"
 #include "http_poster.hh"
 #include "figshare_gateway.hh"
 #include "requests.hh"
@@ -32,7 +33,7 @@ int main(int argc, char **argv) {
     string inputPath("resources/test.xlsx");
 
 
-    HttpGetter* getter = new QtHttpGetter;
+    HttpGetter* getter = new QtHttpGetter(token);
     string result = getter->request("https://api.figshare.com/v2/categories");
     CategoryMapper categoryMapper(result);
     XlsxReader theReader(inputPath);
@@ -71,6 +72,11 @@ int main(int argc, char **argv) {
         auto response = gateway->createUpload(stemArticle, ucr);
 
         std::cout << response.location << std::endl;
+
+
+        FileInfo info = gateway->getUploadInfo(response.location);
+
+        std::cout << info.uploadContainerUrl << std::endl;
 
         return 0;
     }

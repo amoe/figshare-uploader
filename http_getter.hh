@@ -12,7 +12,11 @@ public:
 
 class QtHttpGetter : public HttpGetter {
 public:
+    QtHttpGetter(string token) : token(token) { }
     string request(const string url);
+
+private:
+    string token;
 };
 
 #endif // HTTP_GETTER_HH

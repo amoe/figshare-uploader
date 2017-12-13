@@ -17,7 +17,11 @@ string QtHttpGetter::request(const string url) {
     QUrl endpoint(QString::fromStdString(url));
 
     QNetworkAccessManager manager;
+
     QNetworkRequest request(endpoint);
+    QByteArray authorizationValue("token ");
+    authorizationValue.append(QString::fromStdString(token));
+    request.setRawHeader(QByteArray("Authorization"), authorizationValue);
 
     QNetworkReply* reply = manager.get(request);
 

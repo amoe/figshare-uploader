@@ -9,7 +9,7 @@ using ::testing::Eq;
 
 TEST(HttpGetter, GetsTheByteArraySuccessfully) {
     bootQtEventLoop();
-    HttpGetter* getter = new QtHttpGetter;
+    HttpGetter* getter = new QtHttpGetter("NOT USED");
     string body = getter->request("https://httpbin.org/user-agent");
 
     std::cout << body << std::endl;

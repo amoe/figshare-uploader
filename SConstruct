@@ -57,7 +57,6 @@ env.Program(
         "xlsx_test.cc",
         "part_preparer_test.cc",
         "part_preparer.cc",
-        "file_info.cc",
         "file_part.cc",
         "upload_command.cc",
         "io_slicer.cc",
@@ -118,7 +117,7 @@ env.Program(
         "figshare_gateway.cc",
         "http_getter.cc",
         "category_mapper.cc",
-        "size_getter.cc"
+        "size_getter.cc",
     ]
 )
 
@@ -134,6 +133,6 @@ env.Program(
         "http_poster.cc",
         "figshare_gateway.cc",
         "http_getter.cc",
-        "category_mapper.cc",
+        "category_mapper.cc"
     ]
 )

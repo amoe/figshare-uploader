@@ -4,9 +4,9 @@
 UploadCommand PartPreparer::prepareUpload(
     const FileInfo info, const FilePart part
 ) {
-    std::string fileName = info.getFileName();
+    std::string fileName = info.fileName;
     std::string url = 
-        info.getUploadUrl() + "/" + std::to_string(part.getPartNumber());
+        info.uploadContainerUrl + "/" + std::to_string(part.getPartNumber());
 
     
     int64_t start = part.getStartOffset();

@@ -1,15 +1,12 @@
 #ifndef FILE_INFO_HH
 #define FILE_INFO_HH
 
-class FileInfo {
-public:
-    FileInfo(std::string uploadUrl, std::string fileName)
-      : uploadUrl(uploadUrl), fileName(fileName) { }
-    std::string getFileName() const;
-    std::string getUploadUrl() const;
-
-private:
-    std::string uploadUrl;
+struct FileInfo {
+    FileInfo(std::string uploadContainerUrl, std::string fileName)
+      : uploadContainerUrl(uploadContainerUrl), fileName(fileName) { }
+    
+    // This is a separate API that's under a "fupN.figshare.com" domain.
+    std::string uploadContainerUrl;
     std::string fileName;
 };
 
