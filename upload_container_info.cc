@@ -26,8 +26,22 @@ UploadContainerInfo UploadContainerInfo::fromJson(string jsonText) {
     md5 = object.value("md5").toString().toStdString();
     token = object.value("token").toString().toStdString();
     status = mapStatus(object.value("status").toString().toStdString());
-    
+    parts = mapParts(object.value("parts").toArray());
+
     return UploadContainerInfo(name, size, md5, token, status, parts);
+}
+
+vector<FilePart> UploadContainerInfo::mapParts(QJsonArray partsArray) {
+    std::vector<FilePart> allParts;
+
+    // Not so clear why this needs to be const, but it does.
+    for (const auto& partValue : partsArray) {
+        QJsonObject partObject = partValue.toObject();
+        FilePart thePart = FilePart::fromJson(partObject);
+        allParts.push_back(thePart);
+    }
+
+    return allParts;
 }
 
 UploadContainerStatus UploadContainerInfo::mapStatus(string status) {
@@ -39,7 +53,7 @@ UploadContainerStatus UploadContainerInfo::mapStatus(string status) {
 
     auto it = statuses.find(status);
     if (it == statuses.end()) {
-        throw std::runtime_error("status not found");
+        throw std::runtime_error("upload container status not found");
     } else {
         return it->second;
     }

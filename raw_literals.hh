@@ -5,6 +5,17 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string serializedFilePartInfo = R"V0G0N(
+        {
+            "endOffset": 10485759,
+            "locked": false,
+            "partNo": 1,
+            "startOffset": 0,
+            "status": "PENDING"
+        }
+    )V0G0N";
+
+
     const std::string serializedUploadContainerInfo = R"V0G0N(
         {
             "md5": "7b6a523ae2adc8ed0f55e7bb27f39ffc",

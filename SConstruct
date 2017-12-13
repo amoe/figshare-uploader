@@ -74,6 +74,7 @@ env.Program(
         "requests_test.cc",
         "upload_container_info_test.cc",
         "upload_container_info.cc",
+        "file_part_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]

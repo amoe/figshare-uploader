@@ -1,5 +1,6 @@
 #include <vector>
 #include <cstdint>
+#include <QJsonArray>
 #include "file_part.hh"
 
 using std::vector;
@@ -29,4 +30,6 @@ struct UploadContainerInfo {
 
 private:
     static UploadContainerStatus mapStatus(string status);
+    static vector<FilePart> mapParts(QJsonArray array);
+    static FilePart mapOnePart(QJsonObject object);
 };
