@@ -1,3 +1,6 @@
+#ifndef UPLOAD_CONTAINER_INFO_HH
+#define UPLOAD_CONTAINER_INFO_HH
+
 #include <vector>
 #include <cstdint>
 #include <QJsonArray>
@@ -33,3 +36,5 @@ private:
     static vector<FilePart> mapParts(QJsonArray array);
     static FilePart mapOnePart(QJsonObject object);
 };
+
+#endif // UPLOAD_CONTAINER_INFO_HH

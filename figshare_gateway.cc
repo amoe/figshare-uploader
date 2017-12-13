@@ -7,6 +7,7 @@
 #include "article_mapper.hh"
 #include "utility.hh"
 #include "file_info.hh"
+#include "upload_container_info.hh"
 #include <QDebug>
 
 // Note that the authorization header needs to be provided in the format
@@ -46,4 +47,11 @@ FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     FileInfo info(uploadUrlWithToken, fileName);
 
     return info;
+}
+
+UploadContainerInfo HttpFigshareGateway::getUploadContainerInfo(
+    string uploadContainerUrl
+) {
+    const string response = getter->request(uploadContainerUrl);
+    return UploadContainerInfo::fromJson(response);
 }

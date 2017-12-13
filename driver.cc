@@ -5,6 +5,7 @@
 #include <QApplication>
 #include "xlsx.hh"
 #include "article_mapper.hh"
+#include "upload_container_info.hh"
 #include "file_info.hh"
 #include "http_poster.hh"
 #include "figshare_gateway.hh"
@@ -77,6 +78,13 @@ int main(int argc, char **argv) {
         FileInfo info = gateway->getUploadInfo(response.location);
 
         std::cout << info.uploadContainerUrl << std::endl;
+        
+        UploadContainerInfo uci = gateway->getUploadContainerInfo(
+            info.uploadContainerUrl
+        );
+
+        std::cout << "token is " << uci.token << std::endl;
+        std::cout << "size is " << uci.size << std::endl;
 
         return 0;
     }

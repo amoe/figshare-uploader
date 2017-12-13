@@ -4,6 +4,7 @@
 #include "http_getter.hh"
 #include "category_mapper.hh"
 #include "file_info.hh"
+#include "upload_container_info.hh"
 
 class FigshareGateway {
 public:
@@ -20,7 +21,9 @@ public:
         string uploadUrl
     ) = 0;
 
-
+    virtual UploadContainerInfo getUploadContainerInfo(
+        string uploadContainerUrl
+    ) = 0;
 };
 
 class HttpFigshareGateway : public FigshareGateway {
@@ -40,7 +43,7 @@ public:
 
     // These methods are part of the "upload service", which is a separate API.
     // This doesn't need authentication.
-//    UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl);
+    UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl);
 
 private:
     HttpGetter* getter;
