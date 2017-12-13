@@ -1,5 +1,6 @@
 #include "requests.hh"
 #include "md5.hh"
+#include "utility.hh"
 
 class FileSpecGenerator {
 public:
@@ -20,13 +21,12 @@ private:
 // its dependencies directly.
 UploadCreationRequest FileSpecGeneratorImpl::getFileSpec(string path) {
     MD5Calculator theCalculator;
-    string name;
     string md5;
     const int64_t size = sizeGetter->getSize(path);
 
     DataSource* fileSource = new FileDataSource(path);
     string md = theCalculator.getMD5(fileSource);
     
-    UploadCreationRequest result("", "", size);
+    UploadCreationRequest result(basename(path), md, size);
     return result;
 }

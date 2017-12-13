@@ -12,3 +12,4 @@ vector<string> splitCommas(const string input);
 vector<string> splitSpaces(const string input);
 
 bool containsKey(const string input, const string key);
+string basename(string path);

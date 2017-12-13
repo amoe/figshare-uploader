@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFileInfo>
 
 using std::string;
 using std::vector;
@@ -48,3 +49,10 @@ vector<string> splitSpaces(const string input) {
     return splitByRegexp(input, "\\s+");
 }
 
+
+string basename(string path) {
+    QString qPath = QString::fromStdString(path);
+    QFileInfo fileInfo(qPath);
+    QString basename = fileInfo.fileName();
+    return basename.toStdString();
+}

@@ -72,6 +72,7 @@ env.Program(
         "xlsx.cc",
         "size_getter_integration_test.cc",
         "size_getter.cc",
+        "requests_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]

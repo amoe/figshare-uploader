@@ -5,10 +5,10 @@
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
 #include "utility.hh"
+#include <QDebug>
 
 // Note that the authorization header needs to be provided in the format
 // `Authorization: token <blah>`
-
 
 ArticleCreationResponse HttpFigshareGateway::createArticle(
     ArticleCreationRequest request
@@ -21,4 +21,16 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     const string response = poster->request(url, payload);
     string location = fetchString(response, "location");
     return ArticleCreationResponse(location);
+}
+
+
+UploadCreationResponse HttpFigshareGateway::createUpload(
+    string articleUrl,
+    UploadCreationRequest request
+) {
+    const string url = articleUrl + "/files";
+    const string payload = request.toJson();
+    const string response = poster->request(url, payload);
+    string location = fetchString(response, "location");
+    return UploadCreationResponse(location);
 }

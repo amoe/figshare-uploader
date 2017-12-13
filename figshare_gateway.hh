@@ -8,6 +8,12 @@ public:
     virtual ArticleCreationResponse createArticle(
         ArticleCreationRequest request
     ) = 0;
+
+    virtual UploadCreationResponse createUpload(
+        string articleUrl,
+        UploadCreationRequest request
+    ) = 0;
+
 };
 
 class HttpFigshareGateway : public FigshareGateway {
@@ -16,6 +22,10 @@ public:
       : poster(poster), categoryMapper(categoryMapper) {
     }
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
+    UploadCreationResponse createUpload(
+        string articleUrl,
+        UploadCreationRequest request
+    );
 
 private:
     HttpPoster* poster;

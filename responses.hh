@@ -11,4 +11,10 @@ struct ArticleCreationResponse {
     string location;
 };
 
+struct UploadCreationResponse {
+    UploadCreationResponse(string location)
+        : location(location) { }
+    string location;
+};
+
 #endif // RESPONSES_HH

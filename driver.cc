@@ -65,7 +65,12 @@ int main(int argc, char **argv) {
         UploadCreationRequest ucr = fsg->getFileSpec(relationField);
 
         std::cout << ucr.size << std::endl;
+        std::cout << ucr.md5 << std::endl;
+        std::cout << ucr.name << std::endl;
 
+        auto response = gateway->createUpload(stemArticle, ucr);
+
+        std::cout << response.location << std::endl;
 
         return 0;
     }

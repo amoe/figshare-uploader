@@ -5,6 +5,14 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string serializedUploadCreationRequest = R"V0G0N(
+        {
+          "name": "nonesuch.png",
+          "size": 1234000,
+          "md5": "9e107d9d372bb6826bd81d3542a419d6"
+        }
+    )V0G0N";
+
     const std::string httpbinResponse = R"V0G0N(
         {
           "user-agent": "Mozilla/5.0"
