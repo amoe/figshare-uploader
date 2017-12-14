@@ -20,7 +20,11 @@ TEST(PartPreparerTest, ActsAsIExpect) {
     UploadCommand result = preparer.prepareUpload(fileInfo, filePart);
 
     ASSERT_THAT(result.getUrl(), Eq("http://my-site.com/my-token/42"));
-    ASSERT_THAT(result.getData().size(), Eq(6));
+
+    // This is insanely weird but the offset from 2 to 8 should actually be 1
+    // larger for some reason.  This is an oddity of Figshare, AFAICS, unless
+    // I'm just being an idiot.
+    ASSERT_THAT(result.getData().size(), Eq(7));
 
 }
 
