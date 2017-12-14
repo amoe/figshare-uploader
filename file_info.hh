@@ -7,7 +7,7 @@ using std::string;
 
 struct FileInfo {
     FileInfo(std::string uploadContainerUrl, std::string fileName, int64_t id)
-      : uploadContainerUrl(uploadContainerUrl), fileName(fileName) { }
+        : uploadContainerUrl(uploadContainerUrl), fileName(fileName), id(id) { }
     
     // This is a separate API that's under a "fupN.figshare.com" domain.
     std::string uploadContainerUrl;
