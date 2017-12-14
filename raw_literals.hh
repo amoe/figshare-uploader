@@ -5,6 +5,13 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string serializedArticleGetResponse = R"V0G0N(
+        {
+            "id": 5702185
+        }
+    )V0G0N";
+
+
     const std::string serializedFileInfo = R"V0G0N(
         {
             "computed_md5": "",

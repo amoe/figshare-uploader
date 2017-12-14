@@ -78,6 +78,8 @@ env.Program(
         "upload_container_info_test.cc",
         "upload_container_info.cc",
         "file_part_test.cc",
+        "responses_test.cc",
+        "responses.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
@@ -129,7 +131,10 @@ env.Program(
         "io_slicer.cc",
         "part_preparer.cc",
         "upload_command.cc",
-        "http_putter.cc"
+        "http_putter.cc",
+        "file_info.cc",
+        "responses.cc"
     ]
 )
+
 

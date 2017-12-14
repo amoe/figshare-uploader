@@ -74,6 +74,8 @@ int main(int argc, char **argv) {
 
         auto articleCreateResponse = gateway->createArticle(request);
 
+        // TODO: GET the thing here and pull out the id.
+
         string stemArticle = articleCreateResponse.location;
 
 
@@ -96,7 +98,9 @@ int main(int argc, char **argv) {
 
         UploadCreationResponse response = gateway->createUpload(stemArticle, ucr);
 
+
         std::cout << "upload container url: " << response.location << std::endl;
+
 
 
         // GETTING FILE INFO

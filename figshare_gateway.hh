@@ -30,6 +30,8 @@ public:
     virtual PartPutResponse putUpload(UploadCommand uc) = 0;
     virtual string completeUpload(string uploadUrl) = 0;
 
+    virtual ArticleGetResponse getArticle(string url) = 0;
+
 };
 
 class HttpFigshareGateway : public FigshareGateway {
@@ -55,6 +57,9 @@ public:
     PartPutResponse putUpload(UploadCommand uc);
 
     string completeUpload(string uploadUrl);
+
+    ArticleGetResponse getArticle(string url);
+
 
 private:
     HttpGetter* getter;

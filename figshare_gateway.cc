@@ -29,6 +29,11 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     return ArticleCreationResponse(location);
 }
 
+ArticleGetResponse HttpFigshareGateway::getArticle(string url) {
+    const string response = getter->request(url);
+    return ArticleGetResponse::fromJson(response);
+}
+
 
 UploadCreationResponse HttpFigshareGateway::createUpload(
     string articleUrl,
@@ -50,15 +55,7 @@ FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     std::cout << response << std::endl;
     std::cout << "---- END ----" << std::endl;
     
-    string fileName = fetchString(response, "name");
-    string uploadUrlWithToken = fetchString(response, "upload_url");
-    string id = fetchString(response, "id");
-
-    std::cout << "id is '" << id << "'" << std::endl;
-    std::cout << "fileName is '" << fileName << "'" << std::endl;
-    FileInfo info(uploadUrlWithToken, fileName, std::stoi(id));
-
-    return info;
+    return FileInfo::fromJson(response);;
 }
 
 UploadContainerInfo HttpFigshareGateway::getUploadContainerInfo(
