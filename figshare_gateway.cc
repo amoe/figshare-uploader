@@ -10,6 +10,9 @@
 #include "upload_container_info.hh"
 #include <QDebug>
 
+using std::vector;
+using std::string;
+
 // Note that the authorization header needs to be provided in the format
 // `Authorization: token <blah>`
 
@@ -44,7 +47,8 @@ FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     
     string fileName = fetchString(response, "name");
     string uploadUrlWithToken = fetchString(response, "upload_url");
-    FileInfo info(uploadUrlWithToken, fileName);
+    string id = fetchString(response, "id");
+    FileInfo info(uploadUrlWithToken, fileName, std::stoi(id));
 
     return info;
 }
@@ -54,4 +58,20 @@ UploadContainerInfo HttpFigshareGateway::getUploadContainerInfo(
 ) {
     const string response = getter->request(uploadContainerUrl);
     return UploadContainerInfo::fromJson(response);
+}
+
+
+PartPutResponse HttpFigshareGateway::putUpload(UploadCommand uc) {
+    vector<char> buffer = uc.getData();
+    string payload(buffer.begin(), buffer.end());
+    
+    const string response = putter->request(uc.getUrl(), payload);
+    PartPutResponse result;
+
+    return result;
+}
+
+string HttpFigshareGateway::completeUpload(string uploadUrl) {
+    const string response = poster->request(uploadUrl, "");
+    return response;
 }

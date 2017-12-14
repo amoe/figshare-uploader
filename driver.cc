@@ -11,15 +11,28 @@
 #include "figshare_gateway.hh"
 #include "requests.hh"
 #include "http_getter.hh"
+#include "http_putter.hh"
 #include "category_mapper.hh"
 #include "size_getter.hh"
 #include "file_spec_generator.hh"
 #include "io_slicer.hh"
 #include "part_preparer.hh"
+#include <QDataStream>
 
 using std::string;
 using std::vector;
 using std::cout;
+
+void spew(string filename, vector<char> data) {
+    QString path = QString::fromStdString(filename);
+    QFile foo(path);
+    foo.open(QIODevice::WriteOnly);
+    QDataStream bar(&foo);
+    
+    for (int i = 0; i < data.size(); i++) {
+        bar.writeRawData(&(data.at(i)), 1);
+    }
+}
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -37,6 +50,8 @@ int main(int argc, char **argv) {
 
 
     HttpGetter* getter = new QtHttpGetter(token);
+    HttpPutter* putter = new QtHttpPutter(token);
+
     string result = getter->request("https://api.figshare.com/v2/categories");
     CategoryMapper categoryMapper(result);
     XlsxReader theReader(inputPath);
@@ -44,26 +59,27 @@ int main(int argc, char **argv) {
     ArticleMapper mapper(typeMapper, categoryMapper);
     HttpPoster* poster = new QtHttpPoster(token);
     FigshareGateway* gateway = new HttpFigshareGateway(
-        getter, poster, categoryMapper
+        getter, poster, putter, categoryMapper
     );
 
     SizeGetter* sg = new QtSizeGetter();
     FileSpecGenerator* fsg = new FileSpecGeneratorImpl(sg);
 
-
-
-    string stemArticle = "https://api.figshare.com/v2/account/articles/5697091";
-
     for (int i = 2; i <= 6; i++) {
         vector<string> row = theReader.rowToString(i);
-        // ArticleCreationRequest request = mapper.mapFromExcel(row);
-        // string uploadJson = mapper.mapToFigshare(request);
+        ArticleCreationRequest request = mapper.mapFromExcel(row);
+        string uploadJson = mapper.mapToFigshare(request);
 
-        // std::cout << uploadJson << std::endl;
+        std::cout << uploadJson << std::endl;
 
-        // auto response = gateway->createArticle(request);
+        auto articleCreateResponse = gateway->createArticle(request);
 
-        // std::cout << response.location << std::endl;
+        string stemArticle = articleCreateResponse.location;
+
+
+
+        std::cout << stemArticle << std::endl;
+
 
         string relationField = row.at(15);
 
@@ -78,9 +94,11 @@ int main(int argc, char **argv) {
         std::cout << ucr.md5 << std::endl;
         std::cout << ucr.name << std::endl;
 
-        auto response = gateway->createUpload(stemArticle, ucr);
+        UploadCreationResponse response = gateway->createUpload(stemArticle, ucr);
 
-        std::cout << response.location << std::endl;
+        std::cout << "upload container url: " << response.location << std::endl;
+
+
 
 
         FileInfo info = gateway->getUploadInfo(response.location);
@@ -96,11 +114,28 @@ int main(int argc, char **argv) {
 
 
         for (int j = 0; j < uci.parts.size(); j++) {
+            
             UploadCommand uc = pp.prepareUpload(info, uci.parts.at(j));
             std::cout  << "would put to " << uc.getUrl() << std::endl;
+            std::cout  << "chunk size is " << uc.getData().size() << std::endl;
+
+
+            string filename = std::to_string(j + 1) + ".dat";
+
+            spew(filename, uc.getData());
+
+            PartPutResponse ppr = gateway->putUpload(uc);
+            std::cout << "UPLOAD WAS PUT" << std::endl;
+
+            // The missing piece is a call to completeUpload() on the gateway.
+            // That basically does this.  "id" which is available from somewhere
+            // then you post to the ID again?  confusing
+
         }
 
-
+        string result = gateway->completeUpload(info.id);
+        std::cout << result << std::endl;
+            
         return 0;
     }
 

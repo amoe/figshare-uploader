@@ -47,6 +47,12 @@ string StubHttpGetter::request(const string url) {
 }
 
 
+string StubHttpPutter::request(const string url, const string payload) {
+    return this->cannedResponse;
+}
+
+
+
 // {
 //     "code": "BadRequest",
 //     "message": "funding: None is not of type 'string'"

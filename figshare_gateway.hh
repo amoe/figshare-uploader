@@ -5,6 +5,8 @@
 #include "category_mapper.hh"
 #include "file_info.hh"
 #include "upload_container_info.hh"
+#include "upload_command.hh"
+#include "http_putter.hh"
 
 class FigshareGateway {
 public:
@@ -24,13 +26,19 @@ public:
     virtual UploadContainerInfo getUploadContainerInfo(
         string uploadContainerUrl
     ) = 0;
+
+    virtual PartPutResponse putUpload(UploadCommand uc) = 0;
+    virtual string completeUpload(string uploadUrl) = 0;
+
 };
 
 class HttpFigshareGateway : public FigshareGateway {
 public:
     HttpFigshareGateway(
-        HttpGetter* getter, HttpPoster* poster, CategoryMapper categoryMapper)
-        : getter(getter), poster(poster), categoryMapper(categoryMapper) {
+        HttpGetter* getter, HttpPoster* poster, HttpPutter* putter,
+        CategoryMapper categoryMapper)
+        : getter(getter), poster(poster), putter(putter),
+          categoryMapper(categoryMapper) {
     }
 
     // These methods form the official Figshare API
@@ -44,9 +52,14 @@ public:
     // These methods are part of the "upload service", which is a separate API.
     // This doesn't need authentication.
     UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl);
+    PartPutResponse putUpload(UploadCommand uc);
+
+    string completeUpload(string uploadUrl);
 
 private:
     HttpGetter* getter;
     HttpPoster* poster;
+    HttpPutter* putter;
     CategoryMapper categoryMapper;
 };
+

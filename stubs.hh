@@ -3,6 +3,7 @@
 
 #include "http_poster.hh"
 #include "http_getter.hh"
+#include "http_putter.hh"
 #include "size_getter.hh"
 
 using std::string;
@@ -21,6 +22,17 @@ private:
 class StubHttpPoster : public HttpPoster {
 public:
     StubHttpPoster(string cannedResponse)
+        : cannedResponse(cannedResponse) {} 
+
+    string request(const string url, const string payload);
+
+private:
+    string cannedResponse;
+};
+
+class StubHttpPutter : public HttpPutter {
+public:
+    StubHttpPutter(string cannedResponse)
         : cannedResponse(cannedResponse) {} 
 
     string request(const string url, const string payload);

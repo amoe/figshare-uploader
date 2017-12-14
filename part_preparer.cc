@@ -16,7 +16,8 @@ UploadCommand PartPreparer::prepareUpload(
     std::cout << "will try end" << end << std::endl;
 
     std::vector<char> data = this->slicer->getDataSlice(
-        part.getStartOffset(), part.getEndOffset()
+        part.getStartOffset(),
+        part.getEndOffset() + 1   // XXX: NEEDS TEST FOR +1 ARG
     );
 
     return UploadCommand(url, data);

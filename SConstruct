@@ -61,6 +61,7 @@ env.Program(
         "upload_command.cc",
         "io_slicer.cc",
         "io_slicer_test.cc",
+        "http_putter.cc",
         "upload_command_processor.cc",
         "upload_command_processor_test.cc",
         "fake_qt_core_application.cc",
@@ -125,7 +126,8 @@ env.Program(
         "file_part.cc",
         "io_slicer.cc",
         "part_preparer.cc",
-        "upload_command.cc"
+        "upload_command.cc",
+        "http_putter.cc"
     ]
 )
 

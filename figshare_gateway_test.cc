@@ -6,14 +6,16 @@
 using ::testing::Eq;
 
 TEST(FigshareGatewayTest, ActsAsIExpect) {
-    HttpGetter* getter = new StubHttpGetter("");
+    HttpGetter* getter = new StubHttpGetter("You should not see this");
 
     HttpPoster* poster = new StubHttpPoster(
         raw_literals::fakeArticleCreationResponse
     );
+    HttpPutter* putter = new StubHttpPutter("You should also not see this");
+
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
     FigshareGateway* gateway = new HttpFigshareGateway(
-        getter, poster, categoryMapper
+        getter, poster, putter, categoryMapper
     );
     
     vector<string> keywords;

@@ -17,4 +17,8 @@ struct UploadCreationResponse {
     string location;
 };
 
+struct PartPutResponse {
+    PartPutResponse() { }
+};
+
 #endif // RESPONSES_HH
