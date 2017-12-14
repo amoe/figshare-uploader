@@ -41,6 +41,8 @@ http_poster = env.Object("http_poster.cc")
 env.Program(
     target='unit_tests',
     source=[
+        "file_info_test.cc",
+        "file_info.cc",
         "requests.cc",
         "figshare_gateway_test.cc",
         "figshare_gateway.cc",

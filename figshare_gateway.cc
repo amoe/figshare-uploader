@@ -44,10 +44,18 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
 
 FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     const string response = getter->request(uploadUrl);
+
+    std::cout << "RAW UPLOAD INFO:" << std::endl;
+    std::cout << "---- BEGIN ----" << std::endl;
+    std::cout << response << std::endl;
+    std::cout << "---- END ----" << std::endl;
     
     string fileName = fetchString(response, "name");
     string uploadUrlWithToken = fetchString(response, "upload_url");
     string id = fetchString(response, "id");
+
+    std::cout << "id is '" << id << "'" << std::endl;
+    std::cout << "fileName is '" << fileName << "'" << std::endl;
     FileInfo info(uploadUrlWithToken, fileName, std::stoi(id));
 
     return info;

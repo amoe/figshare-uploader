@@ -5,6 +5,24 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string serializedFileInfo = R"V0G0N(
+        {
+            "computed_md5": "",
+            "download_url": "https://ndownloader.figshare.com/files/9993997",
+            "id": 9993997,
+            "is_link_only": false,
+            "name": "pb_lc_bcr_c18980000-0004aa.tiff",
+            "preview_state": "preview_not_available",
+            "size": 23561500,
+            "status": "created",
+            "supplied_md5": "7b6a523ae2adc8ed0f55e7bb27f39ffc",
+            "upload_token": "af4a43ba-1253-4960-8d5a-8b3ed971e9e8",
+            "upload_url": "https://fup100010.figshare.com/upload/af4a43ba-1253-4960-8d5a-8b3ed971e9e8",
+            "viewer_type": ""
+        }
+    )V0G0N";
+
+
     const std::string serializedFilePartInfo = R"V0G0N(
         {
             "endOffset": 10485759,

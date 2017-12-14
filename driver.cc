@@ -99,11 +99,12 @@ int main(int argc, char **argv) {
         std::cout << "upload container url: " << response.location << std::endl;
 
 
-
+        // GETTING FILE INFO
 
         FileInfo info = gateway->getUploadInfo(response.location);
 
         std::cout << info.uploadContainerUrl << std::endl;
+        std::cout << "id from info is " << info.id << std::endl;
         
         UploadContainerInfo uci = gateway->getUploadContainerInfo(
             info.uploadContainerUrl
@@ -133,7 +134,7 @@ int main(int argc, char **argv) {
 
         }
 
-        string result = gateway->completeUpload(info.id);
+        //        string result = gateway->completeUpload();
         std::cout << result << std::endl;
             
         return 0;
