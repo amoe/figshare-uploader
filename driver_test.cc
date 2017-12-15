@@ -4,12 +4,44 @@
 #include "upload_command.hh"
 #include "driver.hh"
 #include "part_preparer.hh"
+#include "object_mother.hh"
 
 using namespace testing;
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {
 };
+
+// TEST_F(DriverTest, canHandleUpload) {
+//     string stemArticle;
+
+//     string md5;
+//     string name;
+//     int64_t size;
+//     UploadCreationRequest ucr(name, md5, size);
+
+//     MockPartPreparer partPreparer;
+//     MockFigshareGateway gateway;
+//     Driver driver(&gateway, &partPreparer);
+
+//     UploadCreationResponse response("http://www.some-location.com/");
+//     EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));
+
+//     string uploadContainerUrl;
+//     string fileName;
+//     int64_i
+//     FileInfo fileInfo();
+
+//     EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return())
+
+//     EXPECT_CALL(partPreparer, prepareUpload(_, _))
+//         .Times(Exactly(2));
+
+
+//     driver.handleUpload(stemArticle, ucr);
+
+
+// }
 
 TEST_F(DriverTest, canHandlePart) {
     // We want to check several interactions that are side effecting.
@@ -31,17 +63,13 @@ TEST_F(DriverTest, canHandlePart) {
 
     EXPECT_CALL(gateway, putUpload(_)).Times(AtLeast(1));
 
-    string uploadContainerUrl = "http://www.example.com/";
-    string fileName = "nonexistent.jpg";
-    int64_t id = 12345;
+    FileInfo sourceFile = ObjectMother::makeFileInfo();
 
     int partNumber = 1;
     int64_t startOffset = 10;
     int64_t endOffset = 20;
     bool isLocked = false;
     FilePartStatus status = FilePartStatus::PENDING;
-
-    FileInfo sourceFile(uploadContainerUrl, fileName, id);
     FilePart partSpec(partNumber, startOffset, endOffset, isLocked, status);
 
     driver.handlePart(sourceFile, partSpec);

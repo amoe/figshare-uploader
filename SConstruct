@@ -82,6 +82,7 @@ env.Program(
         "responses.cc",
         "driver_test.cc",
         "driver.cc",
+        "object_mother.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
