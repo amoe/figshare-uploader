@@ -6,12 +6,32 @@
 #include "part_preparer.hh"
 #include "object_mother.hh"
 #include "upload_container_info.hh"
+#include "excel_row.hh"
 
 using namespace testing;
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {
 };
+
+TEST_F(DriverTest, canHandleRow) {
+    MockPartPreparer partPreparer;
+    MockFigshareGateway gateway;
+    Driver driver(&gateway, &partPreparer);
+
+    vector<string> rowData = {
+    };
+
+    ExcelRow row(rowData);
+
+    // Set up expectations, because this row contains one file with exactly two
+    // pieces, we expect two PUTs to occur.
+    EXPECT_CALL(gateway, createUpload(_, _)).Times(Exactly(1));
+    EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
+    EXPECT_CALL(gateway, completeUpload(_, _)).Times(Exactly(1));
+
+    driver.handleRow(row);
+}
 
 TEST_F(DriverTest, canHandleUpload) {
     string stemArticle;

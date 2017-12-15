@@ -3,6 +3,10 @@
 #include "logging.hh"
 #include "file_info.hh"
 #include "file_part.hh"
+#include "excel_row.hh"
+
+void Driver::handleRow(const ExcelRow row) const {
+}
 
 void Driver::handleUpload(const string stemArticle, const UploadCreationRequest ucr) const {
     UploadCreationResponse response = gateway->createUpload(stemArticle, ucr);
