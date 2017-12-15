@@ -1,3 +1,4 @@
+#include <gmock/gmock.h>
 #include "responses.hh"
 #include "requests.hh"
 #include "http_poster.hh"
@@ -68,3 +69,19 @@ private:
     CategoryMapper categoryMapper;
 };
 
+class MockFigshareGateway : public FigshareGateway {
+public:
+    MOCK_METHOD1(createArticle, ArticleCreationResponse(ArticleCreationRequest request));
+    MOCK_METHOD2(
+        createUpload, 
+        UploadCreationResponse(string articleUrl, UploadCreationRequest request)
+    );
+    MOCK_METHOD1(getUploadInfo, FileInfo(string uploadUrl));
+    MOCK_METHOD1(
+        getUploadContainerInfo,
+        UploadContainerInfo(string uploadContainerUrl)
+    );
+    MOCK_METHOD1(putUpload, PartPutResponse(UploadCommand uc));
+    MOCK_METHOD2(completeUpload, string(int articleId, int uploadId));
+    MOCK_METHOD1(getArticle, ArticleGetResponse(string url));
+};
