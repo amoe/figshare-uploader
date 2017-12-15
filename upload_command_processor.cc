@@ -1,4 +1,3 @@
-#include "upload_command_processor.hh"
 #include <iostream>
 #include <QByteArray>
 #include <QString>
@@ -6,6 +5,8 @@
 #include <QNetworkRequest>
 #include <QEventLoop>
 #include <QNetworkReply>
+#include "upload_command_processor.hh"
+#include "logging.hh"
 
 // This is a ring adapter class for communication with http.
 // The thing to note is that this implements jbrains' ring idea, with the types
@@ -13,8 +14,7 @@
 // the ring.
 
 void UploadCommandProcessor::process(UploadCommand command) {
-    std::cout << "processing command" << std::endl;
-    std::cout << "url: "   << command.getUrl() << std::endl;
+    debugf("processing upload command, url = %s", command.getUrl().c_str());
 
     // Convert everything into QT-layer.  In reality this is just one QT-specific
     // adapter, we could also use cpp-netlib etc.
@@ -36,7 +36,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
         theData[i] = charVersion;
     }
 
-    std::cout << "size is now " << theData.size() << std::endl;
+    debugf("size is now %d", theData.size());
 
     // Not clear that this should be here.
     request.setHeader(
@@ -44,7 +44,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
         "application/octet-stream"
     );
 
-    std::cout << "sending" << std::endl;
+    debugf("sending upload");
 
     QNetworkReply* reply = manager.put(request, theData);
     QEventLoop waitLoop;
@@ -53,6 +53,8 @@ void UploadCommandProcessor::process(UploadCommand command) {
         reply, &QNetworkReply::finished, &waitLoop, &QEventLoop::quit
     );
     waitLoop.exec();
+
+    debugf("finished sending upload");
 
     std::cout << "finished" << std::endl;
 
