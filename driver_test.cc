@@ -49,38 +49,34 @@ public:
 //     driver.handleRow(row);
 // }
 
-// TEST_F(DriverTest, canHandleUpload) {
-//     string stemArticle;
+TEST_F(DriverTest, canHandleUpload) {
+    string stemArticle;
 
-//     string md5;
-//     string name;
-//     int64_t size;
-//     UploadCreationRequest ucr(name, md5, size);
+    string md5;
+    string name;
+    int64_t size;
+    UploadCreationRequest ucr(name, md5, size);
 
-//     MockPartPreparer partPreparer;
-//     MockFigshareGateway gateway;
-//     Driver driver(&gateway, &partPreparer);
+    UploadCreationResponse response("http://www.some-location.com/");
+    FileInfo fileInfo = ObjectMother::makeFileInfo();
+    UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
 
-//     UploadCreationResponse response("http://www.some-location.com/");
-//     FileInfo fileInfo = ObjectMother::makeFileInfo();
-//     UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
-
-//     string url;
-//     vector<char> data;
-//     UploadCommand emptyCommand(url, data);
+    string url;
+    vector<char> data;
+    UploadCommand emptyCommand(url, data);
 
 
-//     EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));
-//     EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return(fileInfo));
-//     EXPECT_CALL(gateway, getUploadContainerInfo(_))
-//      .WillOnce(Return(uploadContainerInfo));
-//     EXPECT_CALL(partPreparer, prepareUpload(_, _))
-//         .Times(Exactly(2))
-//         .WillRepeatedly(Return(emptyCommand));
+    EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));
+    EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return(fileInfo));
+    EXPECT_CALL(gateway, getUploadContainerInfo(_))
+     .WillOnce(Return(uploadContainerInfo));
+    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+        .Times(Exactly(2))
+        .WillRepeatedly(Return(emptyCommand));
 
-//     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
-//     driver.handleUpload(stemArticle, ucr);
-// }
+    EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
+    driver->handleUpload(stemArticle, ucr);
+}
 
 TEST_F(DriverTest, canHandlePart) {
     // We want to check several interactions that are side effecting.
