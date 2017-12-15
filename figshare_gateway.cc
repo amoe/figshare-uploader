@@ -76,7 +76,14 @@ PartPutResponse HttpFigshareGateway::putUpload(UploadCommand uc) {
     return result;
 }
 
-string HttpFigshareGateway::completeUpload(string uploadUrl) {
+string HttpFigshareGateway::completeUpload(int articleId, int uploadId) {
+    string uploadUrl = 
+        "https://api.figshare.com/v2/account/articles/" + std::to_string(articleId)
+        + "/files/" + std::to_string(uploadId);
+
+    // I assume that a payload of an empty string is equivalent to data=None in
+    // python-requests.
     const string response = poster->request(uploadUrl, "");
     return response;
 }
+

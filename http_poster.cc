@@ -41,6 +41,8 @@ string QtHttpPoster::request(const string url, const string payload) {
     QByteArray result = reply->readAll();
 
     auto error = reply->error();
+    qDebug() << error;
+    qDebug() << result;
     if (error != QNetworkReply::NoError) {
         qDebug() << result;
         throw std::runtime_error(

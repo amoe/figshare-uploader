@@ -78,10 +78,13 @@ int main(int argc, char **argv) {
 
         string stemArticle = articleCreateResponse.location;
 
-
-
         std::cout << stemArticle << std::endl;
 
+        // Now we get the info on the newly-created article.
+
+        ArticleGetResponse articleData = gateway->getArticle(stemArticle);
+
+        int articleId = articleData.id;
 
         string relationField = row.at(15);
 
@@ -108,6 +111,8 @@ int main(int argc, char **argv) {
         FileInfo info = gateway->getUploadInfo(response.location);
 
         std::cout << info.uploadContainerUrl << std::endl;
+        
+        int uploadId = info.id;
         std::cout << "id from info is " << info.id << std::endl;
         
         UploadContainerInfo uci = gateway->getUploadContainerInfo(
@@ -138,7 +143,9 @@ int main(int argc, char **argv) {
 
         }
 
-        //        string result = gateway->completeUpload();
+        std::cout << "Completing request: articleId=" << articleId
+                  << ", uploadId=" << uploadId << std::endl;
+        string result = gateway->completeUpload(articleId, uploadId);
         std::cout << result << std::endl;
             
         return 0;

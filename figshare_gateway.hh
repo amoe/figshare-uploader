@@ -28,7 +28,7 @@ public:
     ) = 0;
 
     virtual PartPutResponse putUpload(UploadCommand uc) = 0;
-    virtual string completeUpload(string uploadUrl) = 0;
+    virtual string completeUpload(int articleId, int uploadId) = 0;
 
     virtual ArticleGetResponse getArticle(string url) = 0;
 
@@ -56,7 +56,7 @@ public:
     UploadContainerInfo getUploadContainerInfo(string uploadContainerUrl);
     PartPutResponse putUpload(UploadCommand uc);
 
-    string completeUpload(string uploadUrl);
+    string completeUpload(int articleId, int uploadId);
 
     ArticleGetResponse getArticle(string url);
 
