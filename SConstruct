@@ -113,9 +113,9 @@ env.Program(
 # )
 
 env.Program(
-    target='driver',
+    target='driver_demo',
     source=[
-        "driver.cc",
+        "driver_demo.cc",
         "xlsx.cc",
         "article_type_mapper.cc",
         "requests.cc",
