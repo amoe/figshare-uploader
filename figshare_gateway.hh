@@ -1,3 +1,6 @@
+#ifndef FIGSHARE_GATEWAY_HH
+#define FIGSHARE_GATEWAY_HH
+
 #include <gmock/gmock.h>
 #include "responses.hh"
 #include "requests.hh"
@@ -85,3 +88,5 @@ public:
     MOCK_METHOD2(completeUpload, string(int articleId, int uploadId));
     MOCK_METHOD1(getArticle, ArticleGetResponse(string url));
 };
+
+#endif // FIGSHARE_GATEWAY_HH

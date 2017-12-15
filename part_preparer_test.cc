@@ -7,7 +7,7 @@ using ::testing::Eq;
 
 TEST(PartPreparerTest, ActsAsIExpect) {
     IOSlicer *slicer = new FileSlicer("lena.jpg");
-    PartPreparer preparer(slicer);
+    PartPreparerImpl preparer(slicer);
     FileInfo fileInfo("http://my-site.com/my-token", "lena.jpg", 1);
 
     FilePart filePart(

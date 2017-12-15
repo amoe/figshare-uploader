@@ -81,6 +81,7 @@ env.Program(
         "responses_test.cc",
         "responses.cc",
         "driver_test.cc",
+        "driver.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
@@ -113,47 +114,47 @@ env.Program(
 #     source=['category_demo.cc']
 # )
 
-env.Program(
-    target='driver_demo',
-    source=[
-        "driver_demo.cc",
-        "xlsx.cc",
-        "article_type_mapper.cc",
-        "requests.cc",
-        "article_mapper.cc",
-        "utility.cc",
-        "http_poster.cc",
-        "figshare_gateway.cc",
-        "http_getter.cc",
-        "category_mapper.cc",
-        "size_getter.cc",
-        "upload_container_info.cc",
-        "file_part.cc",
-        "io_slicer.cc",
-        "part_preparer.cc",
-        "upload_command.cc",
-        "http_putter.cc",
-        "file_info.cc",
-        "responses.cc"
-    ]
-)
+# env.Program(
+#     target='driver_demo',
+#     source=[
+#         "driver_demo.cc",
+#         "xlsx.cc",
+#         "article_type_mapper.cc",
+#         "requests.cc",
+#         "article_mapper.cc",
+#         "utility.cc",
+#         "http_poster.cc",
+#         "figshare_gateway.cc",
+#         "http_getter.cc",
+#         "category_mapper.cc",
+#         "size_getter.cc",
+#         "upload_container_info.cc",
+#         "file_part.cc",
+#         "io_slicer.cc",
+#         "part_preparer.cc",
+#         "upload_command.cc",
+#         "http_putter.cc",
+#         "file_info.cc",
+#         "responses.cc"
+#     ]
+# )
 
 
 
-env.Program(
-    target='test_logging',
-    source=[
-        "test_logging.cc",
-        "logging.cc"
-    ]
-)
+# env.Program(
+#     target='test_logging',
+#     source=[
+#         "test_logging.cc",
+#         "logging.cc"
+#     ]
+# )
 
 
 
-env.Program(
-    target='mock_demo',
-    source=[
-        'mock_demo.cc',
-        test_harness, gtest, gmock
-    ]
-)
+# env.Program(
+#     target='mock_demo',
+#     source=[
+#         'mock_demo.cc',
+#         test_harness, gtest, gmock
+#     ]
+# )

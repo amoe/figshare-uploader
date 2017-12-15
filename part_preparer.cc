@@ -2,7 +2,7 @@
 #include "part_preparer.hh"
 #include "logging.hh"
 
-UploadCommand PartPreparer::prepareUpload(
+UploadCommand PartPreparerImpl::prepareUpload(
     const FileInfo info, const FilePart part
 ) {
     std::string fileName = info.fileName;
