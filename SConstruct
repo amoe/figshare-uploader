@@ -55,6 +55,7 @@ env.Program(
         "stubs.cc",
         "view.cc",
         "md5_test.cc",
+        "file_spec_generator.cc",
         "mapper_test.cc",
         "xlsx_test.cc",
         "part_preparer_test.cc",

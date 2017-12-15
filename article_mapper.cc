@@ -18,7 +18,7 @@ using std::string;
 using std::map;
 
 
-string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
+string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     QJsonObject object;
     QJsonValue titleVal(QString::fromStdString(request.getTitle()));
     QJsonValue descriptionVal(QString::fromStdString(request.getDescription()));
@@ -77,13 +77,13 @@ string ArticleMapper::mapToFigshare(const ArticleCreationRequest request) {
     return result.toStdString();
 }
 
-QJsonValue ArticleMapper::mapType(ArticleType type) {
+QJsonValue ArticleMapperImpl::mapType(ArticleType type) {
     return QJsonValue(
         QString::fromStdString(typeMapper.toFigshare(type))
     );
 }
 
-ArticleCreationRequest ArticleMapper::mapFromExcel(const vector<string> excelRow) {
+ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
     string title = excelRow.at(0);
     string description = excelRow.at(5);
 

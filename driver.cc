@@ -6,6 +6,15 @@
 #include "excel_row.hh"
 
 void Driver::handleRow(const ExcelRow row) const {
+    ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
+    ArticleCreationResponse response = gateway->createArticle(acr);
+    string stemArticle = response.location;
+    ArticleGetResponse articleData = gateway->getArticle(stemArticle);
+
+    // XXX: Looping logic will one day go here.
+    string relationField = row.rowData.at(15);
+    UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(relationField);
+    handleUpload(stemArticle, ucr);
 }
 
 void Driver::handleUpload(const string stemArticle, const UploadCreationRequest ucr) const {

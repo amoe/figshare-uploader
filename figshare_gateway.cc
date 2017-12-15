@@ -21,7 +21,7 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     ArticleCreationRequest request
 ) {
     ArticleTypeMapper typeMapper;
-    ArticleMapper mapper(typeMapper, categoryMapper);
+    ArticleMapperImpl mapper(typeMapper, categoryMapper);
 
     const string url = "https://api.figshare.com/v2/account/articles";
     const string payload = mapper.mapToFigshare(request);

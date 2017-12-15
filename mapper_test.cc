@@ -18,7 +18,7 @@ using ::testing::EndsWith;
 TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
 
     // fill up the whole row with blanks
@@ -38,7 +38,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
 
     // fill up the whole row with blanks
@@ -55,7 +55,7 @@ TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
 
     // fill up the whole row with blanks
@@ -75,7 +75,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
     vector<string> row = {
         "To Serve Man",
@@ -165,7 +165,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
 
     string serializedResult = myMapper.mapToFigshare(request);
@@ -206,7 +206,7 @@ TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
     
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapper myMapper(typeMapper, categoryMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
     string serializedResult = myMapper.mapToFigshare(request);
 
