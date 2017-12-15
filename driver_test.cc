@@ -5,6 +5,7 @@
 #include "driver.hh"
 #include "part_preparer.hh"
 #include "object_mother.hh"
+#include "upload_container_info.hh"
 
 using namespace testing;
 
@@ -12,36 +13,38 @@ using namespace testing;
 class DriverTest : public Test {
 };
 
-// TEST_F(DriverTest, canHandleUpload) {
-//     string stemArticle;
+TEST_F(DriverTest, canHandleUpload) {
+    string stemArticle;
 
-//     string md5;
-//     string name;
-//     int64_t size;
-//     UploadCreationRequest ucr(name, md5, size);
+    string md5;
+    string name;
+    int64_t size;
+    UploadCreationRequest ucr(name, md5, size);
 
-//     MockPartPreparer partPreparer;
-//     MockFigshareGateway gateway;
-//     Driver driver(&gateway, &partPreparer);
+    MockPartPreparer partPreparer;
+    MockFigshareGateway gateway;
+    Driver driver(&gateway, &partPreparer);
 
-//     UploadCreationResponse response("http://www.some-location.com/");
-//     EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));
+    UploadCreationResponse response("http://www.some-location.com/");
+    FileInfo fileInfo = ObjectMother::makeFileInfo();
+    UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
 
-//     string uploadContainerUrl;
-//     string fileName;
-//     int64_i
-//     FileInfo fileInfo();
-
-//     EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return())
-
-//     EXPECT_CALL(partPreparer, prepareUpload(_, _))
-//         .Times(Exactly(2));
+    string url;
+    vector<char> data;
+    UploadCommand emptyCommand(url, data);
 
 
-//     driver.handleUpload(stemArticle, ucr);
+    EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));
+    EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return(fileInfo));
+    EXPECT_CALL(gateway, getUploadContainerInfo(_))
+     .WillOnce(Return(uploadContainerInfo));
+    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+        .Times(Exactly(2))
+        .WillRepeatedly(Return(emptyCommand));
 
-
-// }
+    EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
+    driver.handleUpload(stemArticle, ucr);
+}
 
 TEST_F(DriverTest, canHandlePart) {
     // We want to check several interactions that are side effecting.
@@ -64,13 +67,7 @@ TEST_F(DriverTest, canHandlePart) {
     EXPECT_CALL(gateway, putUpload(_)).Times(AtLeast(1));
 
     FileInfo sourceFile = ObjectMother::makeFileInfo();
-
-    int partNumber = 1;
-    int64_t startOffset = 10;
-    int64_t endOffset = 20;
-    bool isLocked = false;
-    FilePartStatus status = FilePartStatus::PENDING;
-    FilePart partSpec(partNumber, startOffset, endOffset, isLocked, status);
+    FilePart partSpec = ObjectMother::makeFilePart(1);
 
     driver.handlePart(sourceFile, partSpec);
     

@@ -11,8 +11,8 @@ void Driver::handleUpload(const string stemArticle, const UploadCreationRequest 
         fileInfo.uploadContainerUrl
     );
 
-    for (FilePart partSpec : uci.parts) {
-        handlePart(fileInfo, partSpec);
+    for (FilePart part : uci.parts) {
+        handlePart(fileInfo, part);
     }
 }
 
