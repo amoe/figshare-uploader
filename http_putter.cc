@@ -11,6 +11,7 @@
 #include <QString>
 #include <QDebug>
 #include "http_putter.hh"
+#include "logging.hh"
 
 using std::string;
 
@@ -21,7 +22,7 @@ using std::string;
 // http://code.qt.io/cgit/qt/qtbase.git/tree/src/network/access/qhttpthreaddelegate.cpp?h=dev
 
 string QtHttpPutter::request(const string url, const string payload) {
-    qDebug() << "payload size in putter is " << payload.size();
+    debugf("payload size in putter is %d", payload.size());
     
     QEventLoop waitLoop;
     QUrl endpoint(QString::fromStdString(url));
@@ -52,7 +53,7 @@ string QtHttpPutter::request(const string url, const string payload) {
     // beast entirely.
     QByteArray content =  QByteArray::fromStdString(payload);
 
-    std::cout << "Content size just before sending is " << content.size() << std::endl;
+    debugf("content size just before sending is %d", content.size());
 
     QNetworkReply* reply = manager.put(request, content);
 
