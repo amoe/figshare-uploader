@@ -2,7 +2,7 @@
 
 using ::testing::Eq;
 
-TEST(MyComponent, ActsAsIExpect) {
+TEST(DriverTest, ActsAsIExpect) {
     ASSERT_THAT(2 + 2, Eq(4));
 }
 

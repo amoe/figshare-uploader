@@ -149,3 +149,11 @@ env.Program(
 )
 
 
+
+env.Program(
+    target='mock_demo',
+    source=[
+        'mock_demo.cc',
+        test_harness, gtest, gmock
+    ]
+)
