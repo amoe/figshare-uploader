@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <QNetworkAccessManager>
 #include <QUrl>
@@ -40,7 +41,19 @@ string QtHttpPutter::request(const string url, const string payload) {
 
     // request.setRawHeader(QByteArray("Authorization"), authorizationValue);
 
-    QByteArray content =  QString::fromStdString(payload).toUtf8();
+    // !!!
+    // Note that in the other HTTP access classes, we are deserializing payload
+    // from UTF-8, because it is string data.  We can NOT do this here, because
+    // this must be posted as binary.
+
+    // If you create this byte array using a QString function, it will result in
+    // MD5 failures on the server end, leading to a file status of `ic_failure`,
+    // because while std::string is just a sequence of bytes, QString is another
+    // beast entirely.
+    QByteArray content =  QByteArray::fromStdString(payload);
+
+    std::cout << "Content size just before sending is " << content.size() << std::endl;
+
     QNetworkReply* reply = manager.put(request, content);
 
     QObject::connect(reply, &QNetworkReply::finished, &waitLoop, &QEventLoop::quit);

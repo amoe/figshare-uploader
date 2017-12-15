@@ -69,6 +69,7 @@ UploadContainerInfo HttpFigshareGateway::getUploadContainerInfo(
 PartPutResponse HttpFigshareGateway::putUpload(UploadCommand uc) {
     vector<char> buffer = uc.getData();
     string payload(buffer.begin(), buffer.end());
+
     
     const string response = putter->request(uc.getUrl(), payload);
     PartPutResponse result;
