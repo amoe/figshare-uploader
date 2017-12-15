@@ -13,9 +13,21 @@ using namespace testing;
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {
+public:
+    DriverTest() {
+        driver = new Driver(
+            &gateway, &partPreparer, &fileSpecGenerator, &articleMapper
+        );
+    }
+
+    // These must be public.
+    MockPartPreparer partPreparer;
+    MockFigshareGateway gateway;
+    MockFileSpecGenerator fileSpecGenerator;
+    MockArticleMapper articleMapper;
+    Driver* driver;
 };
 
-// TEST_F(DriverTest, canHandleRow) {
 //     MockPartPreparer partPreparer;
 //     MockFigshareGateway gateway;
 //     MockFileSpecGenerator fileSpecGenerator;
@@ -76,13 +88,6 @@ TEST_F(DriverTest, canHandlePart) {
     // by this code.
     // Luckily, FigshareGateway is already an interface.
 
-    MockPartPreparer partPreparer;
-    MockFigshareGateway gateway;
-    MockFileSpecGenerator fileSpecGenerator;
-    MockArticleMapper articleMapper;
-    Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
-
-
     string url;
     vector<char> data;
     UploadCommand emptyCommand(url, data);
@@ -96,7 +101,7 @@ TEST_F(DriverTest, canHandlePart) {
     FileInfo sourceFile = ObjectMother::makeFileInfo();
     FilePart partSpec = ObjectMother::makeFilePart(1);
 
-    driver.handlePart(sourceFile, partSpec);
+    driver->handlePart(sourceFile, partSpec);
     
     ASSERT_THAT(2 + 2, Eq(4));
 }
