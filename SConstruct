@@ -138,3 +138,13 @@ env.Program(
 )
 
 
+
+env.Program(
+    target='test_logging',
+    source=[
+        "test_logging.cc",
+        "logging.cc"
+    ]
+)
+
+

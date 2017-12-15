@@ -1,4 +1,5 @@
 #include <iostream>
+#include "logging.hh"
 #include "figshare_gateway.hh"
 #include "http_poster.hh"
 #include "requests.hh"
@@ -50,10 +51,10 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
 FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     const string response = getter->request(uploadUrl);
 
-    std::cout << "RAW UPLOAD INFO:" << std::endl;
-    std::cout << "---- BEGIN ----" << std::endl;
-    std::cout << response << std::endl;
-    std::cout << "---- END ----" << std::endl;
+    debugf("RAW UPLOAD INFO");
+    debugf("---- BEGIN ----");
+    debugf("%s", response);
+    debugf("---- END   ----");
     
     return FileInfo::fromJson(response);;
 }
