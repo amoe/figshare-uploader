@@ -1,6 +1,7 @@
 #include <iostream>
 #include "presenter.hh"
+#include "logging.hh"
 
 void Presenter::someSlot() {
-    std::cout << "called" << std::endl;
+    debugf("presenter slot was called");
 }

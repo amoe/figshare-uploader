@@ -1,5 +1,6 @@
 #include <iostream>
 #include "part_preparer.hh"
+#include "logging.hh"
 
 UploadCommand PartPreparer::prepareUpload(
     const FileInfo info, const FilePart part
@@ -12,8 +13,8 @@ UploadCommand PartPreparer::prepareUpload(
     int64_t start = part.getStartOffset();
     int64_t end = part.getEndOffset();
 
-    std::cout << "will try start" << start << std::endl;
-    std::cout << "will try end" << end << std::endl;
+    debugf("will try start: %d", start);
+    debugf("will try end: %d", end);
 
     std::vector<char> data = this->slicer->getDataSlice(
         part.getStartOffset(),

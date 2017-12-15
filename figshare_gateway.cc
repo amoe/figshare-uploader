@@ -53,7 +53,7 @@ FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
 
     debugf("RAW UPLOAD INFO");
     debugf("---- BEGIN ----");
-    debugf("%s", response);
+    debugf("%s", response.c_str());
     debugf("---- END   ----");
     
     return FileInfo::fromJson(response);;
