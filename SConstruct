@@ -80,6 +80,7 @@ env.Program(
         "file_part_test.cc",
         "responses_test.cc",
         "responses.cc",
+        "driver_test.cc",
         utility,
         test_harness, test_utility, gtest, gmock
     ]
