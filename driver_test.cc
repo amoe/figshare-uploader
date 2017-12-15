@@ -21,6 +21,14 @@ TEST_F(DriverTest, canHandlePart) {
     MockFigshareGateway gateway;
     Driver driver(&gateway, &partPreparer);
 
+    string url;
+    vector<char> data;
+    UploadCommand emptyCommand(url, data);
+    
+
+    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+      .WillOnce(Return(emptyCommand));
+
     EXPECT_CALL(gateway, putUpload(_)).Times(AtLeast(1));
 
     string uploadContainerUrl = "http://www.example.com/";
