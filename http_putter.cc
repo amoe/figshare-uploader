@@ -51,7 +51,10 @@ string QtHttpPutter::request(const string url, const string payload) {
     // MD5 failures on the server end, leading to a file status of `ic_failure`,
     // because while std::string is just a sequence of bytes, QString is another
     // beast entirely.
-    QByteArray content =  QByteArray::fromStdString(payload);
+
+    // This function is in Qt core, as QByteArray::fromStdString (since 5.4).
+    // However, we need to support Qt 5.2 due to the Trusty CI server.
+    QByteArray content(payload.data(), int(payload.size()));
 
     debugf("content size just before sending is %d", content.size());
 
