@@ -28,6 +28,7 @@ public:
     Driver* driver;
 };
 
+// This will form the test for the row handler code
 //     MockPartPreparer partPreparer;
 //     MockFigshareGateway gateway;
 //     MockFileSpecGenerator fileSpecGenerator;
@@ -45,7 +46,7 @@ public:
 //     EXPECT_CALL(gateway, createUpload(_, _)).Times(Exactly(1));
 //     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
 //     EXPECT_CALL(gateway, completeUpload(_, _)).Times(Exactly(1));
-
+//
 //     driver.handleRow(row);
 // }
 

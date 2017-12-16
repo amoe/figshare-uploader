@@ -122,15 +122,16 @@ class _Automoc:
     """
 
     def __init__(self, objBuilderName):
+        print("Inside automoccer")
         self.objBuilderName = objBuilderName
         # some regular expressions:
         # Q_OBJECT detection
-        self.qo_search = re.compile(r'[^A-Za-z0-9]Q_OBJECT[^A-Za-z0-9]')
+        self.qo_search = re.compile(br'[^A-Za-z0-9]Q_OBJECT[^A-Za-z0-9]')
         # cxx and c comment 'eater'
-        self.ccomment = re.compile(r'/\*(.*?)\*/',re.S)
-        self.cxxcomment = re.compile(r'//.*$',re.M)
+        self.ccomment = re.compile(br'/\*(.*?)\*/',re.S)
+        self.cxxcomment = re.compile(br'//.*$',re.M)
         # we also allow Q_OBJECT in a literal string
-        self.literal_qobject = re.compile(r'"[^\n]*Q_OBJECT[^\n]*"')
+        self.literal_qobject = re.compile(br'"[^\n]*Q_OBJECT[^\n]*"')
         
     def create_automoc_options(self, env):
         """
@@ -183,6 +184,8 @@ class _Automoc:
         If a Q_OBJECT macro is also found in the cpp/cxx itself,
         it gets MOCed too.
         """
+
+        print("Inside simple strategy")
         
         h=None
         for h_ext in header_extensions:
@@ -209,7 +212,16 @@ class _Automoc:
             
             # Now, check whether the corresponding CPP file
             # includes the moc'ed output directly...
-            inc_moc_cpp = r'^\s*#\s*include\s+"%s"' % str(moc_cpp[0])
+
+            # The problem is
+            # cpp_contents is the full contents of the source which is quite
+            # likely to be utf8 (non-ascii)
+            # The filename is less likely to be utf8 therefore we make the
+            # pragmatic choice of decoding the filename as utf8
+
+            b_moc_cpp = str(moc_cpp[0]).encode('utf-8')
+            inc_moc_cpp = br'^\s*#\s*include\s+"' + b_moc_cpp + br'"'
+
             if cpp and re.search(inc_moc_cpp, cpp_contents, re.M):
                 if moc_options['debug']:
                     print("scons: qt5: CXX file '%s' directly includes the moc'ed output '%s', no compiling required" % (str(cpp), str(moc_cpp)))
@@ -309,6 +321,7 @@ class _Automoc:
         Smart autoscan function. Gets the list of objects for the Program
         or Lib. Adds objects and builders for the special qt5 files.
         """
+        print("Inside emitter callable")
         moc_options = self.create_automoc_options(env)
         
         # some shortcuts used in the scanner
@@ -326,6 +339,8 @@ class _Automoc:
         # make a deep copy for the result; MocH objects will be appended
         out_sources = source[:]
 
+        print("Moc options are: ", moc_options)
+        print("About to loop")
         for obj in source:
             if not moc_options['auto_scan']:
                 break
@@ -344,13 +359,19 @@ class _Automoc:
                 # c or fortran source
                 continue
             try:
+                print("Inside try block")
                 cpp_contents = cpp.get_contents()
                 if moc_options['gobble_comments']:
                     cpp_contents = self.ccomment.sub('', cpp_contents)
                     cpp_contents = self.cxxcomment.sub('', cpp_contents)
                 cpp_contents = self.literal_qobject.sub('""', cpp_contents)
-            except: continue # may be an still not generated source
+            except Exception as e: 
+                # DO NOT FUCKING SWALLOW EXCEPTIONS
+                print("Inside except", e)
+                continue # may be an still not generated source
             
+            print("Er?")
+
             if moc_options['auto_scan_strategy'] == 0:
                 # Default Automoc strategy (Q_OBJECT driven)
                 self.__automoc_strategy_simple(env, moc_options,
@@ -840,10 +861,11 @@ def generate(env):
     # We can't refer to the builders directly, we have to fetch them
     # as Environment attributes because that sets them up to be called
     # correctly later by our emitter.
-    env.AppendUnique(PROGEMITTER =[AutomocStatic],
-                     SHLIBEMITTER=[AutomocShared],
-                     LIBEMITTER  =[AutomocStatic],
-                    )
+    env.AppendUnique(
+        PROGEMITTER =[AutomocStatic],
+        SHLIBEMITTER=[AutomocShared],
+        LIBEMITTER  =[AutomocStatic],
+    )
 
     # TODO: Does dbusxml2cpp need an adapter
     try:

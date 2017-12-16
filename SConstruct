@@ -16,7 +16,6 @@ env = Environment(
     tools=['default', 'qt5'],
     QT5DIR='/usr',
     CPPPATH=googletest_include_paths,
-    
 )
 env['QT5_DEBUG'] = 1
 env['ENV']['TERM'] = os.environ['TERM']
@@ -29,6 +28,10 @@ env.Append(
         'xlnt'
     ]
 )
+
+print("Prog emitter:", env['PROGEMITTER'])
+print("Program is" + repr(env['BUILDERS']['Program'].emitter))
+
 
 gtest = env.Object(gtest_all_path)
 gmock = env.Object(gmock_all_path)
