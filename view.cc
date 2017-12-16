@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QString>
 #include <QGridLayout>
+#include <QDebug>
 #include <QPushButton>
 #include "view.hh"
 #include "presenter.hh"
@@ -11,16 +12,27 @@ void myFunction() {
     qDebug() << "just a normal function";
 }
 
+
+typedef void (Presenter::*PresenterSlot)(); //MyTypedef is a type!
+
 // This is the long way round of writing a lambda expression.  Note the double
 // parens to overload application.
 class SlotAdapter {
 public:
+    SlotAdapter(Presenter* p, PresenterSlot f) : p(p), f(f) { }
+
     void operator()() const {
-        qDebug() << "within the functor";
+        // Call member function through the provided function pointer
+        (p->*f)();
     }
+
+    Presenter* p;
+    PresenterSlot f;
 };
 
-View::View(Presenter presenter) : QWidget(0, Qt::Window), presenter(presenter) {
+ViewImpl::ViewImpl() : QWidget(0, Qt::Window) {
+    presenter = new PresenterImpl(this);
+    
     // layout MUST be allocated on the heap here, if it goes out of scope, it
     // will simply stop layout out the widgets properly!
     // But, I think that we don't need to clean it up because the QWidget
@@ -35,17 +47,16 @@ View::View(Presenter presenter) : QWidget(0, Qt::Window), presenter(presenter) {
 
     setLayout(layout);
 
-    SlotAdapter slotAdapter;
+    SlotAdapter slotAdapter(presenter, &Presenter::someSlot);
 
-    // connect(
-    //     this->actionButton,
-    //     &QPushButton::released,
-    //     &presenter,
-    //     &Presenter::someSlot
-    // );
+    connect(
+        this->actionButton,
+        &QPushButton::released,
+        slotAdapter
+    );
 }
 
-std::string View::getSelectedFile() const {
+std::string ViewImpl::getSelectedFile() const {
     QString content = selectedFile->text();
     return content.toStdString();
 }

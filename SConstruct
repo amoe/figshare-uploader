@@ -56,7 +56,6 @@ env.Program(
         "category_test.cc",
         "category_mapper.cc",
         "stubs.cc",
-        "view.cc",
         "md5_test.cc",
         "file_spec_generator.cc",
         "mapper_test.cc",

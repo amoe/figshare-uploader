@@ -1,19 +1,24 @@
+#ifndef VIEW_HH
+#define VIEW_HH
+
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
 #include <QLineEdit>
-#include "presenter.hh"
+#include "interfaces.hh"
 
-class View : public QWidget {
+class ViewImpl : public QWidget, public View {
     Q_OBJECT
 
 public:
-    View(Presenter presenter);
+    ViewImpl();
 
     std::string getSelectedFile() const;
 
 private:
-    Presenter presenter;
+    Presenter* presenter;
     QLineEdit* selectedFile;
     QPushButton* actionButton;
 };
+
+#endif // VIEW_HH

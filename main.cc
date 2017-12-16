@@ -4,10 +4,9 @@
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
-    Presenter presenter;
-    View view(presenter);
+    ViewImpl* view = new ViewImpl;
 
-    view.show();
+    view->show();
 
     return app.exec();
 }
