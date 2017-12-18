@@ -4,6 +4,20 @@
 using nonstd::optional;
 using nonstd::nullopt;
 
+
+UploadCommand ObjectMother::makeUploadCommand() {
+    string url;
+    vector<char> data;
+    UploadCommand command(url, data);
+
+    return command;
+}
+
+UploadCreationResponse ObjectMother::makeUploadCreationResponse() {
+    UploadCreationResponse response("http://www.some-location.com/");
+    return response;
+}
+
 UploadCreationRequest ObjectMother::makeUploadCreationRequest() {
     string md5;
     string name;

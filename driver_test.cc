@@ -57,21 +57,39 @@ TEST_F(DriverTest, canHandleRow) {
     // pieces, we expect two PUTs to occur.
 
     ArticleCreationRequest acr = ObjectMother::makeArticleCreationRequest();
-    ArticleCreationResponse response = ObjectMother::makeArticleCreationResponse();
+    ArticleCreationResponse aResponse = ObjectMother::makeArticleCreationResponse();
     ArticleGetResponse agr = ObjectMother::makeArticleGetResponse();
+    UploadCreationRequest ucr = ObjectMother::makeUploadCreationRequest();
+    UploadCreationResponse uResponse = ObjectMother::makeUploadCreationResponse();
+    FileInfo fileInfo = ObjectMother::makeFileInfo();
+    UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
+    UploadCommand emptyCommand = ObjectMother::makeUploadCommand();
 
     EXPECT_CALL(articleMapper, mapFromExcel(_))
         .WillOnce(Return(acr));
 
     EXPECT_CALL(gateway, createArticle(_))
-        .WillOnce(Return(response));
+        .WillOnce(Return(aResponse));
 
     EXPECT_CALL(gateway, getArticle(_))
         .WillOnce(Return(agr));
 
-    // EXPECT_CALL(fileSpecGenerator, getFileSpec(_))
-    //     .WillOnce(Return(agr));
+    EXPECT_CALL(fileSpecGenerator, getFileSpec(_))
+        .WillOnce(Return(ucr));
 
+    EXPECT_CALL(gateway, createUpload(_, _))
+        .WillOnce(Return(uResponse));
+
+    EXPECT_CALL(gateway, getUploadInfo(_))
+        .WillOnce(Return(fileInfo));
+
+    EXPECT_CALL(gateway, getUploadContainerInfo(_))
+      .WillOnce(Return(uploadContainerInfo));
+
+    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+        .Times(Exactly(2))
+        .WillRepeatedly(Return(emptyCommand));
+    EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
 
     driver->handleRow(row);
 }
@@ -80,14 +98,10 @@ TEST_F(DriverTest, canHandleUpload) {
     string stemArticle;
 
     UploadCreationRequest ucr = ObjectMother::makeUploadCreationRequest();
-
-    UploadCreationResponse response("http://www.some-location.com/");
+    UploadCreationResponse response = ObjectMother::makeUploadCreationResponse();
     FileInfo fileInfo = ObjectMother::makeFileInfo();
     UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
-
-    string url;
-    vector<char> data;
-    UploadCommand emptyCommand(url, data);
+    UploadCommand emptyCommand = ObjectMother::makeUploadCommand();
 
 
     EXPECT_CALL(gateway, createUpload(_, _)).WillOnce(Return(response));

@@ -5,6 +5,7 @@
 #include "upload_container_info.hh"
 #include "requests.hh"
 #include "responses.hh"
+#include "upload_command.hh"
 
 class ObjectMother {
 public:
@@ -15,6 +16,8 @@ public:
     static UploadContainerInfo makeUploadContainerInfo(int nParts);
     static FilePart makeFilePart(int i);
     static UploadCreationRequest makeUploadCreationRequest();
+    static UploadCreationResponse makeUploadCreationResponse();
+    static UploadCommand makeUploadCommand();
 };
 
 #endif // OBJECT_MOTHER_HH
