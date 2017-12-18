@@ -24,7 +24,6 @@ int main(int argc, char **argv) {
     QtHttpPoster httpPoster(token);
     QtHttpPutter httpPutter(token);
     QtSizeGetter sizeGetter;
-    FileSlicer ioSlicer = FileSlicer("/etc/passwd"); // this is a big problem
 
     debugf("loading categories");
     string result = httpGetter.request("https://api.figshare.com/v2/categories");
@@ -33,7 +32,7 @@ int main(int argc, char **argv) {
 
     ArticleTypeMapper typeMapper;
     HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper);
-    PartPreparerImpl partPreparer(&ioSlicer);
+    PartPreparerImpl partPreparer;
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
     ArticleMapperImpl articleMapper(typeMapper, categoryMapper);
 

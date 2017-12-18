@@ -5,7 +5,6 @@
 #include "upload_command.hh"
 #include "file_part.hh"
 #include "file_info.hh"
-#include "io_slicer.hh"
 
 class PartPreparer {
 public:
@@ -17,11 +16,11 @@ public:
 
 class PartPreparerImpl : public PartPreparer {
 public:
-    PartPreparerImpl(IOSlicer* slicer) : slicer(slicer) { }
+    PartPreparerImpl() { }
     UploadCommand prepareUpload(const FileInfo info, const FilePart part);
 
 private:
-    IOSlicer *slicer;
+    vector<char> getDataSlice(string filePath, int64_t startOffset, int64_t endOffset);
 };
 
 class MockPartPreparer : public PartPreparer {

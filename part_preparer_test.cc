@@ -1,13 +1,12 @@
 #include <gmock/gmock.h>
 #include "file_info.hh"
-#include "io_slicer.hh"
 #include "part_preparer.hh"
 
 using ::testing::Eq;
 
+// nb this is an integration test
 TEST(PartPreparerTest, ActsAsIExpect) {
-    IOSlicer *slicer = new FileSlicer("lena.jpg");
-    PartPreparerImpl preparer(slicer);
+    PartPreparerImpl preparer;
     FileInfo fileInfo("http://my-site.com/my-token", "lena.jpg", 1);
 
     FilePart filePart(
