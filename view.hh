@@ -13,7 +13,8 @@ class ViewImpl : public QWidget, public View {
 public:
     ViewImpl(Presenter* presenter);
 
-    std::string getSelectedFile() const;
+    std::string getSelectedFile();
+    void reportError(std::string errorText);
 
 private:
     Presenter* presenter;

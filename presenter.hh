@@ -10,7 +10,7 @@ public:
         this->view = NULL;
     }
 
-    void someSlot();
+    void startUpload();
     void uploadFinished(string value);
     void setView(View* view);
 

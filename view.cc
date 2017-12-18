@@ -5,9 +5,11 @@
 #include <QGridLayout>
 #include <QDebug>
 #include <QPushButton>
+#include <QMessageBox>
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
+
 
 ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(presenter) {
     // layout MUST be allocated on the heap here, if it goes out of scope, it
@@ -24,7 +26,7 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
 
     setLayout(layout);
 
-    SlotAdapter slotAdapter(presenter, &Presenter::someSlot);
+    SlotAdapter slotAdapter(presenter, &Presenter::startUpload);
 
     connect(
         this->actionButton,
@@ -33,7 +35,14 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     );
 }
 
-std::string ViewImpl::getSelectedFile() const {
+std::string ViewImpl::getSelectedFile() {
+
     QString content = selectedFile->text();
     return content.toStdString();
 }
+
+void ViewImpl::reportError(std::string errorText) {
+    QString qErrorText = QString::fromStdString(errorText);
+    QMessageBox::critical(this, "Error", qErrorText);
+}
+
