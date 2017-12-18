@@ -10,7 +10,7 @@ public:
     void run();
 
 public slots:
-    void onResultReady();
+    void onFullyDone();
 
 private:
     SlotAdapter adapter;

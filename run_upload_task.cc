@@ -7,9 +7,9 @@ RunUploadTask::RunUploadTask(SlotAdapter adapter)  : adapter(adapter) {
 
     connect(
         theTask,
-        &ExpensiveOperation::resultReady,
+        &ExpensiveOperation::fullyDone,
         this,
-        &RunUploadTask::onResultReady
+        &RunUploadTask::onFullyDone
     );
 }
 
@@ -22,7 +22,7 @@ void RunUploadTask::run() {
     theTask->start();
 }
 
-void RunUploadTask::onResultReady() {
+void RunUploadTask::onFullyDone() {
     debugf("inside result ready");
     adapter();
 }

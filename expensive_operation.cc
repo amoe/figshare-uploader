@@ -2,8 +2,10 @@
 #include "expensive_operation.hh"
 
 void ExpensiveOperation::run() {
-    debugf("about to sleep inside thread");
+    debugf("thread: sleep 1");
     sleep(3);
-    debugf("slept inside thread, about to emit signal");       
-    emit resultReady(42);
+    debugf("thread: sleep 2");
+    sleep(3);
+    debugf("emitting fully done signal");       
+    emit fullyDone(42);
 }

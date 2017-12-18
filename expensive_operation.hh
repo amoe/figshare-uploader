@@ -12,7 +12,7 @@ public:
     void run() override;
 
 signals:
-    void resultReady(const int& result);
+    void fullyDone(const int& result);
 };
 
 
