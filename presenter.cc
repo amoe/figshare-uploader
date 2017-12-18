@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 #include "presenter.hh"
 #include "logging.hh"
 #include "slot_adapter.hh"
@@ -9,6 +10,8 @@ void PresenterImpl::setView(View* view) {
 }
 
 void PresenterImpl::startUpload() {
+    try {
+        throw std::runtime_error("something went wrong");
     // debugf("presenter slot was called");
 
     // std::string file = view->getSelectedFile();
@@ -21,7 +24,12 @@ void PresenterImpl::startUpload() {
 
     // // By this stage, the token has already been initialized.
     // task->run();
-
+        // exceptions aren't polymorphic
+    } catch (std::runtime_error e) {
+        debugf("caught exception: %s", e.what());
+    } catch (std::exception e) {
+        debugf("caught exception: %s", e.what());
+    }
 }
 
 void PresenterImpl::uploadFinished(string value) {
