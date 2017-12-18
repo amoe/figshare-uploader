@@ -14,6 +14,7 @@ class Presenter {
 public:
     virtual void someSlot() = 0;
     virtual void uploadFinished(string value) = 0;
+    virtual void setView(View* view) = 0;
 };
 
 #endif // INTERFACES_HH

@@ -6,8 +6,8 @@
 
 using std::string;
 
-RunUploadTask::RunUploadTask(StringAdapter adapter)  : adapter(adapter) {
-    theTask = new DriverThread(0);   // XXX should pass top level widget
+RunUploadTask::RunUploadTask(Driver* driver, StringAdapter adapter)  : adapter(adapter) {
+    theTask = new DriverThread(0, driver);   // XXX should pass top level widget
 
     connect(
         theTask,

@@ -5,6 +5,10 @@
 #include "file_part.hh"
 #include "excel_row.hh"
 
+void Driver::sayHello() const {
+    debugf("hello from driver");
+}
+
 void Driver::handleRow(const ExcelRow row) const {
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
     ArticleCreationResponse response = gateway->createArticle(acr);

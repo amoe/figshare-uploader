@@ -11,7 +11,7 @@ class ViewImpl : public QWidget, public View {
     Q_OBJECT
 
 public:
-    ViewImpl();
+    ViewImpl(Presenter* presenter);
 
     std::string getSelectedFile() const;
 

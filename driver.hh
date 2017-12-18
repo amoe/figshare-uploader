@@ -21,6 +21,7 @@ public:
         fileSpecGenerator(fileSpecGenerator),
         articleMapper(articleMapper) { }
 
+    void sayHello() const;
     void handleRow(const ExcelRow row) const;
     void handleUpload(const string stemArticle, const UploadCreationRequest ucr) const;
     void handlePart(const FileInfo sourceFile, const FilePart partSpec) const;

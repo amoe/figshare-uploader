@@ -3,6 +3,7 @@
 #include "driver.hh"
 
 void DriverThread::run() {
+    driver->sayHello();
     debugf("thread: sleep 1");
     sleep(3);
     emit partiallyDone(QString("foo"));

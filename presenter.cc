@@ -4,6 +4,10 @@
 #include "slot_adapter.hh"
 #include "run_upload_task.hh"
 
+void PresenterImpl::setView(View* view) {
+    this->view = view;
+}
+
 void PresenterImpl::someSlot() {
     debugf("presenter slot was called");
 
@@ -13,7 +17,7 @@ void PresenterImpl::someSlot() {
     StringAdapter adapter(this, &Presenter::uploadFinished);
 
     // XXX: malloc
-    RunUploadTask* task= new RunUploadTask(adapter);
+    RunUploadTask* task = new RunUploadTask(driver, adapter);
     task->run();
 }
 

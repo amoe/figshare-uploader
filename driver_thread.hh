@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QObject>
 #include <QString>
+#include "driver.hh"
 
 using std::string;
 
@@ -11,12 +12,15 @@ class DriverThread : public QThread {
     Q_OBJECT
 
 public:
-    DriverThread(QObject* parent) : QThread(parent) { }
+    DriverThread(QObject* parent, Driver* driver) : QThread(parent) { }
     void run() override;
 
 signals:
     void partiallyDone(QString result);
     void fullyDone(const int& result);
+
+private:
+    Driver* driver;
 };
 
 

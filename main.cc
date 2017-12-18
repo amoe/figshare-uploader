@@ -7,6 +7,7 @@
 #include "file_spec_generator.hh"
 #include "article_mapper.hh"
 #include "view.hh"
+#include "presenter.hh"
 #include "logging.hh"
 
 int main(int argc, char **argv) {
@@ -38,7 +39,12 @@ int main(int argc, char **argv) {
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 
-    ViewImpl* view = new ViewImpl;
+    Presenter* presenter = new PresenterImpl(&driver);
+    ViewImpl* view = new ViewImpl(presenter);
+
+    // To break the cyclic dependency we have to setView on the presenter after
+    // it's been constructed.
+    presenter->setView(view);
     view->show();
 
     return app.exec();
