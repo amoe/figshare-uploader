@@ -8,6 +8,21 @@
 using std::string;
 
 CategoryMapper::CategoryMapper(string jsonInput) {
+    setFromJson(jsonInput);
+}
+
+int CategoryMapper::mapTitle(const string title) {
+    auto it = lookup.find(title);
+    if (it == lookup.end()) {
+        throw std::runtime_error("category title not found");
+    } else {
+        return it->second;
+    }
+}
+
+void CategoryMapper::setFromJson(string jsonInput) {
+    lookup.clear();
+
     QJsonDocument document = QJsonDocument::fromJson(
         QString::fromStdString(jsonInput).toUtf8()
     );
@@ -24,15 +39,4 @@ CategoryMapper::CategoryMapper(string jsonInput) {
     }
 
     qDebug() << "initialized with table size" << lookup.size();
-
-    // now finsihed.
-}
-
-int CategoryMapper::mapTitle(const string title) {
-    auto it = lookup.find(title);
-    if (it == lookup.end()) {
-        throw std::runtime_error("category title not found");
-    } else {
-        return it->second;
-    }
 }

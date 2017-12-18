@@ -10,7 +10,9 @@ using std::string;
 class CategoryMapper {
 public:
     CategoryMapper(string jsonInput);
+    CategoryMapper();
     int mapTitle(string title);
+    void setFromJson(string jsonInput);
     
 private:
     map<string, int> lookup;
