@@ -6,7 +6,7 @@
 
 class RunUploadTask : public QObject {
 public:
-    RunUploadTask(Driver* driver, StringAdapter adapter);
+    RunUploadTask(Driver* driver, StringAdapter adapter, string inputPath);
     ~RunUploadTask();
     void run();
 

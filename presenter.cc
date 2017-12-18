@@ -17,7 +17,9 @@ void PresenterImpl::someSlot() {
     StringAdapter adapter(this, &Presenter::uploadFinished);
 
     // XXX: malloc
-    RunUploadTask* task = new RunUploadTask(driver, adapter);
+    RunUploadTask* task = new RunUploadTask(driver, adapter, file);
+
+    // By this stage, the token has already been initialized.
     task->run();
 }
 

@@ -12,7 +12,8 @@ class DriverThread : public QThread {
     Q_OBJECT
 
 public:
-    DriverThread(QObject* parent, Driver* driver) : QThread(parent) { }
+    DriverThread(QObject* parent, Driver* driver, string inputPath)
+        : QThread(parent), driver(driver), inputPath(inputPath) { }
     void run() override;
 
 signals:
@@ -21,6 +22,7 @@ signals:
 
 private:
     Driver* driver;
+    string inputPath;
 };
 
 
