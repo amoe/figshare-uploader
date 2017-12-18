@@ -3,6 +3,19 @@
 #include "driver.hh"
 
 void DriverThread::run() {
+    try {
+        perform();
+    } catch (std::runtime_error e) {
+        debugf("caught std-exception in driver thread handler: %s", e.what());
+        emit fatalError(QString(e.what()));
+    } catch (std::exception e) {
+        debugf("caught runtime-exception in driver thread handler: %s", e.what());
+        emit fatalError(QString(e.what()));
+    }
+}
+
+
+void DriverThread::perform() {
     vector<string> rowData = {
         "",
         "",
@@ -42,3 +55,6 @@ void DriverThread::run() {
     debugf("emitting fully done signal");       
     emit fullyDone(42);
 }
+
+
+

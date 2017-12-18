@@ -11,27 +11,35 @@ void PresenterImpl::setView(View* view) {
 
 void PresenterImpl::startUpload() {
     try {
-        throw std::runtime_error("something went wrong");
-    // debugf("presenter slot was called");
+        // This actually isn't going to work because this exception handler
+        // doesn't live in the same thread.
+        debugf("presenter slot was called");
 
-    // std::string file = view->getSelectedFile();
-    // debugf("value of text input is %s", view->getSelectedFile().c_str());
+        std::string file = view->getSelectedFile();
+        debugf("value of text input is %s", view->getSelectedFile().c_str());
 
-    // StringAdapter adapter(this, &Presenter::uploadFinished);
+        StringAdapter adapter(this, &Presenter::uploadFinished);
+        StringAdapter errorAdapter(this, &Presenter::fatalError);
 
-    // // XXX: malloc
-    // RunUploadTask* task = new RunUploadTask(driver, adapter, file);
+        // XXX: malloc
+        RunUploadTask* task = new RunUploadTask(
+            driver, adapter, errorAdapter, file
+        );
 
-    // // By this stage, the token has already been initialized.
-    // task->run();
-        // exceptions aren't polymorphic
+        // By this stage, the token has already been initialized.
+        task->run();
+    // exceptions aren't polymorphic so we have to catch both
     } catch (std::runtime_error e) {
-        debugf("caught exception: %s", e.what());
+        debugf("caught std-exception in gui thread handler: %s", e.what());
     } catch (std::exception e) {
-        debugf("caught exception: %s", e.what());
+        debugf("caught runtime-exception in gui thread handler: %s", e.what());
     }
 }
 
 void PresenterImpl::uploadFinished(string value) {
     debugf("upload was finished: %s", value.c_str());
+}
+
+void PresenterImpl::fatalError(string what) {
+    view->reportError(what);
 }

@@ -17,6 +17,7 @@ public:
     virtual void startUpload() = 0;
     virtual void uploadFinished(string value) = 0;
     virtual void setView(View* view) = 0;
+    virtual void fatalError(string what) = 0;
 };
 
 #endif // INTERFACES_HH

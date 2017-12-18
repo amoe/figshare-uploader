@@ -13,6 +13,7 @@ public:
     void startUpload();
     void uploadFinished(string value);
     void setView(View* view);
+    void fatalError(string what);
 
 private:
     View* view;

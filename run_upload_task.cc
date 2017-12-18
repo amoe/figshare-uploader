@@ -7,8 +7,8 @@
 using std::string;
 
 RunUploadTask::RunUploadTask(
-    Driver* driver, StringAdapter adapter, string inputPath
-) : adapter(adapter) {
+    Driver* driver, StringAdapter adapter, StringAdapter errorAdapter, string inputPath
+) : adapter(adapter), errorAdapter(errorAdapter) {
     theTask = new DriverThread(0, driver, inputPath);   // XXX should pass top level widget
 
     connect(
@@ -24,6 +24,17 @@ RunUploadTask::RunUploadTask(
         this,
         &RunUploadTask::onPartiallyDone
     );
+
+    connect(
+        theTask,
+        &DriverThread::fatalError,
+        this,
+        &RunUploadTask::onFatalError
+    );
+}
+
+void RunUploadTask::onFatalError(QString what) {
+    errorAdapter(what.toStdString());
 }
 
 RunUploadTask::~RunUploadTask() {

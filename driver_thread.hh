@@ -19,10 +19,13 @@ public:
 signals:
     void partiallyDone(QString result);
     void fullyDone(const int& result);
+    void fatalError(QString what);
 
 private:
     Driver* driver;
     string inputPath;
+
+    void perform();
 };
 
 
