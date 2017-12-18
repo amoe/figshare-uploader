@@ -1,15 +1,16 @@
 #include <QObject>
 #include <QDebug>
+#include <QPlainTextEdit>
 #include <QWidget>
 #include <QString>
 #include <QGridLayout>
 #include <QDebug>
 #include <QPushButton>
+#include <QLabel>
 #include <QMessageBox>
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
-
 
 ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(presenter) {
     // layout MUST be allocated on the heap here, if it goes out of scope, it
@@ -18,14 +19,25 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     // destructor will delete it at the appropriate time.
     QGridLayout* layout = new QGridLayout(this);
 
-    this->token = new QLineEdit(this);
-    layout->addWidget(this->token, 0, 0);
 
+    QLabel* tokenLabel =  new QLabel("Token:");
+    this->token = new QLineEdit(this);
+    layout->addWidget(tokenLabel, 0, 0, 1, 1);
+    layout->addWidget(this->token, 0, 1, 1, 11);
+
+    QLabel* fileLabel =  new QLabel("File:");
     this->selectedFile = new QLineEdit(this);
-    layout->addWidget(this->selectedFile, 1, 0);
+    QPushButton* pickButton = new QPushButton("Pick", this);
+    layout->addWidget(fileLabel, 1, 0, 1, 1);
+    layout->addWidget(this->selectedFile, 1, 1, 1, 10);
+    layout->addWidget(pickButton, 1, 11, 1, 1);
 
     this->actionButton = new QPushButton("Push me", this);
-    layout->addWidget(this->actionButton, 2, 0);
+    layout->addWidget(this->actionButton, 2, 0, 1, 12);
+
+    QPlainTextEdit* logView = new QPlainTextEdit("Waiting for file selection.");
+    logView->setReadOnly(true);
+    layout->addWidget(logView, 3, 0, 1, 12);
 
     setLayout(layout);
 
