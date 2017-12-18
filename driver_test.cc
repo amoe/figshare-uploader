@@ -30,6 +30,25 @@ public:
 
 TEST_F(DriverTest, canHandleRow) {
     vector<string> rowData = {
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     };
 
     ExcelRow row(rowData);
@@ -50,6 +69,9 @@ TEST_F(DriverTest, canHandleRow) {
     EXPECT_CALL(gateway, getArticle(_))
         .WillOnce(Return(agr));
 
+    // EXPECT_CALL(fileSpecGenerator, getFileSpec(_))
+    //     .WillOnce(Return(agr));
+
 
     driver->handleRow(row);
 }
@@ -57,10 +79,7 @@ TEST_F(DriverTest, canHandleRow) {
 TEST_F(DriverTest, canHandleUpload) {
     string stemArticle;
 
-    string md5;
-    string name;
-    int64_t size;
-    UploadCreationRequest ucr(name, md5, size);
+    UploadCreationRequest ucr = ObjectMother::makeUploadCreationRequest();
 
     UploadCreationResponse response("http://www.some-location.com/");
     FileInfo fileInfo = ObjectMother::makeFileInfo();

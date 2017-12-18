@@ -14,6 +14,7 @@ public:
     static FileInfo makeFileInfo();
     static UploadContainerInfo makeUploadContainerInfo(int nParts);
     static FilePart makeFilePart(int i);
+    static UploadCreationRequest makeUploadCreationRequest();
 };
 
 #endif // OBJECT_MOTHER_HH

@@ -4,6 +4,16 @@
 using nonstd::optional;
 using nonstd::nullopt;
 
+UploadCreationRequest ObjectMother::makeUploadCreationRequest() {
+    string md5;
+    string name;
+    int64_t size;
+    UploadCreationRequest ucr(name, md5, size);
+
+    return ucr;
+}
+
+
 ArticleGetResponse ObjectMother::makeArticleGetResponse() {
     ArticleGetResponse response(42);
     return response;
