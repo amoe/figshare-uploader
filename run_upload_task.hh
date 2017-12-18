@@ -1,6 +1,7 @@
 #include <QObject>
 #include <QThread>
 #include "slot_adapter.hh"
+#include "expensive_operation.hh"
 
 class RunUploadTask : public QObject {
 public:
@@ -8,7 +9,10 @@ public:
     ~RunUploadTask();
     void run();
 
+public slots:
+    void onResultReady();
+
 private:
     SlotAdapter adapter;
-    QThread* theTask;
+    ExpensiveOperation* theTask;
 };

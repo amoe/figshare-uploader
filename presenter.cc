@@ -12,8 +12,9 @@ void PresenterImpl::someSlot() {
 
     SlotAdapter adapter(this, &Presenter::uploadFinished);
 
-    RunUploadTask task(adapter);
-    task.run();
+    // XXX: malloc
+    RunUploadTask* task= new RunUploadTask(adapter);
+    task->run();
 }
 
 void PresenterImpl::uploadFinished() {

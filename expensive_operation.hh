@@ -1,3 +1,6 @@
+#ifndef EXPENSIVE_OPERATION_HH
+#define EXPENSIVE_OPERATION_HH
+
 #include <QThread>
 #include <QObject>
 
@@ -12,3 +15,5 @@ signals:
     void resultReady(const int& result);
 };
 
+
+#endif // EXPENSIVE_OPERATION_HH

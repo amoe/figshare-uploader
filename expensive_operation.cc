@@ -1,6 +1,9 @@
+#include "logging.hh"
 #include "expensive_operation.hh"
 
 void ExpensiveOperation::run() {
-    sleep(10);
+    debugf("about to sleep inside thread");
+    sleep(3);
+    debugf("slept inside thread, about to emit signal");       
     emit resultReady(42);
 }

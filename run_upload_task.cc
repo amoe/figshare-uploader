@@ -4,6 +4,13 @@
 
 RunUploadTask::RunUploadTask(SlotAdapter adapter)  : adapter(adapter) {
     theTask = new ExpensiveOperation(0);
+
+    connect(
+        theTask,
+        &ExpensiveOperation::resultReady,
+        this,
+        &RunUploadTask::onResultReady
+    );
 }
 
 RunUploadTask::~RunUploadTask() {
@@ -11,5 +18,10 @@ RunUploadTask::~RunUploadTask() {
 }
 
 void RunUploadTask::run() {
-    debugf("doing nothing");
+    debugf("calling start on thread object");
+    theTask->start();
+}
+
+void RunUploadTask::onResultReady() {
+    debugf("inside result ready");
 }
