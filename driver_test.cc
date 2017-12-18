@@ -28,27 +28,23 @@ public:
     Driver* driver;
 };
 
-// This will form the test for the row handler code
-//     MockPartPreparer partPreparer;
-//     MockFigshareGateway gateway;
-//     MockFileSpecGenerator fileSpecGenerator;
-//     MockArticleMapper articleMapper;
-//     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
+TEST_F(DriverTest, canHandleRow) {
+    vector<string> rowData = {
+    };
 
-//     vector<string> rowData = {
-//     };
+    ExcelRow row(rowData);
 
-//     ExcelRow row(rowData);
+    // Set up expectations, because this row contains one file with exactly two
+    // pieces, we expect two PUTs to occur.
 
-//     // Set up expectations, because this row contains one file with exactly two
-//     // pieces, we expect two PUTs to occur.
-//     EXPECT_CALL(gateway, createArticle(_)).Times(Exactly(1));
-//     EXPECT_CALL(gateway, createUpload(_, _)).Times(Exactly(1));
-//     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
-//     EXPECT_CALL(gateway, completeUpload(_, _)).Times(Exactly(1));
-//
-//     driver.handleRow(row);
-// }
+    ArticleCreationRequest acr = ObjectMother::makeArticleCreationRequest();
+
+    EXPECT_CALL(articleMapper, mapFromExcel(_))
+        .WillOnce(Return(acr));
+
+
+    driver->handleRow(row);
+}
 
 TEST_F(DriverTest, canHandleUpload) {
     string stemArticle;

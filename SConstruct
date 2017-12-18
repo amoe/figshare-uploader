@@ -91,30 +91,30 @@ env.Program(
     ]
 )
 
-integration_environment = env.Clone()
-integration_environment.Append(CPPPATH=".")
+# integration_environment = env.Clone()
+# integration_environment.Append(CPPPATH=".")
 
-integration_tests = Glob("./test/integration/*.cc")
-integration_tests.extend(
-    [http_getter, http_poster, utility]
-)
+# integration_tests = Glob("./test/integration/*.cc")
+# integration_tests.extend(
+#     [http_getter, http_poster, utility]
+# )
 
-integration_tests.extend(
-    [test_harness, test_utility,  gtest, gmock]
-)
+# integration_tests.extend(
+#     [test_harness, test_utility,  gtest, gmock]
+# )
 
-integration_environment.Program(
-    target='integration_tests',
-    source=integration_tests,
-)
+# integration_environment.Program(
+#     target='integration_tests',
+#     source=integration_tests,
+# )
 
-env.Program(
-    target='main',
-    source=[
-        "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
-        "expensive_operation.cc"
-    ]
-)
+# env.Program(
+#     target='main',
+#     source=[
+#         "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
+#         "expensive_operation.cc"
+#     ]
+# )
 
 # env.Program(
 #     target='category_demo',

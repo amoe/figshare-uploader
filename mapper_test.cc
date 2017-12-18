@@ -6,7 +6,7 @@
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
 #include "utility.hh"
-
+#include "object_mother.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -179,30 +179,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 }
 
 TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
-    vector<string> keywords;
-    keywords.push_back("Bethlehem");
-    keywords.push_back("Crafts");
-
-    vector<string> references;
-    references.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
-
-    vector<int> categories;
-    categories.push_back(1703);
-
-    vector<string> authors;
-    authors.push_back("Freja Howat-Maxted");
-
-    ArticleCreationRequest request(
-        "To Serve Man",
-        "Some description",
-        keywords,
-        references,
-        categories,
-        authors,
-        nullopt,
-        ArticleType::FIGURE,
-        1
-    );
+    ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
     
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);

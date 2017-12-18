@@ -1,4 +1,37 @@
 #include "object_mother.hh"
+#include "ext/optional.hpp"
+
+using nonstd::optional;
+using nonstd::nullopt;
+
+ArticleCreationRequest ObjectMother::makeArticleCreationRequest() {
+    vector<string> keywords;
+    keywords.push_back("Bethlehem");
+    keywords.push_back("Crafts");
+
+    vector<string> references;
+    references.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
+
+    vector<int> categories;
+    categories.push_back(1703);
+
+    vector<string> authors;
+    authors.push_back("Freja Howat-Maxted");
+
+    ArticleCreationRequest request(
+        "To Serve Man",
+        "Some description",
+        keywords,
+        references,
+        categories,
+        authors,
+        nullopt,
+        ArticleType::FIGURE,
+        1
+    );
+
+    return request;
+}
 
 FileInfo ObjectMother::makeFileInfo() {
     string uploadContainerUrl = "http://www.example.com/";
