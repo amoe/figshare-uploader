@@ -2,7 +2,7 @@
 #include <QThread>
 #include <QString>
 #include "slot_adapter.hh"
-#include "expensive_operation.hh"
+#include "driver_thread.hh"
 
 class RunUploadTask : public QObject {
 public:
@@ -16,5 +16,5 @@ public slots:
 
 private:
     StringAdapter adapter;
-    ExpensiveOperation* theTask;
+    DriverThread* theTask;
 };

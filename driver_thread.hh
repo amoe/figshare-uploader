@@ -1,5 +1,5 @@
-#ifndef EXPENSIVE_OPERATION_HH
-#define EXPENSIVE_OPERATION_HH
+#ifndef DRIVER_THREAD_HH
+#define DRIVER_THREAD_HH
 
 #include <QThread>
 #include <QObject>
@@ -7,11 +7,11 @@
 
 using std::string;
 
-class ExpensiveOperation : public QThread {
+class DriverThread : public QThread {
     Q_OBJECT
 
 public:
-    ExpensiveOperation(QObject* parent) : QThread(parent) { }
+    DriverThread(QObject* parent) : QThread(parent) { }
     void run() override;
 
 signals:
@@ -20,4 +20,4 @@ signals:
 };
 
 
-#endif // EXPENSIVE_OPERATION_HH
+#endif // DRIVER_THREAD_HH

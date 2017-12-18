@@ -1,7 +1,7 @@
 #include "logging.hh"
-#include "expensive_operation.hh"
+#include "driver_thread.hh"
 
-void ExpensiveOperation::run() {
+void DriverThread::run() {
     debugf("thread: sleep 1");
     sleep(3);
     emit partiallyDone(QString("foo"));

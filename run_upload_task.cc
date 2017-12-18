@@ -3,23 +3,22 @@
 #include <QDebug>
 #include "logging.hh"
 #include "run_upload_task.hh"
-#include "expensive_operation.hh"
 
 using std::string;
 
 RunUploadTask::RunUploadTask(StringAdapter adapter)  : adapter(adapter) {
-    theTask = new ExpensiveOperation(0);
+    theTask = new DriverThread(0);   // XXX should pass top level widget
 
     connect(
         theTask,
-        &ExpensiveOperation::fullyDone,
+        &DriverThread::fullyDone,
         this,
         &RunUploadTask::onFullyDone
     );
 
     connect(
         theTask,
-        &ExpensiveOperation::partiallyDone,
+        &DriverThread::partiallyDone,
         this,
         &RunUploadTask::onPartiallyDone
     );
