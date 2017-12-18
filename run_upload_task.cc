@@ -11,6 +11,14 @@ RunUploadTask::RunUploadTask(SlotAdapter adapter)  : adapter(adapter) {
         this,
         &RunUploadTask::onFullyDone
     );
+
+    connect(
+        theTask,
+        &ExpensiveOperation::partiallyDone,
+        this,
+        &RunUploadTask::onPartiallyDone
+    );
+
 }
 
 RunUploadTask::~RunUploadTask() {
@@ -24,5 +32,10 @@ void RunUploadTask::run() {
 
 void RunUploadTask::onFullyDone() {
     debugf("inside result ready");
+    adapter();
+}
+
+void RunUploadTask::onPartiallyDone() {
+    debugf("inside partially done");
     adapter();
 }

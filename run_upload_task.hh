@@ -10,6 +10,7 @@ public:
     void run();
 
 public slots:
+    void onPartiallyDone();
     void onFullyDone();
 
 private:
