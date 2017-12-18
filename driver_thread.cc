@@ -1,5 +1,6 @@
 #include "logging.hh"
 #include "driver_thread.hh"
+#include "driver.hh"
 
 void DriverThread::run() {
     debugf("thread: sleep 1");

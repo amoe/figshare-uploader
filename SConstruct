@@ -95,6 +95,27 @@ env.Program(
     target='main',
     source=[
         "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
-        "driver_thread.cc"
+        "driver_thread.cc",
+        "file_info.cc",
+        "requests.cc",
+        "figshare_gateway.cc",
+        "article_type_mapper.cc",
+        "article_mapper.cc",
+        "category_mapper.cc",
+        "file_spec_generator.cc",
+        "part_preparer.cc",
+        "file_part.cc",
+        "upload_command.cc",
+        "io_slicer.cc",
+        "http_putter.cc",
+        "upload_command_processor.cc",
+        "http_getter.cc",
+        "http_poster.cc",
+        "xlsx.cc",
+        "size_getter.cc",
+        "upload_container_info.cc",
+        "responses.cc",
+        "driver.cc",
+        "utility.cc"
     ]
 )
