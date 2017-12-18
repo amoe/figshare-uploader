@@ -9,20 +9,23 @@
 #include "view.hh"
 #include "presenter.hh"
 #include "logging.hh"
+#include "token_store.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
     // Construct the top-level object graph on the stack
-    char* token_ = getenv("TOKEN");
-    if (token_ == NULL) {
-        throw std::runtime_error("token must exist in environment");
-    }
-    std::string token(token_);
+    // char* token_ = getenv("TOKEN");
+    // if (token_ == NULL) {
+    //     throw std::runtime_error("token must exist in environment");
+    // }
+    // std::string token(token_);
 
-    QtHttpGetter httpGetter(token);
-    QtHttpPoster httpPoster(token);
-    QtHttpPutter httpPutter(token);
+    TokenStore tokenStore;
+
+    QtHttpGetter httpGetter(&tokenStore);
+    QtHttpPoster httpPoster(&tokenStore);
+    QtHttpPutter httpPutter(&tokenStore);
     QtSizeGetter sizeGetter;
 
     debugf("loading categories");

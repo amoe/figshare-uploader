@@ -2,6 +2,7 @@
 #define HTTP_POSTER_HH
 
 #include <string>
+#include "token_store.hh"
 
 using std::string;
 
@@ -12,11 +13,11 @@ public:
 
 class QtHttpPoster : public HttpPoster {
 public:
-    QtHttpPoster(string token) : token(token) { }
+    QtHttpPoster(TokenStore* tokenStore) : tokenStore(tokenStore) { }
     string request(const string url, const string payload);
 
 private:
-    string token;
+    TokenStore* tokenStore;
 };
 
 #endif // HTTP_POSTER_HH 

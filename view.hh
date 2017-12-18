@@ -19,6 +19,7 @@ public:
 private:
     Presenter* presenter;
     QLineEdit* selectedFile;
+    QLineEdit* token;
     QPushButton* actionButton;
 };
 

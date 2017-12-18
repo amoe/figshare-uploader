@@ -2,6 +2,8 @@
 #define HTTP_GETTER_HH
 
 #include <string>
+#include "token_store.hh"
+
 
 using std::string;
 
@@ -12,11 +14,11 @@ public:
 
 class QtHttpGetter : public HttpGetter {
 public:
-    QtHttpGetter(string token) : token(token) { }
+    QtHttpGetter(TokenStore* tokenStore) : tokenStore(tokenStore) { }
     string request(const string url);
 
 private:
-    string token;
+    TokenStore* tokenStore;
 };
 
 #endif // HTTP_GETTER_HH

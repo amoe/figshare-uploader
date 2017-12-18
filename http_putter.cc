@@ -38,7 +38,7 @@ string QtHttpPutter::request(const string url, const string payload) {
 
 
     QByteArray authorizationValue("token ");
-    authorizationValue.append(QString::fromStdString(token));
+    authorizationValue.append(QString::fromStdString(tokenStore->getToken()));
 
     // request.setRawHeader(QByteArray("Authorization"), authorizationValue);
 

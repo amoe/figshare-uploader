@@ -9,7 +9,8 @@ using std::string;
 
 TEST(HttpPoster, CanPost) {
     bootQtEventLoop();
-    HttpPoster* getter = new QtHttpPoster("");
+    TokenStore store("NOT USED");
+    HttpPoster* getter = new QtHttpPoster(&store);
     string body = getter->request("https://httpbin.org/post", "nonesuch");
 
     std::cout << body << std::endl;

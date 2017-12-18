@@ -18,11 +18,14 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     // destructor will delete it at the appropriate time.
     QGridLayout* layout = new QGridLayout(this);
 
+    this->token = new QLineEdit(this);
+    layout->addWidget(this->token, 0, 0);
+
     this->selectedFile = new QLineEdit(this);
-    layout->addWidget(this->selectedFile, 0, 0);
+    layout->addWidget(this->selectedFile, 1, 0);
 
     this->actionButton = new QPushButton("Push me", this);
-    layout->addWidget(this->actionButton, 1, 0);
+    layout->addWidget(this->actionButton, 2, 0);
 
     setLayout(layout);
 
