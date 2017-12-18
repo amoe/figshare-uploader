@@ -6,11 +6,7 @@ class ExpensiveOperation : public QThread {
 
 public:
     ExpensiveOperation(QObject* parent) : QThread(parent) { }
-    
-    void run() override {
-        sleep(10);
-        emit resultReady(42);
-    }
+    void run() override;
 
 signals:
     void resultReady(const int& result);

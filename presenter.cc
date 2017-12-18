@@ -1,7 +1,8 @@
 #include <iostream>
 #include "presenter.hh"
 #include "logging.hh"
-#include "expensive_operation.hh"
+#include "slot_adapter.hh"
+#include "run_upload_task.hh"
 
 void PresenterImpl::someSlot() {
     debugf("presenter slot was called");
@@ -9,12 +10,12 @@ void PresenterImpl::someSlot() {
     std::string file = view->getSelectedFile();
     debugf("value of text input is %s", view->getSelectedFile().c_str());
 
-    // ExpensiveOperation* operation = new ExpensiveOperation(this);
+    SlotAdapter adapter(this, &Presenter::uploadFinished);
 
-    // connect(
-    //     operation, &ExpensiveOperation::resultReady,
-    //     this, &UploadProcessLifecycle::onOperationFinished
-    // );
-    // operation->start();
+    RunUploadTask task(adapter);
+    task.run();
+}
 
+void PresenterImpl::uploadFinished() {
+    debugf("upload was finished");
 }

@@ -110,7 +110,10 @@ integration_environment.Program(
 
 env.Program(
     target='main',
-    source=["main.cc", "view.cc", "presenter.cc"]
+    source=[
+        "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
+        "expensive_operation.cc"
+    ]
 )
 
 # env.Program(

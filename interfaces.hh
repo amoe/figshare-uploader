@@ -9,6 +9,7 @@ public:
 class Presenter {
 public:
     virtual void someSlot() = 0;
+    virtual void uploadFinished() = 0;
 };
 
 #endif // INTERFACES_HH
