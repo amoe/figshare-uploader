@@ -38,9 +38,17 @@ TEST_F(DriverTest, canHandleRow) {
     // pieces, we expect two PUTs to occur.
 
     ArticleCreationRequest acr = ObjectMother::makeArticleCreationRequest();
+    ArticleCreationResponse response = ObjectMother::makeArticleCreationResponse();
+    ArticleGetResponse agr = ObjectMother::makeArticleGetResponse();
 
     EXPECT_CALL(articleMapper, mapFromExcel(_))
         .WillOnce(Return(acr));
+
+    EXPECT_CALL(gateway, createArticle(_))
+        .WillOnce(Return(response));
+
+    EXPECT_CALL(gateway, getArticle(_))
+        .WillOnce(Return(agr));
 
 
     driver->handleRow(row);

@@ -4,6 +4,17 @@
 using nonstd::optional;
 using nonstd::nullopt;
 
+ArticleGetResponse ObjectMother::makeArticleGetResponse() {
+    ArticleGetResponse response(42);
+    return response;
+}
+
+ArticleCreationResponse ObjectMother::makeArticleCreationResponse() {
+    ArticleCreationResponse response("http://www.some-location.com/");
+    
+    return response;
+}
+
 ArticleCreationRequest ObjectMother::makeArticleCreationRequest() {
     vector<string> keywords;
     keywords.push_back("Bethlehem");
