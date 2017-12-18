@@ -1,8 +1,11 @@
+#include <string>
 #include <QString>
 #include <QDebug>
 #include "logging.hh"
 #include "run_upload_task.hh"
 #include "expensive_operation.hh"
+
+using std::string;
 
 RunUploadTask::RunUploadTask(SlotAdapter adapter)  : adapter(adapter) {
     theTask = new ExpensiveOperation(0);
@@ -37,8 +40,9 @@ void RunUploadTask::onFullyDone() {
     adapter();
 }
 
-void RunUploadTask::onPartiallyDone(QString value) {
+void RunUploadTask::onPartiallyDone(QString qValue) {
     debugf("inside partially done");
-    qDebug() << "value from thread was" << value;
+    qDebug() << "value from thread was" << qValue;
+
     adapter();
 }

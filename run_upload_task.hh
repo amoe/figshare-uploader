@@ -11,7 +11,7 @@ public:
     void run();
 
 public slots:
-    void onPartiallyDone(QString value);
+    void onPartiallyDone(QString qValue);
     void onFullyDone();
 
 private:
