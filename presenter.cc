@@ -10,13 +10,13 @@ void PresenterImpl::someSlot() {
     std::string file = view->getSelectedFile();
     debugf("value of text input is %s", view->getSelectedFile().c_str());
 
-    SlotAdapter adapter(this, &Presenter::uploadFinished);
+    StringAdapter adapter(this, &Presenter::uploadFinished);
 
     // XXX: malloc
     RunUploadTask* task= new RunUploadTask(adapter);
     task->run();
 }
 
-void PresenterImpl::uploadFinished() {
-    debugf("upload was finished");
+void PresenterImpl::uploadFinished(string value) {
+    debugf("upload was finished: %s", value.c_str());
 }

@@ -7,7 +7,7 @@
 
 using std::string;
 
-RunUploadTask::RunUploadTask(SlotAdapter adapter)  : adapter(adapter) {
+RunUploadTask::RunUploadTask(StringAdapter adapter)  : adapter(adapter) {
     theTask = new ExpensiveOperation(0);
 
     connect(
@@ -37,12 +37,16 @@ void RunUploadTask::run() {
 
 void RunUploadTask::onFullyDone() {
     debugf("inside result ready");
-    adapter();
+    string greeting = "hello, world";
+
+    adapter(greeting);
 }
 
 void RunUploadTask::onPartiallyDone(QString qValue) {
     debugf("inside partially done");
     qDebug() << "value from thread was" << qValue;
 
-    adapter();
+    string greeting = "hello, world";
+
+    adapter(greeting);
 }

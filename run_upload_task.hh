@@ -6,7 +6,7 @@
 
 class RunUploadTask : public QObject {
 public:
-    RunUploadTask(SlotAdapter adapter);
+    RunUploadTask(StringAdapter adapter);
     ~RunUploadTask();
     void run();
 
@@ -15,6 +15,6 @@ public slots:
     void onFullyDone();
 
 private:
-    SlotAdapter adapter;
+    StringAdapter adapter;
     ExpensiveOperation* theTask;
 };
