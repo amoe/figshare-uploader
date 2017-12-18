@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
+#include <QPlainTextEdit>
 #include <QLineEdit>
 #include "interfaces.hh"
 
@@ -14,6 +15,7 @@ public:
     ViewImpl(Presenter* presenter);
 
     std::string getSelectedFile();
+    void addLog(std::string logText);
     void reportError(std::string errorText);
 
 private:
@@ -21,6 +23,7 @@ private:
     QLineEdit* selectedFile;
     QLineEdit* token;
     QPushButton* actionButton;
+    QPlainTextEdit* logger;
 };
 
 #endif // VIEW_HH

@@ -9,7 +9,7 @@ class View {
 public:
     virtual string getSelectedFile() = 0;
     virtual void reportError(std::string errorText) = 0;
-
+    virtual void addLog(std::string logText) = 0;
 };
 
 class Presenter {

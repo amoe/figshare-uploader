@@ -32,12 +32,12 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     layout->addWidget(this->selectedFile, 1, 1, 1, 10);
     layout->addWidget(pickButton, 1, 11, 1, 1);
 
-    this->actionButton = new QPushButton("Push me", this);
+    this->actionButton = new QPushButton("Start upload process", this);
     layout->addWidget(this->actionButton, 2, 0, 1, 12);
 
-    QPlainTextEdit* logView = new QPlainTextEdit("Waiting for file selection.");
-    logView->setReadOnly(true);
-    layout->addWidget(logView, 3, 0, 1, 12);
+    this->logger = new QPlainTextEdit("Waiting for file selection.");
+    logger->setReadOnly(true);
+    layout->addWidget(logger, 3, 0, 1, 12);
 
     setLayout(layout);
 
@@ -51,7 +51,6 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
 }
 
 std::string ViewImpl::getSelectedFile() {
-
     QString content = selectedFile->text();
     return content.toStdString();
 }
@@ -61,3 +60,7 @@ void ViewImpl::reportError(std::string errorText) {
     QMessageBox::critical(this, "Error", qErrorText);
 }
 
+void ViewImpl::addLog(std::string logText) {
+    QString newLog = logger->toPlainText() + "\n" + QString::fromStdString(logText);
+    logger->setPlainText(newLog);
+}
