@@ -1,6 +1,7 @@
 #include "logging.hh"
 #include "driver_thread.hh"
 #include "driver.hh"
+#include "xlsx.hh"
 
 void DriverThread::run() {
     try {
@@ -16,44 +17,29 @@ void DriverThread::run() {
 
 
 void DriverThread::perform() {
-    vector<string> rowData = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    };
+    // sleep(10);
+    
+    XlsxReader theReader(inputPath);
 
-    ExcelRow row(rowData);
+    for (int i = 2; i <= 6; i++) {
+        debugf("handling row %d", i);
+        vector<string> rowData = theReader.rowToString(i);
+        ExcelRow row(rowData);
+        driver->handleRow(row);
+    }
 
-    driver->handleRow(row);
+    // debugf("thread: sleep 1");
+    // sleep(3);
 
-    debugf("thread: sleep 1");
-    sleep(3);
+    // // Note that we have to emit a QString here because std::string isn't
+    // // handled by the signal / slot mechanism.
 
-    // Note that we have to emit a QString here because std::string isn't
-    // handled by the signal / slot mechanism.
+    // emit partiallyDone(QString("foo"));
 
-    emit partiallyDone(QString("foo"));
-
-    debugf("thread: sleep 2");
-    sleep(3);
-    debugf("emitting fully done signal");       
-    emit fullyDone(42);
+    // debugf("thread: sleep 2");
+    // sleep(3);
+    // debugf("emitting fully done signal");       
+    // emit fullyDone(42);
 }
 
 

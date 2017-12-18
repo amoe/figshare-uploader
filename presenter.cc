@@ -5,6 +5,8 @@
 #include "slot_adapter.hh"
 #include "run_upload_task.hh"
 
+using std::string;
+
 void PresenterImpl::setView(View* view) {
     this->view = view;
 }
@@ -21,9 +23,11 @@ void PresenterImpl::startUpload() {
         StringAdapter adapter(this, &Presenter::uploadFinished);
         StringAdapter errorAdapter(this, &Presenter::fatalError);
 
+        string inputFile = "/home/amoe/testformat.xlsx";
+
         // XXX: malloc
         RunUploadTask* task = new RunUploadTask(
-            driver, adapter, errorAdapter, file
+            driver, adapter, errorAdapter, inputFile
         );
 
         // By this stage, the token has already been initialized.
