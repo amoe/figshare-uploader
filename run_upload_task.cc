@@ -24,4 +24,5 @@ void RunUploadTask::run() {
 
 void RunUploadTask::onResultReady() {
     debugf("inside result ready");
+    adapter();
 }
