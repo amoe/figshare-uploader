@@ -1,3 +1,5 @@
+#include <QString>
+#include <QDebug>
 #include "logging.hh"
 #include "run_upload_task.hh"
 #include "expensive_operation.hh"
@@ -35,7 +37,8 @@ void RunUploadTask::onFullyDone() {
     adapter();
 }
 
-void RunUploadTask::onPartiallyDone() {
+void RunUploadTask::onPartiallyDone(QString value) {
     debugf("inside partially done");
+    qDebug() << "value from thread was" << value;
     adapter();
 }

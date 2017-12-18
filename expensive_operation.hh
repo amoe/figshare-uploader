@@ -3,6 +3,9 @@
 
 #include <QThread>
 #include <QObject>
+#include <QString>
+
+using std::string;
 
 class ExpensiveOperation : public QThread {
     Q_OBJECT
@@ -12,7 +15,7 @@ public:
     void run() override;
 
 signals:
-    void partiallyDone(const int& result);
+    void partiallyDone(QString result);
     void fullyDone(const int& result);
 };
 

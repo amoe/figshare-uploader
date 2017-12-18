@@ -1,5 +1,6 @@
 #include <QObject>
 #include <QThread>
+#include <QString>
 #include "slot_adapter.hh"
 #include "expensive_operation.hh"
 
@@ -10,7 +11,7 @@ public:
     void run();
 
 public slots:
-    void onPartiallyDone();
+    void onPartiallyDone(QString value);
     void onFullyDone();
 
 private:
