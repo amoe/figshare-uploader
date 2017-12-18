@@ -17,6 +17,7 @@ public:
     std::string getSelectedFile();
     void addLog(std::string logText);
     void reportError(std::string errorText);
+    void showFileDialog();
 
 private:
     Presenter* presenter;

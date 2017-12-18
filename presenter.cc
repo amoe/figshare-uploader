@@ -47,3 +47,9 @@ void PresenterImpl::uploadFinished(string value) {
 void PresenterImpl::fatalError(string what) {
     view->reportError(what);
 }
+
+void PresenterImpl::pickFile() {
+    debugf("file pick requested");
+    view->showFileDialog();
+    view->addLog("Ready to upload.");
+}

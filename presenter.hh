@@ -14,6 +14,7 @@ public:
     void uploadFinished(string value);
     void setView(View* view);
     void fatalError(string what);
+    void pickFile();
 
 private:
     View* view;

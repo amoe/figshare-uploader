@@ -1,6 +1,8 @@
 #include <QObject>
 #include <QDebug>
 #include <QPlainTextEdit>
+#include <QStandardPaths>
+#include <QFileDialog>
 #include <QWidget>
 #include <QString>
 #include <QGridLayout>
@@ -48,6 +50,14 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
         &QPushButton::released,
         slotAdapter
     );
+
+    SlotAdapter pickAdapter(presenter, &Presenter::pickFile);
+
+    connect(
+        pickButton,
+        &QPushButton::released,
+        pickAdapter
+    );
 }
 
 std::string ViewImpl::getSelectedFile() {
@@ -63,4 +73,18 @@ void ViewImpl::reportError(std::string errorText) {
 void ViewImpl::addLog(std::string logText) {
     QString newLog = logger->toPlainText() + "\n" + QString::fromStdString(logText);
     logger->setPlainText(newLog);
+}
+
+
+void ViewImpl::showFileDialog() {
+    QString documentsPath = 
+        QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
+    QString fileName = QFileDialog::getOpenFileName(
+        Q_NULLPTR,    // parent
+        "Open File",
+        documentsPath,
+        "Excel documents (*.xlsx)"
+    );
+
+    selectedFile->setText(fileName);
 }
