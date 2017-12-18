@@ -17,7 +17,7 @@ script:
   - set -e
   - scons
   - ./unit_tests
-  - ./integration_tests
+#  - ./integration_tests
 
 before_install:
   - sudo apt-get update -qq

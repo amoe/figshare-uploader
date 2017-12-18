@@ -7,7 +7,7 @@
 #include "file_spec_generator.hh"
 #include "article_mapper.hh"
 #include "view.hh"
-
+#include "logging.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -25,8 +25,10 @@ int main(int argc, char **argv) {
     QtSizeGetter sizeGetter;
     FileSlicer ioSlicer = FileSlicer("/etc/passwd"); // this is a big problem
 
+    debugf("loading categories");
     string result = httpGetter.request("https://api.figshare.com/v2/categories");
     CategoryMapper categoryMapper(result);
+    debugf("loaded categories");
 
     ArticleTypeMapper typeMapper;
     HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper);
@@ -34,8 +36,9 @@ int main(int argc, char **argv) {
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
     ArticleMapperImpl articleMapper(typeMapper, categoryMapper);
 
+    Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
+
     ViewImpl* view = new ViewImpl;
-    
     view->show();
 
     return app.exec();
