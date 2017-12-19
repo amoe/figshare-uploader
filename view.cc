@@ -80,8 +80,14 @@ void ViewImpl::reportError(std::string errorText) {
     QMessageBox::critical(this, "Error", qErrorText);
 }
 
+// Overloaded version delegate to private Qt-signatured version
 void ViewImpl::addLog(std::string logText) {
-    QString newLog = logger->toPlainText() + "\n" + QString::fromStdString(logText);
+    addQLog(QString::fromStdString(logText));
+}
+
+
+void ViewImpl::addQLog(QString logText) {
+    QString newLog = logger->toPlainText() + "\n" + logText;
     logger->setPlainText(newLog);
 }
 
@@ -101,4 +107,6 @@ void ViewImpl::showFileDialog() {
 
 void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
     this->reporter = reporter;
+
+    connect(reporter, &ViewProgressAdapter::progressReport, this, &ViewImpl::addQLog);
 }

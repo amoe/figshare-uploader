@@ -30,6 +30,10 @@ private:
     QPushButton* actionButton;
     QPlainTextEdit* logger;
     ViewProgressAdapter* reporter;
+
+
+private slots:
+    void addQLog(QString logText);
 };
 
 #endif // VIEW_HH
