@@ -8,6 +8,7 @@
 #include "upload_container_info.hh"
 #include "excel_row.hh"
 #include "article_mapper.hh"
+#include "progress_reporter.hh"
 
 using namespace testing;
 

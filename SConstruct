@@ -44,6 +44,7 @@ http_poster = env.Object("http_poster.cc")
 env.Program(
     target='unit_tests',
     source=[
+        "progress_reporter.cc",
         "settings.cc",
         "file_info_test.cc",
         "file_info.cc",
@@ -118,6 +119,7 @@ env.Program(
         "size_getter.cc",
         "upload_container_info.cc",
         "responses.cc",
+        "progress_reporter.cc",
         "driver.cc",
         "path_extractor.cc",
         "utility.cc"

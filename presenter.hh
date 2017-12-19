@@ -11,6 +11,7 @@ public:
         // This member variable needs to be initialized by a later call to 
         // setView.
         this->view = NULL;
+        this->progressReporter = NULL;
     }
 
     void startUpload();
@@ -24,6 +25,7 @@ private:
     View* view;
     Driver* driver;
     TokenStore* tokenStore;
+    ViewProgressAdapter* progressReporter;
 };
 
 #endif

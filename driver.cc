@@ -6,22 +6,36 @@
 #include "excel_row.hh"
 #include "path_extractor.hh"
 
-void Driver::sayHello() const {
-    debugf("hello from driver");
+void Driver::setProgressReporter(ProgressReporter* reporter) {
+    progressReporter = reporter;
+}
+
+// This won't work because it's not thread safe.
+void Driver::log(string message) const {
+    if (progressReporter)
+        progressReporter->updateProgress(message);
 }
 
 void Driver::handleRow(const ExcelRow row) const {
+    log("Handling row");
+
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
     ArticleCreationResponse response = gateway->createArticle(acr);
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
 
-//    PathExtractor::getRequestedFiles
+    // Yuck:
+    string relationRow = row.rowData.at(15);
 
-    // XXX: Looping logic will one day go here.
-    string relationField = row.rowData.at(15);
-    UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(relationField);
-    handleUpload(stemArticle, ucr);
+    vector<string> filesToUpload
+      = PathExtractor::getRequestedFiles(relationRow);
+
+
+    for (const string& thisFile: filesToUpload) {
+        debugf("handling upload for file: '%s'", thisFile.c_str());
+        UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);
+        handleUpload(stemArticle, ucr);
+    }
 }
 
 void Driver::handleUpload(const string stemArticle, const UploadCreationRequest ucr) const {

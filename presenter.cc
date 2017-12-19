@@ -10,6 +10,9 @@ using std::string;
 
 void PresenterImpl::setView(View* view) {
     this->view = view;
+
+    this->progressReporter = new ViewProgressAdapter(view);
+    driver->setProgressReporter(progressReporter);
 }
 
 void PresenterImpl::initializeView() {
