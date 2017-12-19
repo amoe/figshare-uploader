@@ -39,13 +39,12 @@ void PresenterImpl::startUpload() {
         tokenStore->setToken(token);
         Settings::setToken(token);
 
-        string file = view->getSelectedFile();
+        string inputFile = view->getSelectedFile();
         debugf("value of text input is %s", view->getSelectedFile().c_str());
 
         StringAdapter adapter(this, &Presenter::uploadFinished);
         StringAdapter errorAdapter(this, &Presenter::fatalError);
 
-        string inputFile = "/home/amoe/testformat.xlsx";
 
         // XXX: malloc
         RunUploadTask* task = new RunUploadTask(

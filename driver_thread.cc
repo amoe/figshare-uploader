@@ -19,6 +19,9 @@ void DriverThread::run() {
 void DriverThread::perform() {
     XlsxReader theReader(inputPath);
     
+    debugf("using input path: %s", inputPath.c_str());
+
+    
     int rowCount = theReader.getRowCount();
     debugf("detected row count: %d", theReader.getRowCount());
 
@@ -28,6 +31,8 @@ void DriverThread::perform() {
         ExcelRow row(rowData);
         driver->handleRow(row);
     }
+
+    driver->log("Finished uploading.");
 
     emit fullyDone(42);
 }

@@ -16,7 +16,7 @@ void Driver::log(string message) const {
 }
 
 void Driver::handleRow(const ExcelRow row) const {
-    log("Handling row");
+    log("Handling row.");
 
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
     ArticleCreationResponse response = gateway->createArticle(acr);
