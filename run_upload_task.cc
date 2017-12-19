@@ -9,20 +9,13 @@ using std::string;
 RunUploadTask::RunUploadTask(
     Driver* driver, StringAdapter adapter, StringAdapter errorAdapter, string inputPath
 ) : adapter(adapter), errorAdapter(errorAdapter) {
-    theTask = new DriverThread(0, driver, inputPath);   // XXX should pass top level widget
+    theTask = new DriverThread(0, driver, inputPath);   // XXX should pass top level widget?
 
     connect(
         theTask,
         &DriverThread::fullyDone,
         this,
         &RunUploadTask::onFullyDone
-    );
-
-    connect(
-        theTask,
-        &DriverThread::partiallyDone,
-        this,
-        &RunUploadTask::onPartiallyDone
     );
 
     connect(
@@ -49,15 +42,5 @@ void RunUploadTask::run() {
 void RunUploadTask::onFullyDone() {
     debugf("inside result ready");
     string greeting = "hello, world";
-
-    adapter(greeting);
-}
-
-void RunUploadTask::onPartiallyDone(QString qValue) {
-    debugf("inside partially done");
-    qDebug() << "value from thread was" << qValue;
-
-    string greeting = "hello, world";
-
     adapter(greeting);
 }

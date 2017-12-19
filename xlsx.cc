@@ -21,6 +21,27 @@ bool XlsxReader::cellHasValue(std::string column, int row) {
     return cell.has_value();
 }
 
+// This isn't the same as max_row() or highest_row(), because it makes sure
+// that blank rows don't arbitrarily fill up the test sheet, as happened in the
+// demo data.
+int XlsxReader::getRowCount() {
+    xlnt::worksheet ws = wb.active_sheet();
+    const auto rows = ws.rows();
+
+    // reverse iteration, I found this pattern in the xlnt unit tests
+    for (auto ws_iter = rows.rbegin(); ws_iter != rows.rend(); ws_iter++) {
+        const auto row = *ws_iter;
+
+        for (auto row_iter = row.rbegin(); row_iter != row.rend(); row_iter++) {
+            const auto cell = *row_iter;
+
+            if (cell.has_value()) {
+                return cell.row();
+            }
+        }
+    }
+}
+
 std::vector<std::string> XlsxReader::rowToString(int row) {
     xlnt::worksheet ws = wb.active_sheet();
         

@@ -28,10 +28,9 @@ public:
     void handleUpload(const string stemArticle, const UploadCreationRequest ucr) const;
     void handlePart(const FileInfo sourceFile, const FilePart partSpec) const;
     void setProgressReporter(ProgressReporter* reporter);
-
-private:
     void log(string message) const;
 
+private:
     FileSpecGenerator* fileSpecGenerator;
     FigshareGateway* gateway;
     PartPreparer* partPreparer;

@@ -10,7 +10,6 @@ void Driver::setProgressReporter(ProgressReporter* reporter) {
     progressReporter = reporter;
 }
 
-// This won't work because it's not thread safe.
 void Driver::log(string message) const {
     if (progressReporter)
         progressReporter->updateProgress(message);

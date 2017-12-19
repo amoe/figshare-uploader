@@ -17,29 +17,19 @@ void DriverThread::run() {
 
 
 void DriverThread::perform() {
-    // sleep(10);
-    
     XlsxReader theReader(inputPath);
+    
+    int rowCount = theReader.getRowCount();
+    debugf("detected row count: %d", theReader.getRowCount());
 
-    for (int i = 2; i <= 6; i++) {
+    for (int i = 2; i <= rowCount; i++) {
         debugf("handling row %d", i);
         vector<string> rowData = theReader.rowToString(i);
         ExcelRow row(rowData);
         driver->handleRow(row);
     }
 
-    // debugf("thread: sleep 1");
-    // sleep(3);
-
-    // // Note that we have to emit a QString here because std::string isn't
-    // // handled by the signal / slot mechanism.
-
-    // emit partiallyDone(QString("foo"));
-
-    // debugf("thread: sleep 2");
-    // sleep(3);
-    // debugf("emitting fully done signal");       
-    // emit fullyDone(42);
+    emit fullyDone(42);
 }
 
 

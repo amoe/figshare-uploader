@@ -17,7 +17,6 @@ public:
     void run() override;
 
 signals:
-    void partiallyDone(QString result);
     void fullyDone(const int& result);
     void fatalError(QString what);
 
