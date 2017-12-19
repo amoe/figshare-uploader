@@ -65,6 +65,16 @@ std::string ViewImpl::getSelectedFile() {
     return content.toStdString();
 }
 
+std::string ViewImpl::getToken() {
+    QString content = token->text();
+    return content.toStdString();
+}
+
+void ViewImpl::setToken(string newToken) {
+    token->setText(QString::fromStdString(newToken));
+}
+
+
 void ViewImpl::reportError(std::string errorText) {
     QString qErrorText = QString::fromStdString(errorText);
     QMessageBox::critical(this, "Error", qErrorText);

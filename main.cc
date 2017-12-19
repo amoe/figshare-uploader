@@ -14,13 +14,8 @@
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
-    // Construct the top-level object graph on the stack
-    // char* token_ = getenv("TOKEN");
-    // if (token_ == NULL) {
-    //     throw std::runtime_error("token must exist in environment");
-    // }
-    // std::string token(token_);
-
+    // Token store is spooky action at a distance that's used to thread the
+    // token through the various dependencies.
     TokenStore tokenStore;
 
     QtHttpGetter httpGetter(&tokenStore);
@@ -43,12 +38,14 @@ int main(int argc, char **argv) {
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 
-    Presenter* presenter = new PresenterImpl(&driver);
+    Presenter* presenter = new PresenterImpl(&driver, &tokenStore);
     ViewImpl* view = new ViewImpl(presenter);
 
     // To break the cyclic dependency we have to setView on the presenter after
     // it's been constructed.
     presenter->setView(view);
+    presenter->initializeView();
+
     view->show();
 
     return app.exec();

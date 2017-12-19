@@ -15,6 +15,8 @@ public:
     ViewImpl(Presenter* presenter);
 
     std::string getSelectedFile();
+    std::string getToken();
+    void setToken(std::string newToken);
     void addLog(std::string logText);
     void reportError(std::string errorText);
     void showFileDialog();

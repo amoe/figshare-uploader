@@ -1,6 +1,7 @@
 #include <iostream>
 #include <exception>
 #include "presenter.hh"
+#include "settings.hh"
 #include "logging.hh"
 #include "slot_adapter.hh"
 #include "run_upload_task.hh"
@@ -11,13 +12,25 @@ void PresenterImpl::setView(View* view) {
     this->view = view;
 }
 
+void PresenterImpl::initializeView() {
+    debugf("initializing view");
+
+    view->setToken(Settings::getTokenOrEmpty());
+}
+
 void PresenterImpl::startUpload() {
     try {
         // This actually isn't going to work because this exception handler
         // doesn't live in the same thread.
         debugf("presenter slot was called");
 
-        std::string file = view->getSelectedFile();
+        // This token will now be used by everything, because everything else
+        // holds a reference to it.
+        string token = view->getToken();
+        tokenStore->setToken(token);
+        Settings::setToken(token);
+
+        string file = view->getSelectedFile();
         debugf("value of text input is %s", view->getSelectedFile().c_str());
 
         StringAdapter adapter(this, &Presenter::uploadFinished);
