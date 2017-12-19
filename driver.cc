@@ -4,6 +4,7 @@
 #include "file_info.hh"
 #include "file_part.hh"
 #include "excel_row.hh"
+#include "path_extractor.hh"
 
 void Driver::sayHello() const {
     debugf("hello from driver");
@@ -14,6 +15,8 @@ void Driver::handleRow(const ExcelRow row) const {
     ArticleCreationResponse response = gateway->createArticle(acr);
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
+
+//    PathExtractor::getRequestedFiles
 
     // XXX: Looping logic will one day go here.
     string relationField = row.rowData.at(15);

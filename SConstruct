@@ -54,8 +54,9 @@ env.Program(
         "article_type_mapper.cc",
         "token_store.cc",
         "article_type_mapper_test.cc",
-        "demo_test.cc",
         "article_mapper.cc",
+        "path_extractor_test.cc",
+        "path_extractor.cc",
         "category_test.cc",
         "category_mapper.cc",
         "stubs.cc",
@@ -118,6 +119,7 @@ env.Program(
         "upload_container_info.cc",
         "responses.cc",
         "driver.cc",
+        "path_extractor.cc",
         "utility.cc"
     ]
 )

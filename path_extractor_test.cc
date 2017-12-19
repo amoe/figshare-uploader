@@ -1,41 +1,13 @@
 #include <gmock/gmock.h>
 #include <string>
 #include <vector>
-#include "utility.hh"
+#include "path_extractor.hh"
 
-using std::vector;
-using std::string;
 using namespace testing;
+using std::string;
+using std::vector;
 
-class PathExtractor {
-public:
-    static std::vector<std::string> getRequestedFiles(std::string input) {
-        vector<string> splitVersion =  splitSemicolons(input);
-
-        vector<string> result;
-        
-        for (const string& str : splitVersion) {
-            std::cout << str << std::endl;
-            if (str.empty() || isWhitespaceOnly(str))
-                continue;
-
-            result.push_back(str);
-        }
-        return result;
-    }
-
-private:
-    static bool isWhitespaceOnly(std::string input) {
-        for (int i = 0; i < input.size(); i++) {
-            if (!std::isspace(input.at(i))) 
-                return false;
-        }
-
-        return true;
-    }
-};
-
-TEST(MyComponent, EmptyInput) {
+TEST(PathExtractorTest, EmptyInput) {
     string emptyInput = "";
     vector<string> paths = PathExtractor::getRequestedFiles(emptyInput);
     vector<string> expectedResult = {};
@@ -43,7 +15,7 @@ TEST(MyComponent, EmptyInput) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(MyComponent, Whitespace) {
+TEST(PathExtractorTest, Whitespace) {
     string oneSpace = " ";
     vector<string> paths = PathExtractor::getRequestedFiles(oneSpace);
     
@@ -52,7 +24,7 @@ TEST(MyComponent, Whitespace) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(MyComponent, SingleFile) {
+TEST(PathExtractorTest, SingleFile) {
     string singleFile = "myfile.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(singleFile);
 
@@ -63,7 +35,7 @@ TEST(MyComponent, SingleFile) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(MyComponent, MultipleFiles) {
+TEST(PathExtractorTest, MultipleFiles) {
     string multipleFiles = "myfile1.tiff;myfile2.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(multipleFiles);
     
@@ -74,7 +46,7 @@ TEST(MyComponent, MultipleFiles) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(MyComponent, WhitespaceInMultipleFileSpec) {
+TEST(PathExtractorTest, WhitespaceInMultipleFileSpec) {
     string multipleFilesWithExtraneousWhitespace = "myfile1.tiff ; myfile2.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(multipleFilesWithExtraneousWhitespace);
 
