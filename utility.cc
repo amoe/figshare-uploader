@@ -41,6 +41,10 @@ static vector<string> splitByRegexp(const string input, const string regexp) {
     return results;
 }
 
+vector<string> splitSemicolons(const string input) {
+    return splitByRegexp(input, "\\s*;\\s*");
+}
+
 vector<string> splitCommas(const string input) {
     return splitByRegexp(input, ",\\s*");
 }

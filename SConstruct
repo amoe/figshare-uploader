@@ -54,6 +54,7 @@ env.Program(
         "article_type_mapper.cc",
         "token_store.cc",
         "article_type_mapper_test.cc",
+        "demo_test.cc",
         "article_mapper.cc",
         "category_test.cc",
         "category_mapper.cc",
