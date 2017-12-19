@@ -2,6 +2,7 @@
 #define INTERFACES_HH
 
 #include <string>
+#include "progress_reporter.hh"
 
 class View {
 public:
@@ -11,7 +12,8 @@ public:
     virtual void addLog(std::string logText) = 0;
     virtual void showFileDialog() = 0;
     virtual void setToken(std::string newToken) = 0;
-};
+    virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
+ };
 
 class Presenter {
 public:

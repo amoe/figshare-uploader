@@ -97,6 +97,7 @@ env.Program(
 env.Program(
     target='main',
     source=[
+        "progress_reporter.cc",
         "settings.cc",
         "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
         "driver_thread.cc",

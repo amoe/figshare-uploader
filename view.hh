@@ -7,6 +7,7 @@
 #include <QPlainTextEdit>
 #include <QLineEdit>
 #include "interfaces.hh"
+#include "progress_reporter.hh"
 
 class ViewImpl : public QWidget, public View {
     Q_OBJECT
@@ -20,13 +21,15 @@ public:
     void addLog(std::string logText);
     void reportError(std::string errorText);
     void showFileDialog();
-
+    void setProgressReporter(ViewProgressAdapter* reporter);
+ 
 private:
     Presenter* presenter;
     QLineEdit* selectedFile;
     QLineEdit* token;
     QPushButton* actionButton;
     QPlainTextEdit* logger;
+    ViewProgressAdapter* reporter;
 };
 
 #endif // VIEW_HH

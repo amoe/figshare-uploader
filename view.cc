@@ -98,3 +98,7 @@ void ViewImpl::showFileDialog() {
 
     selectedFile->setText(fileName);
 }
+
+void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
+    this->reporter = reporter;
+}

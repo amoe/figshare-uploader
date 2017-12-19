@@ -11,8 +11,14 @@ using std::string;
 void PresenterImpl::setView(View* view) {
     this->view = view;
 
-    this->progressReporter = new ViewProgressAdapter(view);
+    // By doing this here we install the progress adapter inside the driver.
+    // When the driver runs, it will know to call back to the progress adapter,
+    // which will then emit a signal that is handled by the GUI thread.
+    // We also instruct the view to bind to the signal.
+    
+    this->progressReporter = new ViewProgressAdapter();
     driver->setProgressReporter(progressReporter);
+    view->setProgressReporter(progressReporter);
 }
 
 void PresenterImpl::initializeView() {
