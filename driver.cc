@@ -26,6 +26,7 @@ void Driver::handleRow(const ExcelRow row) const {
     // Yuck:
     string relationRow = row.rowData.at(15);
 
+    debugf("relation row was %s",relationRow.c_str());
     vector<string> filesToUpload
       = PathExtractor::getRequestedFiles(relationRow);
 

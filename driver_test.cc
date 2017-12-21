@@ -31,6 +31,7 @@ public:
 
 TEST_F(DriverTest, canHandleRow) {
     vector<string> rowData = {
+        "",    
         "",
         "",
         "",
@@ -44,9 +45,8 @@ TEST_F(DriverTest, canHandleRow) {
         "",
         "",
         "",
-        "",
-        "",
-        "",
+        "",     
+        "my_file.tiff",    // Relation field
         "",
         "",
         ""
