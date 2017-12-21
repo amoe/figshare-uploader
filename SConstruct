@@ -14,8 +14,6 @@ gtest_all_path = googletest_framework_root + "/googletest/src/gtest-all.cc"
 gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 
-
-
 def get_qt_install_prefix():
     qmake_output = subprocess.check_output(['qmake', '-query'])
     string_qmake = qmake_output.decode('utf-8')
@@ -28,17 +26,26 @@ def get_qt_install_prefix():
             qt_dir = value
             break
 
-    if qt_dir is None:
-        raise Exception("unable to find Qt directory")
-
     return qt_dir
 
-qt_dir = get_qt_install_prefix()
 
+qt5_dir = ARGUMENTS.get('qt5_dir')
+
+print("using qt5 dir ", qt5_dir)
+
+if (qt5_dir is None):
+    qt5_dir = get_qt_install_prefix()
+
+if (qt5_dir is None):
+    raise Exception(
+        "Unable to locate the Qt directory, try using qt5_dir=THEDIR on the "
+        + "command line."
+    )
+    
 
 env = Environment(
     tools=['default', 'qt5'],
-    QT5DIR=qt_dir,
+    QT5DIR=qt5_dir,
     CPPPATH=googletest_include_paths,
 )
 env['QT5_DEBUG'] = 1
