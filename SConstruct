@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 googletest_framework_root = "./ext/googletest-release-1.8.0"
 
@@ -12,9 +13,32 @@ googletest_include_paths = [
 gtest_all_path = googletest_framework_root + "/googletest/src/gtest-all.cc"
 gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
+
+
+
+def get_qt_install_prefix():
+    qmake_output = subprocess.check_output(['qmake', '-query'])
+    string_qmake = qmake_output.decode('utf-8')
+    lines = string_qmake.split(os.linesep)
+    
+    qt_dir = None
+    for line in lines:
+        (key, value) = line.split(':', 1)
+        if key == 'QT_INSTALL_PREFIX':
+            qt_dir = value
+            break
+
+    if qt_dir is None:
+        raise Exception("unable to find Qt directory")
+
+    return qt_dir
+
+qt_dir = get_qt_install_prefix()
+
+
 env = Environment(
     tools=['default', 'qt5'],
-    QT5DIR='/usr',
+    QT5DIR=qt_dir,
     CPPPATH=googletest_include_paths,
 )
 env['QT5_DEBUG'] = 1
