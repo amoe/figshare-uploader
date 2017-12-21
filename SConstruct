@@ -54,8 +54,14 @@ maybe_term = os.environ.get('TERM')
 if maybe_term:
     env['ENV']['TERM'] = maybe_term
 
+ccflags = []
+if env['PLATFORM'] == 'win32':
+    ccflags = ['/EHsc']
+else:
+    ccflags = ['-fPIC', '-std=c++11']
+    
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
-env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
+env.Append(CCFLAGS=ccflags)
 env.Append(
     LIBS=[
         'pthread',
