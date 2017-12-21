@@ -49,7 +49,10 @@ env = Environment(
     CPPPATH=googletest_include_paths,
 )
 env['QT5_DEBUG'] = 1
-env['ENV']['TERM'] = os.environ['TERM']
+
+maybe_term = os.environ.get('TERM')
+if maybe_term:
+    env['ENV']['TERM'] = maybe_term
 
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 env.Append(CCFLAGS=['-fPIC', '-std=c++11'])
