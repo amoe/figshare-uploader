@@ -6,9 +6,13 @@ using std::string;
 using std::vector;
 using std::isspace;
 
+// The path extractor also has a responsibility to resolve the paths into 
+// absolute ones.
 
-vector<string> PathExtractor::getRequestedFiles(string input) {
-    vector<string> splitVersion =  splitSemicolons(input);
+vector<string> PathExtractor::getRequestedFiles(
+    string uploadSpec, string xlsxPath
+) {
+    vector<string> splitVersion =  splitSemicolons(uploadSpec);
 
     vector<string> result;
         
@@ -16,7 +20,7 @@ vector<string> PathExtractor::getRequestedFiles(string input) {
         if (str.empty() || isWhitespaceOnly(str))
             continue;
 
-        result.push_back(str);
+        result.push_back(resolvePath(xlsxPath, str));
     }
 
     return result;

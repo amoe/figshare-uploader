@@ -24,7 +24,7 @@ public:
         progressReporter = NULL;
     }
 
-    void handleRow(const ExcelRow row) const;
+    void handleRow(const ExcelRow row, const string inputPath) const;
     void handleUpload(const string stemArticle, const UploadCreationRequest ucr) const;
     void handlePart(const FileInfo sourceFile, const FilePart partSpec) const;
     void setProgressReporter(ProgressReporter* reporter);

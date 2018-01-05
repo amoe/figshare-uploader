@@ -15,7 +15,7 @@ void Driver::log(string message) const {
         progressReporter->updateProgress(message);
 }
 
-void Driver::handleRow(const ExcelRow row) const {
+void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     log("Handling row.");
 
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
@@ -28,7 +28,7 @@ void Driver::handleRow(const ExcelRow row) const {
 
     debugf("relation row was %s",relationRow.c_str());
     vector<string> filesToUpload
-      = PathExtractor::getRequestedFiles(relationRow);
+        = PathExtractor::getRequestedFiles(relationRow, inputPath);
 
 
     for (const string& thisFile: filesToUpload) {

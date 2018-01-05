@@ -92,7 +92,7 @@ TEST_F(DriverTest, canHandleRow) {
         .WillRepeatedly(Return(emptyCommand));
     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
 
-    driver->handleRow(row);
+    driver->handleRow(row, "/fakeinput.xlsx");
 }
 
 TEST_F(DriverTest, canHandleUpload) {

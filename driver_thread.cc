@@ -21,7 +21,6 @@ void DriverThread::perform() {
     
     debugf("using input path: %s", inputPath.c_str());
 
-    
     int rowCount = theReader.getRowCount();
     debugf("detected row count: %d", theReader.getRowCount());
 
@@ -29,7 +28,7 @@ void DriverThread::perform() {
         debugf("handling row %d", i);
         vector<string> rowData = theReader.rowToString(i);
         ExcelRow row(rowData);
-        driver->handleRow(row);
+        driver->handleRow(row, inputPath);
     }
 
     driver->log("Finished uploading.");
