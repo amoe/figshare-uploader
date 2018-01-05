@@ -101,4 +101,6 @@ FilePart ObjectMother::makeFilePart(int i) {
     bool isLocked = false;
     FilePartStatus status = FilePartStatus::PENDING;
     FilePart partSpec(partNumber, startOffset, endOffset, isLocked, status);
+	
+	return partSpec;
 }

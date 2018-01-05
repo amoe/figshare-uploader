@@ -1,3 +1,4 @@
+#include <cctype>
 #include "path_extractor.hh"
 #include "utility.hh"
 
