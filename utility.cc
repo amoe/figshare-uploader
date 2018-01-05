@@ -3,11 +3,28 @@
 #include <QString>
 #include <QStringList>
 #include <QJsonDocument>
+#include <QDir>
 #include <QJsonObject>
 #include <QFileInfo>
 
 using std::string;
 using std::vector;
+
+string resolvePath(string base, string relative) {
+    // retrieve the dirname
+    QString qPath = QString::fromStdString(base);
+    QFileInfo fileInfo(qPath);
+    QDir dirname = fileInfo.dir();
+
+    // now join it to the leaf
+    QString absolutePath = dirname.absoluteFilePath(
+        QString::fromStdString(relative)
+    );
+
+    QString nativePath = QDir::toNativeSeparators(absolutePath);
+    
+    return nativePath.toStdString();
+}
 
 // XXX duplicates code from test utilities.  ??
 string fetchString(
