@@ -64,7 +64,8 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
 
 std::string ViewImpl::getSelectedFile() {
     QString content = selectedFile->text();
-    return content.toStdString();
+    QString native = QDir::toNativeSeparators(content);
+    return native.toStdString();
 }
 
 std::string ViewImpl::getToken() {
