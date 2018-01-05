@@ -90,11 +90,14 @@ public:
         if (!source->isOpen())
             qFatal("something went wrong");
 
-        char buffer[1048576];
+        // this buffer is too large to allocate on the stack.
+        char* buffer = new char[1048576];
         int length;
 
         while ((length = source->read(buffer,sizeof(buffer))) > 0)
             hash.addData(buffer,length);
+
+        delete buffer;
 
         qDebug() << "after loop";
 
