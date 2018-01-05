@@ -53,6 +53,21 @@ linkflags = []
 ccflags = []
 libs = []
 
+
+env = Environment(
+    tools=['default', 'qt5'],
+    QT5DIR=qt5_dir,
+    CPPPATH=googletest_include_paths + [xlnt_include_path]
+)
+
+env['QT5_DEBUG'] = 1
+
+maybe_term = os.environ.get('TERM')
+if maybe_term:
+    env['ENV']['TERM'] = maybe_term
+
+env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
+
 if env['PLATFORM'] == 'win32':
     ccflags = [
         '/EHsc',    # unbreak exceptions
@@ -69,22 +84,9 @@ else:
     ccflags = ['-fPIC', '-std=c++11']
     libs = ['pthread', 'xlnt']
 
-env = Environment(
-    tools=['default', 'qt5'],
-    QT5DIR=qt5_dir,
-    CPPPATH=googletest_include_paths + [xlnt_include_path],
-    LINKFLAGS=linkflags
-)
-env['QT5_DEBUG'] = 1
-
-maybe_term = os.environ.get('TERM')
-if maybe_term:
-    env['ENV']['TERM'] = maybe_term
-
-    
-env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 env.Append(CCFLAGS=ccflags)
 env.Append(LIBS=libs)
+env.Append(LINKFLAGS=linkflags)
 
 print("Prog emitter:", env['PROGEMITTER'])
 print("Program is" + repr(env['BUILDERS']['Program'].emitter))
