@@ -103,6 +103,7 @@ http_poster = env.Object("http_poster.cc")
 env.Program(
     target='unit_tests',
     source=[
+        "utility_test.cc",
         "progress_reporter.cc",
         "settings.cc",
         "file_info_test.cc",

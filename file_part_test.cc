@@ -7,7 +7,7 @@
 using ::testing::Eq;
 
 
-TEST(MyComponent, ActsAsIExpect) {
+TEST(FilePartTest, ActsAsIExpect) {
     string json = raw_literals::serializedFilePartInfo;
     auto document = QJsonDocument::fromJson(QString::fromStdString(json).toUtf8());
     QJsonObject object = document.object();

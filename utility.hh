@@ -4,6 +4,8 @@
 using std::string;
 using std::vector;
 
+string resolvePath(string base, string path);
+
 string fetchString(
     const string input, const string key
 );
