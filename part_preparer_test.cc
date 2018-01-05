@@ -16,7 +16,7 @@ TEST(PartPreparerTest, ActsAsIExpect) {
     ASSERT_THAT(filePart.getStartOffset(), Eq(2));
     ASSERT_THAT(filePart.getEndOffset(), Eq(8));
 
-    UploadCommand result = preparer.prepareUpload("lena.png", fileInfo, filePart);
+    UploadCommand result = preparer.prepareUpload("lena.jpg", fileInfo, filePart);
 
     ASSERT_THAT(result.getUrl(), Eq("http://my-site.com/my-token/42"));
 
