@@ -49,11 +49,31 @@ if (qt5_dir is None):
 
 xlnt_include_path = "ext/xlnt-1.2.0/include"
 
+linkflags = []
+ccflags = []
+libs = []
+
+if env['PLATFORM'] == 'win32':
+    ccflags = [
+        '/EHsc',    # unbreak exceptions
+        '/MD'       # dynamically link against VC++ CRT
+    ]
+    linkflags = [
+        '/subsystem:windows'    # do not spawn a console window
+    ]
+    libs = [
+	'shell32',    # /subsystem:windows requires this
+	'xlnt'
+    ]
+else:
+    ccflags = ['-fPIC', '-std=c++11']
+    libs = ['pthread', 'xlnt']
+
 env = Environment(
     tools=['default', 'qt5'],
     QT5DIR=qt5_dir,
     CPPPATH=googletest_include_paths + [xlnt_include_path],
-	LINKFLAGS=['/subsystem:windows']
+    LINKFLAGS=linkflags
 )
 env['QT5_DEBUG'] = 1
 
@@ -61,18 +81,6 @@ maybe_term = os.environ.get('TERM')
 if maybe_term:
     env['ENV']['TERM'] = maybe_term
 
-ccflags = []
-libs = []
-
-if env['PLATFORM'] == 'win32':
-    ccflags = ['/EHsc', '/MD']
-    libs = [
-	    'shell32',
-		'xlnt'
-	]
-else:
-    ccflags = ['-fPIC', '-std=c++11']
-    libs = ['pthread', 'xlnt']
     
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 env.Append(CCFLAGS=ccflags)
