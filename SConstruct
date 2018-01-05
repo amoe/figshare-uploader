@@ -15,16 +15,21 @@ gmock_all_path = googletest_framework_root + "/googlemock/src/gmock-all.cc"
 
 
 def get_qt_install_prefix():
-    qmake_output = subprocess.check_output(['qmake', '-query'])
-    string_qmake = qmake_output.decode('utf-8')
-    lines = string_qmake.split(os.linesep)
-    
     qt_dir = None
-    for line in lines:
-        (key, value) = line.split(':', 1)
-        if key == 'QT_INSTALL_PREFIX':
-            qt_dir = value
-            break
+
+    try:
+        qmake_output = subprocess.check_output(['qmake', '-query'])
+
+        string_qmake = qmake_output.decode('utf-8')
+        lines = string_qmake.split(os.linesep)
+    
+        for line in lines:
+            (key, value) = line.split(':', 1)
+            if key == 'QT_INSTALL_PREFIX':
+                qt_dir = value
+                break
+    except Exception as e:
+        print "Failed to run qmake."
 
     return qt_dir
 
