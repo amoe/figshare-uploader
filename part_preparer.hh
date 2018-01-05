@@ -9,7 +9,7 @@
 class PartPreparer {
 public:
     virtual UploadCommand prepareUpload(
-        const FileInfo info, const FilePart part
+        const string sourcePath, const FileInfo info, const FilePart part
     ) = 0;
 };
 
@@ -17,7 +17,7 @@ public:
 class PartPreparerImpl : public PartPreparer {
 public:
     PartPreparerImpl() { }
-    UploadCommand prepareUpload(const FileInfo info, const FilePart part);
+    UploadCommand prepareUpload(const string sourcePath, const FileInfo info, const FilePart part);
 
 private:
     vector<char> getDataSlice(string filePath, int64_t startOffset, int64_t endOffset);
@@ -25,9 +25,9 @@ private:
 
 class MockPartPreparer : public PartPreparer {
 public:
-    MOCK_METHOD2(
+    MOCK_METHOD3(
         prepareUpload,
-        UploadCommand(const FileInfo info, const FilePart part)
+        UploadCommand(const string sourcePath, const FileInfo info, const FilePart part)
     );
 };
 

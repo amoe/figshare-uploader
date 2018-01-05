@@ -53,8 +53,8 @@ struct UploadCreationRequest {
 
     string toJson() const;
 
-    string name;
-    string md5;   // This is the hex representation not the binary one
+    string name;   // the *relative* name of the file -- can't be used to open
+    string md5;    // This is the hex representation not the binary one
     int64_t size;
 };
 

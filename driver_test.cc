@@ -87,7 +87,7 @@ TEST_F(DriverTest, canHandleRow) {
     EXPECT_CALL(gateway, getUploadContainerInfo(_))
       .WillOnce(Return(uploadContainerInfo));
 
-    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+    EXPECT_CALL(partPreparer, prepareUpload(_, _, _))
         .Times(Exactly(2))
         .WillRepeatedly(Return(emptyCommand));
     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
@@ -109,12 +109,12 @@ TEST_F(DriverTest, canHandleUpload) {
     EXPECT_CALL(gateway, getUploadInfo(_)).WillOnce(Return(fileInfo));
     EXPECT_CALL(gateway, getUploadContainerInfo(_))
      .WillOnce(Return(uploadContainerInfo));
-    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+    EXPECT_CALL(partPreparer, prepareUpload(_, _, _))
         .Times(Exactly(2))
         .WillRepeatedly(Return(emptyCommand));
 
     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
-    driver->handleUpload(stemArticle, ucr);
+    driver->handleUpload(stemArticle, "something.tiff", ucr);
 }
 
 TEST_F(DriverTest, canHandlePart) {
@@ -128,7 +128,7 @@ TEST_F(DriverTest, canHandlePart) {
     UploadCommand emptyCommand(url, data);
     
 
-    EXPECT_CALL(partPreparer, prepareUpload(_, _))
+    EXPECT_CALL(partPreparer, prepareUpload(_, _, _))
       .WillOnce(Return(emptyCommand));
 
     EXPECT_CALL(gateway, putUpload(_)).Times(AtLeast(1));
@@ -136,7 +136,7 @@ TEST_F(DriverTest, canHandlePart) {
     FileInfo sourceFile = ObjectMother::makeFileInfo();
     FilePart partSpec = ObjectMother::makeFilePart(1);
 
-    driver->handlePart(sourceFile, partSpec);
+    driver->handlePart("something.tiff", sourceFile, partSpec);
     
     ASSERT_THAT(2 + 2, Eq(4));
 }

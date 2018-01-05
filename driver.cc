@@ -34,11 +34,18 @@ void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     for (const string& thisFile: filesToUpload) {
         debugf("handling upload for file: '%s'", thisFile.c_str());
         UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);
-        handleUpload(stemArticle, ucr);
+        handleUpload(stemArticle, thisFile, ucr);
     }
 }
 
-void Driver::handleUpload(const string stemArticle, const UploadCreationRequest ucr) const {
+// although the fileinfo does contain the base name of the file.
+// it doesn't contain the full path
+// so we probably need to pass all things through?????
+void Driver::handleUpload(
+    const string stemArticle,
+    const string sourcePath,
+    const UploadCreationRequest ucr
+) const {
     UploadCreationResponse response = gateway->createUpload(stemArticle, ucr);
     FileInfo fileInfo = gateway->getUploadInfo(response.location);
     UploadContainerInfo uci = gateway->getUploadContainerInfo(
@@ -46,11 +53,13 @@ void Driver::handleUpload(const string stemArticle, const UploadCreationRequest 
     );
 
     for (FilePart part : uci.parts) {
-        handlePart(fileInfo, part);
+        handlePart(sourcePath, fileInfo, part);
     }
 }
 
-void Driver::handlePart(const FileInfo sourceFile, const FilePart partSpec) const {
-    UploadCommand command = partPreparer->prepareUpload(sourceFile, partSpec);
+void Driver::handlePart(
+    const string sourcePath, const FileInfo sourceInfo, const FilePart partSpec
+) const {
+    UploadCommand command = partPreparer->prepareUpload(sourcePath, sourceInfo, partSpec);
     gateway->putUpload(command);
 }
