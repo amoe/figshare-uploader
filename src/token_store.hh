@@ -2,7 +2,7 @@
 #define TOKEN_STORE_HH
 
 #include <string>
-#include "ext/optional.hpp"
+#include "optional.hpp"
 
 using std::string;
 using nonstd::optional;

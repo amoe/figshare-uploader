@@ -4,7 +4,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonValue>
-#include "ext/optional.hpp"
+#include "optional.hpp"
 #include "requests.hh"
 #include "article_types.hh"
 #include "article_type_mapper.hh"

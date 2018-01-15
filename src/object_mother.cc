@@ -1,5 +1,5 @@
 #include "object_mother.hh"
-#include "ext/optional.hpp"
+#include "optional.hpp"
 
 using nonstd::optional;
 using nonstd::nullopt;

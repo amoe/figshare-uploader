@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "ext/optional.hpp"
+#include "optional.hpp"
 #include "article_types.hh"
 
 using nonstd::optional;
