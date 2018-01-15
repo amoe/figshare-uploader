@@ -92,14 +92,6 @@ print("Prog emitter:", env['PROGEMITTER'])
 print("Program is" + repr(env['BUILDERS']['Program'].emitter))
 
 
-gtest = env.Object(gtest_all_path)
-gmock = env.Object(gmock_all_path)
-test_harness = env.Object("test_harness.cc")
-test_utility = env.Object("test_utility.cc")
-utility = env.Object("utility.cc")
-http_getter = env.Object("http_getter.cc")
-http_poster = env.Object("http_poster.cc")
-
 env.Program(
     target='unit_tests',
     source=[
@@ -149,8 +141,12 @@ env.Program(
         "driver_test.cc",
         "driver.cc",
         "object_mother.cc",
-        utility,
-        test_harness, test_utility, gtest, gmock
+        "http_getter.cc",
+        "http_poster.cc",
+        "test_utility.cc",
+        "utility.cc",
+        "test_harness.cc",
+        gtest_all_path, gmock_all_path
     ]
 )
 
