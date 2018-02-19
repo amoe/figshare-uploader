@@ -66,6 +66,11 @@ maybe_term = os.environ.get('TERM')
 if maybe_term:
     env['ENV']['TERM'] = maybe_term
 
+
+maybe_pkg_config_path = os.environ.get('PKG_CONFIG_PATH')
+if maybe_pkg_config_path:
+    env['ENV']['PKG_CONFIG_PATH'] = maybe_pkg_config_path
+
 env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
 
 if env['PLATFORM'] == 'win32':

@@ -7,6 +7,8 @@ install python3
 brew install qt5  -- don't use official thing as it doesn't bundle pkg-config
 pc files that wre required by the thing.
 
+
+
 PKG_CONFIG_PATH /usr/local/opt/qt/lib/pkgconfig
 
 LDFLAGS /usr/local/opt/qt/lib
@@ -19,3 +21,8 @@ you need to disable werror with some clang version
 
 Once you've installed xcode you need to visit preferences > locations in xcode
 and change the location of the Command LIne Tools in the dropdown.c
+
+
+## Install on mfm017633 -- Mac OS X Sierra
+
+You also need pkg-config
