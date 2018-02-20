@@ -4,12 +4,15 @@
   <dict>
     <key>NSHumanReadableCopyright</key>
     <string>© 2017, 2018 University of Sussex</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Figshare Uploader</string>
+
     <key>CFBundleExecutable</key>
     <string>%BUNDLE_EXECUTABLE%</string>
     <key>CFBundleIdentifier</key>
     <string>%BUNDLE_KEY%</string>
-    <key>CFBundleName</key>
-    <string>figshare-uploader</string>
+
     <key>CFBundleIconFile</key>
     <string>%ICONFILE%</string>
     <key>CFBundleShortVersionString</key>
