@@ -229,7 +229,6 @@ def do_bundle():
 
     macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
 
-
     initial_dmg_output_path = "%s.dmg" % application_name
     final_dmg_output_path = "figshare_uploader-%s.dmg" % shortversion
 
