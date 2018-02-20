@@ -201,9 +201,17 @@ def do_bundle():
     # We use the initial hash-sign to refer to a path relative to the root
     # directory of the source checkout.
     info_plist = "#info_plist.xml"
+    
+    # This is a kind of quirk of bundles, it's just some unused metadata.
+    # APPL, on the other hand, is required
     typecode = "APPL"
+    creator = "SUSX"
 
-    bundle_env.MakeBundle(bundledir, app, key, info_plist, typecode=typecode)
+    bundle_env.MakeBundle(
+        bundledir, app, key, info_plist, typecode=typecode, creator=creator
+    )
+
+    print("Now run 'macdeployqt the_bundle.app -dmg'.")
     
 
 if env['PLATFORM'] == 'darwin':
