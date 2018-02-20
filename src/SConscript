@@ -194,7 +194,7 @@ def do_bundle():
     bundle_env = Environment()
     osxbundle.TOOL_BUNDLE(bundle_env)
 
-    bundledir = "the_bundle.app"
+    bundledir = "figshare_uploader.app"
     app = "main"
     key = "uk.ac.sussex"
 
@@ -228,7 +228,7 @@ def do_bundle():
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.
     env.Command(
-        'the_bundle.dmg', 'the_bundle.app',
+        'figshare_uploader.dmg', bundledir,
         "%s $SOURCE -dmg -libpath=/usr/local/lib"  % (macdeployqt_path,)
     )
     
