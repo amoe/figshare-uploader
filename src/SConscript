@@ -211,11 +211,13 @@ def do_bundle():
         bundledir, app, key, info_plist, typecode=typecode, creator=creator
     )
 
+    macdeployqt_path = os.path.join(qt5_dir, "macdeployqt")
+
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.
     env.Command(
         'the_bundle.dmg', 'the_bundle.app',
-        "macdeployqt $SOURCE -dmg -libpath=/usr/local/lib"
+        "%s $SOURCE -dmg -libpath=/usr/local/lib"  % (macdeployqt_path,)
     )
     
 
