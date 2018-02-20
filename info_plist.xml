@@ -22,5 +22,10 @@
     <integer>0</integer>
     <key>IFMinorVersion</key>
     <integer>1</integer>
+    <!-- 
+      This is needed to get decent looking widgets with Qt, see SO #26196038
+    -->
+    <key>NSHighResolutionCapable</key>
+    <string>True</string>
   </dict>
 </plist>
