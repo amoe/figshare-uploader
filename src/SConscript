@@ -207,7 +207,7 @@ def do_bundle():
     typecode = "APPL"
     creator = "SUSX"
 
-    icon_file = "icon.png"
+    icon_file = "icon.icns"
 
     subst_dict = {
         '%SHORTVERSION%': '0.0.2',
