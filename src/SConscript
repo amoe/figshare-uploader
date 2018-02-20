@@ -197,7 +197,10 @@ def do_bundle():
     bundledir = "the_bundle.app"
     app = "main"
     key = "uk.ac.sussex"
-    info_plist = "info_plist.xml"
+
+    # We use the initial hash-sign to refer to a path relative to the root
+    # directory of the source checkout.
+    info_plist = "#info_plist.xml"
     typecode = "APPL"
 
     bundle_env.MakeBundle(bundledir, app, key, info_plist, typecode=typecode)
