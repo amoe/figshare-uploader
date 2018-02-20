@@ -211,7 +211,7 @@ def do_bundle():
         bundledir, app, key, info_plist, typecode=typecode, creator=creator
     )
 
-    print("Now run 'macdeployqt the_bundle.app -dmg'.")
+    print("Now run 'macdeployqt build/the_bundle.app -dmg'.")
     
 
 if env['PLATFORM'] == 'darwin':

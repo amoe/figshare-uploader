@@ -19,7 +19,36 @@ You also need the appropriate Qt5 dev packages for your distribution.  This is
 often provided by the top level package `qt5-default` in Debian and derivatives.
 
 Once you have these, run `scons` to build.
-You should get a binary `./main` in the current directory.
+You should get a binary produced `./build/main`.
+
+## Building on Mac
+
+You need:
+
+* Homebrew
+* Python 3 - `brew install python3`
+* xlnt
+* SCons - `pip3 install scons`
+* Qt5 - `brew install qt5`
+* pkg-config - `brew install pkg-config`
+
+By default, Brew will install qt5 to `/usr/local/opt/qt`.  Take a note of this
+path.
+
+### Building xlnt
+
+There's no brew package for xlnt yet, so you'll have to install it yourself.
+Luckily this works identically to the standard Linux build instructions.
+
+### Building the program itself
+
+You need to export the correct environment variables for pkg-config to work:
+
+    amoe@somemac $ export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
+    amoe@somemac $ scons qt5_dir=/usr/local/opt/qt
+
+You should automatically get an OSX 'bundle' built under the `build`
+subdirectory.
 
 ## Building on Windows
 
@@ -74,7 +103,7 @@ You can build the app using `windeployqt` to get the various Qt DLLs into the
 current directory.  By default this will copy far too many files, but at least
 it will work.
 
-    windeployqt --release main.exe
+    windeployqt --release build\main.exe
 
 So now you should have all the run-time requirements resolved, by copying these
 DLLs into the source directory:
