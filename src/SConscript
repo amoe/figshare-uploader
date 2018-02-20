@@ -194,7 +194,9 @@ def do_bundle():
     bundle_env = Environment()
     osxbundle.TOOL_BUNDLE(bundle_env)
 
-    bundledir = "figshare_uploader.app"
+    application_name = "Figshare Uploader"
+
+    bundledir = "%s.app" % application_name
     app = "main"
     key = "uk.ac.sussex"
 
@@ -213,6 +215,7 @@ def do_bundle():
         '%SHORTVERSION%': '0.0.2',
         '%BUNDLE_EXECUTABLE%': app,
         '%BUNDLE_KEY%': key,
+        '%BUNDLE_FRIENDLY_NAME%': application_name,
         '%ICONFILE%': icon_file,
         '%TYPE%': typecode
     }
