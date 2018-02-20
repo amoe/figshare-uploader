@@ -211,7 +211,12 @@ def do_bundle():
         bundledir, app, key, info_plist, typecode=typecode, creator=creator
     )
 
-    print("Now run 'macdeployqt build/the_bundle.app -dmg'.")
+    # We expect to find xlnt installed under /usr/local/lib, this is not the
+    # best assumption.
+    env.Command(
+        'the_bundle.dmg', 'the_bundle.app',
+        "macdeployqt $SOURCE -dmg -libpath=/usr/local/lib"
+    )
     
 
 if env['PLATFORM'] == 'darwin':
