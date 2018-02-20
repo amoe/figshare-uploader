@@ -211,7 +211,7 @@ def do_bundle():
         bundledir, app, key, info_plist, typecode=typecode, creator=creator
     )
 
-    macdeployqt_path = os.path.join(qt5_dir, "macdeployqt")
+    macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
 
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.
