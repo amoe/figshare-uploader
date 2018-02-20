@@ -1,5 +1,6 @@
 import os
 import subprocess
+import osxbundle
 
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
@@ -187,3 +188,21 @@ env.Program(
         "utility.cc"
     ]
 )
+
+# We have to use a fresh environment for the bundling process.
+def do_bundle():
+    bundle_env = Environment()
+    osxbundle.TOOL_BUNDLE(bundle_env)
+
+    bundledir = "the_bundle.app"
+    app = "main"
+    key = "uk.ac.sussex"
+    info_plist = "info_plist.xml"
+    typecode = "APPL"
+
+    bundle_env.MakeBundle(bundledir, app, key, info_plist, typecode=typecode)
+    
+
+if env['PLATFORM'] == 'darwin':
+    print("Detected Mac OS X -- creating application bundle")
+    do_bundle()
