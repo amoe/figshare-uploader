@@ -213,7 +213,7 @@ def do_bundle():
         '%SHORTVERSION%': '0.0.2',
         '%BUNDLE_EXECUTABLE%': app,
         '%BUNDLE_KEY%': key,
-        '%ICON_FILE%': icon_file,
+        '%ICONFILE%': icon_file,
         '%TYPE%': typecode
     }
 
