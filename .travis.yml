@@ -1,5 +1,5 @@
+os: osx
 language: cpp
-dist: trusty
 
 # Xenial will release soon on Travis:
 # https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
@@ -16,9 +16,5 @@ install:
 script:
   - set -e
   - scons
-  - ./build/unit_tests
+#  - ./build/unit_tests
 #  - ./integration_tests
-
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq qtbase5-dev qt5-default
