@@ -219,7 +219,7 @@ def do_bundle():
 
     bundle_env.MakeBundle(
         bundledir, app, key, info_plist, typecode=typecode, creator=creator,
-        subst_dict=subst, resources=[icon_file]
+        subst_dict=subst_dict, resources=[icon_file]
     )
 
     macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
