@@ -211,7 +211,7 @@ def do_bundle():
 
     subst_dict = {
         '%SHORTVERSION%': '0.0.2',
-        '%BUNDLE_EXECUTABLE%': appbase,
+        '%BUNDLE_EXECUTABLE%': app,
         '%BUNDLE_KEY%': key,
         '%ICON_FILE%': icon_file,
         '%TYPE%': typecode
