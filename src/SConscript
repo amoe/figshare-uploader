@@ -207,11 +207,23 @@ def do_bundle():
     typecode = "APPL"
     creator = "SUSX"
 
+    icon_file = "icon.png"
+
+    subst_dict = {
+        '%SHORTVERSION%': '0.0.2',
+        '%BUNDLE_EXECUTABLE%': appbase,
+        '%BUNDLE_KEY%': key,
+        '%ICON_FILE%': icon_file,
+        '%TYPE%': typecode
+    }
+
     bundle_env.MakeBundle(
-        bundledir, app, key, info_plist, typecode=typecode, creator=creator
+        bundledir, app, key, info_plist, typecode=typecode, creator=creator,
+        subst_dict=subst, resources=[icon_file]
     )
 
     macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
+
 
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.

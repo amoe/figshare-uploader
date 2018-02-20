@@ -2,26 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
-    <key>CFBundleGetInfoString</key>
-    <string>Foo</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>© 2017, 2018 University of Sussex</string>
     <key>CFBundleExecutable</key>
     <string>%BUNDLE_EXECUTABLE%</string>
     <key>CFBundleIdentifier</key>
-    <string>com.your-company-name.www</string>
+    <string>%BUNDLE_KEY%</string>
     <key>CFBundleName</key>
-    <string>foo</string>
+    <string>figshare-uploader</string>
     <key>CFBundleIconFile</key>
-    <string>foo.icns</string>
+    <string>%ICONFILE%</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.01</string>
+    <string>%SHORTVERSION%</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>IFMajorVersion</key>
-    <integer>0</integer>
-    <key>IFMinorVersion</key>
-    <integer>1</integer>
+    <string>%TYPE%</string>
+
     <!-- 
       This is needed to get decent looking widgets with Qt, see SO #26196038
     -->
