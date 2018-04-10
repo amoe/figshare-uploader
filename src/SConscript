@@ -90,6 +90,12 @@ else:
     ccflags = ['-fPIC', '-std=c++11']
     libs = ['pthread', 'xlnt']
 
+
+# Earliest supported mac version should be Yosemite.
+# GCC and Clang both interpret this environment variable.
+if env['PLATFORM'] == 'darwin':
+    env['ENV']['MACOSX_DEPLOYMENT_TARGET'] = "10.10"
+
 env.Append(CCFLAGS=ccflags)
 env.Append(LIBS=libs)
 env.Append(LINKFLAGS=linkflags)
