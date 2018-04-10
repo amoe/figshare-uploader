@@ -2,6 +2,8 @@ import os
 import subprocess
 import osxbundle
 
+VERSION = "0.0.3"
+
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
 googletest_include_paths = [
@@ -217,7 +219,7 @@ def do_bundle():
 
     icon_file = "icon.icns"
 
-    shortversion = '0.0.2'
+    shortversion = VERSION
 
     subst_dict = {
         '%SHORTVERSION%': shortversion,
