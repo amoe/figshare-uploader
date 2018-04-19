@@ -179,6 +179,8 @@ pattern_fill_type from_string(const std::string &string)
     else if (string == "gray125") return pattern_fill_type::gray125;
     else if (string == "lightdown") return pattern_fill_type::lightdown;
     else if (string == "lightgray") return pattern_fill_type::lightgray;
+    // added by amoe; https://github.com/tfussell/xlnt/issues/274
+    else if (string == "lightGray") return pattern_fill_type::lightgray;
     else if (string == "lightgrid") return pattern_fill_type::lightgrid;
     else if (string == "lighthorizontal") return pattern_fill_type::lighthorizontal;
     else if (string == "lighttrellis") return pattern_fill_type::lighttrellis;
