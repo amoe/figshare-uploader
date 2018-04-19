@@ -28,8 +28,9 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     // We only support one reference at the moment!
     vector<string> references;
     string referencesSheetVal = excelRow.at(column_mapping::REFERENCES);
-    references.push_back(referencesSheetVal);
 
+    if (!referencesSheetVal.empty()) 
+        references.push_back(referencesSheetVal);
 
     vector<int> categories;
     string categoryTitle = excelRow.at(2);

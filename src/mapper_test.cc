@@ -50,7 +50,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
     vector<int> expectedCategories = {};
 
-//    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
+    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
 }
 
 
