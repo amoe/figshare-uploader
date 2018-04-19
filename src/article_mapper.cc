@@ -10,6 +10,7 @@
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
 #include "utility.hh"
+#include "column_mapping.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -17,7 +18,6 @@ using std::vector;
 using std::string;
 using std::map;
 
-const int REFERENCES_COLUMN_NUMBER = 6;
 
 ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
     string title = excelRow.at(0);
@@ -27,7 +27,7 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     // We only support one reference at the moment!
     vector<string> references;
-    string referencesSheetVal = excelRow.at(REFERENCES_COLUMN_NUMBER);
+    string referencesSheetVal = excelRow.at(column_mapping::REFERENCES);
     references.push_back(referencesSheetVal);
 
 
