@@ -11,7 +11,7 @@ install:
   - make || exit 1
   - sudo make install || exit 1
   - cd ../..
-  - sudo pip3 install scons
+  - brew install python3
 
 script:
   - scons || exit 1
