@@ -13,9 +13,7 @@ install:
   - cd ../..
   # see travis-ci #9285
   - brew upgrade python3
-  - sudo pip3 install -U setuptools
-  - sudo pip3 install -U wheel
-  - sudo pip3 install --egg SCons
+  - brew install scons
 
 script:
   - scons || exit 1
