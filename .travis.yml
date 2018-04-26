@@ -10,7 +10,6 @@ install:
   - cmake . || exit 1
   - make || exit 1
   - sudo make install || exit 1
-  - sudo ldconfig || exit 1
   - cd ../..
 
 script:
