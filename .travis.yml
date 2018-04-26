@@ -11,9 +11,9 @@ install:
   - make || exit 1
   - sudo make install || exit 1
   - cd ../..
+  - sudo pip3 install scons
 
 script:
-  - set -e
-  - scons
-#  - ./build/unit_tests
+  - scons || exit 1
+p#  - ./build/unit_tests
 #  - ./integration_tests
