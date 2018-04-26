@@ -7,6 +7,7 @@
 #include "article_mapper.hh"
 #include "utility.hh"
 #include "object_mother.hh"
+#include "column_mapping.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -14,6 +15,24 @@ using nonstd::nullopt;
 using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
+
+TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    // Superfluously ensure that category is also blank
+    row.at(column_mapping::REFERENCES) = "";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    vector<string> expectedReferences = {};
+
+    ASSERT_THAT(request.getReferences(), Eq(expectedReferences));
+}
 
 TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     ArticleTypeMapper typeMapper;
@@ -31,7 +50,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
     vector<int> expectedCategories = {};
 
-//    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
+    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
 }
 
 

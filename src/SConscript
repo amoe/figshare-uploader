@@ -2,6 +2,8 @@ import os
 import subprocess
 import osxbundle
 
+VERSION = "0.0.3"
+
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
 googletest_include_paths = [
@@ -89,6 +91,12 @@ if env['PLATFORM'] == 'win32':
 else:
     ccflags = ['-fPIC', '-std=c++11']
     libs = ['pthread', 'xlnt']
+
+
+# Earliest supported mac version should be Yosemite.
+# GCC and Clang both interpret this environment variable.
+if env['PLATFORM'] == 'darwin':
+    env['ENV']['MACOSX_DEPLOYMENT_TARGET'] = "10.10"
 
 env.Append(CCFLAGS=ccflags)
 env.Append(LIBS=libs)
@@ -211,7 +219,7 @@ def do_bundle():
 
     icon_file = "icon.icns"
 
-    shortversion = '0.0.2'
+    shortversion = VERSION
 
     subst_dict = {
         '%SHORTVERSION%': shortversion,

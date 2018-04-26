@@ -10,6 +10,7 @@
 #include "article_type_mapper.hh"
 #include "article_mapper.hh"
 #include "utility.hh"
+#include "column_mapping.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -17,6 +18,51 @@ using std::vector;
 using std::string;
 using std::map;
 
+
+ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
+    string title = excelRow.at(0);
+    string description = excelRow.at(5);
+
+    vector<string> keywords = splitCommas(excelRow.at(4));
+
+    // We only support one reference at the moment!
+    vector<string> references;
+    string referencesSheetVal = excelRow.at(column_mapping::REFERENCES);
+
+    if (!referencesSheetVal.empty()) 
+        references.push_back(referencesSheetVal);
+
+    vector<int> categories;
+    string categoryTitle = excelRow.at(2);
+
+    if (!categoryTitle.empty())
+        categories.push_back(categoryMapper.mapTitle(categoryTitle));
+    
+    vector<string> authors = splitCommas(excelRow.at(1));
+
+
+    string rawFunding = excelRow.at(7);
+    optional<string> funding;
+
+    // XXX: whitespace only is not handled here
+    if (rawFunding.empty()) {
+        funding = nullopt;
+    } else {
+        funding = optional<string>(rawFunding);
+    }
+
+    ArticleType articleType = typeMapper.mapFromString(excelRow.at(3));
+
+    int license = 1;
+    
+    ArticleCreationRequest result(
+        title, description, keywords, references, categories, authors,
+        funding, articleType, license
+    );
+
+    // This will use the copy constructor for ArticleCreationRequest.
+    return result;
+}
 
 string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     QJsonObject object;
@@ -81,47 +127,4 @@ QJsonValue ArticleMapperImpl::mapType(ArticleType type) {
     return QJsonValue(
         QString::fromStdString(typeMapper.toFigshare(type))
     );
-}
-
-ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
-    string title = excelRow.at(0);
-    string description = excelRow.at(5);
-
-    vector<string> keywords = splitCommas(excelRow.at(4));
-
-    // We only support one reference at the moment!
-    vector<string> references;
-    references.push_back(excelRow.at(6));
-
-
-    vector<int> categories;
-    string categoryTitle = excelRow.at(2);
-
-    if (!categoryTitle.empty())
-        categories.push_back(categoryMapper.mapTitle(categoryTitle));
-    
-    vector<string> authors = splitCommas(excelRow.at(1));
-
-
-    string rawFunding = excelRow.at(7);
-    optional<string> funding;
-
-    // XXX: whitespace only is not handled here
-    if (rawFunding.empty()) {
-        funding = nullopt;
-    } else {
-        funding = optional<string>(rawFunding);
-    }
-
-    ArticleType articleType = typeMapper.mapFromString(excelRow.at(3));
-
-    int license = 1;
-    
-    ArticleCreationRequest result(
-        title, description, keywords, references, categories, authors,
-        funding, articleType, license
-    );
-
-    // This will use the copy constructor for ArticleCreationRequest.
-    return result;
 }
