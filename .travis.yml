@@ -13,7 +13,7 @@ install:
   - cd ../..
   # see travis-ci #9285
   - brew upgrade python3
-  - pip3 install scons
+  - sudo pip3 install scons
 
 script:
   - scons || exit 1
