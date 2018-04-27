@@ -2,6 +2,7 @@ import os
 import subprocess
 import osxbundle
 
+
 VERSION = "0.0.3"
 
 googletest_framework_root = "../ext/googletest-release-1.8.0"
@@ -62,6 +63,9 @@ env = Environment(
     QT5DIR=qt5_dir,
     CPPPATH=googletest_include_paths + [xlnt_include_path, general_ext_include_path]
 )
+
+print("Running on platform '%s'" % env['PLATFORM'])
+
 
 env['QT5_DEBUG'] = 1
 
