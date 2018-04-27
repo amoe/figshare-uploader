@@ -1,26 +1,26 @@
 matrix:
   include:
-    os: osx
-    language: cpp
+    - os: osx
+      language: cpp
 
-    # Xenial will release soon on Travis:
-    # https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
+      # Xenial will release soon on Travis:
+      # https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
 
-    # You can't use `set -e` in Travis, because the osx environment is very broken.
-    install:
-      - cd ext/xlnt-1.2.0
-      - cmake . || exit 1
-      - make || exit 1
-      - sudo make install || exit 1
-      - cd ../..
-      # see travis-ci #9285
-      - brew upgrade python3
-      - brew install scons
-      - brew install qt5
-      - brew install pkg-config
+      # You can't use `set -e` in Travis, because the osx environment is very broken.
+      install:
+        - cd ext/xlnt-1.2.0
+        - cmake . || exit 1
+        - make || exit 1
+        - sudo make install || exit 1
+        - cd ../..
+        # see travis-ci #9285
+        - brew upgrade python3
+        - brew install scons
+        - brew install qt5
+        - brew install pkg-config
 
-    script:
-      - export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
-      - scons qt5_dir=/usr/local/opt/qt || exit 1
-      - ./build/unit_tests
-    #  - ./integration_tests
+      script:
+        - export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
+        - scons qt5_dir=/usr/local/opt/qt || exit 1
+        - ./build/unit_tests
+      #  - ./integration_tests
