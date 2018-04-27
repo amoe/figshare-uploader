@@ -2,8 +2,8 @@ import os
 import subprocess
 import osxbundle
 
-
-VERSION = "0.0.3"
+with open('version') as x: VERSION = x.read().rstrip()
+print("Building version %s of figshare-uploader" % VERSION)
 
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
@@ -223,8 +223,6 @@ def do_bundle():
 
     icon_file = "icon.icns"
 
-    shortversion = VERSION
-
     subst_dict = {
         '%SHORTVERSION%': shortversion,
         '%BUNDLE_EXECUTABLE%': app,
@@ -242,7 +240,7 @@ def do_bundle():
     macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
 
     initial_dmg_output_path = "%s.dmg" % application_name
-    final_dmg_output_path = "figshare_uploader-%s.dmg" % shortversion
+    final_dmg_output_path = "figshare_uploader-%s.dmg" % VERSION
 
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.
