@@ -17,6 +17,6 @@ install:
   - brew install qt5
 
 script:
-  - scons || exit 1
+  - scons qt5_dir=/usr/local/opt/qt || exit 1
 #  - ./build/unit_tests
 #  - ./integration_tests
