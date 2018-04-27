@@ -97,7 +97,8 @@ public:
         while ((length = source->read(buffer,sizeof(buffer))) > 0)
             hash.addData(buffer,length);
 
-        delete buffer;
+        // Array form of delete
+        delete[] buffer;
 
         qDebug() << "after loop";
 
