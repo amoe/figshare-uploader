@@ -224,7 +224,7 @@ def do_bundle():
     icon_file = "icon.icns"
 
     subst_dict = {
-        '%SHORTVERSION%': shortversion,
+        '%SHORTVERSION%': VERSION,
         '%BUNDLE_EXECUTABLE%': app,
         '%BUNDLE_KEY%': key,
         '%BUNDLE_FRIENDLY_NAME%': application_name,
