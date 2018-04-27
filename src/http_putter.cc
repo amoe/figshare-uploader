@@ -22,7 +22,7 @@ using std::string;
 // http://code.qt.io/cgit/qt/qtbase.git/tree/src/network/access/qhttpthreaddelegate.cpp?h=dev
 
 string QtHttpPutter::request(const string url, const string payload) {
-    debugf("payload size in putter is %d", payload.size());
+    debugf("payload size in putter is %zu", payload.size());
     
     QEventLoop waitLoop;
     QUrl endpoint(QString::fromStdString(url));
