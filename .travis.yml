@@ -47,3 +47,11 @@ matrix:
       before_install:
         - sudo apt-get update -qq
         - sudo apt-get install -qq qtbase5-dev qt5-default
+deploy:
+  provider: releases
+  api_key:
+    secure: az1YJGTmjduWE63/eSmqVCyjndHc9sBGkBmidTyZS5wL5qJtKntivnxwW2mKX6eQomTEZ8aMLqSuQu0LKAFS8++t1CqeJWV9rkzBXmXT3kVRwWUnlqbDOQg+docjoXSy9rtuhQHIMgGW37MyzNpnrxR9oKs8r/lnJNJkiyUzVMvrQERBBg3/VLZgg7MZJJ5pVai1i/O1nZvwql0z3v+4ONI5mnRAoYohubzaG/BwuNGiaevvA1sc4UPitlkBzkkL73GfKarCc+HAl0mklqfxGklningtvRMup5nv/wM+RYFgVbswkK/WpsjyjMrcZLauPZuWnBZNYakk5aM4xKnNdbLaXK3wqbVvr9f06pi0ELjK2xf+PJTCwZZWdYE01L6e+6AA4v+lYPYjFjrhEJJAwSzLVT0883x9wogx6c3MJGr2lKHM63wjeHiPGFJXkIjVXSuJGrFLn/rROV/HAPPF33GtPCdW3ZZUFJp0Ju3JboyTotaD2MCm/biv6qzhpE/wmmXWAaXPIIO1ThMHXNjIzNc92RgYC7txB5DhNpVsrzddi3EV2x8PCGtPv1bYa5apKnSSTYe79zN8BrfLkw/P/dFCj3zgUyXDchJPZnN7u1WO0wR9bs9TX80UHKqBT/OeTMTteQUMWjYfbhylWGPq0t1dhj8NoQcG5buqHLiSW+4=
+  file: "build/Figshare Uploader.app"
+  skip_cleanup: true
+  on:
+    tags: true
