@@ -14,6 +14,7 @@ install:
   # see travis-ci #9285
   - brew upgrade python3
   - brew install scons
+  - brew install qt5
 
 script:
   - scons || exit 1
