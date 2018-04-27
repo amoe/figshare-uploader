@@ -1,0 +1,43 @@
+language: cpp
+sudo: false
+dist: trusty
+
+notifications:
+  email: false
+
+env:
+ - COVERAGE=ON STATIC=ON SAMPLES=OFF BENCHMARKS=OFF BUILD_TYPE=Debug
+ - COVERAGE=OFF STATIC=ON SAMPLES=ON BENCHMARKS=OFF BUILD_TYPE=Debug
+ - COVERAGE=OFF STATIC=OFF SAMPLES=ON BENCHMARKS=OFF BUILD_TYPE=Debug
+ - COVERAGE=OFF STATIC=ON SAMPLES=ON BENCHMARKS=ON BUILD_TYPE=Release
+ - COVERAGE=OFF STATIC=OFF SAMPLES=ON BENCHMARKS=ON BUILD_TYPE=Release
+
+addons:
+  apt:
+    sources:
+     - ubuntu-toolchain-r-test
+    packages:
+     - g++-6 lcov
+
+install:
+ - export CC=gcc-6
+ - export CXX=g++-6
+ - gem install coveralls-lcov
+
+script:
+ - mkdir build
+ - cd build
+ - cmake -D STATIC=$STATIC -D BENCHMARKS=$BENCHMARKS -D SAMPLES=$SAMPLES -D COVERAGE=$COVERAGE -D CMAKE_BUILD_TYPE=$BUILD_TYPE ..
+ - cmake --build .
+ - ./tests/xlnt.test
+
+after_success:
+ - |
+   if [[ "${COVERAGE}" == "ON" ]]; then
+     lcov --directory source/CMakeFiles/xlnt.dir --capture --output-file coverage.info --base-directory ../source --no-external --gcov-tool /usr/bin/gcov-6
+     lcov --output-file coverage.info --remove coverage.info source/detail/serialization/miniz.cpp
+     i=$(dirname $(pwd))
+     sed -i "s|$i/||" coverage.info
+     cd ..
+     coveralls-lcov build/coverage.info
+   fi

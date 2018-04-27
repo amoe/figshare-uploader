@@ -1,0 +1,32 @@
+version: '{build}'
+os: Visual Studio 2015
+
+cache:
+- vcpkg -> .appveyor.yml
+
+platform:
+  - x64
+
+configuration:
+  - Debug
+
+environment:
+  matrix:
+  - STATIC: OFF
+  - STATIC: ON
+
+init: []
+
+before_build:
+  - mkdir build
+  - cd build
+  - cmake -G "Visual Studio 14 2015" -D CMAKE_GENERATOR_PLATFORM=%platform% -D STATIC=%STATIC% -D SAMPLES=ON -D BENCHMARKS=ON ..
+
+build:
+  project: build/tests/xlnt.test.sln
+  parallel: true
+  verbosity: minimal
+
+test_script:
+  - cd tests\%configuration%
+  - xlnt.test.exe
