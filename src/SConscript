@@ -2,7 +2,8 @@ import os
 import subprocess
 import osxbundle
 
-with open('version') as x: VERSION = x.read().rstrip()
+VERSION_FILE_PATH = "../version"
+with open(VERSION_FILE_PATH) as f: VERSION = f.read().rstrip()
 print("Building version %s of figshare-uploader" % VERSION)
 
 googletest_framework_root = "../ext/googletest-release-1.8.0"
