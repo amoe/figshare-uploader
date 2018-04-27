@@ -20,5 +20,5 @@ install:
 script:
   - export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
   - scons qt5_dir=/usr/local/opt/qt || exit 1
-#  - ./build/unit_tests
+  - ./build/unit_tests
 #  - ./integration_tests
