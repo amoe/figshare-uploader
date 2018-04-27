@@ -15,7 +15,8 @@ install:
   - brew upgrade python3
   - brew install scons
   - brew install qt5
-
+  - brew install pkg-config
+  
 script:
   - scons qt5_dir=/usr/local/opt/qt || exit 1
 #  - ./build/unit_tests
