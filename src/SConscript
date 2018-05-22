@@ -50,8 +50,8 @@ if (qt5_dir is None):
         + "command line."
     )
 
-general_ext_include_path = '../ext'
-xlnt_include_path = "ext/xlnt-1.2.0/include"
+general_ext_include_path = '#ext'
+xlnt_include_path = "#ext/xlnt-1.2.0/include"
 
 linkflags = []
 ccflags = []

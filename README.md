@@ -94,6 +94,10 @@ Once you have this you do:
 Using the correct directory for your Qt installation.  scons has no way to detect
 the root of the Qt installation in Windows (it can do so in Linux).
 
+Note that you should not try to do this within git-bash.  For some reason
+scons fails to detect moc when it's invoked through git-bash.  Instead, use
+standard Windows `cmd`.
+
 You also need [Windows OpenSSL
 binaries](http://slproweb.com/products/Win32OpenSSL.html).  Use the version
 `Win64 OpenSSL v1.0.2n`.  Then you need the libs `ssleay32.dll` and
