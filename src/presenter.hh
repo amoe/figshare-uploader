@@ -20,6 +20,7 @@ public:
     void fatalError(string what);
     void pickFile();
     void initializeView();
+    void showAboutDialog();
 
 private:
     View* view;
