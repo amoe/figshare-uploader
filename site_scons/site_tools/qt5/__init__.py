@@ -365,8 +365,6 @@ class _Automoc:
                 print("Inside except", e)
                 continue # may be an still not generated source
             
-            print("Er?")
-
             if moc_options['auto_scan_strategy'] == 0:
                 # Default Automoc strategy (Q_OBJECT driven)
                 self.__automoc_strategy_simple(env, moc_options,
