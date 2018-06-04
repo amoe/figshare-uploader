@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
+#include <QMenuBar>
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
@@ -23,6 +24,11 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     // destructor will delete it at the appropriate time.	
     QGridLayout* layout = new QGridLayout(this);
 
+    // These also must be heap-allocated.
+    QMenuBar* menuBar = new QMenuBar(this);
+    QMenu* helpMenu = new QMenu("Help");
+    helpMenu->addAction("About");
+    menuBar->addMenu(helpMenu);
 
     QLabel* tokenLabel =  new QLabel("Token:");
     this->token = new QLineEdit(this);
