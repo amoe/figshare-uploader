@@ -122,7 +122,6 @@ class _Automoc:
     """
 
     def __init__(self, objBuilderName):
-        print("Inside automoccer")
         self.objBuilderName = objBuilderName
         # some regular expressions:
         # Q_OBJECT detection
@@ -185,8 +184,6 @@ class _Automoc:
         it gets MOCed too.
         """
 
-        print("Inside simple strategy")
-        
         h=None
         for h_ext in header_extensions:
             # try to find the header file in the corresponding source
@@ -321,7 +318,6 @@ class _Automoc:
         Smart autoscan function. Gets the list of objects for the Program
         or Lib. Adds objects and builders for the special qt5 files.
         """
-        print("Inside emitter callable")
         moc_options = self.create_automoc_options(env)
         
         # some shortcuts used in the scanner
@@ -359,7 +355,6 @@ class _Automoc:
                 # c or fortran source
                 continue
             try:
-                print("Inside try block")
                 cpp_contents = cpp.get_contents()
                 if moc_options['gobble_comments']:
                     cpp_contents = self.ccomment.sub('', cpp_contents)
