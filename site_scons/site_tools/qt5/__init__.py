@@ -335,8 +335,6 @@ class _Automoc:
         # make a deep copy for the result; MocH objects will be appended
         out_sources = source[:]
 
-        print("Moc options are: ", moc_options)
-        print("About to loop")
         for obj in source:
             if not moc_options['auto_scan']:
                 break
