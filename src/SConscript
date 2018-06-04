@@ -5,13 +5,6 @@ import osxbundle
 with open('../version') as x: VERSION = x.read().rstrip()
 print("Building version %s of figshare-uploader" % VERSION)
 
-version_string_text = """
-char const * const version_string = "%s";
-""" % (VERSION);
-with open('version.cc', 'w') as f:
-    print("Writing file")
-    f.write(version_string_text)
-
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
 googletest_include_paths = [
@@ -174,8 +167,6 @@ env.Program(
     ]
 )
 
-version_obj = env.Object("version.cc")
-
 main_binary = env.Program(
     target='main',
     source=[
@@ -209,8 +200,6 @@ main_binary = env.Program(
     ],
     LINKFLAGS = str(version_obj[0])
 )
-
-env.Requires(main_binary, version_obj)
 
 
 # We have to use a fresh environment for the bundling process.
