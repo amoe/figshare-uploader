@@ -174,7 +174,7 @@ env.Program(
     ]
 )
 
-version_obj = Object("version.cc")
+version_obj = env.Object("version.cc")
 
 main_binary = env.Program(
     target='main',
