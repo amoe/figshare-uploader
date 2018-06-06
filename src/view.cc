@@ -101,6 +101,7 @@ void ViewImpl::setToken(string newToken) {
 
 void ViewImpl::reportError(std::string errorText) {
     QString qErrorText = QString::fromStdString(errorText);
+    addLog(qErrorText);
     QMessageBox::critical(this, "Error", qErrorText);
 }
 
