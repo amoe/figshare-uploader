@@ -32,7 +32,7 @@ def TOOL_SUBST(env):
             contents = f.read()
             f.close()
         except:
-            raise SCons.Errors.UserError, "Can't read source file %s"%sourcefile
+            raise SCons.Errors.UserError("Can't read source file %s"%sourcefile)
         for (k,v) in dict.items():
             contents = re.sub(k, v, contents)
         try:
@@ -40,12 +40,12 @@ def TOOL_SUBST(env):
             f.write(contents)
             f.close()
         except:
-            raise SCons.Errors.UserError, "Can't write target file %s"%targetfile
+            raise SCons.Errors.UserError("Can't write target file %s"%targetfile)
         return 0 # success
 
     def subst_in_file(target, source, env):
         if not env.has_key('SUBST_DICT'):
-            raise SCons.Errors.UserError, "SubstInFile requires SUBST_DICT to be set."
+            raise SCons.Errors.UserError("SubstInFile requires SUBST_DICT to be set.")
         d = dict(env['SUBST_DICT']) # copy it
         for (k,v) in d.items():
             if callable(v):
@@ -53,7 +53,7 @@ def TOOL_SUBST(env):
             elif SCons.Util.is_String(v):
                 d[k]=env.subst(v)
             else:
-                raise SCons.Errors.UserError, "SubstInFile: key %s: %s must be a string or callable"%(k, repr(v))
+                raise SCons.Errors.UserError("SubstInFile: key %s: %s must be a string or callable"%(k, repr(v)))
         for (t,s) in zip(target, source):
             return do_subst_in_file(str(t), str(s), d)
 
@@ -144,7 +144,7 @@ def TOOL_BUNDLE(env):
             suffix=bundledir[bundledir.rfind('.'):]
             if (suffix=='.app' and typecode != 'APPL' or
                 suffix!='.app' and typecode == 'APPL'):
-                raise Exception, "MakeBundle: inconsistent dir suffix %s and type code %s: app bundles should end with .app and type code APPL."%(suffix, typecode)
+                raise Exception("MakeBundle: inconsistent dir suffix %s and type code %s: app bundles should end with .app and type code APPL."%(suffix, typecode))
             if subst_dict is None:
                 subst_dict={'%SHORTVERSION%': '$VERSION_NUM',
                             '%LONGVERSION%': '$VERSION_NAME',
@@ -198,8 +198,8 @@ def BuildDmg(target, source, env):
     outs = os.popen('hdiutil attach ' + tmp_dmg, 'r')
     disk = outs.readline().split()[0]
     for src in source:
-	# FIXME
-	os.system('cp -r ' + str(src) + ' /Volumes/Animata')
+        # FIXME
+        os.system('cp -r ' + str(src) + ' /Volumes/Animata')
     os.system('hdiutil detach ' + disk)
     os.system('hdiutil convert -format UDZO -o ' + str(target[0]) + ' ' + tmp_dmg)
     os.remove(tmp_dmg)
