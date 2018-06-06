@@ -10,8 +10,7 @@ using nonstd::optional;
 using std::vector;
 using std::string;
 
-class ArticleCreationRequest {
-public:
+struct ArticleCreationRequest {
     ArticleCreationRequest(
         string title, string description,
         vector<string> keywords,
@@ -25,17 +24,7 @@ public:
         references(references), categories(categories),  authors(authors),
         funding(funding), articleType(articleType), license(license)
         { }
-    string getTitle() const;
-    string getDescription() const;
-    vector<string> getKeywords() const;
-    vector<string> getReferences() const;
-    vector<int> getCategories() const;
-    vector<string> getAuthors() const;
-    optional<string> getFunding() const;
-    ArticleType getArticleType() const;
-    int getLicense() const;
-    
-private:
+
     string title;
     string description;
     vector<string> keywords;

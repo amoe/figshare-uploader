@@ -27,7 +27,7 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     const string payload = mapper.mapToFigshare(request);
 
     
-    for (auto ref : request.getReferences()) {
+    for (auto ref : request.references) {
         std::cout << "references value is '" << ref << "'" << std::endl;
     }
 
