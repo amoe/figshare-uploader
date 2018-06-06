@@ -10,7 +10,10 @@
 #include "interfaces.hh"
 #include "progress_reporter.hh"
 
-const char* const aboutText = "Figshare Uploader";
+const char* const aboutText = 
+  "Figshare Uploader\n"
+  "\n"
+  "http://github.com/amoe/figshare-uploader\n";
 
 class ViewImpl : public QMainWindow, public View {
     Q_OBJECT
