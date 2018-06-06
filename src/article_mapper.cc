@@ -40,7 +40,6 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     
     vector<string> authors = splitCommas(excelRow.at(1));
 
-
     string rawFunding = excelRow.at(7);
     optional<string> funding;
 

@@ -23,7 +23,9 @@ void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
 
-    // Yuck:
+    // Yuck: this behaviour should probably be isolated to the Figshare Mapper,
+    // somehow.
+    // I mean, we already have an article mapper.
     string relationRow = row.rowData.at(15);
 
     debugf("relation row was %s",relationRow.c_str());
