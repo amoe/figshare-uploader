@@ -9,6 +9,7 @@
 #include "excel_row.hh"
 #include "article_mapper.hh"
 #include "progress_reporter.hh"
+#include "column_mapping.hh"
 
 using namespace testing;
 
@@ -30,27 +31,8 @@ public:
 };
 
 TEST_F(DriverTest, canHandleRow) {
-    vector<string> rowData = {
-        "",    
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",     
-        "my_file.tiff",    // Relation field
-        "",
-        "",
-        ""
-    };
+    vector<string> rowData(20);
+    rowData.at(column_mapping::IDENTIFIER) = "my_file.tiff";
 
     ExcelRow row(rowData);
 

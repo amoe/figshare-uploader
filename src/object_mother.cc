@@ -63,7 +63,7 @@ ArticleCreationRequest ObjectMother::makeArticleCreationRequest() {
         nullopt,
         ArticleType::FIGURE,
         1,
-        {}
+        "my_file.tiff"
     );
 
     return request;
