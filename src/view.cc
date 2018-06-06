@@ -136,5 +136,19 @@ void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
 
 void ViewImpl::showAboutDialog() {
     debugf("inside about dialog");
-    QMessageBox::about(this, "Figshare Uploader", aboutText);
+
+    // Based on source of QMessageBox::about()
+
+    
+    QMessageBox* msgBox = new QMessageBox(
+        "Figshare Uploader", aboutText, QMessageBox::Information, 0, 0, 0, this
+    );
+    
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+
+    QIcon icon = msgBox->windowIcon();
+    QSize size = icon.actualSize(QSize(64, 64));
+
+    msgBox->setIconPixmap(icon.pixmap(size));
+    msgBox->exec();
 }
