@@ -52,6 +52,7 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
     this->logger = new QPlainTextEdit("Waiting for file selection.");
     logger->setReadOnly(true);
+    logger->setCenterOnScroll(true);
     layout->addWidget(logger, 3, 0, 1, 12);
 
     contentWidget->setLayout(layout);
@@ -110,8 +111,7 @@ void ViewImpl::addLog(std::string logText) {
 
 
 void ViewImpl::addQLog(QString logText) {
-    QString newLog = logger->toPlainText() + "\n" + logText;
-    logger->setPlainText(newLog);
+    logger->appendPlainText(logText);
 }
 
 
