@@ -16,6 +16,23 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+TEST(ArticleMapperTest, CanExtractIdentifierFields) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    row.at(column_mapping::IDENTIFIER) = "foo.png";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    string expectedIdentifier = "foo.png";
+    ASSERT_THAT(request.identifier, Eq(expectedIdentifier));
+}
+
+
 TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
@@ -31,7 +48,7 @@ TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
 
     vector<string> expectedReferences = {};
 
-    ASSERT_THAT(request.getReferences(), Eq(expectedReferences));
+    ASSERT_THAT(request.references, Eq(expectedReferences));
 }
 
 TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
@@ -50,7 +67,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
     vector<int> expectedCategories = {};
 
-    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
+    ASSERT_THAT(request.categories, Eq(expectedCategories));
 }
 
 
@@ -68,7 +85,7 @@ TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
 
     ArticleCreationRequest request = myMapper.mapFromExcel(row);
 
-    ASSERT_THAT(request.getArticleType(), Eq(ArticleType::FIGURE));
+    ASSERT_THAT(request.articleType, Eq(ArticleType::FIGURE));
 }
 
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
@@ -88,7 +105,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     vector<string> expectedKeywords;
     expectedKeywords = {"Bethlehem Crafts", "Olive Wood", "Mother-of-pearl"};
 
-    ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
+    ASSERT_THAT(request.keywords, Eq(expectedKeywords));
 }
 
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
@@ -131,27 +148,27 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
     ArticleCreationRequest request = myMapper.mapFromExcel(row);
 
-    ASSERT_THAT(request.getTitle(), Eq("To Serve Man"));
-    ASSERT_THAT(request.getDescription(), StartsWith("This is a digital "));
-    ASSERT_THAT(request.getDescription(), EndsWith("Planet Bethlehem Archive."));
+    ASSERT_THAT(request.title, Eq("To Serve Man"));
+    ASSERT_THAT(request.description, StartsWith("This is a digital "));
+    ASSERT_THAT(request.description, EndsWith("Planet Bethlehem Archive."));
 
     vector<string> expectedAuthors;
     expectedAuthors.push_back("Freja Howat-Maxted");
     expectedAuthors.push_back("Jacob Norris");
     expectedAuthors.push_back("Leila Sansour");
-    ASSERT_THAT(request.getAuthors(), Eq(expectedAuthors));
+    ASSERT_THAT(request.authors, Eq(expectedAuthors));
 
     vector<string> expectedKeywords;
     expectedKeywords.push_back("Bethlehem Crafts");
-    ASSERT_THAT(request.getKeywords(), Eq(expectedKeywords));
+    ASSERT_THAT(request.keywords, Eq(expectedKeywords));
 
     vector<int> expectedCategories = {1703};
-    ASSERT_THAT(request.getCategories(), Eq(expectedCategories));
+    ASSERT_THAT(request.categories, Eq(expectedCategories));
 
     vector<string> expectedReferences;
     expectedReferences.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
 
-    ASSERT_THAT(request.getReferences(), Eq(expectedReferences));
+    ASSERT_THAT(request.references, Eq(expectedReferences));
 }
 
 
@@ -179,7 +196,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         authors,
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
-        1
+        1,
+        ""
     );
     
     ArticleTypeMapper typeMapper;
@@ -197,6 +215,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     );
 }
 
+
 TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
     
@@ -213,5 +232,6 @@ TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
         Eq(false)
     );
 }
+
 
 

@@ -10,8 +10,8 @@ using nonstd::optional;
 using std::vector;
 using std::string;
 
-class ArticleCreationRequest {
-public:
+// These should probably all not be copied, but hey.
+struct ArticleCreationRequest {
     ArticleCreationRequest(
         string title, string description,
         vector<string> keywords,
@@ -20,22 +20,14 @@ public:
         vector<string> authors,
         optional<string> funding,
         ArticleType articleType,
-        int license
+        int license,
+        string identifier
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
-        funding(funding), articleType(articleType), license(license)
+        funding(funding), articleType(articleType), license(license),
+        identifier(identifier)
         { }
-    string getTitle() const;
-    string getDescription() const;
-    vector<string> getKeywords() const;
-    vector<string> getReferences() const;
-    vector<int> getCategories() const;
-    vector<string> getAuthors() const;
-    optional<string> getFunding() const;
-    ArticleType getArticleType() const;
-    int getLicense() const;
-    
-private:
+
     string title;
     string description;
     vector<string> keywords;
@@ -45,6 +37,7 @@ private:
     optional<string> funding;
     ArticleType articleType;
     int license;
+    string identifier;   // For some reason, there can be multiple identifiers
 };
 
 struct UploadCreationRequest {

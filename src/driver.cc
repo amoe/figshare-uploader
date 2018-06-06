@@ -23,13 +23,8 @@ void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
 
-    // Yuck:
-    string relationRow = row.rowData.at(15);
-
-    debugf("relation row was %s",relationRow.c_str());
     vector<string> filesToUpload
-        = PathExtractor::getRequestedFiles(relationRow, inputPath);
-
+        = PathExtractor::getRequestedFiles(acr.identifier, inputPath);
 
     for (const string& thisFile: filesToUpload) {
         debugf("handling upload for file: '%s'", thisFile.c_str());

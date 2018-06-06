@@ -40,7 +40,6 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     
     vector<string> authors = splitCommas(excelRow.at(1));
 
-
     string rawFunding = excelRow.at(7);
     optional<string> funding;
 
@@ -54,10 +53,12 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     ArticleType articleType = typeMapper.mapFromString(excelRow.at(3));
 
     int license = 1;
+
+    string identifierSheetVal = excelRow.at(column_mapping::IDENTIFIER);
     
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
-        funding, articleType, license
+        funding, articleType, license, identifierSheetVal
     );
 
     // This will use the copy constructor for ArticleCreationRequest.
@@ -66,15 +67,15 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
 string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     QJsonObject object;
-    QJsonValue titleVal(QString::fromStdString(request.getTitle()));
-    QJsonValue descriptionVal(QString::fromStdString(request.getDescription()));
-    QJsonValue licenseVal(request.getLicense());
+    QJsonValue titleVal(QString::fromStdString(request.title));
+    QJsonValue descriptionVal(QString::fromStdString(request.description));
+    QJsonValue licenseVal(request.license);
 
     // Not really clear if this should be mapped at all.
     QJsonValue fundingVal;
 
-    if (request.getFunding()) {
-        fundingVal = QJsonValue(QString::fromStdString(request.getFunding().value()));
+    if (request.funding) {
+        fundingVal = QJsonValue(QString::fromStdString(request.funding.value()));
         object.insert("funding", fundingVal);
     } else {
         // Do nothing!
@@ -82,26 +83,26 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     
     QJsonArray keywordsVal;
 
-    for (string s : request.getKeywords()) {
+    for (string s : request.keywords) {
         QJsonValue thisTag(QString::fromStdString(s));
         keywordsVal.push_back(thisTag);
     }
 
     QJsonArray referencesVal;
-    for (string s : request.getReferences()) {
+    for (string s : request.references) {
         QJsonValue thisReference(QString::fromStdString(s));
         referencesVal.push_back(thisReference);
     }
 
     QJsonArray categoriesVal;
-    for (int c : request.getCategories()) {
+    for (int c : request.categories) {
         QJsonValue thisCategoryId(c);
         categoriesVal.push_back(thisCategoryId);
     }
 
     // Note that authors has special handling here.
     QJsonArray authorsVal;
-    for (string a : request.getAuthors()) {
+    for (string a : request.authors) {
         QJsonObject authorObject;
         QJsonValue authorName(QString::fromStdString(a));
         
@@ -110,7 +111,7 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     }
 
     object.insert("license", licenseVal);
-    object.insert("defined_type", mapType(request.getArticleType()));
+    object.insert("defined_type", mapType(request.articleType));
     object.insert("authors", authorsVal);
     object.insert("references", referencesVal);
     object.insert("keywords", keywordsVal);
