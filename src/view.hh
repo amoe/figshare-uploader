@@ -10,6 +10,8 @@
 #include "interfaces.hh"
 #include "progress_reporter.hh"
 
+const char* const aboutText = "Figshare Uploader";
+
 class ViewImpl : public QMainWindow, public View {
     Q_OBJECT
 

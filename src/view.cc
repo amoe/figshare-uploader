@@ -136,5 +136,5 @@ void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
 
 void ViewImpl::showAboutDialog() {
     debugf("inside about dialog");
-    QMessageBox::about(this, "Foo", "bar");
+    QMessageBox::about(this, "Figshare Uploader", aboutText);
 }
