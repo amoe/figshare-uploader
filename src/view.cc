@@ -10,19 +10,30 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
+#include <QMenuBar>
+#include "logging.hh"
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
 
-ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(presenter) {
-	setWindowTitle("Figshare Uploader");
+ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
+    QWidget* contentWidget = new QWidget(this);
+    
+    setWindowTitle("Figshare Uploader");
+
+    QMenu* helpMenu = new QMenu("Help");
+
+    QAction* aboutAction = new QAction("About", this);
+    helpMenu->addAction(aboutAction);
+
+    // menuBar is a QMainWindow method.
+    menuBar()->addMenu(helpMenu);
 	
     // layout MUST be allocated on the heap here, if it goes out of scope, it
     // will simply stop layout out the widgets properly!
     // But, I think that we don't need to clean it up because the QWidget
     // destructor will delete it at the appropriate time.	
-    QGridLayout* layout = new QGridLayout(this);
-
+    QGridLayout* layout = new QGridLayout(contentWidget);
 
     QLabel* tokenLabel =  new QLabel("Token:");
     this->token = new QLineEdit(this);
@@ -43,7 +54,8 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
     logger->setReadOnly(true);
     layout->addWidget(logger, 3, 0, 1, 12);
 
-    setLayout(layout);
+    contentWidget->setLayout(layout);
+    setCentralWidget(contentWidget);
 
     SlotAdapter slotAdapter(presenter, &Presenter::startUpload);
 
@@ -59,6 +71,14 @@ ViewImpl::ViewImpl(Presenter* presenter) : QWidget(0, Qt::Window), presenter(pre
         pickButton,
         &QPushButton::released,
         pickAdapter
+    );
+
+    SlotAdapter aboutAdapter(presenter, &Presenter::showAboutDialog);
+
+    connect(
+        aboutAction,
+        &QAction::triggered,
+        aboutAdapter
     );
 }
 
@@ -112,4 +132,23 @@ void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
     this->reporter = reporter;
 
     connect(reporter, &ViewProgressAdapter::progressReport, this, &ViewImpl::addQLog);
+}
+
+void ViewImpl::showAboutDialog() {
+    debugf("inside about dialog");
+
+    // Based on source of QMessageBox::about()
+
+    
+    QMessageBox* msgBox = new QMessageBox(
+        "Figshare Uploader", aboutText, QMessageBox::Information, 0, 0, 0, this
+    );
+    
+    msgBox->setAttribute(Qt::WA_DeleteOnClose);
+
+    QIcon icon = msgBox->windowIcon();
+    QSize size = icon.actualSize(QSize(64, 64));
+
+    msgBox->setIconPixmap(icon.pixmap(size));
+    msgBox->exec();
 }

@@ -13,6 +13,7 @@ public:
     virtual void showFileDialog() = 0;
     virtual void setToken(std::string newToken) = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
+    virtual void showAboutDialog() = 0;
  };
 
 class Presenter {
@@ -23,6 +24,7 @@ public:
     virtual void fatalError(std::string what) = 0;
     virtual void pickFile() = 0;
     virtual void initializeView() = 0;
+    virtual void showAboutDialog() = 0;
 };
 
 #endif // INTERFACES_HH

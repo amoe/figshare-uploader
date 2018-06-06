@@ -74,3 +74,8 @@ void PresenterImpl::pickFile() {
     view->showFileDialog();
     view->addLog("Ready to upload.");
 }
+
+void PresenterImpl::showAboutDialog() {
+    debugf("about dialog requested");
+    view->showAboutDialog();
+}

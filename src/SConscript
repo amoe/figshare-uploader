@@ -66,8 +66,7 @@ env = Environment(
 
 print("Running on platform '%s'" % env['PLATFORM'])
 
-
-env['QT5_DEBUG'] = 1
+#env['QT5_DEBUG'] = 1
 
 maybe_term = os.environ.get('TERM')
 if maybe_term:
@@ -108,7 +107,6 @@ env.Append(LINKFLAGS=linkflags)
 
 print("Prog emitter:", env['PROGEMITTER'])
 print("Program is" + repr(env['BUILDERS']['Program'].emitter))
-
 
 env.Program(
     target='unit_tests',
@@ -168,7 +166,7 @@ env.Program(
     ]
 )
 
-env.Program(
+main_binary = env.Program(
     target='main',
     source=[
         "progress_reporter.cc",
@@ -200,6 +198,7 @@ env.Program(
         "utility.cc"
     ]
 )
+
 
 # We have to use a fresh environment for the bundling process.
 def do_bundle():

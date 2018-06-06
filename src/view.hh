@@ -1,6 +1,7 @@
 #ifndef VIEW_HH
 #define VIEW_HH
 
+#include <QMainWindow>
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
@@ -9,7 +10,12 @@
 #include "interfaces.hh"
 #include "progress_reporter.hh"
 
-class ViewImpl : public QWidget, public View {
+const char* const aboutText = 
+  "Figshare Uploader\n"
+  "\n"
+  "http://github.com/amoe/figshare-uploader\n";
+
+class ViewImpl : public QMainWindow, public View {
     Q_OBJECT
 
 public:
@@ -21,6 +27,7 @@ public:
     void addLog(std::string logText);
     void reportError(std::string errorText);
     void showFileDialog();
+    void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
  
 private:
