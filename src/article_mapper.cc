@@ -55,11 +55,10 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     int license = 1;
 
     string identifierSheetVal = excelRow.at(column_mapping::IDENTIFIER);
-    vector<string> allIdentifiers = splitSemicolons(identifierSheetVal);
     
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
-        funding, articleType, license, allIdentifiers
+        funding, articleType, license, identifierSheetVal
     );
 
     // This will use the copy constructor for ArticleCreationRequest.

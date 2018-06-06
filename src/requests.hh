@@ -21,7 +21,7 @@ struct ArticleCreationRequest {
         optional<string> funding,
         ArticleType articleType,
         int license,
-        vector<string> identifier
+        string identifier
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
         funding(funding), articleType(articleType), license(license),
@@ -37,7 +37,7 @@ struct ArticleCreationRequest {
     optional<string> funding;
     ArticleType articleType;
     int license;
-    vector<string> identifier;   // For some reason, there can be multiple identifiers
+    string identifier;   // For some reason, there can be multiple identifiers
 };
 
 struct UploadCreationRequest {

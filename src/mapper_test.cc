@@ -28,7 +28,7 @@ TEST(ArticleMapperTest, CanExtractIdentifierFields) {
 
     ArticleCreationRequest request = myMapper.mapFromExcel(row);
 
-    vector<string> expectedIdentifier = {"foo.png"};
+    string expectedIdentifier = "foo.png";
     ASSERT_THAT(request.identifier, Eq(expectedIdentifier));
 }
 
@@ -197,7 +197,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
         1,
-        {}
+        ""
     );
     
     ArticleTypeMapper typeMapper;
@@ -214,6 +214,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         Eq(deserialize(raw_literals::expectedResult))
     );
 }
+
 
 TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
