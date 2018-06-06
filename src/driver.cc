@@ -32,7 +32,6 @@ void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     vector<string> filesToUpload
         = PathExtractor::getRequestedFiles(relationRow, inputPath);
 
-
     for (const string& thisFile: filesToUpload) {
         debugf("handling upload for file: '%s'", thisFile.c_str());
         UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);

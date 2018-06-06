@@ -40,7 +40,8 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
         authors,
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
-        1
+        1,
+        {}
     );
 
     ArticleCreationResponse response = gateway->createArticle(request);

@@ -10,6 +10,7 @@ using nonstd::optional;
 using std::vector;
 using std::string;
 
+// These should probably all not be copied, but hey.
 struct ArticleCreationRequest {
     ArticleCreationRequest(
         string title, string description,
@@ -19,10 +20,12 @@ struct ArticleCreationRequest {
         vector<string> authors,
         optional<string> funding,
         ArticleType articleType,
-        int license
+        int license,
+        vector<string> identifier
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
-        funding(funding), articleType(articleType), license(license)
+        funding(funding), articleType(articleType), license(license),
+        identifier(identifier)
         { }
 
     string title;
@@ -34,6 +37,7 @@ struct ArticleCreationRequest {
     optional<string> funding;
     ArticleType articleType;
     int license;
+    vector<string> identifier;   // For some reason, there can be multiple identifiers
 };
 
 struct UploadCreationRequest {

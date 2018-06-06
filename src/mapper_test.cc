@@ -16,6 +16,23 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+TEST(ArticleMapperTest, CanExtractIdentifierFields) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    row.at(column_mapping::IDENTIFIER) = "foo.png";
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+
+    vector<string> expectedIdentifier = {"foo.png"};
+    ASSERT_THAT(request.identifier, Eq(expectedIdentifier));
+}
+
+
 TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
@@ -179,7 +196,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         authors,
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
-        1
+        1,
+        {}
     );
     
     ArticleTypeMapper typeMapper;
@@ -213,5 +231,6 @@ TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
         Eq(false)
     );
 }
+
 
 

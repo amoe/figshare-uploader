@@ -2,4 +2,5 @@
 
 namespace column_mapping {
     const int REFERENCES = 6;
+    const int IDENTIFIER = 15;
 };
