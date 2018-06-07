@@ -100,9 +100,8 @@ void ViewImpl::setToken(string newToken) {
 
 
 void ViewImpl::reportError(std::string errorText) {
-    QString qErrorText = QString::fromStdString(errorText);
-    addLog(qErrorText);
-    QMessageBox::critical(this, "Error", qErrorText);
+    addLog("Error: " + errorText);
+    QMessageBox::critical(this, "Error", QString::fromStdString(errorText));
 }
 
 // Overloaded version delegate to private Qt-signatured version
