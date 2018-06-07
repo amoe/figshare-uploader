@@ -40,6 +40,9 @@ int XlsxReader::getRowCount() {
             }
         }
     }
+
+    // if we got here, the sheet is completely empty anyway
+    return 0;
 }
 
 std::vector<std::string> XlsxReader::rowToString(int row) {
