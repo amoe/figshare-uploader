@@ -4,19 +4,20 @@ import osxbundle
 
 VERSION_FILE_PATH = '#version'
 
+def get_version():
+    with open(source_path, 'r') as f:
+        version = f.read().rstrip()
+    return version
+
 def version_action(target, source, env):
     source_path = source[0].path
     target_path = target[0].path
-
-    # read version from plaintext file
-    with open(source_path, 'r') as f:
-        version = f.read().rstrip()
 
     version_c_text = """
     #include "version.hh"
 
     const char* const versionString = "%s";
-    """ % version
+    """ % get_version()
 
     with open(target_path, 'w') as f:
         f.write(version_c_text)
@@ -249,7 +250,7 @@ def do_bundle():
     icon_file = "icon.icns"
 
     subst_dict = {
-        '%SHORTVERSION%': VERSION,
+        '%SHORTVERSION%': get_version(),
         '%BUNDLE_EXECUTABLE%': app,
         '%BUNDLE_KEY%': key,
         '%BUNDLE_FRIENDLY_NAME%': application_name,
@@ -265,7 +266,7 @@ def do_bundle():
     macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
 
     initial_dmg_output_path = "%s.dmg" % application_name
-    final_dmg_output_path = "figshare_uploader-%s.dmg" % VERSION
+    final_dmg_output_path = "figshare_uploader-%s.dmg" % get_version()
 
     # We expect to find xlnt installed under /usr/local/lib, this is not the
     # best assumption.
