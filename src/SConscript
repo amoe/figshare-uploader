@@ -2,8 +2,26 @@ import os
 import subprocess
 import osxbundle
 
-with open('../version') as x: VERSION = x.read().rstrip()
-print("Building version %s of figshare-uploader" % VERSION)
+VERSION_FILE_PATH = '#version'
+
+def version_action(target, source, env):
+    source_path = source[0].path
+    target_path = target[0].path
+
+    # read version from plaintext file
+    with open(source_path, 'r') as f:
+        version = f.read().rstrip()
+
+    version_c_text = """
+    #include "version.hh"
+
+    const char* const versionString = "%s";
+    """ % version
+
+    with open(target_path, 'w') as f:
+        f.write(version_c_text)
+
+    return 0
 
 googletest_framework_root = "../ext/googletest-release-1.8.0"
 
@@ -108,6 +126,13 @@ env.Append(LINKFLAGS=linkflags)
 print("Prog emitter:", env['PROGEMITTER'])
 print("Program is" + repr(env['BUILDERS']['Program'].emitter))
 
+# Build version file using the special action
+env.Command(
+    target='version.cc',
+    source=VERSION_FILE_PATH,
+    action=version_action
+)
+
 env.Program(
     target='unit_tests',
     source=[
@@ -195,7 +220,8 @@ main_binary = env.Program(
         "progress_reporter.cc",
         "driver.cc",
         "path_extractor.cc",
-        "utility.cc"
+        "utility.cc",
+        "version.cc"
     ]
 )
 

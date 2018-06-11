@@ -1,1 +1,1 @@
-extern char const * const version_string;
+extern char const* const versionString;
