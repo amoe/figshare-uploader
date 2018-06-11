@@ -5,7 +5,8 @@ import osxbundle
 VERSION_FILE_PATH = '#version'
 
 def get_version():
-    with open(source_path, 'r') as f:
+    real_path = File(VERSION_FILE_PATH).abspath
+    with open(real_path, 'r') as f:
         version = f.read().rstrip()
     return version
 
