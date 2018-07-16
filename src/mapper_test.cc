@@ -202,7 +202,9 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         ArticleType::FIGURE,
         1,
         "",
-        {}
+        {
+            {"Contributors", "foo"}
+        }
     );
     
     auto myMapper = ObjectMother::makeArticleMapperImpl();

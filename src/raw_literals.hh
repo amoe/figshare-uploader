@@ -201,7 +201,10 @@ namespace raw_literals {
             ],
             "funding": "Some grant number",
             "defined_type": "figure",
-            "license": 1
+            "license": 1,
+            "custom_fields": {
+                "Contributors": "foo"
+            }
         }
     )V0G0N";
 
