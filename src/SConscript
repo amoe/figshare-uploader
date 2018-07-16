@@ -25,7 +25,7 @@ def version_action(target, source, env):
 
     return 0
 
-googletest_framework_root = "../ext/googletest-release-1.8.0"
+googletest_framework_root = "#ext/googletest-release-1.8.0"
 
 googletest_include_paths = [
     googletest_framework_root + "/googletest",
