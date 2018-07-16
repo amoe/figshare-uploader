@@ -121,6 +121,20 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     object.insert("description", descriptionVal);
     object.insert("categories", categoriesVal);
 
+    // Copy custom fields objects into JSON document
+    QJsonObject customFieldObject;
+    for (
+        auto iter = request.customFields.begin();
+        iter != request.customFields.end();
+        iter++
+    ) {
+        auto key = QString::fromStdString(iter->first);
+        auto value = QString::fromStdString(iter->second);
+        customFieldObject.insert(key, value);
+    }
+
+    object.insert("custom_fields", customFieldObject);
+
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
     return result.toStdString();
