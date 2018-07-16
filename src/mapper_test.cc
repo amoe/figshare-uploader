@@ -16,6 +16,26 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
+TEST(ArticleMapperTest, CanMapCustomField) {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+
+    // fill up the whole row with blanks
+    vector<string> row(20, "");
+
+    const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
+
+    row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
+    map<string, string> expected = {
+        {"Contributors", contributorsValue}
+    };
+
+    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ASSERT_THAT(request.customFields, Eq(expected));
+}
+
+
 TEST(ArticleMapperTest, CanExtractIdentifierFields) {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
@@ -197,7 +217,8 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
         1,
-        ""
+        "",
+        {}
     );
     
     ArticleTypeMapper typeMapper;

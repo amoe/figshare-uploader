@@ -55,10 +55,12 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     int license = 1;
 
     string identifierSheetVal = excelRow.at(column_mapping::IDENTIFIER);
+
+    map<string, string> customFields;
     
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
-        funding, articleType, license, identifierSheetVal
+        funding, articleType, license, identifierSheetVal, customFields
     );
 
     // This will use the copy constructor for ArticleCreationRequest.

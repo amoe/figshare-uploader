@@ -3,12 +3,14 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "optional.hpp"
 #include "article_types.hh"
 
 using nonstd::optional;
 using std::vector;
 using std::string;
+using std::map;
 
 // These should probably all not be copied, but hey.
 struct ArticleCreationRequest {
@@ -21,11 +23,12 @@ struct ArticleCreationRequest {
         optional<string> funding,
         ArticleType articleType,
         int license,
-        string identifier
+        string identifier,
+        map<string, string> customFields
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
         funding(funding), articleType(articleType), license(license),
-        identifier(identifier)
+        identifier(identifier), customFields(customFields)
         { }
 
     string title;
@@ -37,7 +40,8 @@ struct ArticleCreationRequest {
     optional<string> funding;
     ArticleType articleType;
     int license;
-    string identifier;   // For some reason, there can be multiple identifiers
+    string identifier;
+    map<string, string> customFields;
 };
 
 struct UploadCreationRequest {

@@ -41,6 +41,7 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
         1,
+        {},
         {}
     );
 
