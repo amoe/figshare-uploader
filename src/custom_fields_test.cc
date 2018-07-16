@@ -13,11 +13,17 @@ using ::testing::EndsWith;
 TEST(CustomFieldSupport, ActsAsIExpect) {
     CustomFieldMapper myMapper;
 
+    const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
+
     vector<string> row(20, "");
-    row.at(column_mapping::CONTRIBUTORS) = "American Colony (Jerusalem). Photo Dept., photographer";
+    row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
 
     map<string, string> result = myMapper.mapCustomFields(row);
     
-    ASSERT_THAT(2 + 2, Eq(5));
+    map<string, string> expected = {
+        {"Contributors", contributorsValue}
+    };
+    
+    ASSERT_THAT(result, Eq(expected));
 }
 
