@@ -8,6 +8,7 @@
 #include "article_type_mapper.hh"
 #include "requests.hh"
 #include "category_mapper.hh"
+#include "custom_field_mapper.hh"
 
 class ArticleMapper {
 public:
@@ -19,8 +20,13 @@ public:
 
 class ArticleMapperImpl : public ArticleMapper {
 public:
-    ArticleMapperImpl(ArticleTypeMapper typeMapper, CategoryMapper categoryMapper)
-        : typeMapper(typeMapper), categoryMapper(categoryMapper) { }
+    ArticleMapperImpl(
+        ArticleTypeMapper typeMapper,
+        CategoryMapper categoryMapper,
+        CustomFieldMapper customFieldMapper
+    ) : typeMapper(typeMapper), 
+        categoryMapper(categoryMapper),
+        customFieldMapper(customFieldMapper) { }
 
     ArticleCreationRequest mapFromExcel(const vector<string> excelRow);
     string mapToFigshare(ArticleCreationRequest request);
@@ -28,6 +34,7 @@ public:
 private:
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper;
+    CustomFieldMapper customFieldMapper;
 
     // ???
     QJsonValue mapType(ArticleType type);

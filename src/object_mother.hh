@@ -6,6 +6,8 @@
 #include "requests.hh"
 #include "responses.hh"
 #include "upload_command.hh"
+#include "article_mapper.hh"
+#include "raw_literals.hh"
 
 class ObjectMother {
 public:
@@ -18,6 +20,7 @@ public:
     static UploadCreationRequest makeUploadCreationRequest();
     static UploadCreationResponse makeUploadCreationResponse();
     static UploadCommand makeUploadCommand();
+    static ArticleMapperImpl makeArticleMapperImpl();
 };
 
 #endif // OBJECT_MOTHER_HH

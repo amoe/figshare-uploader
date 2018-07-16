@@ -225,7 +225,8 @@ main_binary = env.Program(
         "driver.cc",
         "path_extractor.cc",
         "utility.cc",
-        "version.cc"
+        "version.cc",
+        "custom_field_mapper.cc"
     ]
 )
 

@@ -34,7 +34,8 @@ int main(int argc, char **argv) {
     HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper);
     PartPreparerImpl partPreparer;
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
-    ArticleMapperImpl articleMapper(typeMapper, categoryMapper);
+    CustomFieldMapper customFieldMapper;
+    ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper);
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 

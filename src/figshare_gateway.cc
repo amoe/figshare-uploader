@@ -1,6 +1,7 @@
 #include <iostream>
 #include "logging.hh"
 #include "figshare_gateway.hh"
+#include "custom_field_mapper.hh"
 #include "http_poster.hh"
 #include "requests.hh"
 #include "responses.hh"
@@ -21,7 +22,8 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     ArticleCreationRequest request
 ) {
     ArticleTypeMapper typeMapper;
-    ArticleMapperImpl mapper(typeMapper, categoryMapper);
+    CustomFieldMapper customFieldMapper;
+    ArticleMapperImpl mapper(typeMapper, categoryMapper, customFieldMapper);
 
     const string url = "https://api.figshare.com/v2/account/articles";
     const string payload = mapper.mapToFigshare(request);

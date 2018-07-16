@@ -1,3 +1,6 @@
+#ifndef RAW_LITERALS_HH
+#define RAW_LITERALS_HH
+
 // -*- fundamental -*-
 // This namespace only even exists because of emacs cc-mode's bizarre and broken
 // handling of C++11 raw string literals.
@@ -240,3 +243,5 @@ const std::string generatedRequest = R"V0G0N(
 
 
 };
+
+#endif // RAW_LITERALS_HH

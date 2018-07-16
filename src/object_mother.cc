@@ -106,3 +106,13 @@ FilePart ObjectMother::makeFilePart(int i) {
 	
 	return partSpec;
 }
+
+ArticleMapperImpl ObjectMother::makeArticleMapperImpl() {
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    CustomFieldMapper customFieldMapper;
+
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper);
+
+    return myMapper;
+}

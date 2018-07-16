@@ -56,7 +56,7 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     string identifierSheetVal = excelRow.at(column_mapping::IDENTIFIER);
 
-    map<string, string> customFields;
+    map<string, string> customFields = customFieldMapper.mapCustomFields(excelRow);
     
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,

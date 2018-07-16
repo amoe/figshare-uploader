@@ -8,6 +8,7 @@
 #include "utility.hh"
 #include "object_mother.hh"
 #include "column_mapping.hh"
+#include "custom_field_mapper.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -17,9 +18,7 @@ using ::testing::StartsWith;
 using ::testing::EndsWith;
 
 TEST(ArticleMapperTest, CanMapCustomField) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -37,9 +36,7 @@ TEST(ArticleMapperTest, CanMapCustomField) {
 
 
 TEST(ArticleMapperTest, CanExtractIdentifierFields) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -54,9 +51,7 @@ TEST(ArticleMapperTest, CanExtractIdentifierFields) {
 
 
 TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -72,10 +67,7 @@ TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
 }
 
 TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -92,10 +84,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
 
 TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -109,10 +98,7 @@ TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
 }
 
 TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
     vector<string> row(20, "");
@@ -129,9 +115,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
 }
 
 TEST(ArticleMapperTest, CorrectlyMapsRow) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     vector<string> row = {
         "To Serve Man",
@@ -221,10 +205,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         {}
     );
     
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     string serializedResult = myMapper.mapToFigshare(request);
 
@@ -239,10 +220,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 
 TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
-    
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+    auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     string serializedResult = myMapper.mapToFigshare(request);
 
