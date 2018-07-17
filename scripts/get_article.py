@@ -41,7 +41,8 @@ class GetArticleScript(object):
         self.article_id = args[1]
 
         result = self.issue_request('GET', 'account/articles/{}'.format(self.article_id))
-        json.dump(result, sys.stdout)
+        json.dump(result, sys.stdout, indent=4)
+        print()
 
 
 if __name__ == '__main__':
