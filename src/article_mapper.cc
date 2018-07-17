@@ -137,6 +137,7 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
 
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
+
     return result.toStdString();
 }
 
