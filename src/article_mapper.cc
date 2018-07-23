@@ -135,6 +135,9 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
 
     object.insert("custom_fields", customFieldObject);
 
+    // ???
+    object.insert("group_id", 11611);
+
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
 
