@@ -191,6 +191,8 @@ env.Program(
         "test_harness.cc",
         "custom_field_mapper.cc",
         "custom_fields_test.cc",
+        "group_mapper_test.cc",
+        "group_mapper.cc",
         gtest_all_path, gmock_all_path
     ]
 )
