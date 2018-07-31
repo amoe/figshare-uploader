@@ -18,6 +18,8 @@ TEST(MyComponent, ActsAsIExpect) {
 
     EXPECT_CALL(httpGetter, request(_))
         .WillOnce(Return(mockedResult));
+
+    GroupMapperImpl groupMapper(&httpGetter);
     
     ASSERT_THAT(2 + 2, Eq(4));
 }
