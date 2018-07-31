@@ -8,6 +8,23 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string groupApiResponse = R"V0G0N(
+        [
+            {
+                "resource_id": "",
+                "name": "The Planet Bethlehem Archive",
+                "parent_id": 11353,
+                "id": 11611
+            },
+            {
+                "resource_id": "",
+                "name": "School of History, Art History and Philosophy",
+                "parent_id": 11278,
+                "id": 11353
+            }
+        ]
+    )V0G0N";
+
     const std::string serializedArticleGetResponse = R"V0G0N(
         {
             "id": 5702185

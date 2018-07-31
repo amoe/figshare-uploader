@@ -4,6 +4,7 @@
 
 #include "group_mapper.hh"
 #include "http_getter.hh"
+#include "raw_literals.hh"
 
 using namespace testing;
 // what do we want?  a simple map that maintains a groupNameToId() method
@@ -17,10 +18,12 @@ TEST(MyComponent, ActsAsIExpect) {
     string mockedResult = "{}";
 
     EXPECT_CALL(httpGetter, request(_))
-        .WillOnce(Return(mockedResult));
+        .WillOnce(Return(raw_literals::groupApiResponse));
 
     GroupMapperImpl groupMapper(&httpGetter);
     
-    ASSERT_THAT(2 + 2, Eq(4));
+    int groupId = groupMapper.getGroupIdByName("The Planet Bethlehem Archive");
+
+    ASSERT_THAT(groupId, Eq(11611));
 }
 

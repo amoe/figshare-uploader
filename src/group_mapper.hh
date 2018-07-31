@@ -7,13 +7,13 @@
 
 class GroupMapper {
 public:
-    virtual int getGroupIdByName() = 0;
+    virtual int getGroupIdByName(string groupName) = 0;
 };
 
 class GroupMapperImpl : public GroupMapper {
 public:
     GroupMapperImpl(HttpGetter* httpGetter) :  httpGetter(httpGetter) { }
-    int getGroupIdByName();
+    int getGroupIdByName(string groupName);
 
 private:
     HttpGetter* httpGetter;
