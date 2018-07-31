@@ -2,8 +2,8 @@
 #define HTTP_GETTER_HH
 
 #include <string>
+#include <gmock/gmock.h>
 #include "token_store.hh"
-
 
 using std::string;
 
@@ -20,5 +20,11 @@ public:
 private:
     TokenStore* tokenStore;
 };
+
+class MockHttpGetter : public HttpGetter {
+public:
+    MOCK_METHOD1(request, string(string url));
+};
+
 
 #endif // HTTP_GETTER_HH
