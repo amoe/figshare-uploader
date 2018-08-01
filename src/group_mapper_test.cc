@@ -15,8 +15,6 @@ using namespace testing;
 TEST(MyComponent, ActsAsIExpect) {
     MockHttpGetter httpGetter;
 
-    string mockedResult = "{}";
-
     EXPECT_CALL(httpGetter, request(_))
         .WillOnce(Return(raw_literals::groupApiResponse));
 

@@ -215,6 +215,11 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
     CustomFieldMapper customFieldMapper;
 
+
+    MockHttpGetter httpGetter;
+    EXPECT_CALL(httpGetter, request(_))
+        .WillOnce(Return(raw_literals::groupApiResponse));
+
     ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper);
 
     string serializedResult = myMapper.mapToFigshare(request);
