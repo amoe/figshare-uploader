@@ -42,7 +42,6 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
         ArticleType::FIGURE,
         1,
         {},
-        "Some group",
         {}
     );
 

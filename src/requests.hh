@@ -24,12 +24,11 @@ struct ArticleCreationRequest {
         ArticleType articleType,
         int license,
         string identifier,
-        string groupName,
         map<string, string> customFields
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
         funding(funding), articleType(articleType), license(license),
-        identifier(identifier), groupName(groupName), customFields(customFields)
+        identifier(identifier), customFields(customFields)
         { }
 
     string title;
@@ -42,7 +41,6 @@ struct ArticleCreationRequest {
     ArticleType articleType;
     int license;
     string identifier;
-    string groupName;
     map<string, string> customFields;
 };
 

@@ -58,11 +58,9 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     map<string, string> customFields = customFieldMapper.mapCustomFields(excelRow);
     
-    string groupName = excelRow.at(column_mapping::GROUP_NAME);
-
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
-        funding, articleType, license, identifierSheetVal, groupName, customFields
+        funding, articleType, license, identifierSheetVal, customFields
     );
 
     // This will use the copy constructor for ArticleCreationRequest.
@@ -137,7 +135,8 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
 
     object.insert("custom_fields", customFieldObject);
 
-    object.insert("group_id", 11611);
+    // ???
+    //object.insert("group_id", 11611);
 
     QString result = QString::fromUtf8(QJsonDocument(object).toJson());
 
