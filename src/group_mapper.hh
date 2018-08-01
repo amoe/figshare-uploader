@@ -12,7 +12,7 @@ public:
 
 class GroupMapperImpl : public GroupMapper {
 public:
-    GroupMapperImpl(HttpGetter* httpGetter) :  httpGetter(httpGetter) { }
+    GroupMapperImpl(HttpGetter* httpGetter);
     int getGroupIdByName(string groupName);
 
 private:
