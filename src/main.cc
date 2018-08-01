@@ -10,6 +10,7 @@
 #include "presenter.hh"
 #include "logging.hh"
 #include "token_store.hh"
+#include "group_mapper.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -31,11 +32,13 @@ int main(int argc, char **argv) {
     CategoryMapper categoryMapper(&httpGetter);
 
     ArticleTypeMapper typeMapper;
-    HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper);
+    GroupMapperImpl groupMapper(&httpGetter);
+    HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper, &groupMapper);
+
     PartPreparerImpl partPreparer;
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
     CustomFieldMapper customFieldMapper;
-    ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper);
+    ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 

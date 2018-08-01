@@ -10,6 +10,7 @@
 #include "utility.hh"
 #include "file_info.hh"
 #include "upload_container_info.hh"
+#include "group_mapper.hh"
 #include <QDebug>
 
 using std::vector;
@@ -23,7 +24,8 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
 ) {
     ArticleTypeMapper typeMapper;
     CustomFieldMapper customFieldMapper;
-    ArticleMapperImpl mapper(typeMapper, categoryMapper, customFieldMapper);
+    GroupMapperImpl groupMapper(getter);
+    ArticleMapperImpl mapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     const string url = "https://api.figshare.com/v2/account/articles";
     const string payload = mapper.mapToFigshare(request);

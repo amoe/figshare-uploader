@@ -112,8 +112,9 @@ ArticleMapperImpl ObjectMother::makeArticleMapperImpl() {
     ArticleTypeMapper typeMapper;
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
     CustomFieldMapper customFieldMapper;
+    GroupMapperImpl groupMapper;
 
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     return myMapper;
 }
