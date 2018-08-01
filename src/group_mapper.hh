@@ -1,7 +1,10 @@
 #ifndef GROUP_MAPPER_HH
 #define GROUP_MAPPER_HH
 
+#include <map>
 #include "http_getter.hh"
+
+using std::map;
 
 // Interface for group mapper
 
@@ -17,6 +20,7 @@ public:
 
 private:
     HttpGetter* httpGetter;
+    map<string, int> lookup;
 };
 
 
