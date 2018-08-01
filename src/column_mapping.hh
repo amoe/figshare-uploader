@@ -8,6 +8,7 @@ namespace column_mapping {
     const int REFERENCES = 6;
     const int RELATION = 15;
     const int IDENTIFIER = 19;
+    const int GROUP_NAME = 21;
 
     const map<string, int> CUSTOM_FIELDS = {
         {"Contributors", CONTRIBUTORS}

@@ -21,7 +21,7 @@ TEST(ArticleMapperTest, CanMapCustomField) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
 
@@ -39,7 +39,7 @@ TEST(ArticleMapperTest, CanExtractIdentifierFields) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     row.at(column_mapping::IDENTIFIER) = "foo.png";
 
@@ -54,7 +54,7 @@ TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(column_mapping::REFERENCES) = "";
@@ -70,7 +70,7 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(2) = "";
@@ -87,7 +87,7 @@ TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(3) = "Figure";
@@ -101,7 +101,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     auto myMapper = ObjectMother::makeArticleMapperImpl();
 
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
@@ -146,7 +146,8 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
         "31.7053804, 35.1849329",
         "Place associated, place of production",
         "pb_lc_bcr_c19000000-0001aa.tiff",
-        "Library of Congress. No known restrictions on publication."
+        "Library of Congress. No known restrictions on publication.",
+        "Some group value"
     };
 
 
@@ -202,12 +203,19 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         ArticleType::FIGURE,
         1,
         "",
+        "Some group",
         {
             {"Contributors", "foo"}
         }
     );
-    
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
+
+    // We need a special configuration for this particular mapper, to avoid
+    // doing the group lookup network request at test time.
+    ArticleTypeMapper typeMapper;
+    CategoryMapper categoryMapper(raw_literals::categoryResponse);
+    CustomFieldMapper customFieldMapper;
+
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper);
 
     string serializedResult = myMapper.mapToFigshare(request);
 
