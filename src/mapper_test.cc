@@ -9,9 +9,12 @@
 #include "object_mother.hh"
 #include "column_mapping.hh"
 #include "custom_field_mapper.hh"
+#include "http_getter.hh"
+#include "group_mapper.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
+using namespace testing;
 
 using ::testing::Eq;
 using ::testing::StartsWith;
@@ -215,12 +218,13 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
     CustomFieldMapper customFieldMapper;
 
-
+    // Mocked getter
     MockHttpGetter httpGetter;
     EXPECT_CALL(httpGetter, request(_))
         .WillOnce(Return(raw_literals::groupApiResponse));
+    GroupMapperImpl groupMapper(&httpGetter);
 
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper);
+    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     string serializedResult = myMapper.mapToFigshare(request);
 
