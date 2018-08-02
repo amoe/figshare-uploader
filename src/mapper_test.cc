@@ -23,6 +23,21 @@ public:
         CategoryMapper categoryMapper(raw_literals::categoryResponse);
         CustomFieldMapper customFieldMapper;
         MockHttpGetter httpGetter;
+        GroupMapperImpl groupMapper(&httpGetter);
+        myMapper = new ArticleMapperImpl(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
+    }
+
+    ArticleMapperImpl* myMapper;
+};
+
+
+class MapToFigshareTest : public Test {
+public:
+    MapToFigshareTest() {
+        ArticleTypeMapper typeMapper;
+        CategoryMapper categoryMapper(raw_literals::categoryResponse);
+        CustomFieldMapper customFieldMapper;
+        MockHttpGetter httpGetter;
 
         EXPECT_CALL(httpGetter, request(_))
             .WillOnce(Return(raw_literals::groupApiResponse));
@@ -180,8 +195,9 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 }
 
 
+// These use a special fixture because they need to mock the group lookup.
 
-TEST_F(ArticleMapperTest, SerializesToJson) {
+TEST_F(MapToFigshareTest, SerializesToJson) {
     vector<string> keywords;
     keywords.push_back("Bethlehem");
     keywords.push_back("Crafts");
@@ -223,7 +239,7 @@ TEST_F(ArticleMapperTest, SerializesToJson) {
 }
 
 
-TEST_F(ArticleMapperTest, DoesNotSerializeFundingWhenNotProvided) {
+TEST_F(MapToFigshareTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
     string serializedResult = myMapper->mapToFigshare(request);
 

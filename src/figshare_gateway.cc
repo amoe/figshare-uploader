@@ -28,7 +28,6 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
 
     const string url = "https://api.figshare.com/v2/account/articles";
     const string payload = mapper.mapToFigshare(request);
-
     
     for (auto ref : request.references) {
         std::cout << "references value is '" << ref << "'" << std::endl;
