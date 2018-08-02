@@ -62,7 +62,7 @@ You need CMake.
 
 You do this something like so:
 
-    cd ext/xlnt-1.2.0
+    cd ext/xlnt-1.3.0
     md build
     cd build
     cmake -G "Visual Studio 15 2017 Win64" ..
