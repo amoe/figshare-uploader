@@ -3,6 +3,9 @@
 // These are zero-based indexes, because they are used to reference into raw
 // vector<string> (rather than being passed to the excel reader API)
 
+// NB: If you modify these, you also need to modify the minimum and maximum
+// columns in xlsx_reader.cc
+
 namespace column_mapping {
     const int CONTRIBUTORS = 10;
     const int REFERENCES = 6;

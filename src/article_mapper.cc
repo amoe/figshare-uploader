@@ -58,7 +58,8 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     map<string, string> customFields = customFieldMapper.mapCustomFields(excelRow);
     
-    string groupName = excelRow.at(column_mapping::GROUP_NAME);
+//    string groupName = excelRow.at(column_mapping::GROUP_NAME);
+    string groupName = "";
 
     ArticleCreationRequest result(
         title, description, keywords, references, categories, authors,
