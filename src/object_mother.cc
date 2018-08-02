@@ -64,7 +64,7 @@ ArticleCreationRequest ObjectMother::makeArticleCreationRequest() {
         ArticleType::FIGURE,
         1,
         "my_file.tiff",
-        "Some group",
+        "The Planet Bethlehem Archive",
         {}
     );
 

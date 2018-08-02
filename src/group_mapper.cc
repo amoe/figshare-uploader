@@ -25,6 +25,7 @@ void GroupMapperImpl::initializeGroups() {
                  << "/account/institution/groups";
     
     string result = httpGetter->request(stringStream.str());
+    std::cout << "group response was " << result;
 
     auto document = QJsonDocument::fromJson(QString::fromStdString(result).toUtf8());
     
@@ -51,7 +52,7 @@ int GroupMapperImpl::getGroupIdByName(string groupName) {
 
     auto it = lookup.find(groupName);
     if (it == lookup.end()) {
-        throw std::runtime_error("category title not found");
+        throw std::runtime_error("group title not found");
     } else {
         return it->second;
     }
