@@ -1,3 +1,6 @@
+#ifndef RAW_LITERALS_HH
+#define RAW_LITERALS_HH
+
 // -*- fundamental -*-
 // This namespace only even exists because of emacs cc-mode's bizarre and broken
 // handling of C++11 raw string literals.
@@ -5,6 +8,23 @@
 #include <string>
 
 namespace raw_literals {
+    const std::string groupApiResponse = R"V0G0N(
+        [
+            {
+                "resource_id": "",
+                "name": "The Planet Bethlehem Archive",
+                "parent_id": 11353,
+                "id": 11611
+            },
+            {
+                "resource_id": "",
+                "name": "School of History, Art History and Philosophy",
+                "parent_id": 11278,
+                "id": 11353
+            }
+        ]
+    )V0G0N";
+
     const std::string serializedArticleGetResponse = R"V0G0N(
         {
             "id": 5702185
@@ -198,7 +218,11 @@ namespace raw_literals {
             ],
             "funding": "Some grant number",
             "defined_type": "figure",
-            "license": 1
+            "license": 1,
+            "group_id": 11611,
+            "custom_fields": {
+                "Contributors": "foo"
+            }
         }
     )V0G0N";
 
@@ -240,3 +264,5 @@ const std::string generatedRequest = R"V0G0N(
 
 
 };
+
+#endif // RAW_LITERALS_HH

@@ -71,7 +71,7 @@ if (qt5_dir is None):
     )
 
 general_ext_include_path = '#ext'
-xlnt_include_path = "#ext/xlnt-1.2.0/include"
+xlnt_include_path = "#ext/xlnt-1.3.0/include"
 
 linkflags = []
 ccflags = []
@@ -189,6 +189,10 @@ env.Program(
         "test_utility.cc",
         "utility.cc",
         "test_harness.cc",
+        "custom_field_mapper.cc",
+        "custom_fields_test.cc",
+        "group_mapper_test.cc",
+        "group_mapper.cc",
         gtest_all_path, gmock_all_path
     ]
 )
@@ -223,7 +227,9 @@ main_binary = env.Program(
         "driver.cc",
         "path_extractor.cc",
         "utility.cc",
-        "version.cc"
+        "version.cc",
+        "custom_field_mapper.cc",
+        "group_mapper.cc"
     ]
 )
 

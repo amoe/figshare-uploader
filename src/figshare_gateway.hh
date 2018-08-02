@@ -11,6 +11,7 @@
 #include "upload_container_info.hh"
 #include "upload_command.hh"
 #include "http_putter.hh"
+#include "group_mapper.hh"
 
 class FigshareGateway {
 public:
@@ -42,10 +43,9 @@ class HttpFigshareGateway : public FigshareGateway {
 public:
     HttpFigshareGateway(
         HttpGetter* getter, HttpPoster* poster, HttpPutter* putter,
-        CategoryMapper categoryMapper)
+        CategoryMapper categoryMapper, GroupMapper* groupMapper)
         : getter(getter), poster(poster), putter(putter),
-          categoryMapper(categoryMapper) {
-    }
+          categoryMapper(categoryMapper), groupMapper(groupMapper) { }
 
     // These methods form the official Figshare API
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
@@ -70,6 +70,7 @@ private:
     HttpPoster* poster;
     HttpPutter* putter;
     CategoryMapper categoryMapper;
+    GroupMapper* groupMapper;
 };
 
 class MockFigshareGateway : public FigshareGateway {

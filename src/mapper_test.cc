@@ -8,62 +8,83 @@
 #include "utility.hh"
 #include "object_mother.hh"
 #include "column_mapping.hh"
+#include "custom_field_mapper.hh"
+#include "http_getter.hh"
+#include "group_mapper.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
+using namespace testing;
 
-using ::testing::Eq;
-using ::testing::StartsWith;
-using ::testing::EndsWith;
+class ArticleMapperTest : public Test {
+public:
+    ArticleMapperTest() {
+        ArticleTypeMapper typeMapper;
+        CategoryMapper categoryMapper(raw_literals::categoryResponse);
+        CustomFieldMapper customFieldMapper;
+        MockHttpGetter httpGetter;
 
-TEST(ArticleMapperTest, CanExtractIdentifierFields) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
+        EXPECT_CALL(httpGetter, request(_))
+            .WillOnce(Return(raw_literals::groupApiResponse));
 
+        GroupMapperImpl groupMapper(&httpGetter);
+        myMapper = new ArticleMapperImpl(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
+    }
+
+    ArticleMapperImpl* myMapper;
+};
+
+TEST_F(ArticleMapperTest, CanMapCustomField) {
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
+
+    const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
+
+    row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
+    map<string, string> expected = {
+        {"Contributors", contributorsValue}
+    };
+
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
+    ASSERT_THAT(request.customFields, Eq(expected));
+}
+
+
+TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
+    // fill up the whole row with blanks
+    vector<string> row(22, "");
 
     row.at(column_mapping::IDENTIFIER) = "foo.png";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     string expectedIdentifier = "foo.png";
     ASSERT_THAT(request.identifier, Eq(expectedIdentifier));
 }
 
 
-TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(column_mapping::REFERENCES) = "";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<string> expectedReferences = {};
 
     ASSERT_THAT(request.references, Eq(expectedReferences));
 }
 
-TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
-
+TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(2) = "";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<int> expectedCategories = {};
 
@@ -71,36 +92,26 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 }
 
 
-TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
-
+TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(3) = "Figure";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     ASSERT_THAT(request.articleType, Eq(ArticleType::FIGURE));
 }
 
-TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
-
+TEST_F(ArticleMapperTest, HandlesKeywordsCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(20, "");
+    vector<string> row(22, "");
 
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<string> expectedKeywords;
     expectedKeywords = {"Bethlehem Crafts", "Olive Wood", "Mother-of-pearl"};
@@ -108,11 +119,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ASSERT_THAT(request.keywords, Eq(expectedKeywords));
 }
 
-TEST(ArticleMapperTest, CorrectlyMapsRow) {
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
+TEST_F(ArticleMapperTest, CorrectlyMapsRow) {
     vector<string> row = {
         "To Serve Man",
         "Freja Howat-Maxted, Jacob Norris, Leila Sansour",
@@ -142,11 +149,12 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
         "31.7053804, 35.1849329",
         "Place associated, place of production",
         "pb_lc_bcr_c19000000-0001aa.tiff",
-        "Library of Congress. No known restrictions on publication."
+        "Library of Congress. No known restrictions on publication.",
+        "Some group value"
     };
 
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     ASSERT_THAT(request.title, Eq("To Serve Man"));
     ASSERT_THAT(request.description, StartsWith("This is a digital "));
@@ -173,7 +181,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
 
 
-TEST(ArticleCreationRequestTest, SerializesToJson) {
+TEST_F(ArticleMapperTest, SerializesToJson) {
     vector<string> keywords;
     keywords.push_back("Bethlehem");
     keywords.push_back("Crafts");
@@ -197,15 +205,14 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
         1,
-        ""
+        "",
+        "Some group",
+        {
+            {"Contributors", "foo"}
+        }
     );
-    
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
 
-
-    string serializedResult = myMapper.mapToFigshare(request);
+    string serializedResult = myMapper->mapToFigshare(request);
 
     std::cout << serializedResult << std::endl;
 
@@ -216,14 +223,9 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 }
 
 
-TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
+TEST_F(ArticleMapperTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
-    
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper);
-
-    string serializedResult = myMapper.mapToFigshare(request);
+    string serializedResult = myMapper->mapToFigshare(request);
 
     std::cout << serializedResult << std::endl;
 

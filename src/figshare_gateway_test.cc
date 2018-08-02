@@ -2,8 +2,9 @@
 #include "figshare_gateway.hh"
 #include "stubs.hh"
 #include "raw_literals.hh"
+#include "group_mapper.hh"
 
-using ::testing::Eq;
+using namespace testing;
 
 TEST(FigshareGatewayTest, ActsAsIExpect) {
     HttpGetter* getter = new StubHttpGetter("You should not see this");
@@ -14,8 +15,15 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
     HttpPutter* putter = new StubHttpPutter("You should also not see this");
 
     CategoryMapper categoryMapper(raw_literals::categoryResponse);
+
+    // This is really just a fancier way of using the stub objects above.
+    MockHttpGetter httpGetter;
+    EXPECT_CALL(httpGetter, request(_))
+        .WillOnce(Return(raw_literals::groupApiResponse));
+    GroupMapperImpl groupMapper(&httpGetter);
+
     FigshareGateway* gateway = new HttpFigshareGateway(
-        getter, poster, putter, categoryMapper
+        getter, poster, putter, categoryMapper, &groupMapper
     );
     
     vector<string> keywords;
@@ -41,6 +49,8 @@ TEST(FigshareGatewayTest, ActsAsIExpect) {
         optional<string>("Some grant number"),
         ArticleType::FIGURE,
         1,
+        {},
+        "Some group",
         {}
     );
 
