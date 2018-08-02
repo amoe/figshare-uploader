@@ -38,6 +38,13 @@ matrix:
       # Xenial will release soon on Travis:
       # https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
 
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+    
       install:
         - set -e
         - cd ext/xlnt-1.3.0
@@ -49,6 +56,7 @@ matrix:
 
       script:
         - set -e
+        - export CXX=g++-6
         - scons
         - ./build/unit_tests
       #  - ./integration_tests
