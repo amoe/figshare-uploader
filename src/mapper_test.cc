@@ -16,13 +16,25 @@ using nonstd::optional;
 using nonstd::nullopt;
 using namespace testing;
 
-using ::testing::Eq;
-using ::testing::StartsWith;
-using ::testing::EndsWith;
+class ArticleMapperTest : public Test {
+public:
+    ArticleMapperTest() {
+        ArticleTypeMapper typeMapper;
+        CategoryMapper categoryMapper(raw_literals::categoryResponse);
+        CustomFieldMapper customFieldMapper;
+        MockHttpGetter httpGetter;
 
-TEST(ArticleMapperTest, CanMapCustomField) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
+        EXPECT_CALL(httpGetter, request(_))
+            .WillOnce(Return(raw_literals::groupApiResponse));
 
+        GroupMapperImpl groupMapper(&httpGetter);
+        myMapper = new ArticleMapperImpl(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
+    }
+
+    ArticleMapperImpl* myMapper;
+};
+
+TEST_F(ArticleMapperTest, CanMapCustomField) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
@@ -33,52 +45,46 @@ TEST(ArticleMapperTest, CanMapCustomField) {
         {"Contributors", contributorsValue}
     };
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
     ASSERT_THAT(request.customFields, Eq(expected));
 }
 
 
-TEST(ArticleMapperTest, CanExtractIdentifierFields) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
     row.at(column_mapping::IDENTIFIER) = "foo.png";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     string expectedIdentifier = "foo.png";
     ASSERT_THAT(request.identifier, Eq(expectedIdentifier));
 }
 
 
-TEST(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(column_mapping::REFERENCES) = "";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<string> expectedReferences = {};
 
     ASSERT_THAT(request.references, Eq(expectedReferences));
 }
 
-TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(2) = "";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<int> expectedCategories = {};
 
@@ -86,30 +92,26 @@ TEST(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 }
 
 
-TEST(ArticleMapperTest, HandlesMediaTypeCorrectly) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
     // Superfluously ensure that category is also blank
     row.at(3) = "Figure";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     ASSERT_THAT(request.articleType, Eq(ArticleType::FIGURE));
 }
 
-TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, HandlesKeywordsCorrectly) {
     // fill up the whole row with blanks
     vector<string> row(22, "");
 
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     vector<string> expectedKeywords;
     expectedKeywords = {"Bethlehem Crafts", "Olive Wood", "Mother-of-pearl"};
@@ -117,9 +119,7 @@ TEST(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ASSERT_THAT(request.keywords, Eq(expectedKeywords));
 }
 
-TEST(ArticleMapperTest, CorrectlyMapsRow) {
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
+TEST_F(ArticleMapperTest, CorrectlyMapsRow) {
     vector<string> row = {
         "To Serve Man",
         "Freja Howat-Maxted, Jacob Norris, Leila Sansour",
@@ -154,7 +154,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     };
 
 
-    ArticleCreationRequest request = myMapper.mapFromExcel(row);
+    ArticleCreationRequest request = myMapper->mapFromExcel(row);
 
     ASSERT_THAT(request.title, Eq("To Serve Man"));
     ASSERT_THAT(request.description, StartsWith("This is a digital "));
@@ -181,7 +181,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
 
 
-TEST(ArticleCreationRequestTest, SerializesToJson) {
+TEST_F(ArticleMapperTest, SerializesToJson) {
     vector<string> keywords;
     keywords.push_back("Bethlehem");
     keywords.push_back("Crafts");
@@ -212,21 +212,7 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
         }
     );
 
-    // We need a special configuration for this particular mapper, to avoid
-    // doing the group lookup network request at test time.
-    ArticleTypeMapper typeMapper;
-    CategoryMapper categoryMapper(raw_literals::categoryResponse);
-    CustomFieldMapper customFieldMapper;
-
-    // Mocked getter
-    MockHttpGetter httpGetter;
-    EXPECT_CALL(httpGetter, request(_))
-        .WillOnce(Return(raw_literals::groupApiResponse));
-    GroupMapperImpl groupMapper(&httpGetter);
-
-    ArticleMapperImpl myMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
-
-    string serializedResult = myMapper.mapToFigshare(request);
+    string serializedResult = myMapper->mapToFigshare(request);
 
     std::cout << serializedResult << std::endl;
 
@@ -237,11 +223,9 @@ TEST(ArticleCreationRequestTest, SerializesToJson) {
 }
 
 
-TEST(ArticleCreationRequestTest, DoesNotSerializeFundingWhenNotProvided) {
+TEST_F(ArticleMapperTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
-    auto myMapper = ObjectMother::makeArticleMapperImpl();
-
-    string serializedResult = myMapper.mapToFigshare(request);
+    string serializedResult = myMapper->mapToFigshare(request);
 
     std::cout << serializedResult << std::endl;
 

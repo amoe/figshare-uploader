@@ -20,7 +20,6 @@ public:
     static UploadCreationRequest makeUploadCreationRequest();
     static UploadCreationResponse makeUploadCreationResponse();
     static UploadCommand makeUploadCommand();
-    static ArticleMapperImpl makeArticleMapperImpl();
 };
 
 #endif // OBJECT_MOTHER_HH
