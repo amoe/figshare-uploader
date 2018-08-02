@@ -219,6 +219,7 @@ namespace raw_literals {
             "funding": "Some grant number",
             "defined_type": "figure",
             "license": 1,
+            "group_id": 11611,
             "custom_fields": {
                 "Contributors": "foo"
             }
