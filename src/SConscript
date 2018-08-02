@@ -193,6 +193,7 @@ env.Program(
         "custom_fields_test.cc",
         "group_mapper_test.cc",
         "group_mapper.cc",
+        "scratch_test.cc",
         gtest_all_path, gmock_all_path
     ]
 )

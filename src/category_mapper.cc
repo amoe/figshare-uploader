@@ -35,7 +35,6 @@ void CategoryMapper::initializeLookup() {
 }
 
 void CategoryMapper::setFromJson(string jsonInput) {
-
     lookup.clear();
 
     QJsonDocument document = QJsonDocument::fromJson(

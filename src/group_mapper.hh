@@ -19,6 +19,7 @@ public:
     int getGroupIdByName(string groupName);
 
 private:
+    void initializeGroups();
     HttpGetter* httpGetter;
     map<string, int> lookup;
 };
