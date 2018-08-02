@@ -71,7 +71,7 @@ if (qt5_dir is None):
     )
 
 general_ext_include_path = '#ext'
-xlnt_include_path = "#ext/xlnt-1.2.0/include"
+xlnt_include_path = "#ext/xlnt-1.3.0/include"
 
 linkflags = []
 ccflags = []
