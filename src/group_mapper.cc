@@ -10,8 +10,16 @@
 
 using std::runtime_error;
 
+// Note that the GroupMapper and the CategoryMapper share nearly identical
+// implementations, except one uses a manual stub and one uses a gmock-created
+// mock for testing.
 
 GroupMapperImpl::GroupMapperImpl(HttpGetter* httpGetter) : httpGetter(httpGetter) {
+    // Nothing to do here, we initialize lazily, because the token store might
+    // not be intialized at this time.
+}
+
+void GroupMapperImpl::initializeGroups() {
     std::ostringstream stringStream;
     stringStream << "https://api.figshare.com/v2"
                  << "/account/institution/groups";
@@ -37,6 +45,10 @@ GroupMapperImpl::GroupMapperImpl(HttpGetter* httpGetter) : httpGetter(httpGetter
 }
 
 int GroupMapperImpl::getGroupIdByName(string groupName) {
+    if (lookup.empty()) {
+        initializeGroups();
+    }
+
     auto it = lookup.find(groupName);
     if (it == lookup.end()) {
         throw std::runtime_error("category title not found");
