@@ -130,9 +130,9 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
         iter != request.customFields.end();
         iter++
     ) {
-        auto key = QString::fromStdString(iter->first);
-        auto value = QString::fromStdString(iter->second);
-        customFieldObject.insert(key, value);
+        auto jsonKey = QString::fromStdString(iter->first);
+        auto jsonValue = QString::fromStdString(iter->second);
+        customFieldObject.insert(jsonKey, jsonValue);
     }
 
     object.insert("custom_fields", customFieldObject);

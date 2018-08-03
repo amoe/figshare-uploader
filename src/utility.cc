@@ -77,3 +77,12 @@ string basename(string path) {
     QString basename = fileInfo.fileName();
     return basename.toStdString();
 }
+
+bool isWhitespaceOnly(string input) {
+    for (int i = 0; i < input.size(); i++) {
+        if (!isspace(input.at(i))) 
+            return false;
+    }
+
+    return true;
+}

@@ -9,7 +9,4 @@ public:
     static std::vector<std::string> getRequestedFiles(
         std::string uploadSpec, std::string xlsxPath
     );
-
-private:
-    static bool isWhitespaceOnly(std::string input);
 };
