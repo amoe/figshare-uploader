@@ -26,9 +26,12 @@ namespace column_mapping {
     const map<string, int> CUSTOM_FIELDS = {
         {"Creator", CREATOR},
         {"Contributors", CONTRIBUTORS},
+        {"Date", DATE},
         {"Type", TYPE},
         {"Source", SOURCE},
         {"Language", LANGUAGE},
+        {"Relation", RELATION},
+        {"Temporal", TEMPORAL},
         {"Spatial", SPATIAL},
         {"Spatial Relation", SPATIAL_RELATION},
         {"Identifier", IDENTIFIER},
