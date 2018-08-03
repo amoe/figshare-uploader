@@ -7,13 +7,34 @@
 // columns in xlsx_reader.cc
 
 namespace column_mapping {
+    const int CREATOR = 9;
     const int CONTRIBUTORS = 10;
-    const int REFERENCES = 6;
+    const int DATE = 11;
+    const int TYPE = 12;
+    const int SOURCE = 13;
+    const int LANGUAGE = 14;
     const int RELATION = 15;
+    const int TEMPORAL = 16;
+    const int SPATIAL = 17;
+    const int SPATIAL_RELATION = 18;
     const int IDENTIFIER = 19;
+    const int RIGHTS = 20;
+    const int REFERENCES = 6;
     const int GROUP_NAME = 21;
 
+
     const map<string, int> CUSTOM_FIELDS = {
-        {"Contributors", CONTRIBUTORS}
+        {"Creator", CREATOR},
+        {"Contributors", CONTRIBUTORS},
+        {"Date", DATE},
+        {"Type", TYPE},
+        {"Source", SOURCE},
+        {"Language", LANGUAGE},
+        {"Relation", RELATION},
+        {"Temporal", TEMPORAL},
+        {"Spatial", SPATIAL},
+        {"Spatial Relation", SPATIAL_RELATION},
+        {"Identifier", IDENTIFIER},
+        {"Rights", RIGHTS}
     };
 };

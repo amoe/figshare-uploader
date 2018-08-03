@@ -15,7 +15,7 @@ TEST(CustomFieldSupport, ActsAsIExpect) {
 
     const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
 
-    vector<string> row(20, "");
+    vector<string> row(22, "");
     row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
 
     map<string, string> result = myMapper.mapCustomFields(row);
@@ -23,7 +23,7 @@ TEST(CustomFieldSupport, ActsAsIExpect) {
     map<string, string> expected = {
         {"Contributors", contributorsValue}
     };
-    
+
     ASSERT_THAT(result, Eq(expected));
 }
 

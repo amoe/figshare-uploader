@@ -16,3 +16,5 @@ vector<string> splitSemicolons(const string input);
 
 bool containsKey(const string input, const string key);
 string basename(string path);
+
+bool isWhitespaceOnly(string input);
