@@ -7,7 +7,10 @@ using namespace testing;
 using std::string;
 using std::vector;
 
-TEST(PathExtractorTest, EmptyInput) {
+class PathExtractorTest: public Test {
+};
+
+TEST_F(PathExtractorTest, EmptyInput) {
     string emptyInput = "";
     vector<string> paths = PathExtractor::getRequestedFiles(emptyInput, "/home/fry/upload.xlsx");
     vector<string> expectedResult = {};
@@ -15,7 +18,7 @@ TEST(PathExtractorTest, EmptyInput) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(PathExtractorTest, Whitespace) {
+TEST_F(PathExtractorTest, Whitespace) {
     string oneSpace = " ";
     vector<string> paths = PathExtractor::getRequestedFiles(oneSpace, "/home/fry/upload.xlsx");
     
@@ -24,7 +27,7 @@ TEST(PathExtractorTest, Whitespace) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(PathExtractorTest, SingleFile) {
+TEST_F(PathExtractorTest, SingleFile) {
     string singleFile = "myfile.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(singleFile, "/home/fry/upload.xlsx");
 
@@ -35,7 +38,7 @@ TEST(PathExtractorTest, SingleFile) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(PathExtractorTest, MultipleFiles) {
+TEST_F(PathExtractorTest, MultipleFiles) {
     string multipleFiles = "myfile1.tiff;myfile2.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(multipleFiles, "/home/fry/upload.xlsx");
     
@@ -47,8 +50,8 @@ TEST(PathExtractorTest, MultipleFiles) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST(PathExtractorTest, WhitespaceInMultipleFileSpec) {
-    string multipleFilesWithExtraneousWhitespace = "myfile1.tiff ; myfile2.tiff";
+TEST_F(PathExtractorTest, SupportsCommasToSeparateFilesInIdentifier) {
+    string multipleFilesWithExtraneousWhitespace = "myfile1.tiff, myfile2.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(
         multipleFilesWithExtraneousWhitespace, "/home/fry/upload.xlsx"
     );

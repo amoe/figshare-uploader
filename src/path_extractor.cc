@@ -12,7 +12,7 @@ using std::isspace;
 vector<string> PathExtractor::getRequestedFiles(
     string uploadSpec, string xlsxPath
 ) {
-    vector<string> splitVersion =  splitSemicolons(uploadSpec);
+    vector<string> splitVersion =  splitByRegexp(uploadSpec, "\\s*[;,]\\s*");
 
     vector<string> result;
         
