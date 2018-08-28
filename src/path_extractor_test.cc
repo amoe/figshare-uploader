@@ -50,8 +50,8 @@ TEST_F(PathExtractorTest, MultipleFiles) {
     ASSERT_THAT(paths, Eq(expectedResult));
 }
 
-TEST_F(PathExtractorTest, WhitespaceInMultipleFileSpec) {
-    string multipleFilesWithExtraneousWhitespace = "myfile1.tiff ; myfile2.tiff";
+TEST_F(PathExtractorTest, SupportsCommasToSeparateFilesInIdentifier) {
+    string multipleFilesWithExtraneousWhitespace = "myfile1.tiff, myfile2.tiff";
     vector<string> paths = PathExtractor::getRequestedFiles(
         multipleFilesWithExtraneousWhitespace, "/home/fry/upload.xlsx"
     );
