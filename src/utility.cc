@@ -43,7 +43,7 @@ bool containsKey(const string input, const string key) {
     return result.object().contains(qKey);
 }
 
-static vector<string> splitByRegexp(const string input, const string regexp) {
+vector<string> splitByRegexp(const string input, const string regexp) {
     auto qInput = QString::fromStdString(input);
 
     QRegExp separator(QString::fromStdString(regexp));
@@ -57,6 +57,7 @@ static vector<string> splitByRegexp(const string input, const string regexp) {
 
     return results;
 }
+
 
 vector<string> splitSemicolons(const string input) {
     return splitByRegexp(input, "\\s*;\\s*");
