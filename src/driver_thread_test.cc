@@ -18,6 +18,11 @@ TEST_F(DriverThreadTest, ChecksThatAllRelatedFilesExist) {
     // of XlsxReader to construct with no arguments and use a 'load()'
     // method to load the file.  Which may possibly be more natural anyway.
 
+    // Once that is done, we can then mock out the XlsxReader interface to
+    // ReturnOnce rowToString() etc with an appropriate set of values.
+    // driver will also need to be mocked to just be a no-op on 'handleRow'
+    // and 'log'.
+
     DriverThread d(parent, driver, inputPath);
 
     ASSERT_THAT(2 + 2, Eq(4));
