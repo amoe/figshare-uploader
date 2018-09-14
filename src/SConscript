@@ -194,6 +194,7 @@ env.Program(
         "group_mapper_test.cc",
         "group_mapper.cc",
         "scratch_test.cc",
+        "driver_thread.cc",
         "driver_thread_test.cc",
         gtest_all_path, gmock_all_path
     ]
