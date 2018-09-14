@@ -25,6 +25,10 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     vector<string> keywords = splitCommas(excelRow.at(4));
 
+    for (auto k: keywords) {
+        std::cout << "keyword: " << k << std::endl;
+    }
+
     // We only support one reference at the moment!
     vector<string> references;
     string referencesSheetVal = excelRow.at(column_mapping::REFERENCES);
