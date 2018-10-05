@@ -24,8 +24,9 @@ namespace column_mapping {
     const int PROJECT = 22;
     const int COLLECTION = 23;
 
-    // Update this if you add fields.
-    const int MAX_FIELD = 23;
+    // Update this if you add fields.  It should be n+1 where n is the highest
+    // int above.
+    const int MAX_FIELD = 24;
 
 
     const map<string, int> CUSTOM_FIELDS = {
@@ -40,6 +41,8 @@ namespace column_mapping {
         {"Spatial", SPATIAL},
         {"Spatial Relation", SPATIAL_RELATION},
         {"Identifier", IDENTIFIER},
-        {"Rights", RIGHTS}
+        {"Rights", RIGHTS},
+        {"Project", PROJECT},
+        {"Collection", COLLECTION}
     };
 };

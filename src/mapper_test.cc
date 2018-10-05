@@ -162,7 +162,9 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
         "Place associated, place of production",
         "pb_lc_bcr_c19000000-0001aa.tiff",
         "Library of Congress. No known restrictions on publication.",
-        "Some group value"
+        "Some group value",
+        "http://www.figshare.com/project/foo",
+        "http://www.figshare.com/collection/bar"
     };
 
 
@@ -189,6 +191,23 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     expectedReferences.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
 
     ASSERT_THAT(request.references, Eq(expectedReferences));
+
+    map<string, string> expectedCustomFields = { 
+        {"Contributors", "American Colony (Jerusalem). Photo Dept., photographer"},
+        {"Date", "c.1900-1920"},
+        {"Identifier", "pb_lc_bcr_c19000000-0001aa.tiff"},
+        {"Language", "English"},
+        {"Relation", "pb_lc_bcr_c18980000-0004aa.tiff"},
+        {"Rights", "Library of Congress. No known restrictions on publication."},
+        {"Source", "Library of Congress, Washington DC, USA, Prints & Photographs Division, reproduction number: LC-DIG-matpc-01281 (digital file from original photo)"},
+        {"Spatial", "31.7053804, 35.1849329"},
+        {"Spatial Relation", "Place associated, place of production"},
+        {"Type", "Digital scan of image: 1 negative : glass, stereograph, dry plate ; 5 x 7 in."},
+        {"Project", "http://www.figshare.com/project/foo"},
+        {"Collection", "http://www.figshare.com/collection/bar"},
+    };
+
+    ASSERT_THAT(request.customFields, Eq(expectedCustomFields));
 }
 
 
