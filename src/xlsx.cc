@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include <xlnt/xlnt.hpp>
 #include "xlsx.hh"
+#include "column_mapping.hh"
 
 using ::testing::Eq;
 using std::string;
@@ -46,16 +47,14 @@ int XlsxReader::getRowCount() {
 }
 
 std::vector<std::string> XlsxReader::rowToString(int row) {
-    const string MINIMUM_COLUMN = "A";
-    const string MAXIMUM_COLUMN = "V";
-
     xlnt::worksheet ws = wb.active_sheet();
         
     std::vector<std::string> result;
 
     // this should be done better somehow
     ostringstream rangeSpec;
-    rangeSpec << MINIMUM_COLUMN << row << ":" << MAXIMUM_COLUMN << row;
+    rangeSpec << column_mapping::MINIMUM_COLUMN
+              << row << ":" << column_mapping::MAXIMUM_COLUMN << row;
 
     // select one and just one row
     xlnt::range range = ws.range(rangeSpec.str());

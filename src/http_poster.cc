@@ -48,9 +48,9 @@ string QtHttpPoster::request(const string url, const string payload) {
     qDebug() << result;
     if (error != QNetworkReply::NoError) {
         qDebug() << result;
-        throw std::runtime_error(
-            "something went wrong in the network request"
-        );
+        QString errorMessage = QString::fromUtf8(result);
+        string message = "HTTP POST: " + errorMessage.toStdString();
+        throw std::runtime_error(message);
     }
 
 

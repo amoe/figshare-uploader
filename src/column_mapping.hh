@@ -1,3 +1,6 @@
+#ifndef COLUMN_MAPPING_HH
+#define COLUMN_MAPPING_HH
+
 // New column indexes for the XLSX schema should be put in this namespace
 
 // These are zero-based indexes, because they are used to reference into raw
@@ -5,6 +8,13 @@
 
 // NB: If you modify these, you also need to modify the minimum and maximum
 // columns in xlsx_reader.cc
+
+
+#include <string>
+#include <map>
+
+using std::string;
+using std::map;
 
 namespace column_mapping {
     const int CREATOR = 9;
@@ -27,7 +37,8 @@ namespace column_mapping {
     // Update this if you add fields.  It should be n+1 where n is the highest
     // int above.
     const int MAX_FIELD = 24;
-
+    const string MINIMUM_COLUMN = "A";
+    const string MAXIMUM_COLUMN = "X";
 
     const map<string, int> CUSTOM_FIELDS = {
         {"Creator", CREATOR},
@@ -46,3 +57,6 @@ namespace column_mapping {
         {"Collection", COLLECTION}
     };
 };
+
+
+#endif /* COLUMN_MAPPING_HH */
