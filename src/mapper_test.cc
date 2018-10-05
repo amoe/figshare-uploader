@@ -48,7 +48,7 @@ public:
 
 TEST_F(ArticleMapperTest, CanMapCustomField) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
 
@@ -64,7 +64,7 @@ TEST_F(ArticleMapperTest, CanMapCustomField) {
 
 TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     row.at(column_mapping::IDENTIFIER) = "foo.png";
 
@@ -77,7 +77,7 @@ TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
 
 TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(column_mapping::REFERENCES) = "";
@@ -91,7 +91,7 @@ TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(2) = "";
@@ -106,7 +106,7 @@ TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(3) = "Figure";
@@ -118,7 +118,7 @@ TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesKeywordsCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";

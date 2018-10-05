@@ -21,6 +21,11 @@ namespace column_mapping {
     const int RIGHTS = 20;
     const int REFERENCES = 6;
     const int GROUP_NAME = 21;
+    const int PROJECT = 22;
+    const int COLLECTION = 23;
+
+    // Update this if you add fields.
+    const int MAX_FIELD = 23;
 
 
     const map<string, int> CUSTOM_FIELDS = {
