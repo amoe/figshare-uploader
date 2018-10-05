@@ -10,7 +10,7 @@ using ::testing::Eq;
 using ::testing::StartsWith;
 using ::testing::EndsWith;
 
-TEST(CustomFieldSupport, ActsAsIExpect) {
+TEST(CustomFieldSupport, supportsContributors) {
     CustomFieldMapper myMapper;
 
     const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
