@@ -28,38 +28,37 @@ TEST(CustomFieldSupport, supportsContributors) {
 }
 
 
-// TEST(CustomFieldSupport, supportsProject) {
-//     CustomFieldMapper myMapper;
+TEST(CustomFieldSupport, supportsProject) {
+    CustomFieldMapper myMapper;
 
-//     const string projectValue = "http://www.figshare.com/project/foo";
+    const string projectValue = "http://www.figshare.com/project/foo";
 
-//     vector<string> row(column_mapping::MAX_FIELD, "");
-//     row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
+    vector<string> row(column_mapping::MAX_FIELD, "");
+    row.at(column_mapping::PROJECT) = projectValue;
 
-//     map<string, string> result = myMapper.mapCustomFields(row);
+    map<string, string> result = myMapper.mapCustomFields(row);
     
-//     map<string, string> expected = {
-//         {"Contributors", contributorsValue}
-//     };
+    map<string, string> expected = {
+        {"Project", projectValue}
+    };
 
-//     ASSERT_THAT(result, Eq(expected));
-// }
+    ASSERT_THAT(result, Eq(expected));
+}
 
 
-// TEST(CustomFieldSupport, supportsCollection) {
-//     CustomFieldMapper myMapper;
+TEST(CustomFieldSupport, supportsCollection) {
+    CustomFieldMapper myMapper;
 
-//     const string collectionsValue = "http://www.figshare.com/collection/bar";
+    const string collectionsValue = "http://www.figshare.com/collection/bar";
 
-//     vector<string> row(22, "");
-//     row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
+    vector<string> row(column_mapping::MAX_FIELD, "");
+    row.at(column_mapping::COLLECTION) = collectionsValue;
 
-//     map<string, string> result = myMapper.mapCustomFields(row);
+    map<string, string> result = myMapper.mapCustomFields(row);
     
-//     map<string, string> expected = {
-//         {"Contributors", contributorsValue}
-//     };
+    map<string, string> expected = {
+        {"Collection", collectionsValue}
+    };
 
-//     ASSERT_THAT(result, Eq(expected));
-// }
-
+    ASSERT_THAT(result, Eq(expected));
+}
