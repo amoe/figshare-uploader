@@ -46,7 +46,6 @@ public:
     GroupMapperImpl *groupMapper;
 };
 
-/*
 TEST_F(ArticleMapperTest, CanMapCustomField) {
     // fill up the whole row with blanks
     vector<string> row(column_mapping::MAX_FIELD, "");
@@ -57,7 +56,6 @@ TEST_F(ArticleMapperTest, CanMapCustomField) {
     ArticleCreationRequest request = myMapper->mapFromExcel(row);
     ASSERT_THAT(request.customFields.render().size(), Eq(1));
 }
-
 
 TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
     // fill up the whole row with blanks
@@ -128,6 +126,7 @@ TEST_F(ArticleMapperTest, HandlesKeywordsCorrectly) {
     ASSERT_THAT(request.keywords, Eq(expectedKeywords));
 }
 
+/*
 TEST_F(ArticleMapperTest, CorrectlyMapsRow) {
     vector<string> row = {
         "To Serve Man",
@@ -206,7 +205,7 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
 
     ASSERT_THAT(request.customFields, Eq(expectedCustomFields));
 }
-
+*/
 
 // These use a special fixture because they need to mock the group lookup.
 
@@ -241,6 +240,7 @@ TEST_F(MapToFigshareTest, SerializesToJson) {
         1,
         "",
         "The Planet Bethlehem Archive",
+        fieldSet
     );
 
     string serializedResult = myMapper->mapToFigshare(request);
@@ -268,4 +268,3 @@ TEST_F(MapToFigshareTest, DoesNotSerializeFundingWhenNotProvided) {
         Eq(false)
     );
 }
-*/
