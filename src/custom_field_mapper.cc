@@ -10,20 +10,16 @@ CustomFieldSet CustomFieldMapper::mapCustomFields(const vector<string> excelRow)
 
     CustomFieldSet result;
 
-    for (
-        auto iter = column_mapping::CUSTOM_FIELDS.begin();
-        iter != column_mapping::CUSTOM_FIELDS.end();
-        iter++
-    ) {
-        // string apiCustomFieldName = iter->first;
-        // int rowIndex = iter->second;
-
-        // string excelRowContent = excelRow.at(rowIndex);
+    for (CustomFieldSpecification specification: column_mapping::CUSTOM_FIELDS) {
+        string excelRowContent = excelRow.at(specification.position);
         
-        // if (excelRowContent.empty() || isWhitespaceOnly(excelRowContent))
-        //     continue;
+        if (excelRowContent.empty() || isWhitespaceOnly(excelRowContent))
+            continue;
 
-        // result.insert({apiCustomFieldName, excelRowContent});
+        // construct the new datum, which is copied
+
+        CustomFieldDatum datum(specification, excelRowContent);
+        result.add(datum);
     }
 
     return result;

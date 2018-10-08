@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
 
 using std::string;
 using std::vector;
@@ -24,6 +26,9 @@ public:
         CustomFieldSpecification specification, string content
     ): specification(specification), content(content) { }
 
+    QJsonValue getJsonValue() const;
+    string getJsonKey() const;
+
 private:
     CustomFieldSpecification specification;
     string content;
@@ -35,7 +40,7 @@ class CustomFieldSet {
 public:
     CustomFieldSet() { }
 
-    void add();
+    void add(CustomFieldDatum datum);
     QJsonObject render() const;
 
 private:

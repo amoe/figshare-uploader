@@ -11,10 +11,11 @@
 
 
 #include <string>
-#include <map>
+#include <vector>
+#include "custom_fields.hh"
 
 using std::string;
-using std::map;
+using std::vector;
 
 namespace column_mapping {
     const int CREATOR = 9;
@@ -40,21 +41,21 @@ namespace column_mapping {
     const string MINIMUM_COLUMN = "A";
     const string MAXIMUM_COLUMN = "X";
 
-    const map<string, int> CUSTOM_FIELDS = {
-        {"Creator", CREATOR},
-        {"Contributors", CONTRIBUTORS},
-        {"Date", DATE},
-        {"Type", TYPE},
-        {"Source", SOURCE},
-        {"Language", LANGUAGE},
-        {"Relation", RELATION},
-        {"Temporal", TEMPORAL},
-        {"Spatial", SPATIAL},
-        {"Spatial Relation", SPATIAL_RELATION},
-        {"Identifier", IDENTIFIER},
-        {"Rights", RIGHTS},
-        {"Project", PROJECT},
-        {"Collection", COLLECTION}
+    const vector<CustomFieldSpecification> CUSTOM_FIELDS = {
+        {"Creator", CREATOR, FieldEncoder::STRING},
+        {"Contributors", CONTRIBUTORS, FieldEncoder::STRING},
+        {"Date", DATE, FieldEncoder::STRING},
+        {"Type", TYPE, FieldEncoder::STRING},
+        {"Source", SOURCE, FieldEncoder::STRING},
+        {"Language", LANGUAGE, FieldEncoder::STRING},
+        {"Relation", RELATION, FieldEncoder::STRING},
+        {"Temporal", TEMPORAL, FieldEncoder::STRING},
+        {"Spatial", SPATIAL, FieldEncoder::STRING},
+        {"Spatial Relation", SPATIAL_RELATION, FieldEncoder::STRING},
+        {"Identifier", IDENTIFIER, FieldEncoder::STRING},
+        {"Rights", RIGHTS, FieldEncoder::STRING},
+        {"Project", PROJECT, FieldEncoder::LIST},
+        {"Collection", COLLECTION, FieldEncoder::LIST}
     };
 };
 
