@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include "custom_field_mapper.hh"
+#include "custom_fields.hh"
 #include "column_mapping.hh"
 
 using std::map;
@@ -18,15 +19,10 @@ TEST(CustomFieldSupport, supportsContributors) {
     vector<string> row(column_mapping::MAX_FIELD, "");
     row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
 
-    map<string, string> result = myMapper.mapCustomFields(row);
-    
-    map<string, string> expected = {
-        {"Contributors", contributorsValue}
-    };
+    CustomFieldSet result = myMapper.mapCustomFields(row);
 
-    ASSERT_THAT(result, Eq(expected));
+    ASSERT_THAT(result.render().size(), Eq(1));
 }
-
 
 TEST(CustomFieldSupport, supportsProject) {
     CustomFieldMapper myMapper;
@@ -36,13 +32,8 @@ TEST(CustomFieldSupport, supportsProject) {
     vector<string> row(column_mapping::MAX_FIELD, "");
     row.at(column_mapping::PROJECT) = projectValue;
 
-    map<string, string> result = myMapper.mapCustomFields(row);
-    
-    map<string, string> expected = {
-        {"Project", projectValue}
-    };
-
-    ASSERT_THAT(result, Eq(expected));
+    CustomFieldSet result = myMapper.mapCustomFields(row);
+    ASSERT_THAT(result.render().size(), Eq(1));
 }
 
 
@@ -54,11 +45,6 @@ TEST(CustomFieldSupport, supportsCollection) {
     vector<string> row(column_mapping::MAX_FIELD, "");
     row.at(column_mapping::COLLECTION) = collectionsValue;
 
-    map<string, string> result = myMapper.mapCustomFields(row);
-    
-    map<string, string> expected = {
-        {"Collection", collectionsValue}
-    };
-
-    ASSERT_THAT(result, Eq(expected));
+    CustomFieldSet result = myMapper.mapCustomFields(row);
+    ASSERT_THAT(result.render().size(), Eq(1));
 }

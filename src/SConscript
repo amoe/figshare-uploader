@@ -196,6 +196,7 @@ env.Program(
         "scratch_test.cc",
         "driver_thread.cc",
         "driver_thread_test.cc",
+        "custom_fields.cc",
         gtest_all_path, gmock_all_path
     ]
 )
