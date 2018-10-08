@@ -6,6 +6,7 @@
 #include <map>
 #include "optional.hpp"
 #include "article_types.hh"
+#include "custom_fields.hh"
 
 using nonstd::optional;
 using std::vector;
@@ -25,7 +26,7 @@ struct ArticleCreationRequest {
         int license,
         string identifier,
         string groupName,
-        map<string, string> customFields
+        CustomFieldSet customFields
     ) : title(title), description(description), keywords(keywords),
         references(references), categories(categories),  authors(authors),
         funding(funding), articleType(articleType), license(license),
@@ -43,7 +44,7 @@ struct ArticleCreationRequest {
     int license;
     string identifier;
     string groupName;
-    map<string, string> customFields;
+    CustomFieldSet customFields;
 };
 
 struct UploadCreationRequest {

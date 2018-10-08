@@ -194,6 +194,9 @@ env.Program(
         "group_mapper_test.cc",
         "group_mapper.cc",
         "scratch_test.cc",
+        "driver_thread.cc",
+        "driver_thread_test.cc",
+        "custom_fields.cc",
         gtest_all_path, gmock_all_path
     ]
 )
@@ -230,7 +233,8 @@ main_binary = env.Program(
         "utility.cc",
         "version.cc",
         "custom_field_mapper.cc",
-        "group_mapper.cc"
+        "group_mapper.cc",
+        "custom_fields.cc"
     ]
 )
 

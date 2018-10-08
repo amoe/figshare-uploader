@@ -221,7 +221,6 @@ namespace raw_literals {
             "license": 1,
             "group_id": 11611,
             "custom_fields": {
-                "Contributors": "foo"
             }
         }
     )V0G0N";

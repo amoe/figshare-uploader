@@ -48,23 +48,18 @@ public:
 
 TEST_F(ArticleMapperTest, CanMapCustomField) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     const string contributorsValue = "American Colony (Jerusalem). Photo Dept., photographer";
 
     row.at(column_mapping::CONTRIBUTORS) = contributorsValue;
-    map<string, string> expected = {
-        {"Contributors", contributorsValue}
-    };
-
     ArticleCreationRequest request = myMapper->mapFromExcel(row);
-    ASSERT_THAT(request.customFields, Eq(expected));
+    ASSERT_THAT(request.customFields.render().size(), Eq(1));
 }
-
 
 TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     row.at(column_mapping::IDENTIFIER) = "foo.png";
 
@@ -77,7 +72,7 @@ TEST_F(ArticleMapperTest, CanExtractIdentifierFields) {
 
 TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(column_mapping::REFERENCES) = "";
@@ -91,7 +86,7 @@ TEST_F(ArticleMapperTest, HandlesBlankReferencesCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(2) = "";
@@ -106,7 +101,7 @@ TEST_F(ArticleMapperTest, HandlesBlankCategoriesCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // Superfluously ensure that category is also blank
     row.at(3) = "Figure";
@@ -118,7 +113,7 @@ TEST_F(ArticleMapperTest, HandlesMediaTypeCorrectly) {
 
 TEST_F(ArticleMapperTest, HandlesKeywordsCorrectly) {
     // fill up the whole row with blanks
-    vector<string> row(22, "");
+    vector<string> row(column_mapping::MAX_FIELD, "");
 
     // strange lvalue shit
     row.at(4) = "Bethlehem Crafts, Olive Wood, Mother-of-pearl";
@@ -162,7 +157,9 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
         "Place associated, place of production",
         "pb_lc_bcr_c19000000-0001aa.tiff",
         "Library of Congress. No known restrictions on publication.",
-        "Some group value"
+        "Some group value",
+        "http://www.figshare.com/project/foo",
+        "http://www.figshare.com/collection/bar"
     };
 
 
@@ -189,8 +186,8 @@ This image exists as part of the Bethlehem Crafts collection in the Planet Bethl
     expectedReferences.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
 
     ASSERT_THAT(request.references, Eq(expectedReferences));
+    ASSERT_THAT(request.customFields.render().size(), Eq(12));
 }
-
 
 // These use a special fixture because they need to mock the group lookup.
 
@@ -211,6 +208,8 @@ TEST_F(MapToFigshareTest, SerializesToJson) {
     vector<string> authors;
     authors.push_back("Freja Howat-Maxted");
 
+    CustomFieldSet fieldSet;
+
     ArticleCreationRequest request(
         "To Serve Man",
         "Some description",
@@ -223,9 +222,7 @@ TEST_F(MapToFigshareTest, SerializesToJson) {
         1,
         "",
         "The Planet Bethlehem Archive",
-        {
-            {"Contributors", "foo"}
-        }
+        fieldSet
     );
 
     string serializedResult = myMapper->mapToFigshare(request);
@@ -253,6 +250,3 @@ TEST_F(MapToFigshareTest, DoesNotSerializeFundingWhenNotProvided) {
         Eq(false)
     );
 }
-
-
-

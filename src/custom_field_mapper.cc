@@ -1,24 +1,25 @@
 #include "custom_field_mapper.hh"
 #include "column_mapping.hh"
 #include "utility.hh"
+#include <iostream>
 
-map<string, string> CustomFieldMapper::mapCustomFields(const vector<string> excelRow) {
-    map<string, string> result;
+CustomFieldSet CustomFieldMapper::mapCustomFields(const vector<string> excelRow) {
+    for (auto col: excelRow) {
+        std::cout << col << std::endl;
+    }
 
-    for (
-        auto iter = column_mapping::CUSTOM_FIELDS.begin();
-        iter != column_mapping::CUSTOM_FIELDS.end();
-        iter++
-    ) {
-        string apiCustomFieldName = iter->first;
-        int rowIndex = iter->second;
+    CustomFieldSet result;
 
-        string excelRowContent = excelRow.at(rowIndex);
+    for (CustomFieldSpecification specification: column_mapping::CUSTOM_FIELDS) {
+        string excelRowContent = excelRow.at(specification.position);
         
         if (excelRowContent.empty() || isWhitespaceOnly(excelRowContent))
             continue;
 
-        result.insert({apiCustomFieldName, excelRowContent});
+        // construct the new datum, which is copied
+
+        CustomFieldDatum datum(specification, excelRowContent);
+        result.add(datum);
     }
 
     return result;

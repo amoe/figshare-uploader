@@ -25,6 +25,10 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     vector<string> keywords = splitCommas(excelRow.at(4));
 
+    for (auto k: keywords) {
+        std::cout << "keyword: " << k << std::endl;
+    }
+
     // We only support one reference at the moment!
     vector<string> references;
     string referencesSheetVal = excelRow.at(column_mapping::REFERENCES);
@@ -56,7 +60,7 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
 
     string identifierSheetVal = excelRow.at(column_mapping::IDENTIFIER);
 
-    map<string, string> customFields = customFieldMapper.mapCustomFields(excelRow);
+    CustomFieldSet customFields = customFieldMapper.mapCustomFields(excelRow);
     
     string groupName = excelRow.at(column_mapping::GROUP_NAME);
 
@@ -124,16 +128,7 @@ string ArticleMapperImpl::mapToFigshare(const ArticleCreationRequest request) {
     object.insert("categories", categoriesVal);
 
     // Copy custom fields objects into JSON document
-    QJsonObject customFieldObject;
-    for (
-        auto iter = request.customFields.begin();
-        iter != request.customFields.end();
-        iter++
-    ) {
-        auto jsonKey = QString::fromStdString(iter->first);
-        auto jsonValue = QString::fromStdString(iter->second);
-        customFieldObject.insert(jsonKey, jsonValue);
-    }
+    QJsonObject customFieldObject = request.customFields.render();
 
     object.insert("custom_fields", customFieldObject);
 
