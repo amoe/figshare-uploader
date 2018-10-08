@@ -232,7 +232,8 @@ main_binary = env.Program(
         "utility.cc",
         "version.cc",
         "custom_field_mapper.cc",
-        "group_mapper.cc"
+        "group_mapper.cc",
+        "custom_fields.cc"
     ]
 )
 

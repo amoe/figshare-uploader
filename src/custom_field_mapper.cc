@@ -3,27 +3,27 @@
 #include "utility.hh"
 #include <iostream>
 
-map<string, string> CustomFieldMapper::mapCustomFields(const vector<string> excelRow) {
+CustomFieldSet CustomFieldMapper::mapCustomFields(const vector<string> excelRow) {
     for (auto col: excelRow) {
         std::cout << col << std::endl;
     }
 
-    map<string, string> result;
+    CustomFieldSet result;
 
     for (
         auto iter = column_mapping::CUSTOM_FIELDS.begin();
         iter != column_mapping::CUSTOM_FIELDS.end();
         iter++
     ) {
-        string apiCustomFieldName = iter->first;
-        int rowIndex = iter->second;
+        // string apiCustomFieldName = iter->first;
+        // int rowIndex = iter->second;
 
-        string excelRowContent = excelRow.at(rowIndex);
+        // string excelRowContent = excelRow.at(rowIndex);
         
-        if (excelRowContent.empty() || isWhitespaceOnly(excelRowContent))
-            continue;
+        // if (excelRowContent.empty() || isWhitespaceOnly(excelRowContent))
+        //     continue;
 
-        result.insert({apiCustomFieldName, excelRowContent});
+        // result.insert({apiCustomFieldName, excelRowContent});
     }
 
     return result;
