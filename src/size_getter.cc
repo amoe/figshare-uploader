@@ -15,7 +15,7 @@ int64_t QtSizeGetter::getSize(string path) {
     // it has zero length, bad qt api design, but we don't care about the user
     // trying to upload zero length files
     if (!result)
-        throw std::runtime_error("refusing to get size of zero-length file");
+        throw std::runtime_error("Something wrong with file in identifier, likely it doesn't exist or is empty: " + path);
 
     return result;
 }
