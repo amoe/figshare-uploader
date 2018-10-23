@@ -10,7 +10,8 @@ matrix:
         - make || exit 1
         - sudo make install || exit 1
         - cd ../..
-        # see travis-ci #9285
+        # see travis-ci #9285, #8826
+        - brew cask uninstall oclint 
         - brew upgrade python3
         - brew install scons
         - brew install qt5
