@@ -1,4 +1,5 @@
 #include <gmock/gmock.h>
+#include "column_mapping.hh"
 #include "xlsx.hh"
 
 using ::testing::Eq;
@@ -6,6 +7,8 @@ using ::testing::Ne;
 
 using std::vector;
 using std::string;
+
+
 
 
 TEST(XlsxReaderTest, CanGetSheetCount) {
@@ -31,6 +34,15 @@ TEST(XlsxReaderTest, CanGetRow) {
     vector<string> result2 = foo.rowToString(3);
 
     ASSERT_THAT(result1, Ne(result2));
+}
+
+
+
+TEST(XlsxReaderTest, DateFormattedFieldCanBeTransformedCorrectlyToString) {
+    XlsxReader foo("resources/test.xlsx");
+    vector<string> result = foo.rowToString(7);
+
+    ASSERT_THAT(result.at(column_mapping::DATE), "23/12/18");
 }
 
 
