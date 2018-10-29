@@ -63,7 +63,20 @@ std::vector<std::string> XlsxReader::rowToString(int row) {
     xlnt::cell_vector cv = range.front();
 
     for (auto cell : cv) {
-        auto strVersion = cell.to_string();
+        string strVersion;
+
+        if (cell.is_date()) {
+            // By default, date-formatted cells render as a number, days from
+            // a base date, which we don't want in this case.
+            // 
+            // Below bug contains example usage of the number-format system
+            // to properly convert to string.
+            // https://github.com/tfussell/xlnt/issues/220
+            strVersion = cell.number_format().format(cell.value<double>(), cell.base_date());
+        } else {
+            strVersion = cell.to_string();
+        }
+
         result.push_back(strVersion);
     }
 
