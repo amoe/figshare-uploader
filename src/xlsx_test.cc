@@ -13,7 +13,7 @@ TEST(XlsxReaderTest, CanGetSheetCount) {
 
     ASSERT_THAT(foo.getSheetCount(), Eq(1));
     ASSERT_THAT(foo.cellHasValue("A", 2), Eq(true));
-    ASSERT_THAT(foo.cellHasValue("A", 7), Eq(false));
+    ASSERT_THAT(foo.cellHasValue("A", 20), Eq(false));
     
     foo.rowToString(42);
 
@@ -32,3 +32,5 @@ TEST(XlsxReaderTest, CanGetRow) {
 
     ASSERT_THAT(result1, Ne(result2));
 }
+
+
