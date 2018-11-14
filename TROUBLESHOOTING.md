@@ -1,5 +1,8 @@
 # Troubleshooting
 
+The uploader can produce the following error messages, below I try to give some
+insight on what may cause them and how to resolve the problems.
+
 ## "Something wrong with file in identifier, likely it doesn't exist or is empty: "
 
 This means that a file referred to in the `Identifier` column of the spreadsheet
