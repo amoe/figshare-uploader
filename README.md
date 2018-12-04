@@ -87,6 +87,13 @@ You also need Python 3 (any version, but 3 is needed) and SCons 3.0.1.  You must
 use that SCons version as that's the only one that supports Python 3.
 
 You should install scons using pip.
+Before you install SCons, you should upgrade the following packages:
+
+    python -m pip install -U pip
+    pip install -U setuptools
+    pip install -U wheel
+
+This avoids an error `--single-version-externally-managed`.
 
 Once you have this you do:
 
