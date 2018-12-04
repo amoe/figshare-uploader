@@ -123,8 +123,11 @@ standard Windows `cmd`.
 
 You also need [Windows OpenSSL
 binaries](http://slproweb.com/products/Win32OpenSSL.html).  Use the version
-`Win64 OpenSSL v1.0.2n`.  Then you need the libs `ssleay32.dll` and
-`libeay32.dll` from this package.
+`Win64 OpenSSL v1.0.2n`.  (Now tested with version `q` also.)  Then you need the
+libs `ssleay32.dll` and `libeay32.dll` from this package.  The default install
+location for that package is `C:\OpenSSL-Win64`.  Choose the install option to
+copy the DLLs to the OpenSSL binary directory, then you'll be able to find them
+more easily.  They should be copied into the source tree.
 
 You can build the app using `windeployqt` to get the various Qt DLLs into the
 current directory.  By default this will copy far too many files, but at least
