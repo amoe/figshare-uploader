@@ -97,7 +97,7 @@ maybe_pkg_config_path = os.environ.get('PKG_CONFIG_PATH')
 if maybe_pkg_config_path:
     env['ENV']['PKG_CONFIG_PATH'] = maybe_pkg_config_path
 
-env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork'])
+env.EnableQt5Modules(['QtCore', 'QtWidgets', 'QtNetwork', 'QtGui'])
 
 if env['PLATFORM'] == 'win32':
     ccflags = [
