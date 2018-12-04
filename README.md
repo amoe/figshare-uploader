@@ -92,8 +92,11 @@ Before you install SCons, you should upgrade the following packages:
     python -m pip install -U pip
     pip install -U setuptools
     pip install -U wheel
+    pip install scons
 
-This avoids an error `--single-version-externally-managed`.
+This avoids an error `--single-version-externally-managed`.  SCons will put its
+scripts into the `Scripts` directory of your Python directory.  You may need
+to fully qualify the path to SCons with this path.
 
 Once you have this you do:
 
