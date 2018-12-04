@@ -59,7 +59,10 @@ There are several steps:
 
 ### Build the bundled xlnt
 
-You need CMake.
+You need CMake.  My CMake executable ended up at `C:\Program
+Files\CMake\bin\cmake.exe`.  You can set a shell variable to this path as such:
+
+    CMAKE="/c/Program Files/CMake/bin/cmake.exe"
 
 You do this something like so:
 
@@ -73,8 +76,8 @@ Now you will find the files you are looking for under `source/Release`
 directory.
 
 To use those to build this program, you must copy them to the root of the source
-tree -- the same directory as this README file.  There should be around five
-`xlnt` files.
+tree -- the same directory as this README file.  I found files
+`xlnt.{dll,exp,lib}`.
 
 
 ### Build this program 
@@ -95,8 +98,17 @@ Before you install SCons, you should upgrade the following packages:
     pip install scons
 
 This avoids an error `--single-version-externally-managed`.  SCons will put its
-scripts into the `Scripts` directory of your Python directory.  You may need
-to fully qualify the path to SCons with this path.
+scripts into the `Scripts` directory of your Python directory.  You may need to
+fully qualify the path to SCons with this path.  Scons will install a batch file
+`scons.bat` that you can invoke.  Note that this will not tab-complete in
+git-bash by default.  On my system, the path in git-bash looks like `/c/Program
+Files/Python3/Scripts/scons.bat`.
+
+You can assign it to a variable like this:
+
+    SCONS="/c/Program Files/Python3/Scripts/scons.bat"
+
+Then make sure that you quote it when you use it, like `"$SCONS"`.
 
 Once you have this you do:
 

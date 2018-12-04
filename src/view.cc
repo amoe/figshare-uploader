@@ -11,6 +11,8 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QMenuBar>
+#include <QIcon>
+#include <QSize>
 #include "logging.hh"
 #include "view.hh"
 #include "presenter.hh"
