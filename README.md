@@ -144,4 +144,4 @@ DLLs into the source directory:
 
 Now it should be able to run.
 
-Yow! x6
+Yow! x7
