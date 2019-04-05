@@ -25,3 +25,7 @@ allow, and dealing with intermittent connections.  That kind of support would
 be useful when dealing with upload of very large files.
 
 It only supports `.xlsx`.
+
+## Support
+
+This work was supported by the [Sussex Humanities Lab](http://www.sussex.ac.uk/shl).
