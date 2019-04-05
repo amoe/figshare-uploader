@@ -1,6 +1,6 @@
 # figshare-uploader (aka upgraded-fortnight)
 
-For docs on how to build the thing, read [doc/BUILD.md].
+For docs on how to build the thing, read [doc/BUILD.md](doc/BUILD.md).
 
 _figshare-uploader_ is a bulk upload tool for the research archiving & storage
 provider, Figshare.
