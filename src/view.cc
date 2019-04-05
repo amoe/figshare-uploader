@@ -23,12 +23,16 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     
     setWindowTitle("Figshare Uploader");
 
-    QMenu* helpMenu = new QMenu("Help");
+    QMenu* optionsMenu = new QMenu("Options");
+    QAction* optionsAction = new QAction("Options", this);
+    optionsMenu->addAction(optionsAction);
 
+    QMenu* helpMenu = new QMenu("Help");
     QAction* aboutAction = new QAction("About", this);
     helpMenu->addAction(aboutAction);
 
     // menuBar is a QMainWindow method.
+    menuBar()->addMenu(optionsMenu);
     menuBar()->addMenu(helpMenu);
 	
     // layout MUST be allocated on the heap here, if it goes out of scope, it
