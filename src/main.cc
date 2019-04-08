@@ -15,6 +15,11 @@
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
+    // Initialize dependency graph for app.
+    // This stuff is all stack-allocated: it's not dangerous, because this is
+    // the highest level of stack.  It will be in scope for the entire lifetime
+    // of the program.
+
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
     TokenStore tokenStore;
@@ -41,8 +46,9 @@ int main(int argc, char **argv) {
     ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
+    Model model;
 
-    Presenter* presenter = new PresenterImpl(&driver, &tokenStore);
+    Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
     ViewImpl* view = new ViewImpl(presenter);
 
     // To break the cyclic dependency we have to setView on the presenter after

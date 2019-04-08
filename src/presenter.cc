@@ -8,6 +8,7 @@
 
 using std::string;
 
+// XXX: There's no real reason for these to use raw pointers, they are non-Qt.
 void PresenterImpl::setView(View* view) {
     this->view = view;
 
@@ -89,5 +90,12 @@ void PresenterImpl::fileConfirmed(string fileName) {
     std::cout << "filename was " << fileName << std::endl;
 
     model->setSourceFile(fileName);
+
+    // Because we know -- ASSUME -- that the model is a dumb memory-store,
+    // we don't call additional accessor methods on the model, although we certainly
+    // should.
+    // i.e. -- The model might massage the value, but we assume here that it
+    // doesn't.
+
     view->setSourceFile(fileName);
 }

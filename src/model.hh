@@ -7,7 +7,10 @@ using std::string;
 
 class Model {
 public:
-    void setSourceFile(string sourceFile);
+    void setSourceFile(string newSourceFile);
+
+private:
+    string sourceFile;
 };
 
 #endif /* MODEL_HH */

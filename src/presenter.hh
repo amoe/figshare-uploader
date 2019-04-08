@@ -7,8 +7,8 @@
 
 class PresenterImpl : public Presenter {
 public:
-    PresenterImpl(Driver* driver, TokenStore* tokenStore) 
-        : driver(driver), tokenStore(tokenStore) {
+    PresenterImpl(Model* model, Driver* driver, TokenStore* tokenStore) 
+        : model(model), driver(driver), tokenStore(tokenStore) {
         // This member variable needs to be initialized by a later call to 
         // setView.
         this->view = nullptr;
@@ -26,11 +26,11 @@ public:
     void fileConfirmed(std::string fileName);
 
 private:
+    Model* model;
     View* view;
     Driver* driver;
     TokenStore* tokenStore;
     ViewProgressAdapter* progressReporter;
-    Model* model;
 };
 
 #endif
