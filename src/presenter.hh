@@ -21,6 +21,7 @@ public:
     void pickFile();
     void initializeView();
     void showAboutDialog();
+    void showSettingsDialog();
 
 private:
     View* view;

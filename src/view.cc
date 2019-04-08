@@ -24,8 +24,8 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     setWindowTitle("Figshare Uploader");
 
     QMenu* optionsMenu = new QMenu("Options");
-    QAction* optionsAction = new QAction("Options", this);
-    optionsMenu->addAction(optionsAction);
+    QAction* showSettingsAction = new QAction("Settings", this);
+    optionsMenu->addAction(showSettingsAction);
 
     QMenu* helpMenu = new QMenu("Help");
     QAction* aboutAction = new QAction("About", this);
@@ -87,6 +87,9 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
         &QAction::triggered,
         aboutAdapter
     );
+
+    SlotAdapter showSettingsDialogAdapter(presenter, &Presenter::showSettingsDialog);
+    connect(showSettingsAction, &QAction::triggered, showSettingsDialogAdapter);
 }
 
 std::string ViewImpl::getSelectedFile() {

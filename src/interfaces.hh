@@ -25,6 +25,7 @@ public:
     virtual void pickFile() = 0;
     virtual void initializeView() = 0;
     virtual void showAboutDialog() = 0;
+    virtual void showSettingsDialog() = 0;
 };
 
 #endif // INTERFACES_HH

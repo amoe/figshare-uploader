@@ -79,3 +79,7 @@ void PresenterImpl::showAboutDialog() {
     debugf("about dialog requested");
     view->showAboutDialog();
 }
+
+void PresenterImpl::showSettingsDialog() {
+    debugf("requested to show settings dialog");
+}
