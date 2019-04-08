@@ -40,6 +40,14 @@ QMenu* FieldEncoderListView::makeContextMenu() {
     // Find some way to connect the edit trigger...
     // SlotAdapter editAdapter(this, &FieldEncoderListView::triggerEdit);
     // connect(editAction, &QAction::triggered, editAdapter);
+
+    connect(
+        editAction,
+        &QAction::triggered,
+        this,
+        &FieldEncoderListView::triggerEdit
+    );
+
     result->addAction(editAction);
 
     // Then...

@@ -7,6 +7,8 @@
 #include "mapping_table_widget.hh"
 
 SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent) {
+    setWindowTitle("Settings");
+
     QTabWidget* container = new QTabWidget(this);
         
     QStringList stringList = {"fry", "bender", "leela"};
@@ -21,5 +23,6 @@ SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent) {
     QVBoxLayout* dialogLayout = new QVBoxLayout;
     dialogLayout->addWidget(container);
     
-    this->setLayout(dialogLayout);
+    setLayout(dialogLayout);
+    resize(320, 480);
 }
