@@ -17,6 +17,7 @@
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
+#include "settings_dialog.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     QWidget* contentWidget = new QWidget(this);
@@ -157,4 +158,9 @@ void ViewImpl::showAboutDialog() {
 
     msgBox->setIconPixmap(icon.pixmap(size));
     msgBox->exec();
+}
+
+void ViewImpl::showSettingsDialog() {
+    SettingsDialog* settingsDialog = new SettingsDialog(this);
+    settingsDialog->show();   // execution semantics of this???
 }

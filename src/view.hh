@@ -25,6 +25,7 @@ public:
     void showFileDialog();
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
+    void showSettingsDialog();
  
 private:
     Presenter* presenter;

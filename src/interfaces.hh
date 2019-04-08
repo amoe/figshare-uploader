@@ -14,7 +14,8 @@ public:
     virtual void setToken(std::string newToken) = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
- };
+    virtual void showSettingsDialog() = 0;
+};
 
 class Presenter {
 public:
