@@ -4,6 +4,7 @@
 #include <QListView>
 #include <QStringListModel>
 #include <QDebug>
+#include "slot_adapter.hh"
 #include "field_encoder_list_view.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
@@ -28,10 +29,20 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent *event) {
 }
 
 
+
+
 QMenu* FieldEncoderListView::makeContextMenu() {
     QMenu* result = new QMenu(this);
 
-    result->addAction("Edit", this, &FieldEncoderListView::triggerEdit);
+    // Laboriously construct the edit action
+    QAction* editAction = new QAction("Edit", this);
+
+    // Find some way to connect the edit trigger...
+    // SlotAdapter editAdapter(this, &FieldEncoderListView::triggerEdit);
+    // connect(editAction, &QAction::triggered, editAdapter);
+    result->addAction(editAction);
+
+    // Then...
     result->addAction("Delete");
 
     return result;
