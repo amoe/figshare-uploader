@@ -24,5 +24,7 @@ SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent) {
     dialogLayout->addWidget(container);
     
     setLayout(dialogLayout);
+
+    // Empirically determined.  Yuck
     resize(320, 480);
 }
