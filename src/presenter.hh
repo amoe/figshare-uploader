@@ -10,8 +10,8 @@ public:
         : driver(driver), tokenStore(tokenStore) {
         // This member variable needs to be initialized by a later call to 
         // setView.
-        this->view = NULL;
-        this->progressReporter = NULL;
+        this->view = nullptr;
+        this->progressReporter = nullptr;
     }
 
     void startUpload();
