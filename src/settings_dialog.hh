@@ -7,6 +7,7 @@
 class SettingsDialog: public QDialog {
 public:
     SettingsDialog(QWidget* parent = nullptr);
+    QSize sizeHint() const;
 };
 
 #endif /* SETTINGS_DIALOG_HH */
