@@ -161,6 +161,8 @@ void ViewImpl::showAboutDialog() {
 }
 
 void ViewImpl::showSettingsDialog() {
+    // Passing 'this' causes rendering fail?  Because SettingsDialog is not
+    // a real dialog subclass.
     SettingsDialog* settingsDialog = new SettingsDialog(this);
     settingsDialog->show();   // execution semantics of this???
 }
