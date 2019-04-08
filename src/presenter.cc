@@ -84,3 +84,9 @@ void PresenterImpl::showSettingsDialog() {
     debugf("requested to show settings dialog");
     view->showSettingsDialog();
 }
+
+void PresenterImpl::fileConfirmed(string fileName) {
+    std::cout << "filename was " << fileName << std::endl;
+    // XXX: Set it on the model!
+    view->setSourceFile(fileName);
+}

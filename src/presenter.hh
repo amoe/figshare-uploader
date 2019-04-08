@@ -22,6 +22,7 @@ public:
     void initializeView();
     void showAboutDialog();
     void showSettingsDialog();
+    void fileConfirmed(std::string fileName);
 
 private:
     View* view;

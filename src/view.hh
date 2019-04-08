@@ -26,6 +26,7 @@ public:
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
     void showSettingsDialog();
+    void setSourceFile(std::string sourceFile);
  
 private:
     Presenter* presenter;

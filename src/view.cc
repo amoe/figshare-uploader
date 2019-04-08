@@ -74,7 +74,6 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     );
 
     SlotAdapter pickAdapter(presenter, &Presenter::pickFile);
-
     connect(
         pickButton,
         &QPushButton::released,
@@ -129,13 +128,17 @@ void ViewImpl::showFileDialog() {
     QString documentsPath = 
         QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
     QString fileName = QFileDialog::getOpenFileName(
-        Q_NULLPTR,    // parent
-        "Open File",
-        documentsPath,
-        "Excel documents (*.xlsx)"
+        this, "Open File", documentsPath, "Excel documents (*.xlsx)"
     );
 
-    selectedFile->setText(fileName);
+    // We immediately need to delegate back to the presenter, which will call
+    // us back later (on changeSourceFile) after storing the chosen filename.
+    presenter->fileConfirmed(fileName.toStdString());
+}
+
+// Wiring method for updating the view of the source file name.
+void ViewImpl::setSourceFile(std::string sourceFile) {
+    selectedFile->setText(QString::fromStdString(sourceFile));
 }
 
 void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {

@@ -15,6 +15,7 @@ public:
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog() = 0;
+    virtual void setSourceFile(std::string sourceFile) = 0;
 };
 
 class Presenter {
@@ -27,6 +28,7 @@ public:
     virtual void initializeView() = 0;
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog() = 0;
+    virtual void fileConfirmed(std::string fileName) = 0;
 };
 
 #endif // INTERFACES_HH

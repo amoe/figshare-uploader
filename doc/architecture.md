@@ -48,3 +48,8 @@ although Android implementations sometimes to this.
 
 The wiring is always explicit and always passes through those layers.
 
+## Type restrictions
+
+The Presenter deals in terms of standard C++ types.  That is -- std::string.
+The View can use Qt stuff, but it only uses it on internal methods, not as
+part of the View abstract class (defined in `interfaces.hh`).
