@@ -30,8 +30,6 @@ void PresenterImpl::initializeView() {
 
 void PresenterImpl::startUpload() {
     try {
-        // This actually isn't going to work because this exception handler
-        // doesn't live in the same thread.
         debugf("presenter slot was called");
 
         // This token will now be used by everything, because everything else
