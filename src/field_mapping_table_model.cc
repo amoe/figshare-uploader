@@ -61,9 +61,8 @@ QVariant FieldMappingTableModel::headerData(
 }
 
 bool FieldMappingTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
-    Q_UNUSED(index);
-    Q_UNUSED(value);
     Q_UNUSED(role);
+
     qDebug() << "called to set data in model, received value" << value;
     // XXX: Here we actually need to *do something* -- but what??
     // The combo box needs to know about all options.  The model only needs to
