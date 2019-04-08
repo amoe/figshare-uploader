@@ -2,6 +2,7 @@
 #define PRESENTER_HH
 
 #include "driver.hh"
+#include "model.hh"
 #include "interfaces.hh"
 
 class PresenterImpl : public Presenter {
@@ -29,6 +30,7 @@ private:
     Driver* driver;
     TokenStore* tokenStore;
     ViewProgressAdapter* progressReporter;
+    Model* model;
 };
 
 #endif

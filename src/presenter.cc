@@ -87,6 +87,7 @@ void PresenterImpl::showSettingsDialog() {
 
 void PresenterImpl::fileConfirmed(string fileName) {
     std::cout << "filename was " << fileName << std::endl;
-    // XXX: Set it on the model!
+
+    model->setSourceFile(fileName);
     view->setSourceFile(fileName);
 }

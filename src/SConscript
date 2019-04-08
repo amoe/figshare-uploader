@@ -245,7 +245,8 @@ main_binary = env.Program(
         "field_encoder_list_view.cc",
         "field_encoder_configuration_dialog.cc",
         "field_encoder.cc",
-        "mapping_table_widget.cc"
+        "mapping_table_widget.cc",
+        "model.cc"
     ]
 )
 
