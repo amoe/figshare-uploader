@@ -19,6 +19,7 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     QLabel* label = new QLabel("Hello, world!", group);
     QTableView* table = new QTableView(this);
 
+    // This will have to become shared state at some point.
     FieldMappingTableModel* model = new FieldMappingTableModel;
     table->setModel(model);
 
