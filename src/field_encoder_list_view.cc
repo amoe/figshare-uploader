@@ -1,3 +1,4 @@
+#include <QMenu>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QListView>
