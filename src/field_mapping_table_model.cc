@@ -7,22 +7,15 @@ using std::string;
 using std::vector;
 
 
-vector<string> fieldsInExcelSheet = {
-    "Title ","Author","Categories","Item Type","Keyword(s)","Description",
-    "References","Funding","Licence","Creator","Contributors","Date","Type",
-    "Source","Language","Relation","Temporal","Spatial","Spatial Relation",
-    "Identifier ","Rights","Group Name","Project","Collection"
-};
-
-
-FieldMappingTableModel::FieldMappingTableModel(QObject* parent): QAbstractTableModel(parent) {
-    chosenMappers.resize(fieldsInExcelSheet.size());
+FieldMappingTableModel::FieldMappingTableModel(vector<string> availableFields, QObject* parent): QAbstractTableModel(parent) {
+    this->availableFields = availableFields;
+    chosenMappers.resize(availableFields.size());
 }
 
 
 int FieldMappingTableModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
-    return fieldsInExcelSheet.size();
+    return availableFields.size();
 }
 
 int FieldMappingTableModel::columnCount(const QModelIndex &parent) const {
@@ -56,7 +49,7 @@ QVariant FieldMappingTableModel::headerData(
     if (orientation == Qt::Horizontal) {
         return QString::fromStdString(headers.at(section));
     } else {
-        return QString::fromStdString(fieldsInExcelSheet.at(section));
+        return QString::fromStdString(availableFields.at(section));
     }
 }
 

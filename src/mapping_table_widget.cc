@@ -5,8 +5,13 @@
 #include "mapping_table_widget.hh"
 #include "combo_box_item_delegate.hh"
 
-MappingTableWidget::MappingTableWidget(QAbstractItemModel* fieldEncoderModel, QWidget* parent): QWidget(parent) {
+MappingTableWidget::MappingTableWidget(
+    QAbstractItemModel* fieldEncoderModel, QAbstractItemModel* fieldMappingModel,
+    QWidget* parent
+): QWidget(parent) {
     this->fieldEncoderModel = fieldEncoderModel;
+    this->fieldMappingModel = fieldMappingModel;
+
     QGridLayout *grid = new QGridLayout;
     grid->addWidget(makeFirstGroup(), 0, 0);
     setLayout(grid);
@@ -19,9 +24,9 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     QLabel* label = new QLabel("Hello, world!", group);
     QTableView* table = new QTableView(this);
 
-    // This will have to become shared state at some point.
-    FieldMappingTableModel* model = new FieldMappingTableModel;
-    table->setModel(model);
+    // This is passed in by the parent, which is the settings dialog in this
+    // case.
+    table->setModel(fieldMappingModel);
 
     ComboBoxItemDelegate* delegate = new ComboBoxItemDelegate(table, this->fieldEncoderModel);
     table->setItemDelegateForColumn(0, delegate);

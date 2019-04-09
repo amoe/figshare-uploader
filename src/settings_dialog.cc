@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <iostream>
 
+#include "field_mapping_table_model.hh"
 #include "settings_dialog.hh"
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
@@ -20,8 +21,12 @@ SettingsDialog::SettingsDialog(vector<string> headerFields, QWidget* parent): QD
     QStringListModel* fieldEncoderModel = new QStringListModel(stringList, this);
 
 
+    // construct model with fields
+    FieldMappingTableModel* fieldMappingModel = new FieldMappingTableModel(headerFields, this);
 
-    MappingTableWidget* mappingTable = new MappingTableWidget(fieldEncoderModel, this);
+    MappingTableWidget* mappingTable = new MappingTableWidget(
+        fieldEncoderModel, fieldMappingModel, this
+    );
     FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(fieldEncoderModel, this);
 
     container->addTab(mappingTable, "Field mapping");
