@@ -14,8 +14,7 @@ using std::string;
 
 
 FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(QWidget *parent)
-    : QDialog(parent)
-{
+    : QDialog(parent) {
     QGridLayout *grid = new QGridLayout;
 
     grid->addWidget(createFirstGroup(), 0, 0);
@@ -38,8 +37,7 @@ QWidget* FieldEncoderConfigurationDialog::makeControls()  {
     return buttonBox;
 }
 
-QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup()
-{
+QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup() {
     QGroupBox *groupBox = new QGroupBox("Target field");
 
     QRadioButton *radio1 = new QRadioButton("Standard field");
@@ -67,9 +65,8 @@ QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup()
     return groupBox;
 }
 
-QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup()
-{
-    QGroupBox *groupBox = new QGroupBox("Field encoder");
+QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
+    QGroupBox *groupBox = new QGroupBox("Conversion types");
     QVBoxLayout *vbox = new QVBoxLayout;
 
     this->fieldEncoderList = new QListView;
@@ -98,8 +95,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup()
     return groupBox;
 }
 
-QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup()
-{
+QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
     QGroupBox *groupBox = new QGroupBox("Local validation rules");
     groupBox->setCheckable(true);
     groupBox->setChecked(true);  /// change me
