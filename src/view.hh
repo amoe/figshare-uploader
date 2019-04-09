@@ -25,7 +25,7 @@ public:
     void showFileDialog();
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
-    void showSettingsDialog();
+    void showSettingsDialog(std::string chosenFilePath);
     void setSourceFile(std::string sourceFile);
  
 private:

@@ -81,7 +81,15 @@ void PresenterImpl::showAboutDialog() {
 
 void PresenterImpl::showSettingsDialog() {
     debugf("requested to show settings dialog");
-    view->showSettingsDialog();
+    // Gather data from the model.
+
+    optional<string> sourceFile = model->getSourceFile();
+
+    if (sourceFile.has_value()) {
+        view->showSettingsDialog(sourceFile.value());
+    } else {
+        view->reportError("Please select an input file first.");
+    }
 }
 
 void PresenterImpl::fileConfirmed(string fileName) {

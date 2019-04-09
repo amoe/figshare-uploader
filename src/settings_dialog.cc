@@ -4,12 +4,15 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QDialogButtonBox>
+#include <QDebug>
+#include <iostream>
 
 #include "settings_dialog.hh"
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
 
-SettingsDialog::SettingsDialog(QWidget* parent): QDialog(parent) {
+SettingsDialog::SettingsDialog(QWidget* parent, string chosenFilePath): QDialog(parent) {
+    std::cout << "configured dialog for path" << chosenFilePath << std::endl;
     setWindowTitle("Settings");
 
     QTabWidget* container = new QTabWidget(this);

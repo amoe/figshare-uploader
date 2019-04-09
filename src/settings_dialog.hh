@@ -4,9 +4,11 @@
 #include <QWidget>
 #include <QDialog>
 
+using std::string;
+
 class SettingsDialog: public QDialog {
 public:
-    SettingsDialog(QWidget* parent = nullptr);
+    SettingsDialog(QWidget* parent, string chosenFilePath);
     QSize sizeHint() const;
 };
 
