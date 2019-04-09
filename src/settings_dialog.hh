@@ -11,7 +11,7 @@ using std::vector;
 
 class SettingsDialog: public QDialog {
 public:
-    SettingsDialog(QWidget* parent, vector<string> headerFields);
+    SettingsDialog(vector<string> headerFields, QWidget* parent);
     QSize sizeHint() const;
 };
 

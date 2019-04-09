@@ -8,7 +8,7 @@
 
 class FieldEncoderListView: public QWidget {
 public:
-    FieldEncoderListView(QWidget* parent, QAbstractItemModel* theModel);
+    FieldEncoderListView(QAbstractItemModel* theModel, QWidget* parent);
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 public slots:

@@ -5,7 +5,7 @@
 #include "mapping_table_widget.hh"
 #include "combo_box_item_delegate.hh"
 
-MappingTableWidget::MappingTableWidget(QWidget* parent, QAbstractItemModel* fieldEncoderModel): QWidget(parent) {
+MappingTableWidget::MappingTableWidget(QAbstractItemModel* fieldEncoderModel, QWidget* parent): QWidget(parent) {
     this->fieldEncoderModel = fieldEncoderModel;
     QGridLayout *grid = new QGridLayout;
     grid->addWidget(makeFirstGroup(), 0, 0);

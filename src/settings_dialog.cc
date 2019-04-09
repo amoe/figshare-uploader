@@ -11,7 +11,7 @@
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
 
-SettingsDialog::SettingsDialog(QWidget* parent, vector<string> headerFields): QDialog(parent) {
+SettingsDialog::SettingsDialog(vector<string> headerFields, QWidget* parent): QDialog(parent) {
     setWindowTitle("Settings");
 
     QTabWidget* container = new QTabWidget(this);
@@ -19,8 +19,8 @@ SettingsDialog::SettingsDialog(QWidget* parent, vector<string> headerFields): QD
     QStringList stringList = {"fry", "bender", "leela"};
     QStringListModel* theModel = new QStringListModel(stringList, this);
 
-    MappingTableWidget* mappingTable = new MappingTableWidget(this, theModel);
-    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(this, theModel);
+    MappingTableWidget* mappingTable = new MappingTableWidget(theModel, this);
+    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(theModel, this);
 
     container->addTab(mappingTable, "Field mapping");
     container->addTab(fieldEncoderList, "Encoder configuration");

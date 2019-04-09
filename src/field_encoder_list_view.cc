@@ -9,7 +9,7 @@
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
 
-FieldEncoderListView::FieldEncoderListView(QWidget* parent, QAbstractItemModel* theModel): QWidget(parent) {
+FieldEncoderListView::FieldEncoderListView(QAbstractItemModel* theModel, QWidget* parent): QWidget(parent) {
     QVBoxLayout* vbox = new QVBoxLayout(this);
     this->setLayout(vbox);
     QLabel* hello = new QLabel("foo", this);
