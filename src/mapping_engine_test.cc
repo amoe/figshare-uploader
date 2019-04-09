@@ -4,6 +4,7 @@ using ::testing::Test;
 using ::testing::Eq;
 
 class MappingEngineTest: public Test {
+
 public:
     MappingEngineTest() { }
 };
