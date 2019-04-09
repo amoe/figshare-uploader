@@ -11,6 +11,9 @@
 #include "progress_reporter.hh"
 #include "version.hh"
 
+using std::string;
+using std::vector;
+
 class ViewImpl : public QMainWindow, public View {
     Q_OBJECT
 
@@ -25,7 +28,7 @@ public:
     void showFileDialog();
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
-    void showSettingsDialog(std::string chosenFilePath);
+    void showSettingsDialog(vector<string> headerFields);
     void setSourceFile(std::string sourceFile);
  
 private:

@@ -163,9 +163,9 @@ void ViewImpl::showAboutDialog() {
     msgBox->exec();
 }
 
-void ViewImpl::showSettingsDialog(string chosenFilePath) {
+void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     // Passing 'this' causes rendering fail?  Because SettingsDialog is not
     // a real dialog subclass.
-    SettingsDialog* settingsDialog = new SettingsDialog(this, chosenFilePath);
+    SettingsDialog* settingsDialog = new SettingsDialog(this, headerFields);
     settingsDialog->show();   // execution semantics of this???
 }

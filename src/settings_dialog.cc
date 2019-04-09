@@ -11,8 +11,7 @@
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
 
-SettingsDialog::SettingsDialog(QWidget* parent, string chosenFilePath): QDialog(parent) {
-    std::cout << "configured dialog for path" << chosenFilePath << std::endl;
+SettingsDialog::SettingsDialog(QWidget* parent, vector<string> headerFields): QDialog(parent) {
     setWindowTitle("Settings");
 
     QTabWidget* container = new QTabWidget(this);
