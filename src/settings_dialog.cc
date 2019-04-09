@@ -17,10 +17,12 @@ SettingsDialog::SettingsDialog(vector<string> headerFields, QWidget* parent): QD
     QTabWidget* container = new QTabWidget(this);
         
     QStringList stringList = {"fry", "bender", "leela"};
-    QStringListModel* theModel = new QStringListModel(stringList, this);
+    QStringListModel* fieldEncoderModel = new QStringListModel(stringList, this);
 
-    MappingTableWidget* mappingTable = new MappingTableWidget(theModel, this);
-    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(theModel, this);
+
+
+    MappingTableWidget* mappingTable = new MappingTableWidget(fieldEncoderModel, this);
+    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(fieldEncoderModel, this);
 
     container->addTab(mappingTable, "Field mapping");
     container->addTab(fieldEncoderList, "Encoder configuration");
