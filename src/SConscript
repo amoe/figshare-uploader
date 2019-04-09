@@ -206,7 +206,10 @@ main_binary = env.Program(
     source=[
         "progress_reporter.cc",
         "settings.cc",
-        "main.cc", "view.cc", "presenter.cc", "run_upload_task.cc",
+        "main.cc",
+        "view.cc",
+        "presenter.cc",
+        "run_upload_task.cc",
         "driver_thread.cc",
         "file_info.cc",
         "requests.cc",
@@ -234,7 +237,16 @@ main_binary = env.Program(
         "version.cc",
         "custom_field_mapper.cc",
         "group_mapper.cc",
-        "custom_fields.cc"
+        "custom_fields.cc",
+        "settings_dialog.cc",
+        "combo_box_item_delegate.cc",
+        "field_encoder_model.cc",
+        "field_mapping_table_model.cc",
+        "field_encoder_list_view.cc",
+        "field_encoder_configuration_dialog.cc",
+        "field_encoder.cc",
+        "mapping_table_widget.cc",
+        "model.cc"
     ]
 )
 

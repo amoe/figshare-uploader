@@ -2,16 +2,17 @@
 #define PRESENTER_HH
 
 #include "driver.hh"
+#include "model.hh"
 #include "interfaces.hh"
 
 class PresenterImpl : public Presenter {
 public:
-    PresenterImpl(Driver* driver, TokenStore* tokenStore) 
-        : driver(driver), tokenStore(tokenStore) {
+    PresenterImpl(Model* model, Driver* driver, TokenStore* tokenStore) 
+        : model(model), driver(driver), tokenStore(tokenStore) {
         // This member variable needs to be initialized by a later call to 
         // setView.
-        this->view = NULL;
-        this->progressReporter = NULL;
+        this->view = nullptr;
+        this->progressReporter = nullptr;
     }
 
     void startUpload();
@@ -21,8 +22,11 @@ public:
     void pickFile();
     void initializeView();
     void showAboutDialog();
+    void showSettingsDialog();
+    void fileConfirmed(std::string fileName);
 
 private:
+    Model* model;
     View* view;
     Driver* driver;
     TokenStore* tokenStore;

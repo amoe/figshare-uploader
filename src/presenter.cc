@@ -8,6 +8,7 @@
 
 using std::string;
 
+// XXX: There's no real reason for these to use raw pointers, they are non-Qt.
 void PresenterImpl::setView(View* view) {
     this->view = view;
 
@@ -29,8 +30,6 @@ void PresenterImpl::initializeView() {
 
 void PresenterImpl::startUpload() {
     try {
-        // This actually isn't going to work because this exception handler
-        // doesn't live in the same thread.
         debugf("presenter slot was called");
 
         // This token will now be used by everything, because everything else
@@ -78,4 +77,23 @@ void PresenterImpl::pickFile() {
 void PresenterImpl::showAboutDialog() {
     debugf("about dialog requested");
     view->showAboutDialog();
+}
+
+void PresenterImpl::showSettingsDialog() {
+    debugf("requested to show settings dialog");
+    view->showSettingsDialog();
+}
+
+void PresenterImpl::fileConfirmed(string fileName) {
+    std::cout << "filename was " << fileName << std::endl;
+
+    model->setSourceFile(fileName);
+
+    // Because we know -- ASSUME -- that the model is a dumb memory-store,
+    // we don't call additional accessor methods on the model, although we certainly
+    // should.
+    // i.e. -- The model might massage the value, but we assume here that it
+    // doesn't.
+
+    view->setSourceFile(fileName);
 }
