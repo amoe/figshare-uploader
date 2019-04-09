@@ -5,6 +5,7 @@
 #include "logging.hh"
 #include "slot_adapter.hh"
 #include "run_upload_task.hh"
+#include "xlsx.hh"
 
 using std::string;
 
@@ -81,7 +82,19 @@ void PresenterImpl::showAboutDialog() {
 
 void PresenterImpl::showSettingsDialog() {
     debugf("requested to show settings dialog");
-    view->showSettingsDialog();
+    // Gather data from the model.
+
+    optional<string> sourceFile = model->getSourceFile();
+
+    if (sourceFile.has_value()) {
+        string theSourceFile = sourceFile.value();
+        XlsxReader reader(theSourceFile);
+        vector<string> headerFields = reader.rowToString(1);
+
+        view->showSettingsDialog(headerFields);
+    } else {
+        view->reportError("Please select an input file first.");
+    }
 }
 
 void PresenterImpl::fileConfirmed(string fileName) {

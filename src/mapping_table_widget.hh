@@ -8,11 +8,12 @@ class MappingTableWidget: public QWidget {
     Q_OBJECT
 
 public:
-    MappingTableWidget(QWidget* parent, QAbstractItemModel* fieldEncoderModel);
+    MappingTableWidget(QAbstractItemModel* fieldEncoderModel, QAbstractItemModel* fieldMappingModel, QWidget* parent);
 
 private:
     QWidget* makeFirstGroup();
     QAbstractItemModel* fieldEncoderModel;
+    QAbstractItemModel* fieldMappingModel;
 };
 
 #endif /* MAPPING_TABLE_WIDGET_HH */

@@ -4,6 +4,9 @@
 #include <string>
 #include "progress_reporter.hh"
 
+using std::string;
+using std::vector;
+
 class View {
 public:
     virtual std::string getSelectedFile() = 0;
@@ -14,7 +17,7 @@ public:
     virtual void setToken(std::string newToken) = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
-    virtual void showSettingsDialog() = 0;
+    virtual void showSettingsDialog(vector<string> headerFields) = 0;
     virtual void setSourceFile(std::string sourceFile) = 0;
 };
 

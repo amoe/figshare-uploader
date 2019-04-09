@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QRadioButton>
+#include <QDialogButtonBox>
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder.hh"
 
@@ -27,18 +28,14 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(QWidget *parent
 }
 
 QWidget* FieldEncoderConfigurationDialog::makeControls()  {
-    QWidget* controlsWidget = new QWidget(this);
+    // Standard-ass buttons
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(
+        QDialogButtonBox::Ok | QDialogButtonBox::Cancel
+    );
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
-    QPushButton* ok = new QPushButton("OK", this);
-    QPushButton* cancel = new QPushButton("Cancel", this);
-
-    QHBoxLayout* hbox = new QHBoxLayout(controlsWidget);
-    controlsWidget->setLayout(hbox);
-
-    hbox->addWidget(ok);
-    hbox->addWidget(cancel);
-
-    return controlsWidget;
+    return buttonBox;
 }
 
 QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup()

@@ -12,7 +12,7 @@ class FieldMappingTableModel: public QAbstractTableModel {
     Q_OBJECT
 
 public:
-    FieldMappingTableModel(QObject* parent = nullptr);
+    FieldMappingTableModel(vector<string> availableFields, QObject* parent = nullptr);
 
     // Minimal set for non-editable display model.
     int rowCount(
@@ -36,6 +36,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 private:
+    vector<string> availableFields;
     vector<string> chosenMappers;
 };
 

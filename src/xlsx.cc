@@ -1,14 +1,9 @@
 #include <sstream>
-#include <gmock/gmock.h>
 #include <xlnt/xlnt.hpp>
 #include "xlsx.hh"
 #include "column_mapping.hh"
 
-using ::testing::Eq;
-using std::string;
-using std::ostringstream;
-
-XlsxReader::XlsxReader(const std::string path) {
+XlsxReader::XlsxReader(const string path) {
     wb.load(path);
 }
 
@@ -16,7 +11,7 @@ std::size_t XlsxReader::getSheetCount() {
     return wb.sheet_count();
 }
 
-bool XlsxReader::cellHasValue(std::string column, int row) {
+bool XlsxReader::cellHasValue(string column, int row) {
     xlnt::worksheet ws = wb.active_sheet();
     auto cell = ws.cell(column, row);
     return cell.has_value();
@@ -46,10 +41,11 @@ int XlsxReader::getRowCount() {
     return 0;
 }
 
-std::vector<std::string> XlsxReader::rowToString(int row) {
+// Rows are one-based!
+RowContainer XlsxReader::rowToString(int row) {
     xlnt::worksheet ws = wb.active_sheet();
         
-    std::vector<std::string> result;
+    RowContainer result;
 
     // this should be done better somehow
     ostringstream rangeSpec;
@@ -82,4 +78,3 @@ std::vector<std::string> XlsxReader::rowToString(int row) {
 
     return result;
 }
-    

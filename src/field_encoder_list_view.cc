@@ -9,10 +9,10 @@
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
 
-FieldEncoderListView::FieldEncoderListView(QWidget* parent, QAbstractItemModel* theModel): QWidget(parent) {
+FieldEncoderListView::FieldEncoderListView(QAbstractItemModel* theModel, QWidget* parent): QWidget(parent) {
     QVBoxLayout* vbox = new QVBoxLayout(this);
     this->setLayout(vbox);
-    QLabel* hello = new QLabel("foo", this);
+    QLabel* hello = new QLabel("Available field encoders are listed below.", this);
     vbox->addWidget(hello);
 
     QListView* list = new QListView(this);
@@ -27,8 +27,6 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent *event) {
     qDebug() << "event happened";
     this->contextMenu->exec(event->globalPos());
 }
-
-
 
 
 QMenu* FieldEncoderListView::makeContextMenu() {
