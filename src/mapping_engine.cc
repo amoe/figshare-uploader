@@ -1,7 +1,7 @@
-#ifndef MAPPING_ENGINE_HH
-#define MAPPING_ENGINE_HH
+#include "mapping_engine.hh"
 
-class MappingEngine {
-};
-
-#endif /* MAPPING_ENGINE_HH */
+QJsonObject MappingEngine::convert(vector<string> document, MappingScheme scheme) {
+    QJsonObject result;
+    // Insert algo here ;)
+    return result;
+}
