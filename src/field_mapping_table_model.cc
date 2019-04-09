@@ -6,7 +6,6 @@
 using std::string;
 using std::vector;
 
-
 FieldMappingTableModel::FieldMappingTableModel(vector<string> availableFields, QObject* parent): QAbstractTableModel(parent) {
     this->availableFields = availableFields;
     chosenMappers.resize(availableFields.size());
