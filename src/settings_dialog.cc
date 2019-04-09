@@ -17,7 +17,7 @@ SettingsDialog::SettingsDialog(QWidget* parent, vector<string> headerFields): QD
     QTabWidget* container = new QTabWidget(this);
         
     QStringList stringList = {"fry", "bender", "leela"};
-    QStringListModel* theModel = new QStringListModel(stringList);
+    QStringListModel* theModel = new QStringListModel(stringList, this);
 
     MappingTableWidget* mappingTable = new MappingTableWidget(this, theModel);
     FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(this, theModel);
