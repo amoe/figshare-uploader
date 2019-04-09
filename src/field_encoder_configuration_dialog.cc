@@ -100,7 +100,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup()
 
 QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup()
 {
-    QGroupBox *groupBox = new QGroupBox("Validation");
+    QGroupBox *groupBox = new QGroupBox("Local validation rules");
     groupBox->setCheckable(true);
     groupBox->setChecked(true);  /// change me
 
