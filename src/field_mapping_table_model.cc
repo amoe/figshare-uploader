@@ -57,10 +57,10 @@ bool FieldMappingTableModel::setData(const QModelIndex& index, const QVariant& v
     Q_UNUSED(role);
 
     qDebug() << "called to set data in model, received value" << value;
+
     // XXX: Here we actually need to *do something* -- but what??
     // The combo box needs to know about all options.  The model only needs to
     // know the selected option?
-
     chosenMappers.at(index.row()) = value.toString().toStdString();
 
     return true;
