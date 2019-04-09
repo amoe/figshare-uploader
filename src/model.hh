@@ -6,9 +6,12 @@
 
 using std::string;
 using nonstd::optional;
+using nonstd::nullopt;
 
 class Model {
 public:
+    Model(): sourceFile(nullopt) { }
+
     void setSourceFile(string newSourceFile);
     optional<string> getSourceFile() const;
 
