@@ -15,7 +15,7 @@ using std::map;
 // using OptionsMap = map<string, optional<string>>;
 using OptionsMap = map<string, string>;
 
-enum class Converter { 
+enum class ConverterName { 
     STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_LIST, CONTRIBUTE_FILES
 };
 
@@ -38,20 +38,20 @@ private:
 class FieldEncoder {
 public:
     FieldEncoder(
-        TargetField targetField, Converter converter,
+        TargetField targetField, ConverterName converterName,
         vector<ValidationRule> validationRules,
         OptionsMap options
     ): targetField(targetField),
-       converter(converter),
+       converterName(converterName),
        validationRules(validationRules),
        options(options) { }
 
-    Converter getConverter() const;
+    ConverterName getConverterName() const;
     OptionsMap getOptions() const;
 
 private:
     TargetField targetField;
-    Converter converter;
+    ConverterName converterName;
     vector<ValidationRule> validationRules;
     OptionsMap options;
 };

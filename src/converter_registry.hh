@@ -7,7 +7,7 @@
 class ConverterRegistry {
 public:
     ConverterRegistry();
-    static QJsonValue convert(Converter c, OptionsMap options);
+    static QJsonValue convert(ConverterName c, OptionsMap options);
 
 //private:
 //    unordered_map<ConverterName, Converter>

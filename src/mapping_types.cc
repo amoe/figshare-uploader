@@ -12,6 +12,6 @@ OptionsMap FieldEncoder::getOptions() const {
     return options;
 }
 
-Converter FieldEncoder::getConverter() const {
-    return converter;
+ConverterName FieldEncoder::getConverterName() const {
+    return converterName;
 }

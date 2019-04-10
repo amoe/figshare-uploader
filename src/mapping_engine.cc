@@ -15,9 +15,7 @@ QJsonObject MappingEngine::convert(vector<string> document, MappingScheme scheme
         string value = document.at(sourceRowIndex);
         cout << "value is " << value << endl;
         
-        Converter converter = fieldEncoder.getConverter();
-
-
+        ConverterName converter = fieldEncoder.getConverterName();
         QJsonValue result = ConverterRegistry::convert(
             converter, fieldEncoder.getOptions()
         );

@@ -18,7 +18,7 @@ TEST_F(MappingEngineTest, SanityCheck) {
 
     TargetField targetField(TargetFieldType::STANDARD, "name");
     // Empty options, empty validators.
-    FieldEncoder titleEncoder(targetField, Converter::STRING, {}, {});
+    FieldEncoder titleEncoder(targetField, ConverterName::STRING, {}, {});
 
     // END CREATING TITLE ENCODER
     

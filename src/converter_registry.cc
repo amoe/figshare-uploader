@@ -6,7 +6,7 @@ ConverterRegistry::ConverterRegistry() {
     std::cout << "initializing converter registry" << std::endl;
 }
 
-QJsonValue ConverterRegistry::convert(Converter c, OptionsMap options) {
+QJsonValue ConverterRegistry::convert(ConverterName c, OptionsMap options) {
     QJsonObject empty;
     return empty;
 }
