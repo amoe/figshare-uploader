@@ -1,13 +1,15 @@
 #include <iostream>
 #include "mapping_engine.hh"
 #include "converter_registry.hh"
+#include "mapping_outputs.hh"
 
 using std::cout;
 using std::endl;
 
-QJsonObject MappingEngine::convert(vector<string> document, MappingScheme scheme) {
-    QJsonObject result;
-    
+MappingOutput MappingEngine::convert(vector<string> document, MappingScheme scheme) {
+    QJsonObject resultObject;
+    vector<string> resultPaths;
+
     for (RowMapping r : scheme) {
         int sourceRowIndex = r.getSourceRowIndex();
         FieldEncoder fieldEncoder = r.getFieldEncoder();
@@ -21,5 +23,5 @@ QJsonObject MappingEngine::convert(vector<string> document, MappingScheme scheme
         );
     }
 
-    return result;
+    return MappingOutput(resultObject, resultPaths);
 }

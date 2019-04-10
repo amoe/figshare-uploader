@@ -4,12 +4,14 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include "optional.hpp"
 
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
 using std::map;
+using nonstd::optional;
 
 // Should be
 // using OptionsMap = map<string, optional<string>>;
@@ -31,14 +33,13 @@ public:
 
 private:
     TargetFieldType type;
-    // XXX: Should be optional<string>
     string name;
 };
 
 class FieldEncoder {
 public:
     FieldEncoder(
-        TargetField targetField, ConverterName converterName,
+        optional<TargetField> targetField, ConverterName converterName,
         vector<ValidationRule> validationRules,
         OptionsMap options
     ): targetField(targetField),
@@ -50,7 +51,7 @@ public:
     OptionsMap getOptions() const;
 
 private:
-    TargetField targetField;
+    optional<TargetField> targetField;
     ConverterName converterName;
     vector<ValidationRule> validationRules;
     OptionsMap options;

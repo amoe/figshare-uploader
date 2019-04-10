@@ -5,10 +5,11 @@
 #include <string>
 #include <QJsonObject>
 #include "mapping_types.hh"
+#include "mapping_outputs.hh"
 
 class MappingEngine {
 public:
-    QJsonObject convert(vector<string> document, MappingScheme scheme);
+    MappingOutput convert(vector<string> document, MappingScheme scheme);
 };
 
 #endif /* MAPPING_ENGINE_HH */
