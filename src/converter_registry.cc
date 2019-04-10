@@ -1,5 +1,10 @@
 #include <QJsonObject>
+#include <iostream>
 #include "converter_registry.hh"
+
+ConverterRegistry::ConverterRegistry() {
+    std::cout << "initializing converter registry" << std::endl;
+}
 
 QJsonValue ConverterRegistry::convert(Converter c, OptionsMap options) {
     QJsonObject empty;
