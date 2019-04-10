@@ -46,6 +46,9 @@ public:
        validationRules(validationRules),
        options(options) { }
 
+    Converter getConverter() const;
+    OptionsMap getOptions() const;
+
 private:
     TargetField targetField;
     Converter converter;
@@ -57,6 +60,9 @@ class RowMapping {
 public:
     RowMapping(int sourceRowIndex, FieldEncoder fieldEncoder):
       sourceRowIndex(sourceRowIndex), fieldEncoder(fieldEncoder) { }
+
+    int getSourceRowIndex() const;
+    FieldEncoder getFieldEncoder() const;
 
 private:
     int sourceRowIndex;
