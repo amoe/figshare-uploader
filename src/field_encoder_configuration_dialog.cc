@@ -122,6 +122,7 @@ void FieldEncoderConfigurationDialog::showDialog() {
     QModelIndex theIndex = this->fieldEncoderList->currentIndex();
     string selectedFieldEncoder = theIndex.data().toString().toStdString();
 
+    // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
     map<string, FieldEncoder&> fieldEncoders;
 
     ListOfObjectFieldEncoder encoder;
