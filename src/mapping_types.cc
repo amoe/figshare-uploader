@@ -74,6 +74,9 @@ MappingOutput FieldEncoder::applyEncoder(MappingOutput seed, IntermediateMapping
             producedPaths.end()
         );
     } else {
+        // We only support CONJOIN at present.
+        // Other possibilities might be, like, NUKE or something which would
+        // just annul an existing field.
         throw std::runtime_error("unexpected combination operation");
     }
     

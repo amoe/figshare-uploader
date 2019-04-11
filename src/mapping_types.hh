@@ -47,6 +47,12 @@ enum class CombinationOperation { CONJOIN };
 // a TargetField, by the FieldEncoder's `applyEncoder` method.
 class IntermediateMappingOutput {
 public:
+    IntermediateMappingOutput(
+        QJsonValue producedValue, vector<string> producedPaths,
+        CombinationOperation operation
+    ): producedValue(producedValue), producedPaths(producedPaths), operation(operation) {
+    }
+
     QJsonValue getProducedValue() const;
     vector<string> getProducedPaths() const;
     CombinationOperation getOperation() const;
