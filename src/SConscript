@@ -160,7 +160,6 @@ PROGRAM_SOURCES = [
     "http_poster.cc",
     "http_putter.cc",
     "mapping_engine.cc",
-    "mapping_outputs.cc",
     "mapping_table_widget.cc",
     "mapping_types.cc",
     "model.cc",
