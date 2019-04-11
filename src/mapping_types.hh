@@ -15,7 +15,56 @@ using std::vector;
 using std::map;
 using nonstd::optional;
 
-// Should be
+
+
+
+
+
+
+
+// MAPPING OUTPUT TYPES -- These are used as containers during the field mapping
+// process, but they should never be serialized.
+
+// FINAL OUTPUT TYPE.
+class MappingOutput {
+public:
+    MappingOutput(
+        QJsonObject articleObject, vector<string> sourcePaths
+    ): articleObject(articleObject), sourcePaths(sourcePaths) { }
+
+    QJsonObject getArticleObject() const;
+    vector<string> getSourcePaths() const;
+
+
+private:
+    QJsonObject articleObject;
+    vector<string> sourcePaths;
+};
+
+enum class CombinationOperation { CONJOIN };
+
+// INTERMEDIATE OUTPUT TYPE.  It needs to be combined with a MappingOutput and
+// a TargetField, by the FieldEncoder's `applyEncoder` method.
+class IntermediateMappingOutput {
+public:
+    QJsonValue getProducedValue() const;
+    vector<string> getProducedPaths() const;
+    CombinationOperation getOperation() const;
+
+private:
+    QJsonValue producedValue;
+    vector<string> producedPaths;
+    CombinationOperation operation;
+};
+
+
+
+
+
+// SERIALIZATION TYPES -- These correspond to a certain JSON layout, which was
+// conceived in `figshare-cases.ts`.
+
+
 using OptionsMap = map<string, optional<string>>;
 
 enum class ConverterName { 
@@ -50,6 +99,8 @@ public:
 
     ConverterName getConverterName() const;
     OptionsMap getOptions() const;
+    
+    MappingOutput applyEncoder(IntermediateMappingOutput operand) const;
 
 private:
     optional<TargetField> targetField;
@@ -73,29 +124,5 @@ private:
 
 using MappingScheme = vector<RowMapping>;
 
-// MAPPING OUTPUT TYPES -- These are used as containers during the field mapping
-// process, but they should never be serialized.
-
-// FINAL OUTPUT TYPE.
-class MappingOutput {
-public:
-    MappingOutput(
-        QJsonObject articleObject, vector<string> sourcePaths
-    ): articleObject(articleObject), sourcePaths(sourcePaths) { }
-
-    QJsonObject getArticleObject() const;
-    vector<string> getSourcePaths() const;
-
-
-private:
-    QJsonObject articleObject;
-    vector<string> sourcePaths;
-};
-
-
-// INTERMEDIATE OUTPUT TYPE.  It needs to be combined with a MappingOutput and
-// a TargetField, by the FieldEncoder's `applyEncoder` method.
-class IntermediateMappingOutput {
-};
 
 #endif /* MAPPING_TYPES_HH */
