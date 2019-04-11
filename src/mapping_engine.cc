@@ -9,6 +9,8 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
     QJsonObject resultObject;
     vector<string> resultPaths;
 
+    MappingOutput seed(resultObject, resultPaths);
+
     for (RowMapping r : scheme) {
         int sourceRowIndex = r.getSourceRowIndex();
         FieldEncoder fieldEncoder = r.getFieldEncoder();
@@ -22,7 +24,8 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
             converterName, value, fieldEncoder.getOptions()
         );
 
+        seed = fieldEncoder.applyEncoder(seed, result);
     }
 
-    return MappingOutput(resultObject, resultPaths);
+    return seed;
 }
