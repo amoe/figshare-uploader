@@ -1,11 +1,12 @@
 #include <QJsonObject>
+#include <QString>
 #include <iostream>
 #include "converter_registry.hh"
 
 IntermediateMappingOutput StringConverter::applyConversion(string input, OptionsMap options) {
-    QJsonValue producedValue;     // Will initialize to null.
+    QJsonValue producedValue(QString::fromStdString(input));
     vector<string> producedPaths;
-
+    
     IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
     return result;
 }

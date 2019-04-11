@@ -27,7 +27,7 @@ public:
 
 TEST_F(MappingEngineTest, TitleStringConversionCheck) {
     // Create a simple scheme
-    TargetField targetField(TargetFieldType::STANDARD, "name");
+    TargetField targetField(TargetFieldType::STANDARD, "title");
     FieldEncoder titleEncoder(
         optional<TargetField>(targetField),
         ConverterName::STRING,

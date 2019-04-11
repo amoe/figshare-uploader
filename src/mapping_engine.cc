@@ -1,3 +1,6 @@
+#include <QDebug>
+#include <QJsonDocument>
+#include <QString>
 #include <iostream>
 #include "mapping_engine.hh"
 #include "converter_registry.hh"
@@ -24,8 +27,20 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
             converterName, value, fieldEncoder.getOptions()
         );
 
+
+        QJsonDocument doc(seed.getArticleObject());
+        QString strJson(doc.toJson(QJsonDocument::Compact));
+        qDebug() << "BEFORE: " << strJson;
+
+
         seed = fieldEncoder.applyEncoder(seed, result);
+
+        QJsonDocument doc2(seed.getArticleObject());
+        QString strJson2(doc.toJson(QJsonDocument::Compact));
+        qDebug() << "AFTER: " << strJson2;
+
     }
 
     return seed;
 }
+
