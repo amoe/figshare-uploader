@@ -18,7 +18,7 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
         
         ConverterName converterName = fieldEncoder.getConverterName();
 
-        IntermediateMappingOutput result = ConverterRegistry::convert(
+        IntermediateMappingOutput result = converterRegistry.convert(
             converterName, value, fieldEncoder.getOptions()
         );
 
