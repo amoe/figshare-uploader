@@ -16,8 +16,7 @@ using std::map;
 using nonstd::optional;
 
 // Should be
-// using OptionsMap = map<string, optional<string>>;
-using OptionsMap = map<string, string>;
+using OptionsMap = map<string, optional<string>>;
 
 enum class ConverterName { 
     STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_LIST, CONTRIBUTE_FILES
@@ -77,6 +76,7 @@ using MappingScheme = vector<RowMapping>;
 // MAPPING OUTPUT TYPES -- These are used as containers during the field mapping
 // process, but they should never be serialized.
 
+// FINAL OUTPUT TYPE.
 class MappingOutput {
 public:
     MappingOutput(
@@ -92,5 +92,10 @@ private:
     vector<string> sourcePaths;
 };
 
+
+// INTERMEDIATE OUTPUT TYPE.  It needs to be combined with a MappingOutput and
+// a TargetField, by the FieldEncoder's `applyEncoder` method.
+class IntermediateMappingOutput {
+};
 
 #endif /* MAPPING_TYPES_HH */

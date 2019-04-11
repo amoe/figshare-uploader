@@ -19,6 +19,11 @@ public:
     MappingEngineTest() { }
 };
 
+// It's quite difficult to construct these MappingSchemes in C++ code.
+// This isn't to be construed as a feature, but these structures are the full
+// definition of the available behaviours.
+// There might be more 'sugary' ways to write them that could be constructed
+// later.
 
 TEST_F(MappingEngineTest, TitleStringConversionCheck) {
     // Create a simple scheme
@@ -54,7 +59,7 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
         "foo.tiff;bar.tiff"
     };
     OptionsMap options = {
-        {"delimiter", ";"}
+        {"delimiter", optional<string>(";")}
     };
 
     FieldEncoder contributeFilesEncoder(
