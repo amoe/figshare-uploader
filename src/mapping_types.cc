@@ -15,3 +15,15 @@ OptionsMap FieldEncoder::getOptions() const {
 ConverterName FieldEncoder::getConverterName() const {
     return converterName;
 }
+
+
+
+// Mapping output types
+
+QJsonObject MappingOutput::getArticleObject() const {
+    return articleObject;
+}
+
+vector<string> MappingOutput::getSourcePaths() const {
+    return sourcePaths;
+}

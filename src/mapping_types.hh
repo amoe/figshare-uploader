@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <map>
+
+#include <QJsonObject>
 #include "optional.hpp"
 
 using std::cout;
@@ -71,6 +73,24 @@ private:
 };
 
 using MappingScheme = vector<RowMapping>;
+
+// MAPPING OUTPUT TYPES -- These are used as containers during the field mapping
+// process, but they should never be serialized.
+
+class MappingOutput {
+public:
+    MappingOutput(
+        QJsonObject articleObject, vector<string> sourcePaths
+    ): articleObject(articleObject), sourcePaths(sourcePaths) { }
+
+    QJsonObject getArticleObject() const;
+    vector<string> getSourcePaths() const;
+
+
+private:
+    QJsonObject articleObject;
+    vector<string> sourcePaths;
+};
 
 
 #endif /* MAPPING_TYPES_HH */

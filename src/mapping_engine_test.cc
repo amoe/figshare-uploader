@@ -4,7 +4,6 @@
 #include "optional.hpp"
 #include "mapping_engine.hh"
 #include "mapping_types.hh"
-#include "mapping_outputs.hh"
 #include "test_utility.hh"
 
 
