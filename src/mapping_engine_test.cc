@@ -54,7 +54,7 @@ TEST_F(MappingEngineTest, TitleStringConversionCheck) {
 }
 
 
-TEST_F(MappingEngineTest, ContributeFilesCheck) {
+TEST_F(MappingEngineTest, DISABLED_ContributeFilesCheck) {
     vector<string> theDocument = {
         "foo.tiff;bar.tiff"
     };
