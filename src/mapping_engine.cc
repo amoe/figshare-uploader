@@ -1,7 +1,5 @@
 #include <iostream>
 #include "mapping_engine.hh"
-#include "converter_registry.hh"
-#include "mapping_outputs.hh"
 
 using std::cout;
 using std::endl;
@@ -18,9 +16,9 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
         cout << "value is " << value << endl;
         
         ConverterName converter = fieldEncoder.getConverterName();
-        QJsonValue result = ConverterRegistry::convert(
-            converter, fieldEncoder.getOptions()
-        );
+        // QJsonValue result = ConverterRegistry::convert(
+        //     converter, fieldEncoder.getOptions()
+        // );
     }
 
     return MappingOutput(resultObject, resultPaths);

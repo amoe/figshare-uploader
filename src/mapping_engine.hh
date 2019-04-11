@@ -5,7 +5,6 @@
 #include <string>
 #include <QJsonObject>
 #include "mapping_types.hh"
-#include "mapping_outputs.hh"
 
 class MappingEngine {
 public:

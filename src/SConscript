@@ -140,7 +140,6 @@ PROGRAM_SOURCES = [
     "article_type_mapper.cc",
     "category_mapper.cc",
     "combo_box_item_delegate.cc",
-    "converter_registry.cc",
     "custom_field_mapper.cc",
     "custom_fields.cc",
     "driver.cc",
