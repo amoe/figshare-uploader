@@ -59,8 +59,6 @@ private:
 
 
 
-
-
 // SERIALIZATION TYPES -- These correspond to a certain JSON layout, which was
 // conceived in `figshare-cases.ts`.
 
@@ -80,6 +78,7 @@ enum class ValidationRule {
 class TargetField {
 public:
     TargetField(TargetFieldType type, string name): type(type), name(name) { }
+    string getName() const;
 
 private:
     TargetFieldType type;
@@ -100,7 +99,7 @@ public:
     ConverterName getConverterName() const;
     OptionsMap getOptions() const;
     
-    MappingOutput applyEncoder(IntermediateMappingOutput operand) const;
+    MappingOutput applyEncoder(MappingOutput seed, IntermediateMappingOutput operand) const;
 
 private:
     optional<TargetField> targetField;
