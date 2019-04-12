@@ -46,6 +46,8 @@ public:
 
 class LookupRegistryImpl: public LookupRegistry {
 public:
+    LookupRegistryImpl();
+    ~LookupRegistryImpl();
     QJsonValue lookupByString(LookupType type, string value);
 };
 

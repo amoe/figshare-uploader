@@ -4,8 +4,28 @@
 #include "converter_registry.hh"
 #include "utility.hh"
 
+LookupRegistryImpl::LookupRegistryImpl() {
+}
+
+LookupRegistryImpl::~LookupRegistryImpl() {
+}
+
 QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
     QJsonValue result;
+
+    // Now we need to look it up using LookupType.
+
+    if (type == LookupType::DEFINED_TYPE) {
+        if (value == "Figure") {
+            return QJsonValue(QString::fromStdString("figure"));
+        } else {
+            throw new std::runtime_error("invalid input");
+        }
+    } else {
+        throw new std::runtime_error("invalid lookup type");
+    }
+
+
     return result;
 }
 
@@ -25,8 +45,6 @@ IntermediateMappingOutput ContributeFilesConverter::applyConversion(string input
     IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
     return result;
 }
-
-
 
 IntermediateMappingOutput LookupListConverter::applyConversion(string input, OptionsMap options) {
     string resourceName = options.at("resourceName").value();
