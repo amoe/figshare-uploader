@@ -22,8 +22,8 @@ public:
         
     }
     ~MappingEngineTest() {
-        delete engine;
-        delete lookups;
+        // delete lookups;
+        // delete engine;
     }
 
     LookupRegistry* lookups;
