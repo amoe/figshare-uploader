@@ -22,8 +22,11 @@ public:
         
     }
     ~MappingEngineTest() {
-        // delete lookups;
-        // delete engine;
+        // It can be this that triggers the problem, because it's deallocating
+        // this pointer.  However, this is allocated with new, so no reason
+        // for it to happen really.
+        delete lookups;
+        delete engine;
     }
 
     LookupRegistry* lookups;
