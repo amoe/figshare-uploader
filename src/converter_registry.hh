@@ -29,6 +29,11 @@ public:
     IntermediateMappingOutput applyConversion(string input, OptionsMap options);
 };
 
+class ContributeFilesConverter: public Converter {
+public:
+    IntermediateMappingOutput applyConversion(string input, OptionsMap options);
+};
+
 class ConverterRegistry {
 public:
     ConverterRegistry();

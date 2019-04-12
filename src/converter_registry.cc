@@ -2,6 +2,7 @@
 #include <QString>
 #include <iostream>
 #include "converter_registry.hh"
+#include "utility.hh"
 
 IntermediateMappingOutput StringConverter::applyConversion(string input, OptionsMap options) {
     QJsonValue producedValue(QString::fromStdString(input));
@@ -11,10 +12,19 @@ IntermediateMappingOutput StringConverter::applyConversion(string input, Options
     return result;
 }
 
+IntermediateMappingOutput ContributeFilesConverter::applyConversion(string input, OptionsMap options) {
+    QJsonValue producedValue;    // Will be initialized to null.
+    string delimiterRegex = options.at("delimiter").value();
+    vector<string> producedPaths = splitByRegexp(input, delimiterRegex);
+    IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
+    return result;
+}
+
 
 ConverterRegistry::ConverterRegistry() {
     std::cout << "initializing converter registry" << std::endl;
     converterMap.insert({ConverterName::STRING, new StringConverter});
+    converterMap.insert({ConverterName::CONTRIBUTE_FILES, new ContributeFilesConverter});
 }
 
 ConverterRegistry::~ConverterRegistry() {
