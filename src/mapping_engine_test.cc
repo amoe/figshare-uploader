@@ -83,3 +83,39 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(expectedArticle));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+
+TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
+    vector<string> theDocument = {
+        "Figure"
+    };
+    OptionsMap options = {
+        {"resourceName", optional<string>("definedType")}
+    };
+
+    FieldEncoder lookupListEncoder(
+        optional<string>("defined_type"),
+        ConverterName::LOOKUP_LIST,
+        {},
+        options
+    );
+    MappingScheme theScheme = {RowMapping(0, contributeFilesEncoder)};
+
+    MappingEngine engine;
+    MappingOutput result = engine.convert(theDocument, theScheme);
+
+    // Expect an empty article object because we haven't defined any other
+    // converters.
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
+
+    const string expectedResult = R"(
+        {
+           "defined_type": "figure"
+        }
+    )";
+
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
