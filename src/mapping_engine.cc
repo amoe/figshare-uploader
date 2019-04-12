@@ -23,7 +23,7 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
         
         ConverterName converterName = fieldEncoder.getConverterName();
 
-        IntermediateMappingOutput result = converterRegistry.convert(
+        IntermediateMappingOutput result = converterRegistry->convert(
             converterName, value, fieldEncoder.getOptions()
         );
 

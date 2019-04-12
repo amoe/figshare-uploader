@@ -4,6 +4,12 @@
 #include "converter_registry.hh"
 #include "utility.hh"
 
+QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
+    QJsonValue result;
+    return result;
+}
+
+
 IntermediateMappingOutput StringConverter::applyConversion(string input, OptionsMap options) {
     QJsonValue producedValue(QString::fromStdString(input));
     vector<string> producedPaths;
@@ -21,10 +27,25 @@ IntermediateMappingOutput ContributeFilesConverter::applyConversion(string input
 }
 
 
-ConverterRegistry::ConverterRegistry() {
+
+IntermediateMappingOutput LookupListConverter::applyConversion(string input, OptionsMap options) {
+    string resourceName = options.at("resourceName").value();
+    LookupType type = LOOKUP_TYPE_NAMES.at(resourceName);
+    QJsonValue producedValue = registry->lookupByString(type, input);
+    vector<string> producedPaths;
+
+    IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
+    return result;
+}
+
+
+ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {
     std::cout << "initializing converter registry" << std::endl;
     converterMap.insert({ConverterName::STRING, new StringConverter});
     converterMap.insert({ConverterName::CONTRIBUTE_FILES, new ContributeFilesConverter});
+
+    // Lookup list needs more information to initialize itself.
+    converterMap.insert({ConverterName::LOOKUP_LIST, new LookupListConverter(lookupRegistry)});
 }
 
 ConverterRegistry::~ConverterRegistry() {
