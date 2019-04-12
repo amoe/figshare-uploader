@@ -5,6 +5,7 @@
 #include "utility.hh"
 
 LookupRegistryImpl::LookupRegistryImpl() {
+    definedTypeMap.insert({"Figure", "figure"});
 }
 
 LookupRegistryImpl::~LookupRegistryImpl() {
@@ -16,11 +17,8 @@ QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
     // Now we need to look it up using LookupType.
 
     if (type == LookupType::DEFINED_TYPE) {
-        if (value == "Figure") {
-            return QJsonValue(QString::fromStdString("figure"));
-        } else {
-            throw new std::runtime_error("invalid input");
-        }
+        string figshareName = definedTypeMap.at(value);
+        return QJsonValue(QString::fromStdString(figshareName));
     } else {
         throw new std::runtime_error("invalid lookup type");
     }

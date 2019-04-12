@@ -49,6 +49,9 @@ public:
     LookupRegistryImpl();
     ~LookupRegistryImpl();
     QJsonValue lookupByString(LookupType type, string value);
+
+private:
+    unordered_map<string, string> definedTypeMap;
 };
 
 // This one works using a similar pattern.  The registry can be passed in for
