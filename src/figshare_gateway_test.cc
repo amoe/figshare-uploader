@@ -6,7 +6,7 @@
 
 using namespace testing;
 
-TEST(FigshareGatewayTest, ActsAsIExpect) {
+TEST(FigshareGatewayTest, CanConvertArticle) {
     HttpGetter* getter = new StubHttpGetter("You should not see this");
 
     HttpPoster* poster = new StubHttpPoster(

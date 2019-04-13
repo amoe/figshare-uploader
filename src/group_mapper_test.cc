@@ -12,7 +12,7 @@ using namespace testing;
 
 
 
-TEST(MyComponent, ActsAsIExpect) {
+TEST(MyComponent, CanRequestGroupId) {
     MockHttpGetter httpGetter;
 
     EXPECT_CALL(httpGetter, request(_))

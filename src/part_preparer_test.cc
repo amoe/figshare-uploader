@@ -5,7 +5,7 @@
 using ::testing::Eq;
 
 // nb this is an integration test
-TEST(PartPreparerTest, ActsAsIExpect) {
+TEST(PartPreparerTest, CanPrepareUpload) {
     PartPreparerImpl preparer;
     FileInfo fileInfo("http://my-site.com/my-token", "lena.jpg", 1);
 
