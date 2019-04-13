@@ -42,6 +42,7 @@ matrix:
     
       install:
         - set -e
+        - pip3 install scons
         - export CC=gcc-6
         - export CXX=g++-6
         - cd ext/xlnt-1.3.0
