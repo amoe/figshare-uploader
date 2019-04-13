@@ -33,6 +33,13 @@ matrix:
     - os: linux
       language: cpp
       dist: xenial
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+    
       install:
         - set -e
         - export CC=gcc-6
