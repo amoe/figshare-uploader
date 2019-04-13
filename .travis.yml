@@ -60,7 +60,6 @@ matrix:
       script:
         - set -e
         - export CXX=g++-6
-        - find /usr/local/bin
         - python3 /usr/local/bin/scons
         - ./build/unit_tests
       #  - ./integration_tests
