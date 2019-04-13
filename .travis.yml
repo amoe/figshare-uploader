@@ -44,8 +44,7 @@ matrix:
         - sudo apt-get update -qq
         - sudo apt-get install -qq qtbase5-dev qt5-default
         - sudo apt install python3-pip
-        - sudo pip3 install --upgrade pip
-        - pip3 install scons
+        - sudo pip3 install scons
           
       install:
         - set -e
