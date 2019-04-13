@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <cstdint>
 #include <map>
 #include "file_part.hh"

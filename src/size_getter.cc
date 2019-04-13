@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <cstdint>
 #include <QString>
 #include <QFileInfo>

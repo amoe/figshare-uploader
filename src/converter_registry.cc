@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <QJsonObject>
 #include <QString>
 #include <iostream>
@@ -5,6 +6,7 @@
 #include "utility.hh"
 
 LookupRegistryImpl::LookupRegistryImpl() {
+    // unused as yet due to hacks
     definedTypeMap.insert({"Figure", "figure"});
 }
 

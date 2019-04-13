@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "custom_fields.hh"
 
 string CustomFieldDatum::getJsonKey() const {
