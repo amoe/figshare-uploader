@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "token_store.hh"
 
 string TokenStore::getToken() {

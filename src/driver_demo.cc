@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 #include <cstdlib>
 #include <QDebug>
 #include <QApplication>

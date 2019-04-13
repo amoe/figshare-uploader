@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <QJsonObject>
 #include <QString>
 #include <iostream>

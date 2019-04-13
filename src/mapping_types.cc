@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "mapping_types.hh"
 
 int RowMapping::getSourceRowIndex() const {

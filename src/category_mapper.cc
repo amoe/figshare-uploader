@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonDocument>

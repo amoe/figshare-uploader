@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <exception>
+#include <stdexcept>
 #include "http_getter.hh"
 #include "group_mapper.hh"
 #include <QJsonArray>
