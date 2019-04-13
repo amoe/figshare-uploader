@@ -35,8 +35,6 @@ matrix:
       dist: xenial
       install:
         - set -e
-        - export CC=gcc-6
-        - export CXX=g++-6
         - cd ext/xlnt-1.3.0
         - cmake .
         - make
@@ -46,7 +44,6 @@ matrix:
 
       script:
         - set -e
-        - export CXX=g++-6
         - scons
         - ./build/unit_tests
       #  - ./integration_tests
