@@ -24,7 +24,16 @@
 #include "field_encoder_model.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
-    fieldEncoderModel = new FieldEncoderModel;
+    TargetField targetField(TargetFieldType::STANDARD, "title");
+    FieldEncoder titleEncoder(
+        optional<TargetField>(targetField),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+    vector<FieldEncoder> availableEncoders = {titleEncoder};
+
+    fieldEncoderModel = new FieldEncoderModel(availableEncoders);
 
     QWidget* contentWidget = new QWidget(this);
     

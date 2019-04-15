@@ -4,11 +4,14 @@
 #include <Qt>
 #include <QModelIndex>
 #include <QStringListModel>
+#include "mapping_types.hh"
 
 class FieldEncoderModel: public QAbstractItemModel {
 
 public:
-    FieldEncoderModel();
+    FieldEncoderModel(
+        vector<FieldEncoder> availableEncoders
+    ): availableEncoders(availableEncoders) {}
 
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -19,7 +22,7 @@ public:
     QModelIndex parent(const QModelIndex &index) const override;
 
 private:
-    QAbstractItemModel* innerModel;
+    vector<FieldEncoder> availableEncoders;
 };
 
 #endif /* FIELD_ENCODER_MODEL_HH */

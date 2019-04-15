@@ -10,14 +10,14 @@
 using std::string;
 using std::vector;
 
-enum class FieldEncoder {
+enum class FieldEncoderOld {
     STRING, LIST
 };
 
 struct CustomFieldSpecification {
     string name;             // key that will be used in result
     int position;            // column position to expect result at
-    FieldEncoder encoder;    // way the result will appear in the JSON
+    FieldEncoderOld encoder;    // way the result will appear in the JSON
 };
 
 class CustomFieldDatum {

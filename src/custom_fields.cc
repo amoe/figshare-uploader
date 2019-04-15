@@ -7,9 +7,9 @@ string CustomFieldDatum::getJsonKey() const {
 
 QJsonValue CustomFieldDatum::getJsonValue() const {
     switch (specification.encoder) {
-        case FieldEncoder::STRING: 
+        case FieldEncoderOld::STRING: 
             return QJsonValue(QString::fromStdString(content));
-        case FieldEncoder::LIST: {
+        case FieldEncoderOld::LIST: {
             QJsonArray array;
             array.append(QJsonValue(QString::fromStdString(content)));
             return array;

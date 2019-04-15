@@ -42,20 +42,20 @@ namespace column_mapping {
     const string MAXIMUM_COLUMN = "X";
 
     const vector<CustomFieldSpecification> CUSTOM_FIELDS = {
-        {"Creator", CREATOR, FieldEncoder::STRING},
-        {"Contributors", CONTRIBUTORS, FieldEncoder::STRING},
-        {"Date", DATE, FieldEncoder::STRING},
-        {"Type", TYPE, FieldEncoder::STRING},
-        {"Source", SOURCE, FieldEncoder::STRING},
-        {"Language", LANGUAGE, FieldEncoder::STRING},
-        {"Relation", RELATION, FieldEncoder::STRING},
-        {"Temporal", TEMPORAL, FieldEncoder::STRING},
-        {"Spatial", SPATIAL, FieldEncoder::STRING},
-        {"Spatial Relation", SPATIAL_RELATION, FieldEncoder::STRING},
-        {"Identifier", IDENTIFIER, FieldEncoder::STRING},
-        {"Rights", RIGHTS, FieldEncoder::STRING},
-        {"Project", PROJECT, FieldEncoder::LIST},
-        {"Collection", COLLECTION, FieldEncoder::LIST}
+        {"Creator", CREATOR, FieldEncoderOld::STRING},
+        {"Contributors", CONTRIBUTORS, FieldEncoderOld::STRING},
+        {"Date", DATE, FieldEncoderOld::STRING},
+        {"Type", TYPE, FieldEncoderOld::STRING},
+        {"Source", SOURCE, FieldEncoderOld::STRING},
+        {"Language", LANGUAGE, FieldEncoderOld::STRING},
+        {"Relation", RELATION, FieldEncoderOld::STRING},
+        {"Temporal", TEMPORAL, FieldEncoderOld::STRING},
+        {"Spatial", SPATIAL, FieldEncoderOld::STRING},
+        {"Spatial Relation", SPATIAL_RELATION, FieldEncoderOld::STRING},
+        {"Identifier", IDENTIFIER, FieldEncoderOld::STRING},
+        {"Rights", RIGHTS, FieldEncoderOld::STRING},
+        {"Project", PROJECT, FieldEncoderOld::LIST},
+        {"Collection", COLLECTION, FieldEncoderOld::LIST}
     };
 };
 
