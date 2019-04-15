@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <QDebug>
+#include <QDir>
+#include <QStandardPaths>
 #include <iostream>
 
 #include "field_mapping_table_model.hh"
@@ -39,7 +41,7 @@ SettingsDialog::SettingsDialog(vector<string> headerFields, QWidget* parent): QD
     QDialogButtonBox* buttonBox = new QDialogButtonBox(
         QDialogButtonBox::Ok | QDialogButtonBox::Cancel
     );
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &SettingsDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     dialogLayout->addWidget(buttonBox);
 
@@ -52,3 +54,20 @@ SettingsDialog::SettingsDialog(vector<string> headerFields, QWidget* parent): QD
 QSize SettingsDialog::sizeHint() const {
     return QSize(320, 480);
 }
+
+void SettingsDialog::accept() {
+    qDebug() << "dialog was accepted";
+    done(QDialog::Accepted);
+    qDebug() << "in post handler";
+
+    // Dump the model
+    QString result =  QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    QDir configPath(result);
+    QString dumpPath = configPath.filePath("mapping_scheme.json");
+
+    QString configPrefix = configPath.path();
+    QDir dir = QDir::root();
+    qDebug() << "I would create" << configPrefix;
+
+}
+

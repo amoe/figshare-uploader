@@ -13,6 +13,9 @@ class SettingsDialog: public QDialog {
 public:
     SettingsDialog(vector<string> headerFields, QWidget* parent);
     QSize sizeHint() const;
+
+public slots:
+    void accept();
 };
 
 #endif /* SETTINGS_DIALOG_HH */
