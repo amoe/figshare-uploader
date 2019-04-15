@@ -84,6 +84,7 @@ enum class ValidationRule {
 class TargetField {
 public:
     TargetField(TargetFieldType type, string name): type(type), name(name) { }
+    TargetFieldType getTargetFieldType() const;
     string getName() const;
 
 private:
@@ -104,6 +105,7 @@ public:
 
     ConverterName getConverterName() const;
     OptionsMap getOptions() const;
+    optional<TargetField> getTargetField() const;
     
     MappingOutput applyEncoder(MappingOutput seed, IntermediateMappingOutput operand) const;
 

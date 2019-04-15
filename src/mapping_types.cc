@@ -13,6 +13,10 @@ OptionsMap FieldEncoder::getOptions() const {
     return options;
 }
 
+optional<TargetField> FieldEncoder::getTargetField() const {
+    return targetField;
+}
+
 ConverterName FieldEncoder::getConverterName() const {
     return converterName;
 }
@@ -20,6 +24,10 @@ ConverterName FieldEncoder::getConverterName() const {
 
 string TargetField::getName() const {
     return name;
+}
+
+TargetFieldType TargetField::getTargetFieldType() const {
+    return type;
 }
 
 
