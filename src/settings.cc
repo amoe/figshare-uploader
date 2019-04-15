@@ -5,13 +5,13 @@
 using std::string;
 
 string Settings::getTokenOrEmpty() {
-    QSettings settings("solasistim.net", "upgraded-fortnight");
+    QSettings settings;
     QString token = settings.value("token", "").toString();
     return token.toStdString();
 }
 
 void Settings::setToken(std::string newToken) {
-    QSettings settings("solasistim.net", "upgraded-fortnight");
+    QSettings settings;
     settings.setValue("token", QString::fromStdString(newToken));
     settings.sync();
 }

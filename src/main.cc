@@ -11,9 +11,15 @@
 #include "logging.hh"
 #include "token_store.hh"
 #include "group_mapper.hh"
+#include "application_metadata.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
+
+    auto& s = QString::fromStdString;
+
+    app.setOrganizationName(s(application_metadata::ORGANIZATION_NAME));
+    app.setApplicationName(s(application_metadata::APPLICATION_NAME));
 
     // Initialize dependency graph for app.
     // This stuff is all stack-allocated: it's not dangerous, because this is

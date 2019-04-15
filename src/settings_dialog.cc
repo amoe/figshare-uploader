@@ -68,6 +68,5 @@ void SettingsDialog::accept() {
     QString configPrefix = configPath.path();
     QDir dir = QDir::root();
     qDebug() << "I would create" << configPrefix;
-
 }
 
