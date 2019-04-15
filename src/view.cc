@@ -165,12 +165,7 @@ void ViewImpl::showAboutDialog() {
 }
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {
-    // construct model with fields
-    FieldMappingTableModel* fieldMappingModel = new FieldMappingTableModel(headerFields, this);
-
-
-    // Passing 'this' causes rendering fail?  Because SettingsDialog is not
-    // a real dialog subclass.
+    fieldMappingModel = new FieldMappingTableModel(headerFields, this);
     SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, this);
 
     // We should be setting up the connections here.
@@ -179,6 +174,7 @@ void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     SlotAdapter slotAdapter(presenter, &Presenter::settingsConfirmed);
     connect(settingsDialog, &QDialog::accepted, slotAdapter);
 
-    settingsDialog->show();   // execution semantics of this???
+    // Block execution until "accepted" signal is emitted.
+    settingsDialog->show();
 }
 

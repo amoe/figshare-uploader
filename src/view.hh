@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QPlainTextEdit>
 #include <QLineEdit>
+#include "field_mapping_table_model.hh"
 #include "interfaces.hh"
 #include "progress_reporter.hh"
 #include "version.hh"
@@ -38,7 +39,7 @@ private:
     QPushButton* actionButton;
     QPlainTextEdit* logger;
     ViewProgressAdapter* reporter;
-
+    FieldMappingTableModel* fieldMappingModel;
 
 private slots:
     void addQLog(QString logText);
