@@ -30,7 +30,7 @@ FieldEncoderListView::FieldEncoderListView(
     this->contextMenu = makeContextMenu();
 }
 
-void FieldEncoderListView::contextMenuEvent(QContextMenuEvent *event) {
+void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
     qDebug() << "event happened";
     this->contextMenu->exec(event->globalPos());
 }

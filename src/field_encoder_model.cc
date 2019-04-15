@@ -14,7 +14,11 @@ int FieldEncoderModel::columnCount(const QModelIndex& parent) const {
 }
 
 QVariant FieldEncoderModel::data(const QModelIndex& index, int role) const {
-    return QVariant();
+    if (role == Qt::DisplayRole) {
+        return QVariant("SOME ENCODER");
+    } else {
+        return QVariant();
+    }
 }
 
 QVariant FieldEncoderModel::headerData(int section, Qt::Orientation orientation, int role) const {
