@@ -13,6 +13,7 @@
 #include <QMenuBar>
 #include <QIcon>
 #include <QSize>
+#include "field_mapping_table_model.hh"
 #include "logging.hh"
 #include "view.hh"
 #include "presenter.hh"
@@ -164,9 +165,13 @@ void ViewImpl::showAboutDialog() {
 }
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {
+    // construct model with fields
+    FieldMappingTableModel* fieldMappingModel = new FieldMappingTableModel(headerFields, this);
+
+
     // Passing 'this' causes rendering fail?  Because SettingsDialog is not
     // a real dialog subclass.
-    SettingsDialog* settingsDialog = new SettingsDialog(headerFields, this);
+    SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, this);
 
     // We should be setting up the connections here.
     // We should connect to presenter.
