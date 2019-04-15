@@ -25,6 +25,7 @@ QJsonValue MappingSchemeSerializer::serializeFieldEncoder(FieldEncoder f) const 
 
     result.insert("targetField", serializeTargetField(f.getTargetField()));
     result.insert("name", mapConverterName(f.getConverterName()));
+    result.insert("validationRules", serializeValidationRules(f.getValidationRules()));
     result.insert("options", QJsonObject());
 
     return result;
@@ -63,4 +64,11 @@ QJsonValue MappingSchemeSerializer::mapConverterName(ConverterName c) const {
         default:
             throw new std::runtime_error("unknown converter name value");
     }
+}
+
+QJsonValue MappingSchemeSerializer::serializeValidationRules(
+    vector<ValidationRule> rules
+) const {
+    QJsonArray result;
+    return result;
 }

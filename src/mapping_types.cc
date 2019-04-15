@@ -92,3 +92,7 @@ MappingOutput FieldEncoder::applyEncoder(MappingOutput seed, IntermediateMapping
     MappingOutput result(newArticleObject, newSourcePaths);
     return result;
 }
+
+vector<ValidationRule> FieldEncoder::getValidationRules() const {
+    return validationRules;
+}

@@ -106,6 +106,7 @@ public:
     ConverterName getConverterName() const;
     OptionsMap getOptions() const;
     optional<TargetField> getTargetField() const;
+    vector<ValidationRule> getValidationRules() const;
     
     MappingOutput applyEncoder(MappingOutput seed, IntermediateMappingOutput operand) const;
 

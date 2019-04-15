@@ -30,9 +30,8 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
                             "name": "title"
                         },
                         "name": "string",
-                        "options": {
-                            "validator": null
-                        }
+                        "validationRules": [],
+                        "options": {}
                     }
                 }
             ]
@@ -41,6 +40,9 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
 
 
     QJsonObject result = serializer.serialize(theScheme);
+
+    qDebug() << result;
+
     ASSERT_THAT(result, Eq(deserialize(expectedResult)));
 }
 
