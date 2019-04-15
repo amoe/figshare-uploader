@@ -24,6 +24,7 @@ public:
     void showAboutDialog();
     void showSettingsDialog();
     void fileConfirmed(std::string fileName);
+    void settingsConfirmed();
 
 private:
     Model* model;

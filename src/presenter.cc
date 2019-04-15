@@ -111,3 +111,33 @@ void PresenterImpl::fileConfirmed(string fileName) {
 
     view->setSourceFile(fileName);
 }
+
+
+void PresenterImpl::settingsConfirmed() {
+    debugf("settings confirmed");
+
+    // MappingSchemeAccumulator acc;
+    // view->iterateFieldMappingModel(acc);
+    
+
+    // Now we basically need to construct a MappingScheme inside the Model.
+    // Not that clear how to do so, though.
+    // A good first step would be to decide how to work out how to iterate
+    // the row mappings that were defined within the settings dialog.
+
+    // We'll need to declare methods on the View that allow us to access the
+    // FieldMappingTableModel.
+
+    // qDebug() << "dialog was accepted";
+    // done(QDialog::Accepted);
+    // qDebug() << "in post handler";
+
+    // // Dump the model
+    // QString result =  QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    // QDir configPath(result);
+    // QString dumpPath = configPath.filePath("mapping_scheme.json");
+
+    // QString configPrefix = configPath.path();
+    // QDir dir = QDir::root();
+    // qDebug() << "I would create" << configPrefix;
+}

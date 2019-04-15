@@ -32,6 +32,7 @@ public:
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog() = 0;
     virtual void fileConfirmed(std::string fileName) = 0;
+    virtual void settingsConfirmed() = 0;
 };
 
 #endif // INTERFACES_HH
