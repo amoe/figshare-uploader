@@ -4,6 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDir>
+#include <QDebug>
 
 using std::string;
 
@@ -17,7 +18,8 @@ QJsonObject deserialize(const std::string input) {
     if (possibleError.error == QJsonParseError::NoError) {
         return result.object();
     } else {
-        throw new std::runtime_error("parse error");
+        qDebug() << possibleError.errorString();
+        throw new std::runtime_error(possibleError.errorString().toStdString());
     }
 }
 

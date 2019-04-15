@@ -21,17 +21,17 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
 
     const string expectedResult = R"(
         {
-            rows: [
+            "rows": [
                 {
-                    sourceRowIndex: 0,
-                    fieldEncoder: {
-                        targetField: {
-                            'fieldType': 'standard',
-                            'name': 'title'
+                    "sourceRowIndex": 0,
+                    "fieldEncoder": {
+                        "targetField": {
+                            "fieldType": "standard",
+                            "name": "title"
                         },
-                        name: 'string',
-                        options: {
-                            validator: null
+                        "name": "string",
+                        "options": {
+                            "validator": null
                         }
                     }
                 }
