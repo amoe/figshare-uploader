@@ -1,3 +1,4 @@
+#include <QWidget>
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -7,6 +8,7 @@
 #include "field_encoder_list_view.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
+#include "field_encoder_list_context_menu.hh"
 
 FieldEncoderListView::FieldEncoderListView(
     QAbstractItemModel* theModel, QWidget* parent
@@ -25,8 +27,6 @@ FieldEncoderListView::FieldEncoderListView(
 
     listView->setModel(theModel);
     vbox->addWidget(listView);
-
-    this->contextMenu = makeContextMenu();
 }
 
 void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
@@ -44,30 +44,27 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
     }
 
     qDebug() << "model index result was" << result;
-    this->contextMenu->exec(event->globalPos());
-}
 
+    FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(result, this);
 
-QMenu* FieldEncoderListView::makeContextMenu() {
-    QMenu* result = new QMenu(this);
-
-    // Laboriously construct the edit action
-    QAction* editAction = new QAction("Edit", this);
+    // ???
+    // connect(
+    //     editAction,
+    //     &QAction::triggered,
+    //     this,
+    //     &FieldEncoderListView::triggerEdit
+    // );
 
     connect(
-        editAction,
-        &QAction::triggered,
+        thisMenu,
+        &FieldEncoderListContextMenu::deleteRequested, 
         this,
-        &FieldEncoderListView::triggerEdit
+        &FieldEncoderListView::deleteItem
     );
-
-    result->addAction(editAction);
-
-    // Then...
-    result->addAction("Delete");
-
-    return result;
+ 
+    thisMenu->exec(event->globalPos());
 }
+
 
 void FieldEncoderListView::triggerEdit() {
     qDebug() << "I would trigger an edit";
@@ -75,4 +72,9 @@ void FieldEncoderListView::triggerEdit() {
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
     int result = dialog->exec();
     qDebug() << "dialog exited with result" << result;
+}
+
+
+void FieldEncoderListView::deleteItem(QModelIndex index) {
+    qDebug() << "I would delete an item" << index;
 }

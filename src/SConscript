@@ -148,6 +148,7 @@ PROGRAM_SOURCES = [
     "field_encoder.cc",
     "field_encoder_configuration_dialog.cc",
     "field_encoder_list_view.cc",
+    "field_encoder_list_context_menu.cc",
     "field_encoder_model.cc",
     "field_mapping_table_model.cc",
     "figshare_gateway.cc",

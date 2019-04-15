@@ -14,6 +14,7 @@ public:
 
 public slots:
     void triggerEdit();
+    void deleteItem(QModelIndex index);
 
 private:
     QMenu* makeContextMenu();
