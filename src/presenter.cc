@@ -116,6 +116,8 @@ void PresenterImpl::fileConfirmed(string fileName) {
 void PresenterImpl::settingsConfirmed() {
     debugf("settings confirmed");
 
+    view->iterateFieldMappingModel();
+
     // MappingSchemeAccumulator acc;
     // view->iterateFieldMappingModel(acc);
     

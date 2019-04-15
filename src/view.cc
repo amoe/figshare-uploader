@@ -178,3 +178,6 @@ void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     settingsDialog->show();
 }
 
+void ViewImpl::iterateFieldMappingModel() {
+    qDebug() << "iterating field mapping model";
+}

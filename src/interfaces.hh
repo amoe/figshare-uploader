@@ -19,6 +19,7 @@ public:
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog(vector<string> headerFields) = 0;
     virtual void setSourceFile(std::string sourceFile) = 0;
+    virtual void iterateFieldMappingModel() = 0;
 };
 
 class Presenter {

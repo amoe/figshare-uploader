@@ -31,6 +31,7 @@ public:
     void setProgressReporter(ViewProgressAdapter* reporter);
     void showSettingsDialog(vector<string> headerFields);
     void setSourceFile(std::string sourceFile);
+    void iterateFieldMappingModel();
  
 private:
     Presenter* presenter;
