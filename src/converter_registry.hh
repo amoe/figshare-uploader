@@ -20,6 +20,7 @@ struct EnumClassHash {
 
 class Converter {
 public:
+    virtual ~Converter() { }
     virtual IntermediateMappingOutput applyConversion(string input, OptionsMap options) = 0;
 };
 
@@ -41,6 +42,7 @@ static const unordered_map<string, LookupType> LOOKUP_TYPE_NAMES = {
 
 class LookupRegistry {
 public:
+    virtual ~LookupRegistry() { }
     virtual QJsonValue lookupByString(LookupType type, string value) = 0;
 };
 
