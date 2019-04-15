@@ -24,7 +24,6 @@ FieldEncoderListView::FieldEncoderListView(
 
 
     listView = new QListView(this);
-
     listView->setModel(theModel);
     vbox->addWidget(listView);
 }
@@ -47,26 +46,21 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 
     FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(result, this);
 
-    // ???
-    // connect(
-    //     editAction,
-    //     &QAction::triggered,
-    //     this,
-    //     &FieldEncoderListView::triggerEdit
-    // );
-
     connect(
-        thisMenu,
-        &FieldEncoderListContextMenu::deleteRequested, 
-        this,
-        &FieldEncoderListView::deleteItem
+        thisMenu, &FieldEncoderListContextMenu::deleteRequested, 
+        this, &FieldEncoderListView::deleteItem
+    );
+    
+    connect(
+        thisMenu, &FieldEncoderListContextMenu::editRequested, 
+        this, &FieldEncoderListView::triggerEdit
     );
  
     thisMenu->exec(event->globalPos());
 }
 
 
-void FieldEncoderListView::triggerEdit() {
+void FieldEncoderListView::triggerEdit(QModelIndex index) {
     qDebug() << "I would trigger an edit";
 
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);

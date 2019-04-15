@@ -13,12 +13,10 @@ public:
     void contextMenuEvent(QContextMenuEvent* event) override;
 
 public slots:
-    void triggerEdit();
+    void triggerEdit(QModelIndex index);
     void deleteItem(QModelIndex index);
 
 private:
-    QMenu* makeContextMenu();
-    QMenu* contextMenu;
     QListView* listView;
 };
 

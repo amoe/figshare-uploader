@@ -10,14 +10,9 @@ class FieldEncoderListContextMenu: public QMenu {
 public:
     FieldEncoderListContextMenu(QModelIndex modelIndex, QWidget* parent);
 
-public slots:
-    void forwardBlah(bool checked);
-
 signals:
     void deleteRequested(QModelIndex modelIndex);
-
-private:
-    QModelIndex modelIndex;
+    void editRequested(QModelIndex modelIndex);
 };
 
 #endif /* FIELD_ENCODER_LIST_CONTEXT_MENU_HH */
