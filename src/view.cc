@@ -21,11 +21,10 @@
 #include "presenter.hh"
 #include "slot_adapter.hh"
 #include "settings_dialog.hh"
+#include "field_encoder_model.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
-    // This needs to be initialized here.
-    QStringList stringList = {"fry", "bender", "leela"};
-    fieldEncoderModel = new QStringListModel(stringList, this);
+    fieldEncoderModel = new FieldEncoderModel;
 
     QWidget* contentWidget = new QWidget(this);
     

@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "field_encoder_model.hh"
 
 FieldEncoderModel::FieldEncoderModel() {
@@ -6,7 +7,7 @@ FieldEncoderModel::FieldEncoderModel() {
 }
 
 Qt::ItemFlags FieldEncoderModel::flags(const QModelIndex& index) const {
-    return this->innerModel->flags(index);
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 int FieldEncoderModel::rowCount(const QModelIndex& parent) const {
