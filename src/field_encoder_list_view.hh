@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QContextMenuEvent>
+#include <QListView>
 #include <QMenu>
 #include <QAbstractItemModel>
 
@@ -17,6 +18,7 @@ public slots:
 private:
     QMenu* makeContextMenu();
     QMenu* contextMenu;
+    QListView* listView;
 };
 
 

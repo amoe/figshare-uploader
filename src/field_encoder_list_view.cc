@@ -1,7 +1,6 @@
 #include <QMenu>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QListView>
 #include <QStringListModel>
 #include <QDebug>
 #include "slot_adapter.hh"
@@ -22,16 +21,29 @@ FieldEncoderListView::FieldEncoderListView(
     vbox->addWidget(help2);
 
 
-    QListView* list = new QListView(this);
+    listView = new QListView(this);
 
-    list->setModel(theModel);
-    vbox->addWidget(list);
+    listView->setModel(theModel);
+    vbox->addWidget(listView);
 
     this->contextMenu = makeContextMenu();
 }
 
 void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
     qDebug() << "event happened";
+    qDebug() << "list view is registered as" << listView;
+
+    QPoint widgetPos = listView->mapFromGlobal(event->globalPos());
+    QModelIndex result = listView->indexAt(widgetPos);
+
+
+    if (result.isValid()) {
+        // They clicked on a 'real' item
+    } else {
+        // They probably clicked outside of the list view
+    }
+
+    qDebug() << "model index result was" << result;
     this->contextMenu->exec(event->globalPos());
 }
 
