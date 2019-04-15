@@ -161,6 +161,7 @@ PROGRAM_SOURCES = [
     "mapping_engine.cc",
     "mapping_table_widget.cc",
     "mapping_types.cc",
+    "mapping_scheme_serializer.cc",
     "model.cc",
     "part_preparer.cc",
     "path_extractor.cc",
@@ -212,7 +213,8 @@ TEST_SOURCES = [
     "upload_command_processor_test.cc",
     "upload_container_info_test.cc",
     "utility_test.cc",
-    "xlsx_test.cc"
+    "xlsx_test.cc",
+    "mapping_types_serialization_test.cc"
 ]
 
 env.Program(

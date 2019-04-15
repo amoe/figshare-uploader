@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -7,8 +8,17 @@
 using std::string;
 
 QJsonObject deserialize(const std::string input) {
-    auto result = QJsonDocument::fromJson(QString::fromStdString(input).toUtf8());
-    return result.object();
+    QJsonParseError possibleError;
+    auto result = QJsonDocument::fromJson(
+        QString::fromStdString(input).toUtf8(),
+        &possibleError
+    );
+
+    if (possibleError.error == QJsonParseError::NoError) {
+        return result.object();
+    } else {
+        throw new std::runtime_error("parse error");
+    }
 }
 
 
