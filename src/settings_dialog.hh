@@ -11,7 +11,11 @@ using std::vector;
 
 class SettingsDialog: public QDialog {
 public:
-    SettingsDialog(QAbstractItemModel* fieldMappingModel, QWidget* parent);
+    SettingsDialog(
+        QAbstractItemModel* fieldMappingModel,
+        QAbstractItemModel* fieldEncoderModel,
+        QWidget* parent
+    );
     QSize sizeHint() const;
 };
 

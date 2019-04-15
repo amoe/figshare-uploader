@@ -13,6 +13,8 @@
 #include <QMenuBar>
 #include <QIcon>
 #include <QSize>
+#include <QStringListModel>
+
 #include "field_mapping_table_model.hh"
 #include "logging.hh"
 #include "view.hh"
@@ -21,6 +23,10 @@
 #include "settings_dialog.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
+    // This needs to be initialized here.
+    QStringList stringList = {"fry", "bender", "leela"};
+    fieldEncoderModel = new QStringListModel(stringList, this);
+
     QWidget* contentWidget = new QWidget(this);
     
     setWindowTitle("Figshare Uploader");
@@ -67,7 +73,6 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     setCentralWidget(contentWidget);
 
     SlotAdapter slotAdapter(presenter, &Presenter::startUpload);
-
     connect(
         this->actionButton,
         &QPushButton::released,
@@ -166,7 +171,7 @@ void ViewImpl::showAboutDialog() {
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     fieldMappingModel = new FieldMappingTableModel(headerFields, this);
-    SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, this);
+    SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, fieldEncoderModel, this);
 
     // We should be setting up the connections here.
     // We should connect to presenter.

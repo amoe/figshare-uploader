@@ -14,15 +14,15 @@
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
 
-SettingsDialog::SettingsDialog(QAbstractItemModel* fieldMappingModel, QWidget* parent): QDialog(parent) {
+SettingsDialog::SettingsDialog(
+    QAbstractItemModel* fieldMappingModel,
+    QAbstractItemModel* fieldEncoderModel,
+    QWidget* parent
+): QDialog(parent) {
     setWindowTitle("Settings");
 
     QTabWidget* container = new QTabWidget(this);
         
-    QStringList stringList = {"fry", "bender", "leela"};
-    QStringListModel* fieldEncoderModel = new QStringListModel(stringList, this);
-
-
     MappingTableWidget* mappingTable = new MappingTableWidget(
         fieldEncoderModel, fieldMappingModel, this
     );

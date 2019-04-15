@@ -41,6 +41,7 @@ private:
     QPlainTextEdit* logger;
     ViewProgressAdapter* reporter;
     FieldMappingTableModel* fieldMappingModel;
+    QAbstractItemModel* fieldEncoderModel;
 
 private slots:
     void addQLog(QString logText);
