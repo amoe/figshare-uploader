@@ -17,7 +17,6 @@ matrix:
         - make || exit 1
         - sudo make install || exit 1
         - cd ../..
-        - brew upgrade python3
 
       script:
         - export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
