@@ -9,15 +9,20 @@
 #include "field_encoder_configuration_dialog.hh"
 
 class FieldEncoderListView: public QWidget {
+    Q_OBJECT
+
 public:
     FieldEncoderListView(QAbstractItemModel* theModel, QWidget* parent);
     void contextMenuEvent(QContextMenuEvent* event) override;
+
+signals:
+    // This is manually forwarded all the way to the View.
+    void fieldEncoderDialogConfirmed(FieldEncoderDTO data);
 
 public slots:
     void triggerNew();
     void triggerEdit(QModelIndex index);
     void deleteItem(QModelIndex index);
-    void encoderDialogConfirmed(FieldEncoderDTO dto);
 
 private:
     QListView* listView;

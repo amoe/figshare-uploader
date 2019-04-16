@@ -34,7 +34,7 @@ public:
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
-    void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto);
+    void onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto);
  
 private slots:
     void addQLog(QString logText);

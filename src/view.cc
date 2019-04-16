@@ -177,6 +177,11 @@ void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     SlotAdapter slotAdapter(presenter, &Presenter::settingsConfirmed);
     connect(settingsDialog, &QDialog::accepted, slotAdapter);
 
+    connect(
+        settingsDialog, &SettingsDialog::fieldEncoderDialogConfirmed,
+        this, &ViewImpl::onFieldEncoderConfigurationDialogConfirmed
+    );
+
     // Block execution until "accepted" signal is emitted.
     settingsDialog->show();
 }
@@ -189,26 +194,24 @@ void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
     fieldEncoderModel = new FieldEncoderModel(availableEncoders);
 }
 
-// HOW TO CONNECT THIS TO THE DEEP SIGNAL -- 
-// FieldEncoderConfigurationDialog:     void dialogConfirmed(FieldEncoderDTO data);
+void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
+    qDebug() << "SIGNAL REACHED THE VIEWIMPL";
+    // FieldEncoderDomainDTO result;
 
-void ViewImpl::fieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
-    FieldEncoderDomainDTO result;
+    // result.index = 0;  // FIXME
+    // result.targetFieldTypeId = dto.targetFieldTypeId;
+    // result.fieldName = dto.fieldName.toStdString();
+    // result.converterIndex = dto.selectedConverter.row();
 
-    result.index = 0;  // FIXME
-    result.targetFieldTypeId = dto.targetFieldTypeId;
-    result.fieldName = dto.fieldName.toStdString();
-    result.converterIndex = dto.selectedConverter.row();
+    // // Map QList destructively
+    // vector<int> validationRuleIndices;
+    // auto& dtoRules = dto.selectedValidationRules;
 
-    // Map QList destructively
-    vector<int> validationRuleIndices;
-    auto& dtoRules = dto.selectedValidationRules;
+    // while (!dtoRules.isEmpty()) {
+    //     QModelIndex index = dtoRules.takeFirst();
+    //     validationRuleIndices.push_back(index.row());
+    // }
 
-    while (!dtoRules.isEmpty()) {
-        QModelIndex index = dtoRules.takeFirst();
-        validationRuleIndices.push_back(index.row());
-    }
-
-    result.validationRuleIndices = validationRuleIndices;
-    presenter->fieldEncoderConfigurationDialogConfirmed(result);
+    // result.validationRuleIndices = validationRuleIndices;
+    // presenter->fieldEncoderConfigurationDialogConfirmed(result);
 }

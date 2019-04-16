@@ -70,6 +70,12 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 void FieldEncoderListView::triggerEdit(QModelIndex index) {
     qDebug() << "I would trigger an edit";
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
+    // Forward this signal
+    connect(
+        dialog, &FieldEncoderConfigurationDialog::fieldEncoderDialogConfirmed,
+        this, &FieldEncoderListView::fieldEncoderDialogConfirmed
+    );
+
     int result = dialog->exec();
     qDebug() << "dialog exited with result" << result;
 }
@@ -78,22 +84,18 @@ void FieldEncoderListView::triggerNew() {
     qDebug() << "I would trigger a new-field-encoder dialog";
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
 
+
+    // Forward this signal
     connect(
-        dialog, &FieldEncoderConfigurationDialog::dialogConfirmed,
-        this, &FieldEncoderListView::encoderDialogConfirmed
+        dialog, &FieldEncoderConfigurationDialog::fieldEncoderDialogConfirmed,
+        this, &FieldEncoderListView::fieldEncoderDialogConfirmed
     );
 
     int result = dialog->exec();
     qDebug() << "dialog exited with result" << result;
 }
 
-
 void FieldEncoderListView::deleteItem(QModelIndex index) {
     qDebug() << "I would delete an item" << index;
     theModel->removeRow(index.row());
-}
-
-void FieldEncoderListView::encoderDialogConfirmed(FieldEncoderDTO dto) {
-    qDebug() << "confirmed";
-    qDebug() << "I received a dto" << dto.targetFieldTypeId << dto.fieldName << dto.selectedConverter << dto.selectedValidationRules;
 }

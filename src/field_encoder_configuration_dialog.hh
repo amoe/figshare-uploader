@@ -23,7 +23,7 @@ public:
 
 signals:
     // This is manually forwarded all the way to the View.
-    void dialogConfirmed(FieldEncoderDTO data);
+    void fieldEncoderDialogConfirmed(FieldEncoderDTO data);
     
 public slots:
     void showDialog();

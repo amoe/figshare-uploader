@@ -168,6 +168,7 @@ void FieldEncoderConfigurationDialog::accept() {
     result.selectedConverter = converterList->currentIndex();
     result.selectedValidationRules = validatorList->selectionModel()->selectedIndexes();
 
-    emit dialogConfirmed(result);
+    qDebug() << "About to emit confirmation signal";
+    emit fieldEncoderDialogConfirmed(result);
     done(QDialog::Accepted);
 }

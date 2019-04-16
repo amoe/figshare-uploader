@@ -28,6 +28,11 @@ SettingsDialog::SettingsDialog(
     );
     FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(fieldEncoderModel, this);
 
+    connect(
+        fieldEncoderList, &FieldEncoderListView::fieldEncoderDialogConfirmed,
+        this, &SettingsDialog::fieldEncoderDialogConfirmed
+    );
+
     container->addTab(mappingTable, "Field mapping");
     container->addTab(fieldEncoderList, "Encoder configuration");
 
