@@ -8,9 +8,10 @@
 #include <QButtonGroup>
 
 struct FieldEncoderDTO {
-    FieldEncoderDTO() { val = 42; }
-
-    int val;
+    int targetFieldTypeId;
+    QString fieldName;
+    QModelIndex selectedConverter;
+    QModelIndexList selectedValidationRules;
 };
 
 class FieldEncoderConfigurationDialog : public QDialog
@@ -34,6 +35,7 @@ private:
     QWidget* makeControls();
 
     QListView* converterList;
+    QListView* validatorList;
     QButtonGroup* targetFieldTypeGroup;
     QLineEdit* targetFieldName;
 };

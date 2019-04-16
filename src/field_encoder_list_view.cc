@@ -95,5 +95,5 @@ void FieldEncoderListView::deleteItem(QModelIndex index) {
 
 void FieldEncoderListView::encoderDialogConfirmed(FieldEncoderDTO dto) {
     qDebug() << "confirmed";
-    qDebug() << "I received a dto" << dto.val;
+    qDebug() << "I received a dto" << dto.targetFieldTypeId << dto.fieldName << dto.selectedConverter << dto.selectedValidationRules;
 }

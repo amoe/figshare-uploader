@@ -107,7 +107,8 @@ QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
     groupBox->setCheckable(true);
     groupBox->setChecked(true);  /// change me
 
-    QListView* validatorList = new QListView;
+    validatorList = new QListView;
+    validatorList->setSelectionMode(QAbstractItemView::MultiSelection);
     QStringList stringList = {
         "url",
         "reasonableSize"
@@ -155,13 +156,16 @@ void FieldEncoderConfigurationDialog::showDialog() {
 
 void FieldEncoderConfigurationDialog::accept() {
     // Emit our own object to transfer the data back to somewhere that it can
-    // be dealt with.
-    // FIXME: Actually populate it
+    // be dealt with.  We get the data out of the dialog in the most basic way
+    // possible.  We want this part of the code to not contain tons of munging
+    // logic.
+
     FieldEncoderDTO result;
 
-    int targetFieldTypeId = targetFieldTypeGroup->checkedId();
-    QString text = targetFieldName->text();
-    
+    result.targetFieldTypeId = targetFieldTypeGroup->checkedId();
+    result.fieldName = targetFieldName->text();
+    result.selectedConverter = converterList->currentIndex();
+    result.selectedValidationRules = validatorList->selectionModel()->selectedIndexes();
 
     emit dialogConfirmed(result);
     done(QDialog::Accepted);
