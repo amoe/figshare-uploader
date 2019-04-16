@@ -159,6 +159,7 @@ void FieldEncoderConfigurationDialog::accept() {
     // be dealt with.  We get the data out of the dialog in the most basic way
     // possible.  We want this part of the code to not contain tons of munging
     // logic.
+    // This DTO will be received in FieldEncoderListView#encoderDialogConfirmed.
 
     FieldEncoderDTO result;
 

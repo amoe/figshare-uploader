@@ -11,6 +11,7 @@
 #include "interfaces.hh"
 #include "progress_reporter.hh"
 #include "version.hh"
+#include "field_encoder_configuration_dialog.hh"
 
 using std::string;
 using std::vector;
@@ -33,6 +34,7 @@ public:
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
+    void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto);
  
 private slots:
     void addQLog(QString logText);

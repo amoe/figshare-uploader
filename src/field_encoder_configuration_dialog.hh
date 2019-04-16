@@ -22,6 +22,7 @@ public:
     FieldEncoderConfigurationDialog(QWidget *parent = nullptr);
 
 signals:
+    // This is manually forwarded all the way to the View.
     void dialogConfirmed(FieldEncoderDTO data);
     
 public slots:

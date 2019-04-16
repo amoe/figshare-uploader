@@ -5,6 +5,7 @@
 #include <vector>
 #include "progress_reporter.hh"
 #include "mapping_types.hh"
+#include "data_transfer_objects.hh"
 
 using std::string;
 using std::vector;
@@ -37,6 +38,7 @@ public:
     virtual void showSettingsDialog() = 0;
     virtual void fileConfirmed(std::string fileName) = 0;
     virtual void settingsConfirmed() = 0;
+    virtual void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto) = 0;
 };
 
 #endif // INTERFACES_HH

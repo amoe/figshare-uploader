@@ -13,7 +13,6 @@ using std::string;
 typedef void (Presenter::*PresenterSlot)();
 typedef void (Presenter::*PresenterStringSlot)(string value);
 
-
 class SlotAdapter {
 public:
     SlotAdapter(Presenter* p, PresenterSlot f) : p(p), f(f) { }

@@ -144,3 +144,7 @@ void PresenterImpl::settingsConfirmed() {
     // QDir dir = QDir::root();
     // qDebug() << "I would create" << configPrefix;
 }
+
+void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto) {
+    debugf("inside presenter fieldEncoderConfigurationDialogConfirmed");
+}

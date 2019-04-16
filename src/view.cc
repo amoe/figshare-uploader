@@ -22,6 +22,7 @@
 #include "slot_adapter.hh"
 #include "settings_dialog.hh"
 #include "field_encoder_model.hh"
+#include "data_transfer_objects.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     QWidget* contentWidget = new QWidget(this);
@@ -186,4 +187,28 @@ void ViewImpl::iterateFieldMappingModel() {
 
 void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
     fieldEncoderModel = new FieldEncoderModel(availableEncoders);
+}
+
+// HOW TO CONNECT THIS TO THE DEEP SIGNAL -- 
+// FieldEncoderConfigurationDialog:     void dialogConfirmed(FieldEncoderDTO data);
+
+void ViewImpl::fieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
+    FieldEncoderDomainDTO result;
+
+    result.index = 0;  // FIXME
+    result.targetFieldTypeId = dto.targetFieldTypeId;
+    result.fieldName = dto.fieldName.toStdString();
+    result.converterIndex = dto.selectedConverter.row();
+
+    // Map QList destructively
+    vector<int> validationRuleIndices;
+    auto& dtoRules = dto.selectedValidationRules;
+
+    while (!dtoRules.isEmpty()) {
+        QModelIndex index = dtoRules.takeFirst();
+        validationRuleIndices.push_back(index.row());
+    }
+
+    result.validationRuleIndices = validationRuleIndices;
+    presenter->fieldEncoderConfigurationDialogConfirmed(result);
 }

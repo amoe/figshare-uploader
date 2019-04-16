@@ -25,6 +25,7 @@ public:
     void showSettingsDialog();
     void fileConfirmed(std::string fileName);
     void settingsConfirmed();
+    void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto);
 
 private:
     Model* model;
