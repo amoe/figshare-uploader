@@ -149,6 +149,8 @@ void FieldEncoderConfigurationDialog::showDialog() {
 }
 
 void FieldEncoderConfigurationDialog::accept() {
+    // Emit our own object to transfer the data back to somewhere that it can
+    // be dealt with.
     FieldEncoderDTO result;
     emit dialogConfirmed(result);
     done(QDialog::Accepted);
