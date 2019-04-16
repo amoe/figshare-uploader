@@ -3,6 +3,16 @@
 
 Model::Model() {
     this->sourceFile = nullopt;
+
+    // Initialize standard field encoders
+    TargetField targetField(TargetFieldType::STANDARD, "title");
+    FieldEncoder titleEncoder(
+        optional<TargetField>(targetField),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+    availableEncoders = {titleEncoder};
 }
 
 Model::~Model() {
