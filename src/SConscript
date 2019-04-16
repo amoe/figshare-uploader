@@ -204,6 +204,7 @@ TEST_SOURCES = [
     "object_mother.cc",
     "part_preparer_test.cc",
     "path_extractor_test.cc",
+    "presenter_test.cc",
     "requests_test.cc",
     "responses_test.cc",
     "scratch_test.cc",

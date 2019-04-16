@@ -158,4 +158,6 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     for (int v: dto.validationRuleIndices) {
         std::cout << "Validation rule assigned: " << v << std::endl;
     }
+
+    // Now we should be able to write a test for the Presenter.
 }
