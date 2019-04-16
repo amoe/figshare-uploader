@@ -15,8 +15,12 @@ int FieldEncoderModel::columnCount(const QModelIndex& parent) const {
 }
 
 QVariant FieldEncoderModel::data(const QModelIndex& index, int role) const {
+    FieldEncoder theEncoder = availableEncoders.at(index.row());
+
+    string targetFieldName = theEncoder.getTargetField().value().getName();
+
     if (role == Qt::DisplayRole) {
-        return QVariant("SOME ENCODER");
+        return QVariant(QString::fromStdString(targetFieldName));
     } else {
         return QVariant();
     }
