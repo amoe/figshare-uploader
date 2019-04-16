@@ -24,17 +24,6 @@
 #include "field_encoder_model.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
-    TargetField targetField(TargetFieldType::STANDARD, "title");
-    FieldEncoder titleEncoder(
-        optional<TargetField>(targetField),
-        ConverterName::STRING,
-        {},
-        {}
-    );
-    vector<FieldEncoder> availableEncoders = {titleEncoder};
-
-    fieldEncoderModel = new FieldEncoderModel(availableEncoders);
-
     QWidget* contentWidget = new QWidget(this);
     
     setWindowTitle("Figshare Uploader");
@@ -193,4 +182,8 @@ void ViewImpl::showSettingsDialog(vector<string> headerFields) {
 
 void ViewImpl::iterateFieldMappingModel() {
     qDebug() << "iterating field mapping model";
+}
+
+void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
+    fieldEncoderModel = new FieldEncoderModel(availableEncoders);
 }

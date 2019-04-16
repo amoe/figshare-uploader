@@ -2,7 +2,9 @@
 #define INTERFACES_HH
 
 #include <string>
+#include <vector>
 #include "progress_reporter.hh"
+#include "mapping_types.hh"
 
 using std::string;
 using std::vector;
@@ -14,12 +16,13 @@ public:
     virtual void reportError(std::string errorText) = 0;
     virtual void addLog(std::string logText) = 0;
     virtual void showFileDialog() = 0;
-    virtual void setToken(std::string newToken) = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog(vector<string> headerFields) = 0;
     virtual void setSourceFile(std::string sourceFile) = 0;
     virtual void iterateFieldMappingModel() = 0;
+    virtual void setToken(std::string newToken) = 0;
+    virtual void setAvailableEncoders(vector<FieldEncoder>& availableEncoders) = 0;
 };
 
 class Presenter {

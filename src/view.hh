@@ -32,7 +32,11 @@ public:
     void showSettingsDialog(vector<string> headerFields);
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
+    void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
  
+private slots:
+    void addQLog(QString logText);
+
 private:
     Presenter* presenter;
     QLineEdit* selectedFile;
@@ -42,9 +46,6 @@ private:
     ViewProgressAdapter* reporter;
     FieldMappingTableModel* fieldMappingModel;
     QAbstractItemModel* fieldEncoderModel;
-
-private slots:
-    void addQLog(QString logText);
 };
 
 #endif // VIEW_HH

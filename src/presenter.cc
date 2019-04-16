@@ -28,6 +28,7 @@ void PresenterImpl::initializeView() {
     debugf("initializing view");
 
     view->setToken(Settings::getTokenOrEmpty());
+    view->setAvailableEncoders(model->getAvailableEncoders());
 }
 
 void PresenterImpl::startUpload() {
