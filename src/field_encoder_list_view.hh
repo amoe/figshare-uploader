@@ -6,6 +6,7 @@
 #include <QListView>
 #include <QMenu>
 #include <QAbstractItemModel>
+#include "field_encoder_configuration_dialog.hh"
 
 class FieldEncoderListView: public QWidget {
 public:
@@ -13,8 +14,10 @@ public:
     void contextMenuEvent(QContextMenuEvent* event) override;
 
 public slots:
+    void triggerNew();
     void triggerEdit(QModelIndex index);
     void deleteItem(QModelIndex index);
+    void encoderDialogConfirmed(FieldEncoderDTO dto);
 
 private:
     QListView* listView;

@@ -49,6 +49,11 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
     FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(result, this);
 
     connect(
+        thisMenu, &FieldEncoderListContextMenu::newRequested, 
+        this, &FieldEncoderListView::triggerNew
+    );
+
+    connect(
         thisMenu, &FieldEncoderListContextMenu::deleteRequested, 
         this, &FieldEncoderListView::deleteItem
     );
@@ -64,8 +69,20 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 
 void FieldEncoderListView::triggerEdit(QModelIndex index) {
     qDebug() << "I would trigger an edit";
-
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
+    int result = dialog->exec();
+    qDebug() << "dialog exited with result" << result;
+}
+
+void FieldEncoderListView::triggerNew() {
+    qDebug() << "I would trigger a new-field-encoder dialog";
+    FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
+
+    connect(
+        dialog, &FieldEncoderConfigurationDialog::dialogConfirmed,
+        this, &FieldEncoderListView::encoderDialogConfirmed
+    );
+
     int result = dialog->exec();
     qDebug() << "dialog exited with result" << result;
 }
@@ -74,4 +91,9 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
 void FieldEncoderListView::deleteItem(QModelIndex index) {
     qDebug() << "I would delete an item" << index;
     theModel->removeRow(index.row());
+}
+
+void FieldEncoderListView::encoderDialogConfirmed(FieldEncoderDTO dto) {
+    qDebug() << "confirmed";
+    qDebug() << "I received a dto" << dto.val;
 }

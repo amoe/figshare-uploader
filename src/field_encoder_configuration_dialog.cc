@@ -31,7 +31,8 @@ QWidget* FieldEncoderConfigurationDialog::makeControls()  {
     QDialogButtonBox* buttonBox = new QDialogButtonBox(
         QDialogButtonBox::Ok | QDialogButtonBox::Cancel
     );
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &FieldEncoderConfigurationDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
     return buttonBox;
@@ -145,4 +146,10 @@ void FieldEncoderConfigurationDialog::showDialog() {
 
     qDebug() << "serialization is" << json;
     qDebug() << "index is" << theIndex;
+}
+
+void FieldEncoderConfigurationDialog::accept() {
+    FieldEncoderDTO result;
+    emit dialogConfirmed(result);
+    done(QDialog::Accepted);
 }

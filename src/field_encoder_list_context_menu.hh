@@ -11,6 +11,7 @@ public:
     FieldEncoderListContextMenu(QModelIndex modelIndex, QWidget* parent);
 
 signals:
+    void newRequested();
     void deleteRequested(QModelIndex modelIndex);
     void editRequested(QModelIndex modelIndex);
 };
