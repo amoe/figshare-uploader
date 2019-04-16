@@ -33,8 +33,9 @@ private:
     QGroupBox *createThirdGroup();
     QWidget* makeControls();
 
-    QListView* fieldEncoderList;
+    QListView* converterList;
     QButtonGroup* targetFieldTypeGroup;
+    QLineEdit* targetFieldName;
 };
 
 #endif

@@ -57,10 +57,9 @@ QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup() {
     vbox->addWidget(radio2);
     container->setLayout(vbox);
 
-    QLineEdit* targetFieldName = new QLineEdit;
     QLabel* label = new QLabel("Target field name:");
+    targetFieldName = new QLineEdit(this);
     label->setBuddy(targetFieldName);
-
 
     QHBoxLayout* hbox = new QHBoxLayout;
     hbox->addWidget(container);
@@ -75,7 +74,9 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     QGroupBox *groupBox = new QGroupBox("Conversion types");
     QVBoxLayout *vbox = new QVBoxLayout;
 
-    this->fieldEncoderList = new QListView;
+    converterList = new QListView;
+    converterList->setSelectionMode(QAbstractItemView::SingleSelection);
+
     QStringList stringList = {
         "string",
         "listOfObjects",
@@ -83,8 +84,8 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
         "contributeFiles",
     };
 
-    QAbstractItemModel* fieldEncoderModel = new QStringListModel(stringList);
-    this->fieldEncoderList->setModel(fieldEncoderModel);
+    QAbstractItemModel* converterListModel = new QStringListModel(stringList);
+    converterList->setModel(converterListModel);
 
     QPushButton* advancedButton = new QPushButton("Advanced...");
 
@@ -95,7 +96,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
         &FieldEncoderConfigurationDialog::showDialog
     );
 
-    vbox->addWidget(fieldEncoderList);
+    vbox->addWidget(converterList);
     vbox->addWidget(advancedButton);
     groupBox->setLayout(vbox);
     return groupBox;
@@ -125,7 +126,7 @@ QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
 
 void FieldEncoderConfigurationDialog::showDialog() {
     qDebug() << "I would show dialog";
-    QModelIndex theIndex = this->fieldEncoderList->currentIndex();
+    QModelIndex theIndex = converterList->currentIndex();
     string selectedFieldEncoder = theIndex.data().toString().toStdString();
 
     // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
@@ -138,7 +139,6 @@ void FieldEncoderConfigurationDialog::showDialog() {
     fieldEncoders.insert({"listOfObjects", genericEncoder});
     fieldEncoders.insert({"lookupList", genericEncoder});
     fieldEncoders.insert({"contributeFiles", genericEncoder});
-
 
     FieldEncoder& outOfMap = fieldEncoders.at(selectedFieldEncoder);
 
@@ -160,7 +160,8 @@ void FieldEncoderConfigurationDialog::accept() {
     FieldEncoderDTO result;
 
     int targetFieldTypeId = targetFieldTypeGroup->checkedId();
-    qDebug() << "Target field type id is" << targetFieldTypeId;
+    QString text = targetFieldName->text();
+    
 
     emit dialogConfirmed(result);
     done(QDialog::Accepted);
