@@ -1,6 +1,7 @@
 #include <QDebug>
 #include "field_encoder_model.hh"
 
+
 Qt::ItemFlags FieldEncoderModel::flags(const QModelIndex& index) const {
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
@@ -37,3 +38,17 @@ QModelIndex FieldEncoderModel::parent(const QModelIndex& child) const {
     return QModelIndex();
 }
 
+
+bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent) {
+    qDebug() << "would delete starting at " << row << " with count " << count;
+
+    using it = vector<FieldEncoder>::const_iterator;
+    it start = availableEncoders.begin();
+
+    int lastIndex = row + count;
+    beginRemoveRows(parent, row, lastIndex);
+    availableEncoders.erase(start + row, start + lastIndex);
+    endRemoveRows();
+
+    qDebug() << "size is now " << availableEncoders.size();
+}

@@ -18,6 +18,7 @@ public slots:
 
 private:
     QListView* listView;
+    QAbstractItemModel* theModel;
 };
 
 

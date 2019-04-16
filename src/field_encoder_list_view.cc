@@ -13,6 +13,8 @@
 FieldEncoderListView::FieldEncoderListView(
     QAbstractItemModel* theModel, QWidget* parent
 ): QWidget(parent) {
+    this->theModel = theModel;
+
     QVBoxLayout* vbox = new QVBoxLayout(this);
     this->setLayout(vbox);
 
@@ -71,4 +73,5 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
 
 void FieldEncoderListView::deleteItem(QModelIndex index) {
     qDebug() << "I would delete an item" << index;
+    theModel->removeRow(index.row());
 }
