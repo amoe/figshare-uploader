@@ -39,10 +39,18 @@ QWidget* FieldEncoderConfigurationDialog::makeControls()  {
 }
 
 QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup() {
-    QGroupBox *groupBox = new QGroupBox("Target field");
+    QGroupBox* groupBox = new QGroupBox("Target field");
 
-    QRadioButton *radio1 = new QRadioButton("Standard field");
-    QRadioButton *radio2 = new QRadioButton("Custom field");
+    QButtonGroup* targetFieldTypeGroup = new QButtonGroup(this);
+    QRadioButton* radio1 = new QRadioButton("Standard field");
+    QRadioButton* radio2 = new QRadioButton("Custom field");
+
+    targetFieldTypeGroup->addButton(radio1);
+    targetFieldTypeGroup->addButton(radio2);
+
+    // Assign the symbolic values for them
+    targetFieldTypeGroup->setId(radio1, 0);
+    targetFieldTypeGroup->setId(radio2, 1);
 
     radio1->setChecked(true);
 
@@ -154,6 +162,8 @@ void FieldEncoderConfigurationDialog::accept() {
     // FIXME: Actually populate it
     FieldEncoderDTO result;
 
+    int targetFieldTypeId = targetFieldTypeGroup->checkedId();
+    qDebug() << "Target field type id is" << targetFieldTypeId;
 
     emit dialogConfirmed(result);
     done(QDialog::Accepted);

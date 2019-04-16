@@ -5,6 +5,7 @@
 #include <QListView>
 #include <QGroupBox>
 #include <QDialog>
+#include <QButtonGroup>
 
 struct FieldEncoderDTO {
     FieldEncoderDTO() { val = 42; }
@@ -33,6 +34,7 @@ private:
     QWidget* makeControls();
 
     QListView* fieldEncoderList;
+    QButtonGroup* targetFieldTypeGroup;
 };
 
 #endif
