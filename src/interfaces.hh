@@ -41,4 +41,12 @@ public:
     virtual void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto) = 0;
 };
 
+class Model {
+public:
+    virtual void setSourceFile(string newSourceFile) = 0;
+    virtual optional<string> getSourceFile() const = 0;
+    virtual vector<FieldEncoder>& getAvailableEncoders() = 0;
+    virtual void addFieldEncoder(FieldEncoder f) = 0;
+};
+
 #endif // INTERFACES_HH

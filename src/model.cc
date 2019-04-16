@@ -1,7 +1,7 @@
 #include <iostream>
 #include "model.hh"
 
-Model::Model() {
+ModelImpl::ModelImpl() {
     this->sourceFile = nullopt;
 
     // Initialize standard field encoders
@@ -15,17 +15,21 @@ Model::Model() {
     availableEncoders = {titleEncoder};
 }
 
-Model::~Model() {
+ModelImpl::~ModelImpl() {
 }
 
-void Model::setSourceFile(string newSourceFile) {
+void ModelImpl::setSourceFile(string newSourceFile) {
     this->sourceFile = optional<string>(newSourceFile);
 }
 
-optional<string> Model::getSourceFile() const {
+optional<string> ModelImpl::getSourceFile() const {
     return this->sourceFile;
 }
 
-vector<FieldEncoder>& Model::getAvailableEncoders() {
+vector<FieldEncoder>& ModelImpl::getAvailableEncoders() {
     return availableEncoders;
+}
+
+void ModelImpl::addFieldEncoder(FieldEncoder f) {
+    availableEncoders.push_back(f);
 }

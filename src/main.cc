@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 
     // Model owns the various data.
-    Model model;
+    ModelImpl model;
 
     Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
     ViewImpl* view = new ViewImpl(presenter);
