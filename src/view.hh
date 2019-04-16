@@ -32,6 +32,7 @@ public:
     void showSettingsDialog(vector<string> headerFields);
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
+    void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
  
 private:
     Presenter* presenter;

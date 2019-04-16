@@ -194,3 +194,7 @@ void ViewImpl::showSettingsDialog(vector<string> headerFields) {
 void ViewImpl::iterateFieldMappingModel() {
     qDebug() << "iterating field mapping model";
 }
+
+void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
+    qDebug() << "inside setAvailableEncoders";
+}
