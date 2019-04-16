@@ -13,8 +13,11 @@ using std::map;
 using std::string;
 
 
-FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(QWidget *parent)
-    : QDialog(parent) {
+FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
+    optional<QModelIndex> editIndex,
+    QWidget *parent
+) : QDialog(parent) {
+    this->editIndex = editIndex;
     QGridLayout *grid = new QGridLayout;
 
     grid->addWidget(createFirstGroup(), 0, 0);
@@ -163,6 +166,7 @@ void FieldEncoderConfigurationDialog::accept() {
 
     FieldEncoderDTO result;
 
+    result.index = editIndex.value_or(QModelIndex());
     result.targetFieldTypeId = targetFieldTypeGroup->checkedId();
     result.fieldName = targetFieldName->text();
     result.selectedConverter = converterList->currentIndex();

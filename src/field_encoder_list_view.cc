@@ -69,7 +69,10 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 
 void FieldEncoderListView::triggerEdit(QModelIndex index) {
     qDebug() << "I would trigger an edit";
-    FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
+    FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
+        optional<QModelIndex>(index), this
+    );
+
     // Forward this signal
     connect(
         dialog, &FieldEncoderConfigurationDialog::fieldEncoderDialogConfirmed,
@@ -82,8 +85,9 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
 
 void FieldEncoderListView::triggerNew() {
     qDebug() << "I would trigger a new-field-encoder dialog";
-    FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(this);
-
+    FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
+        nullopt, this
+    );
 
     // Forward this signal
     connect(

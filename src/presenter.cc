@@ -145,6 +145,17 @@ void PresenterImpl::settingsConfirmed() {
     // qDebug() << "I would create" << configPrefix;
 }
 
-void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto) {
+void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
+    FieldEncoderDomainDTO dto
+) {
     debugf("inside presenter fieldEncoderConfigurationDialogConfirmed");
+
+    std::cout << "Index is " << dto.index << std::endl;
+    std::cout << "Field target type id is " << dto.targetFieldTypeId << std::endl;
+    std::cout << "Field name is " << dto.fieldName << std::endl;
+    std::cout << "Converter index is " << dto.converterIndex << std::endl;
+
+    for (int v: dto.validationRuleIndices) {
+        std::cout << "Validation rule assigned: " << v << std::endl;
+    }
 }

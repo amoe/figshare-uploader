@@ -6,8 +6,13 @@
 #include <QGroupBox>
 #include <QDialog>
 #include <QButtonGroup>
+#include "optional.hpp"
+
+using nonstd::optional;
+using nonstd::nullopt;
 
 struct FieldEncoderDTO {
+    QModelIndex index;
     int targetFieldTypeId;
     QString fieldName;
     QModelIndex selectedConverter;
@@ -19,7 +24,9 @@ class FieldEncoderConfigurationDialog : public QDialog
     Q_OBJECT
 
 public:
-    FieldEncoderConfigurationDialog(QWidget *parent = nullptr);
+    FieldEncoderConfigurationDialog(
+        optional<QModelIndex> editIndex, QWidget *parent = nullptr
+    );
 
 signals:
     // This is manually forwarded all the way to the View.
@@ -35,6 +42,7 @@ private:
     QGroupBox *createThirdGroup();
     QWidget* makeControls();
 
+    optional<QModelIndex> editIndex;
     QListView* converterList;
     QListView* validatorList;
     QButtonGroup* targetFieldTypeGroup;

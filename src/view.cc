@@ -196,22 +196,22 @@ void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
 
 void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
     qDebug() << "SIGNAL REACHED THE VIEWIMPL";
-    // FieldEncoderDomainDTO result;
+    FieldEncoderDomainDTO result;
 
-    // result.index = 0;  // FIXME
-    // result.targetFieldTypeId = dto.targetFieldTypeId;
-    // result.fieldName = dto.fieldName.toStdString();
-    // result.converterIndex = dto.selectedConverter.row();
+    result.index = dto.index.row();
+    result.targetFieldTypeId = dto.targetFieldTypeId;
+    result.fieldName = dto.fieldName.toStdString();
+    result.converterIndex = dto.selectedConverter.row();
 
-    // // Map QList destructively
-    // vector<int> validationRuleIndices;
-    // auto& dtoRules = dto.selectedValidationRules;
+    // Map QList destructively
+    vector<int> validationRuleIndices;
+    auto& dtoRules = dto.selectedValidationRules;
 
-    // while (!dtoRules.isEmpty()) {
-    //     QModelIndex index = dtoRules.takeFirst();
-    //     validationRuleIndices.push_back(index.row());
-    // }
+    while (!dtoRules.isEmpty()) {
+        QModelIndex index = dtoRules.takeFirst();
+        validationRuleIndices.push_back(index.row());
+    }
 
-    // result.validationRuleIndices = validationRuleIndices;
-    // presenter->fieldEncoderConfigurationDialogConfirmed(result);
+    result.validationRuleIndices = validationRuleIndices;
+    presenter->fieldEncoderConfigurationDialogConfirmed(result);
 }
