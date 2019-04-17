@@ -105,8 +105,10 @@ void FieldEncoderListView::deleteItem(QModelIndex index) {
 }
 
 void FieldEncoderListView::forwardDialogConfirmedSignal(FieldEncoderDTO dto) {
+    // This is a bit weird, it would be more sensible for the model to be
+    // directly connected to the event, and for the model to be forwarding it.
+    // But it seems to work fine.
     theModel->layoutAboutToBeChanged();
     emit fieldEncoderDialogConfirmed(dto);
-    theModel->blah();
     theModel->layoutChanged();
 }

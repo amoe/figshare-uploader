@@ -60,5 +60,5 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
 void FieldEncoderModel::blah() {
     qDebug() << "inside model etc";
     // Shows that the change did NOT percolate.
-    qDebug() << "size is now " << availableEncoders.size();
+    qDebug() << "size in FieldEncoderModel is now " << availableEncoders.size();
 }
