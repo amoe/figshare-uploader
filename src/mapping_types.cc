@@ -13,6 +13,13 @@ OptionsMap FieldEncoder::getOptions() const {
     return options;
 }
 
+bool FieldEncoder::operator==(const FieldEncoder& other) const {
+    return targetField == other.getTargetField()
+        && converterName == other.getConverterName()
+        && validationRules == other.getValidationRules()
+        && options == other.getOptions();
+}
+
 optional<TargetField> FieldEncoder::getTargetField() const {
     return targetField;
 }
@@ -30,6 +37,9 @@ TargetFieldType TargetField::getTargetFieldType() const {
     return type;
 }
 
+bool TargetField::operator==(const TargetField& other) const {
+    return type == other.getTargetFieldType() && name == other.getName();
+}
 
 // Mapping output types
 

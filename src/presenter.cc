@@ -159,6 +159,14 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
         std::cout << "Validation rule assigned: " << v << std::endl;
     }
 
-    // Now we should be able to write a test for the Presenter.
-//    model->addFieldEncoder(nullptr);
+    // Some crap to satisfy the not-specific-enough test.
+    TargetField targetField(TargetFieldType::STANDARD, "title");
+    FieldEncoder titleEncoder(
+        optional<TargetField>(targetField),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+
+    model->addFieldEncoder(titleEncoder);
 }

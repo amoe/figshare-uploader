@@ -31,12 +31,21 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     FieldEncoderDomainDTO dto;
     dto.index = -1;   // indicates an add
     dto.targetFieldTypeId = 0;
-    dto.fieldName = "title";
+    dto.fieldName = "title2";
     dto.validationRuleIndices = {};
     dto.converterIndex = 0;
 
-    // EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
-    // EXPECT_CALL(model, addFieldEncoder(_));
+
+    TargetField targetField(TargetFieldType::STANDARD, "title2");
+    FieldEncoder expectedFieldEncoder(
+        optional<TargetField>(targetField),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+
+    // You need to be able to compare these, to be able to test them.
+    EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
 
     //optional<TargetField> targetField = nullopt

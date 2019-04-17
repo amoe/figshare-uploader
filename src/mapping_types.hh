@@ -86,6 +86,7 @@ public:
     TargetField(TargetFieldType type, string name): type(type), name(name) { }
     TargetFieldType getTargetFieldType() const;
     string getName() const;
+    bool operator==(const TargetField& other) const;
 
 private:
     TargetFieldType type;
@@ -109,6 +110,8 @@ public:
     vector<ValidationRule> getValidationRules() const;
     
     MappingOutput applyEncoder(MappingOutput seed, IntermediateMappingOutput operand) const;
+
+    bool operator==(const FieldEncoder& other) const;
 
 private:
     optional<TargetField> targetField;
