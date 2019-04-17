@@ -160,12 +160,15 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     }
 
     // Some crap to satisfy the not-specific-enough test.
-    TargetField targetField(TargetFieldType::STANDARD, "title");
+    TargetField targetField(
+        static_cast<TargetFieldType>(dto.targetFieldTypeId),
+        dto.fieldName
+    );
     FieldEncoder titleEncoder(
         optional<TargetField>(targetField),
-        ConverterName::STRING,
+        static_cast<ConverterName>(dto.converterIndex),
         {},
-        {}
+        {}   // Not supporting passing options!
     );
 
     model->addFieldEncoder(titleEncoder);
