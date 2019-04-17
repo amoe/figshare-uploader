@@ -11,7 +11,7 @@
 #include "field_encoder_list_context_menu.hh"
 
 FieldEncoderListView::FieldEncoderListView(
-    QAbstractItemModel* theModel, QWidget* parent
+    FieldEncoderModel* theModel, QWidget* parent
 ): QWidget(parent) {
     this->theModel = theModel;
 
@@ -92,7 +92,7 @@ void FieldEncoderListView::triggerNew() {
     // Forward this signal
     connect(
         dialog, &FieldEncoderConfigurationDialog::fieldEncoderDialogConfirmed,
-        this, &FieldEncoderListView::fieldEncoderDialogConfirmed
+        this, &FieldEncoderListView::forwardDialogConfirmedSignal
     );
 
     int result = dialog->exec();
@@ -102,4 +102,11 @@ void FieldEncoderListView::triggerNew() {
 void FieldEncoderListView::deleteItem(QModelIndex index) {
     qDebug() << "I would delete an item" << index;
     theModel->removeRow(index.row());
+}
+
+void FieldEncoderListView::forwardDialogConfirmedSignal(FieldEncoderDTO dto) {
+    theModel->layoutAboutToBeChanged();
+    emit fieldEncoderDialogConfirmed(dto);
+    theModel->blah();
+    theModel->layoutChanged();
 }

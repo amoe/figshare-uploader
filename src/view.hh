@@ -12,6 +12,7 @@
 #include "progress_reporter.hh"
 #include "version.hh"
 #include "field_encoder_configuration_dialog.hh"
+#include "field_encoder_model.hh"
 
 using std::string;
 using std::vector;
@@ -47,7 +48,7 @@ private:
     QPlainTextEdit* logger;
     ViewProgressAdapter* reporter;
     FieldMappingTableModel* fieldMappingModel;
-    QAbstractItemModel* fieldEncoderModel;
+    FieldEncoderModel* fieldEncoderModel;
 };
 
 #endif // VIEW_HH

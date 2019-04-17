@@ -16,7 +16,7 @@
 
 SettingsDialog::SettingsDialog(
     QAbstractItemModel* fieldMappingModel,
-    QAbstractItemModel* fieldEncoderModel,
+    FieldEncoderModel* fieldEncoderModel,
     QWidget* parent
 ): QDialog(parent) {
     setWindowTitle("Settings");

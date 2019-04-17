@@ -5,6 +5,7 @@
 #include <vector>
 #include <QWidget>
 #include <QDialog>
+#include "field_encoder_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 
 using std::string;
@@ -16,7 +17,7 @@ class SettingsDialog: public QDialog {
 public:
     SettingsDialog(
         QAbstractItemModel* fieldMappingModel,
-        QAbstractItemModel* fieldEncoderModel,
+        FieldEncoderModel* fieldEncoderModel,
         QWidget* parent
     );
     QSize sizeHint() const;

@@ -22,6 +22,8 @@ public:
     QModelIndex parent(const QModelIndex &index) const override;
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
+    void blah();
+
 private:
     vector<FieldEncoder> availableEncoders;
 };
