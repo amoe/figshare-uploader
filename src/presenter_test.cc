@@ -8,10 +8,9 @@ class PresenterTest: public Test {
 
 class MockModel: public Model {
 public:
-    // XXX: Can we remove the f?
-    MOCK_METHOD1(setSourceFile, void(string newSourceFile));
+    MOCK_METHOD1(setSourceFile, void(string));
     MOCK_METHOD0(getAvailableEncoders, vector<FieldEncoder>&());
-    MOCK_METHOD1(addFieldEncoder, void(FieldEncoder f));
+    MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
     MOCK_CONST_METHOD0(getSourceFile, optional<string>());
 };
 
@@ -44,16 +43,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
         {}
     );
 
-    // You need to be able to compare these, to be able to test them.
     EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
-
-    //optional<TargetField> targetField = nullopt
-    // ConverterName converterName;
-    // vector<ValidationRule> validationRules;
-    // OptionsMap options;
-    // FieldEncoder expectedFieldEncoder(
-
-    // // It should be calling a method on the model, addFieldEncoder();
 }
 
