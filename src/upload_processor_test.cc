@@ -1,8 +1,7 @@
 #include <gmock/gmock.h>
 #include "upload_command.hh"
 #include "upload_command_processor.hh"
-
-using ::testing::Eq;
+#include "test_vocabulary.hh"
 
 TEST(UploadCommandProcessor, ActsAsIExpect) {
     // start event loop

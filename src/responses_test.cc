@@ -1,8 +1,7 @@
 #include <gmock/gmock.h>
 #include "raw_literals.hh"
 #include "responses.hh"
-
-using ::testing::Eq;
+#include "test_vocabulary.hh"
 
 TEST(ResponsesTest, ArticleGetResponseDeserializesCorrectly) {
     ArticleGetResponse response = ArticleGetResponse::fromJson(

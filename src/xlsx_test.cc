@@ -1,15 +1,10 @@
 #include <gmock/gmock.h>
 #include "column_mapping.hh"
 #include "xlsx.hh"
-
-using ::testing::Eq;
-using ::testing::Ne;
+#include "test_vocabulary.hh"
 
 using std::vector;
 using std::string;
-
-
-
 
 TEST(XlsxReaderTest, CanGetSheetCount) {
     XlsxReader foo("resources/test.xlsx");

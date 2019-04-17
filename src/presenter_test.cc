@@ -1,10 +1,7 @@
 #include <gmock/gmock.h>
 #include "interfaces.hh"
 #include "presenter.hh"
-
-using ::testing::Eq;
-using ::testing::Test;
-using ::testing::_;
+#include "test_vocabulary.hh"
 
 class PresenterTest: public Test {
 };
@@ -39,7 +36,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     dto.converterIndex = 0;
 
     // EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
-    EXPECT_CALL(model, addFieldEncoder(_));
+    // EXPECT_CALL(model, addFieldEncoder(_));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
 
     //optional<TargetField> targetField = nullopt

@@ -4,8 +4,7 @@
 #include "stubs.hh"
 #include "requests.hh"
 #include "file_spec_generator.hh"
-
-using ::testing::Eq;
+#include "test_vocabulary.hh"
 
 using std::string;
 

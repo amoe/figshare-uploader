@@ -4,12 +4,10 @@
 #include "custom_field_mapper.hh"
 #include "custom_fields.hh"
 #include "column_mapping.hh"
+#include "test_vocabulary.hh"
 
 using std::map;
 using std::vector;
-using ::testing::Eq;
-using ::testing::StartsWith;
-using ::testing::EndsWith;
 
 TEST(CustomFieldSupport, supportsContributors) {
     CustomFieldMapper myMapper;

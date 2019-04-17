@@ -5,10 +5,8 @@
 #include "mapping_engine.hh"
 #include "mapping_types.hh"
 #include "test_utility.hh"
+#include "test_vocabulary.hh"
 
-
-using ::testing::Test;
-using ::testing::Eq;
 using nonstd::optional;
 using nonstd::nullopt;
 using std::vector;

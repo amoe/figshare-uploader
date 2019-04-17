@@ -160,4 +160,5 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     }
 
     // Now we should be able to write a test for the Presenter.
+//    model->addFieldEncoder(nullptr);
 }

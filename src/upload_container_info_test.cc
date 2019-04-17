@@ -2,8 +2,7 @@
 #include "upload_container_info.hh"
 #include "raw_literals.hh"
 #include "file_part.hh"
-
-using ::testing::Eq;
+#include "test_vocabulary.hh"
 
 TEST(UploadContainerInfoTest, DeserializesCorrectly) {
     UploadContainerInfo info = UploadContainerInfo::fromJson(
