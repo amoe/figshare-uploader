@@ -44,9 +44,9 @@ public:
 class Model {
 public:
     virtual void setSourceFile(string newSourceFile) = 0;
-    virtual optional<string> getSourceFile() const = 0;
     virtual vector<FieldEncoder>& getAvailableEncoders() = 0;
     virtual void addFieldEncoder(FieldEncoder f) = 0;
+    virtual optional<string> getSourceFile() const = 0;
 };
 
 #endif // INTERFACES_HH
