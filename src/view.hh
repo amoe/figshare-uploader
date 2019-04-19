@@ -36,12 +36,11 @@ public:
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
-    void onFieldEncoderConfigurationDialogConfirmed(
-        qt_dto::FieldEncoderConfigurationOperation dto
-    );
- 
+
 private slots:
     void addQLog(QString logText);
+    void onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation dto);
+    void onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderConfigurationOperation dto);
 
 private:
     Presenter* presenter;

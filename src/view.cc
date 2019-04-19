@@ -169,6 +169,11 @@ void ViewImpl::showAboutDialog() {
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {
     fieldMappingModel = new FieldMappingTableModel(headerFields, this);
+    connect(
+        fieldMappingModel, &FieldMappingTableModel::mappingEncoderSet,
+        this, &ViewImpl::onMappingEncoderSetOperation
+    );
+
     SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, fieldEncoderModel, this);
 
     // We should be setting up the connections here.
@@ -214,4 +219,8 @@ void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderCo
 
     result.validationRuleIndices = validationRuleIndices;
     presenter->fieldEncoderConfigurationDialogConfirmed(result);
+}
+
+void ViewImpl::onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation dto) {
+    qDebug() << "inside ViewImpl::onMappingEncoderSetOperation";
 }
