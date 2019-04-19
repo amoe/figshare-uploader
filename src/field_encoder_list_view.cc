@@ -21,8 +21,6 @@ FieldEncoderListView::FieldEncoderListView(
 
     QLabel* help1 = new QLabel("Available field encoders are listed below.", this);
     vbox->addWidget(help1);
-    QLabel* help2 = new QLabel("A field encoder defines a way to convert from an Excel field to a field in Figshare.", this);
-    vbox->addWidget(help2);
 
 
     listView = new QListView(this);

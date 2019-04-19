@@ -21,6 +21,10 @@ SettingsDialog::SettingsDialog(
 ): QDialog(parent) {
     setWindowTitle("Settings");
 
+    // Note that the tab-widget is going to allocate horizontal and vertical
+    // space for *all* of its tabs.
+    // This means that if the second container is very wide and the first very
+    // narrow, the first will be stretched to the width of the second.
     QTabWidget* container = new QTabWidget(this);
         
     MappingTableWidget* mappingTable = new MappingTableWidget(
@@ -48,11 +52,8 @@ SettingsDialog::SettingsDialog(
     dialogLayout->addWidget(buttonBox);
 
     setLayout(dialogLayout);
-
-    // Empirically determined.  Yuck
-    //resize(320, 480);
 }
 
 QSize SettingsDialog::sizeHint() const {
-    return QSize(320, 480);
+    return QSize(480, 480);
 }
