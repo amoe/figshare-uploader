@@ -4,6 +4,7 @@
 #include <QAbstractTableModel>
 #include <vector>
 #include <string>
+#include "qt_dto.hh"
 
 using std::vector;
 using std::string;
@@ -34,6 +35,9 @@ public:
     // Required for editable model.
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
+
+signals:
+    void mappingEncoderSet(qt_dto::MappingEncoderSetOperation dto);
 
 private:
     vector<string> availableFields;

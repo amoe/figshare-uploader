@@ -55,10 +55,8 @@ QVariant FieldMappingTableModel::headerData(
 bool FieldMappingTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
     Q_UNUSED(role);
     qDebug() << "called to set data in model, received value" << value;
-
     qt_dto::MappingEncoderSetOperation dto(index, value);
-    // emit mappingEncoderSet(
-
+    emit mappingEncoderSet(dto);
     return true;
 }
 
