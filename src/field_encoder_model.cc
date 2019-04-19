@@ -17,7 +17,14 @@ int FieldEncoderModel::columnCount(const QModelIndex& parent) const {
 QVariant FieldEncoderModel::data(const QModelIndex& index, int role) const {
     FieldEncoder theEncoder = availableEncoders.at(index.row());
 
-    string targetFieldName = theEncoder.getTargetField().value().getName();
+    optional<TargetField> maybeField = theEncoder.getTargetField();
+    string targetFieldName;
+
+    if (maybeField.has_value()) {
+        targetFieldName = maybeField.value().getName();
+    } else {
+        targetFieldName = "<Unknown>";
+    }
 
     if (role == Qt::DisplayRole) {
         return QVariant(QString::fromStdString(targetFieldName));

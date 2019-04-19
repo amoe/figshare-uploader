@@ -4,6 +4,13 @@
 ModelImpl::ModelImpl() {
     this->sourceFile = nullopt;
 
+    FieldEncoder discardEncoder(
+        nullopt,
+        ConverterName::DISCARD,
+        {},
+        {}
+    );
+
     // Initialize standard field encoders
     TargetField targetField(TargetFieldType::STANDARD, "title");
     FieldEncoder titleEncoder(
@@ -12,7 +19,7 @@ ModelImpl::ModelImpl() {
         {},
         {}
     );
-    availableEncoders = {titleEncoder};
+    availableEncoders = {discardEncoder, titleEncoder};
 }
 
 ModelImpl::~ModelImpl() {

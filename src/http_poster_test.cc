@@ -7,7 +7,7 @@
 using ::testing::Eq;
 using std::string;
 
-TEST(HttpPoster, CanPost) {
+TEST(HttpPoster, DISABLED_CanPost) {
     bootQtEventLoop();
     TokenStore store("NOT USED");
     HttpPoster* getter = new QtHttpPoster(&store);
