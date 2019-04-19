@@ -182,4 +182,6 @@ void PresenterImpl::onMappingEncoderSetOperation(
     // Take action based on what happened
     std::cout << "Excel row index was " << dto.excelRowIndex << std::endl;
     std::cout << "Field encoder index was " << dto.fieldEncoderIndex << std::endl;
+
+    model->bindRow(dto.excelRowIndex, dto.fieldEncoderIndex);
 }

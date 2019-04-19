@@ -53,6 +53,7 @@ public:
     virtual void setSourceFile(string newSourceFile) = 0;
     virtual vector<FieldEncoder>& getAvailableEncoders() = 0;
     virtual void addFieldEncoder(FieldEncoder f) = 0;
+    virtual void bindRow(int excelRow, int fieldEncoderIndex) = 0;
     virtual optional<string> getSourceFile() const = 0;
 };
 

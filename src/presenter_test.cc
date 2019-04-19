@@ -11,6 +11,7 @@ public:
     MOCK_METHOD1(setSourceFile, void(string));
     MOCK_METHOD0(getAvailableEncoders, vector<FieldEncoder>&());
     MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
+    MOCK_METHOD2(bindRow, void(int, int));
     MOCK_CONST_METHOD0(getSourceFile, optional<string>());
 };
 

@@ -15,6 +15,8 @@ ModelImpl::ModelImpl() {
 ModelImpl::~ModelImpl() {
 }
 
+
+
 void ModelImpl::setSourceFile(string newSourceFile) {
     this->sourceFile = optional<string>(newSourceFile);
 }
@@ -31,3 +33,7 @@ void ModelImpl::addFieldEncoder(FieldEncoder f) {
     availableEncoders.push_back(f);
 }
 
+void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
+    std::cout << "I would bind row " << excelRow << " to field encoder with index " << fieldEncoderIndex << std::endl;
+//    fieldMappings.at(excelRow) = availableEncoders.at(fieldEncoderIndex);
+}

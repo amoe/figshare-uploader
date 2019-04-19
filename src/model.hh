@@ -21,6 +21,7 @@ public:
     optional<string> getSourceFile() const;
     vector<FieldEncoder>& getAvailableEncoders();
     void addFieldEncoder(FieldEncoder f);
+    void bindRow(int excelRow, int fieldEncoderIndex);
 
 private:
     // The source file may or may not have been picked.
