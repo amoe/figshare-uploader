@@ -42,6 +42,10 @@ public:
     virtual void fieldEncoderConfigurationDialogConfirmed(
         domain::FieldEncoderListOperation dto
     ) = 0;
+    virtual void onMappingEncoderSetOperation(
+        domain::MappingEncoderSetOperation dto
+    ) = 0;
+
 };
 
 class Model {

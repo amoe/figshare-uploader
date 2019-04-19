@@ -9,6 +9,11 @@ namespace domain {
         vector<int> validationRuleIndices;
         int converterIndex;
     };
+
+    struct MappingEncoderSetOperation {
+        int excelRowIndex;
+        int fieldEncoderIndex;
+    };
 }
 
 #endif /* DOMAIN_DTO_HH */

@@ -173,3 +173,13 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
 
     model->addFieldEncoder(titleEncoder);
 }
+
+void PresenterImpl::onMappingEncoderSetOperation(
+    domain::MappingEncoderSetOperation dto
+) {
+    debugf("inside presenterimpl mappingencodersetoperation");
+
+    // Take action based on what happened
+    std::cout << "Excel row index was " << dto.excelRowIndex << std::endl;
+    std::cout << "Field encoder index was " << dto.fieldEncoderIndex << std::endl;
+}

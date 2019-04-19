@@ -26,8 +26,15 @@ public:
     void showSettingsDialog();
     void fileConfirmed(std::string fileName);
     void settingsConfirmed();
+
+    //
     void fieldEncoderConfigurationDialogConfirmed(
         domain::FieldEncoderListOperation dto
+    );
+
+    // Callbacks for the view to call
+    void onMappingEncoderSetOperation(
+        domain::MappingEncoderSetOperation dto
     );
 
 private:

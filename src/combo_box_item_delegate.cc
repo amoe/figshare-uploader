@@ -47,6 +47,6 @@ void ComboBoxItemDelegate::setModelData(
 ) const {
     qDebug() << "Setting model data";
     QComboBox* comboBox = getComboBox(editor);
-    model->setData(index, comboBox->currentText(), Qt::EditRole);
+    model->setData(index, comboBox->currentIndex(), Qt::EditRole);
 }
 
