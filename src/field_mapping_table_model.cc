@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "field_mapping_table_model.hh"
+#include "qt_dto.hh"
 
 using std::string;
 using std::vector;
@@ -54,6 +55,10 @@ QVariant FieldMappingTableModel::headerData(
 bool FieldMappingTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
     Q_UNUSED(role);
     qDebug() << "called to set data in model, received value" << value;
+
+    qt_dto::MappingEncoderSetOperation dto(index, value);
+    // emit mappingEncoderSet(
+
     return true;
 }
 

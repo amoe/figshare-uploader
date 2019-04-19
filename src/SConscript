@@ -182,7 +182,7 @@ PROGRAM_SOURCES = [
     "utility.cc",
     "version.cc",
     "view.cc",
-    "xlsx.cc",
+    "xlsx.cc"
 ]
 
 TEST_SOURCES = [
