@@ -5,6 +5,9 @@
 #include <QVariant>
 
 namespace qt_dto {
+    // Because these are const references (they're provided by
+    // QAbstractItemModel#setData), we need to have this
+    // constructor-enforces-validity model.
     struct MappingEncoderSetOperation {
         MappingEncoderSetOperation(
             const QModelIndex& index, const QVariant& value

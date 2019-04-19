@@ -1,5 +1,5 @@
-#ifndef DATA_TRANSFER_OBJECTS_HH
-#define DATA_TRANSFER_OBJECTS_HH
+#ifndef DOMAIN_DTO_HH
+#define DOMAIN_DTO_HH
 
 namespace domain {
     struct FieldEncoderListOperation {
@@ -11,4 +11,4 @@ namespace domain {
     };
 }
 
-#endif /* DATA_TRANSFER_OBJECTS_HH */
+#endif /* DOMAIN_DTO_HH */

@@ -4,7 +4,7 @@
 #include "driver.hh"
 #include "model.hh"
 #include "interfaces.hh"
-#include "data_transfer_objects.hh"
+#include "domain_dto.hh"
 
 class PresenterImpl : public Presenter {
 public:

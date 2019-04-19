@@ -5,7 +5,7 @@
 #include <vector>
 #include "progress_reporter.hh"
 #include "mapping_types.hh"
-#include "data_transfer_objects.hh"
+#include "domain_dto.hh"
 
 using std::string;
 using std::vector;

@@ -22,7 +22,7 @@
 #include "slot_adapter.hh"
 #include "settings_dialog.hh"
 #include "field_encoder_model.hh"
-#include "data_transfer_objects.hh"
+#include "domain_dto.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     QWidget* contentWidget = new QWidget(this);
