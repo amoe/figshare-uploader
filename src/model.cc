@@ -5,7 +5,6 @@
 ModelImpl::ModelImpl() {
     this->sourceFile = nullopt;
 
-
     availableEncoders = {
         default_field_encoders::DISCARD_ENCODER,
         default_field_encoders::TITLE_ENCODER
@@ -35,5 +34,6 @@ void ModelImpl::addFieldEncoder(FieldEncoder f) {
 
 void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
     std::cout << "I would bind row " << excelRow << " to field encoder with index " << fieldEncoderIndex << std::endl;
-//    fieldMappings.at(excelRow) = availableEncoders.at(fieldEncoderIndex);
+    // This will give a runtime failure.
+    fieldMappings.at(excelRow) = availableEncoders.at(fieldEncoderIndex);
 }
