@@ -164,7 +164,7 @@ void FieldEncoderConfigurationDialog::accept() {
     // logic.
     // This DTO will be received in FieldEncoderListView#encoderDialogConfirmed.
 
-    FieldEncoderDTO result;
+    qt_dto::FieldEncoderConfigurationOperation result;
 
     result.index = editIndex.value_or(QModelIndex());
     result.targetFieldTypeId = targetFieldTypeGroup->checkedId();

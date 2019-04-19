@@ -102,7 +102,9 @@ void FieldEncoderListView::deleteItem(QModelIndex index) {
     theModel->removeRow(index.row());
 }
 
-void FieldEncoderListView::forwardDialogConfirmedSignal(FieldEncoderDTO dto) {
+void FieldEncoderListView::forwardDialogConfirmedSignal(
+    qt_dto::FieldEncoderConfigurationOperation dto
+) {
     // This is a bit weird, it would be more sensible for the model to be
     // directly connected to the event, and for the model to be forwarding it.
     // But it seems to work fine.

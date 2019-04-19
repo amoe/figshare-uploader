@@ -8,6 +8,7 @@
 #include <QAbstractItemModel>
 #include "field_encoder_model.hh"
 #include "field_encoder_configuration_dialog.hh"
+#include "qt_dto.hh"
 
 class FieldEncoderListView: public QWidget {
     Q_OBJECT
@@ -18,13 +19,17 @@ public:
 
 signals:
     // This is manually forwarded all the way to the View.
-    void fieldEncoderDialogConfirmed(FieldEncoderDTO data);
+    void fieldEncoderDialogConfirmed(
+        qt_dto::FieldEncoderConfigurationOperation data
+    );
 
 public slots:
     void triggerNew();
     void triggerEdit(QModelIndex index);
     void deleteItem(QModelIndex index);
-    void forwardDialogConfirmedSignal(FieldEncoderDTO dto);
+    void forwardDialogConfirmedSignal(
+        qt_dto::FieldEncoderConfigurationOperation dto
+    );
 
 private:
     QListView* listView;

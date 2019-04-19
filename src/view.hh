@@ -13,6 +13,7 @@
 #include "version.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
+#include "qt_dto.hh"
 
 using std::string;
 using std::vector;
@@ -35,7 +36,9 @@ public:
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
-    void onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto);
+    void onFieldEncoderConfigurationDialogConfirmed(
+        qt_dto::FieldEncoderConfigurationOperation dto
+    );
  
 private slots:
     void addQLog(QString logText);

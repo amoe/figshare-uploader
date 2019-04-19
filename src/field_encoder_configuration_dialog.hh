@@ -7,17 +7,10 @@
 #include <QDialog>
 #include <QButtonGroup>
 #include "optional.hpp"
+#include "qt_dto.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
-
-struct FieldEncoderDTO {
-    QModelIndex index;
-    int targetFieldTypeId;
-    QString fieldName;
-    QModelIndex selectedConverter;
-    QModelIndexList selectedValidationRules;
-};
 
 class FieldEncoderConfigurationDialog : public QDialog
 {
@@ -30,7 +23,9 @@ public:
 
 signals:
     // This is manually forwarded all the way to the View.
-    void fieldEncoderDialogConfirmed(FieldEncoderDTO data);
+    void fieldEncoderDialogConfirmed(
+        qt_dto::FieldEncoderConfigurationOperation data
+    );
     
 public slots:
     void showDialog();

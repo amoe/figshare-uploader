@@ -194,7 +194,7 @@ void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
     fieldEncoderModel = new FieldEncoderModel(availableEncoders);
 }
 
-void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
+void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderConfigurationOperation dto) {
     qDebug() << "SIGNAL REACHED THE VIEWIMPL";
     domain::FieldEncoderListOperation result;
 

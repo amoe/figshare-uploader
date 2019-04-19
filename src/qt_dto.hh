@@ -13,6 +13,14 @@ namespace qt_dto {
         const QModelIndex& index;
         const QVariant& value;
     };
+
+    struct FieldEncoderConfigurationOperation {
+        QModelIndex index;
+        int targetFieldTypeId;
+        QString fieldName;
+        QModelIndex selectedConverter;
+        QModelIndexList selectedValidationRules;
+    };
 }
 
 #endif /* QT_DTO_HH */
