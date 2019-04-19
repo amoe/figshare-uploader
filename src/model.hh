@@ -26,6 +26,7 @@ private:
     // The source file may or may not have been picked.
     optional<string> sourceFile;
     vector<FieldEncoder> availableEncoders;
+    MappingScheme fieldMappings;
 };
 
 #endif /* MODEL_HH */

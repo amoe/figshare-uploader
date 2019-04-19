@@ -29,7 +29,5 @@ vector<FieldEncoder>& ModelImpl::getAvailableEncoders() {
 
 void ModelImpl::addFieldEncoder(FieldEncoder f) {
     availableEncoders.push_back(f);
-    std::cout << "size of encoders list is now " << availableEncoders.size() << std::endl;
-    std::cout << "address in model is " << &availableEncoders << std::endl;
 }
 
