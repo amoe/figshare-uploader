@@ -1,6 +1,8 @@
 #include <string>
 #include <vector>
 
+// Functions in this namespace should NOT include Qt objects in their type.
+
 using std::string;
 using std::vector;
 

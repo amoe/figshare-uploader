@@ -8,7 +8,6 @@ using std::vector;
 
 FieldMappingTableModel::FieldMappingTableModel(vector<string> availableFields, QObject* parent): QAbstractTableModel(parent) {
     this->availableFields = availableFields;
-    chosenMappers.resize(availableFields.size());
 }
 
 
@@ -28,7 +27,7 @@ QVariant FieldMappingTableModel::data(const QModelIndex &index, int role) const 
     }
 
     if (role == Qt::DisplayRole) {
-        return QString::fromStdString(chosenMappers.at(index.row()));
+        return QString::fromStdString("FOO");
     } else {
         return QVariant();
     }
@@ -54,14 +53,7 @@ QVariant FieldMappingTableModel::headerData(
 
 bool FieldMappingTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
     Q_UNUSED(role);
-
     qDebug() << "called to set data in model, received value" << value;
-
-    // XXX: Here we actually need to *do something* -- but what??
-    // The combo box needs to know about all options.  The model only needs to
-    // know the selected option?
-    chosenMappers.at(index.row()) = value.toString().toStdString();
-
     return true;
 }
 

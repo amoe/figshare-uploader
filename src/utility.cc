@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QJsonObject>
 #include <QFileInfo>
+#include <QModelIndex>
 
 using std::string;
 using std::vector;
