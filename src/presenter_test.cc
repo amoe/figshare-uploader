@@ -27,7 +27,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
 
     Presenter* presenter = new PresenterImpl(&model, driver, tokenStore);
 
-    FieldEncoderDomainDTO dto;
+    domain::FieldEncoderListOperation dto;
     dto.index = -1;   // indicates an add
     dto.targetFieldTypeId = 0;
     dto.fieldName = "title2";

@@ -196,7 +196,7 @@ void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
 
 void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(FieldEncoderDTO dto) {
     qDebug() << "SIGNAL REACHED THE VIEWIMPL";
-    FieldEncoderDomainDTO result;
+    domain::FieldEncoderListOperation result;
 
     result.index = dto.index.row();
     result.targetFieldTypeId = dto.targetFieldTypeId;

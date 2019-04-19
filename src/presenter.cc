@@ -146,7 +146,7 @@ void PresenterImpl::settingsConfirmed() {
 }
 
 void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
-    FieldEncoderDomainDTO dto
+    domain::FieldEncoderListOperation dto
 ) {
     debugf("inside presenter fieldEncoderConfigurationDialogConfirmed");
 

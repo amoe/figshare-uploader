@@ -38,7 +38,10 @@ public:
     virtual void showSettingsDialog() = 0;
     virtual void fileConfirmed(std::string fileName) = 0;
     virtual void settingsConfirmed() = 0;
-    virtual void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto) = 0;
+
+    virtual void fieldEncoderConfigurationDialogConfirmed(
+        domain::FieldEncoderListOperation dto
+    ) = 0;
 };
 
 class Model {

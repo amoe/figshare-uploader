@@ -4,6 +4,7 @@
 #include "driver.hh"
 #include "model.hh"
 #include "interfaces.hh"
+#include "data_transfer_objects.hh"
 
 class PresenterImpl : public Presenter {
 public:
@@ -25,7 +26,9 @@ public:
     void showSettingsDialog();
     void fileConfirmed(std::string fileName);
     void settingsConfirmed();
-    void fieldEncoderConfigurationDialogConfirmed(FieldEncoderDomainDTO dto);
+    void fieldEncoderConfigurationDialogConfirmed(
+        domain::FieldEncoderListOperation dto
+    );
 
 private:
     Model* model;
