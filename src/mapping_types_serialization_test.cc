@@ -15,7 +15,7 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
         {},
         {}
     );
-    MappingScheme theScheme = {RowMapping(0, titleEncoder)};
+    MappingScheme theScheme = {titleEncoder};
 
     MappingSchemeSerializer serializer;
 

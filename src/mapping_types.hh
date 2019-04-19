@@ -121,20 +121,7 @@ private:
     OptionsMap options;
 };
 
-class RowMapping {
-public:
-    RowMapping(int sourceRowIndex, FieldEncoder fieldEncoder):
-      sourceRowIndex(sourceRowIndex), fieldEncoder(fieldEncoder) { }
-
-    int getSourceRowIndex() const;
-    FieldEncoder getFieldEncoder() const;
-
-private:
-    int sourceRowIndex;
-    FieldEncoder fieldEncoder;
-};
-
-using MappingScheme = vector<RowMapping>;
+using MappingScheme = vector<FieldEncoder>;
 
 
 #endif /* MAPPING_TYPES_HH */

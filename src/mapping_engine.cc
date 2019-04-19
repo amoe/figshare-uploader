@@ -14,9 +14,9 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
 
     MappingOutput seed(resultObject, resultPaths);
 
-    for (RowMapping r : scheme) {
-        int sourceRowIndex = r.getSourceRowIndex();
-        FieldEncoder fieldEncoder = r.getFieldEncoder();
+    for (int i = 0; i < scheme.size(); i++) {
+        int sourceRowIndex = i;
+        FieldEncoder fieldEncoder = scheme.at(i);
 
         string value = document.at(sourceRowIndex);
         cout << "value is " << value << endl;

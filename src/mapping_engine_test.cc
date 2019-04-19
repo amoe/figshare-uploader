@@ -46,7 +46,7 @@ TEST_F(MappingEngineTest, TitleStringConversionCheck) {
         {},
         {}
     );
-    MappingScheme theScheme = {RowMapping(0, titleEncoder)};
+    MappingScheme theScheme = {titleEncoder};
 
     vector<string> theDocument = {"foo"};
 
@@ -79,7 +79,7 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
         {},
         options
     );
-    MappingScheme theScheme = {RowMapping(0, contributeFilesEncoder)};
+    MappingScheme theScheme = {contributeFilesEncoder};
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
 
@@ -111,7 +111,7 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
         {},
         options
     );
-    MappingScheme theScheme = {RowMapping(0, lookupListEncoder)};
+    MappingScheme theScheme = {lookupListEncoder};
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
 

@@ -1,15 +1,16 @@
 #include <QJsonArray>
 #include "mapping_scheme_serializer.hh"
 
-QJsonObject MappingSchemeSerializer::serialize(MappingScheme input) const {
+QJsonObject MappingSchemeSerializer::serialize(MappingScheme scheme) const {
     QJsonObject result;
     QJsonArray rowContent;
 
-    for (RowMapping row: input) {
+    for (int i = 0; i < scheme.size(); i++) {
+        int sourceRowIndex = i;
         QJsonObject rowMappingObject;
-        FieldEncoder encoder = row.getFieldEncoder();
+        FieldEncoder encoder = scheme.at(sourceRowIndex);
 
-        rowMappingObject.insert("sourceRowIndex", row.getSourceRowIndex());
+        rowMappingObject.insert("sourceRowIndex", sourceRowIndex);
         rowMappingObject.insert("fieldEncoder", serializeFieldEncoder(encoder));
         rowContent.push_back(rowMappingObject);
     }
