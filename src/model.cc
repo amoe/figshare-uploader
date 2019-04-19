@@ -1,25 +1,15 @@
 #include <iostream>
 #include "model.hh"
+#include "default_field_encoders.hh"
 
 ModelImpl::ModelImpl() {
     this->sourceFile = nullopt;
 
-    FieldEncoder discardEncoder(
-        nullopt,
-        ConverterName::DISCARD,
-        {},
-        {}
-    );
 
-    // Initialize standard field encoders
-    TargetField targetField(TargetFieldType::STANDARD, "title");
-    FieldEncoder titleEncoder(
-        optional<TargetField>(targetField),
-        ConverterName::STRING,
-        {},
-        {}
-    );
-    availableEncoders = {discardEncoder, titleEncoder};
+    availableEncoders = {
+        default_field_encoders::DISCARD_ENCODER,
+        default_field_encoders::TITLE_ENCODER
+    };
 }
 
 ModelImpl::~ModelImpl() {
