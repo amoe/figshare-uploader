@@ -223,4 +223,12 @@ void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderCo
 
 void ViewImpl::onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation dto) {
     qDebug() << "inside ViewImpl::onMappingEncoderSetOperation";
+    qDebug() << dto.value;
+
+    // int rowIndex = index.row();
+    // HOW TO IDENTIFY THE FIELD ENCODER???
+    // We need some way to hash all of its components.
+    // How could the model find some way to update ITS internal mapping?
+    // It should really just be an index into availableEncoders.
+//    int fieldEncoderIndex = ???
 }
