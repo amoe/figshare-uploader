@@ -1,6 +1,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QTableView>
+#include <QHeaderView>
 #include "field_mapping_table_model.hh"
 #include "mapping_table_widget.hh"
 #include "combo_box_item_delegate.hh"
@@ -35,6 +36,9 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     vbox->addWidget(label);
     vbox->addWidget(table);
     group->setLayout(vbox);
+
+
+    table->horizontalHeader()->setStretchLastSection(true);
 
     return group;
 }

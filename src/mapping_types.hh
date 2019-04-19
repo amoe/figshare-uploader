@@ -108,6 +108,7 @@ public:
     OptionsMap getOptions() const;
     optional<TargetField> getTargetField() const;
     vector<ValidationRule> getValidationRules() const;
+    string describe() const;
     
     MappingOutput applyEncoder(MappingOutput seed, IntermediateMappingOutput operand) const;
 

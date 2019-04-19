@@ -51,6 +51,8 @@ SettingsDialog::SettingsDialog(
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     dialogLayout->addWidget(buttonBox);
 
+    dialogLayout->setSpacing(16);
+
     setLayout(dialogLayout);
 }
 

@@ -106,3 +106,16 @@ MappingOutput FieldEncoder::applyEncoder(MappingOutput seed, IntermediateMapping
 vector<ValidationRule> FieldEncoder::getValidationRules() const {
     return validationRules;
 }
+
+// Return a string description of the field encoder
+string FieldEncoder::describe() const {
+    string result;
+
+    if (targetField.has_value()) {
+        result = targetField.value().getName();
+    } else {
+        result = "<Unknown>";
+    }
+
+    return result;
+}
