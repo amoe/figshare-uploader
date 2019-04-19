@@ -32,7 +32,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     dto.targetFieldTypeId = 0;
     dto.fieldName = "title2";
     dto.validationRuleIndices = {};
-    dto.converterIndex = 0;
+    dto.converterIndex = 1;
 
 
     TargetField targetField(TargetFieldType::STANDARD, "title2");
