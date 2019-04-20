@@ -9,6 +9,9 @@ class AboutDialog: public QDialog {
 
 public:
     AboutDialog(QWidget* parent);
+
+private:
+    QString getRichTextUrl(QString url) const;
 };
 
 #endif /* ABOUT_DIALOG_HH */

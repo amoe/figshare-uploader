@@ -226,7 +226,8 @@ env.Program(
     source=TEST_SOURCES + PROGRAM_SOURCES + [gtest_all_path, gmock_all_path]
 )
 
-rcc_output = env.Qrc5('#/main')
+# This is going to produce actual output at path "build/qrc_main.cc".
+rcc_output = env.Qrc5('#/build/resources.cc', '#/main')
 
 main_binary = env.Program(
     target='main',
