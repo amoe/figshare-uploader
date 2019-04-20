@@ -15,6 +15,7 @@ public:
     MOCK_METHOD1(setHeaderFields, void(vector<string>));
     MOCK_CONST_METHOD0(getSourceFile, const optional<string>());
     MOCK_CONST_METHOD0(getHeaderFields, const vector<string>());
+    MOCK_CONST_METHOD0(dumpMappingScheme, void());
 };
 
 TEST_F(PresenterTest, HandlesNewFieldEncoder) {

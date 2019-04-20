@@ -4,23 +4,19 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 #include <QJsonObject>
 #include "optional.hpp"
+#include "enum_class_hash.hh"
 
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
 using std::map;
+using std::unordered_map;
 using nonstd::optional;
-
-
-
-
-
-
-
 
 // MAPPING OUTPUT TYPES -- These are used as containers during the field mapping
 // process, but they should never be serialized.
@@ -73,6 +69,19 @@ using OptionsMap = map<string, optional<string>>;
 
 enum class ConverterName { 
     DISCARD, STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_LIST, CONTRIBUTE_FILES
+};
+
+class ConverterNameBijectiveMapper {
+public:
+    ConverterNameBijectiveMapper() {
+        nameToString = {
+            {ConverterName::DISCARD, "Discard" }
+        };
+    }
+
+private:
+    unordered_map<ConverterName, string, EnumClassHash> nameToString;
+    unordered_map<ConverterName, string, EnumClassHash> stringToName;
 };
 
 enum class TargetFieldType { STANDARD, CUSTOM };

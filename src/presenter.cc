@@ -109,6 +109,7 @@ void PresenterImpl::fileConfirmed(string fileName) {
     vector<string> headerFields = reader.rowToString(1);
     model->setHeaderFields(headerFields);
     view->addLog("Scanned sheet headers.");
+    model->dumpMappingScheme();
 }
 
 

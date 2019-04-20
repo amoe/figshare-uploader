@@ -40,8 +40,26 @@ void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
 
 void ModelImpl::setHeaderFields(vector<string> headerFields) {
     this->headerFields = headerFields;
+    initializeMappingScheme();
 }
 
 const vector<string> ModelImpl::getHeaderFields() const {
     return headerFields;
+}
+
+void ModelImpl::initializeMappingScheme() {
+    fieldMappings.resize(
+        headerFields.size(), default_field_encoders::DISCARD_ENCODER
+    );
+}
+
+void ModelImpl::dumpMappingScheme() const {
+    cout << "START MAPPING SCHEME DUMP: " << "[" << endl;
+    using iter_t = MappingScheme::const_iterator;
+
+    for (iter_t it = fieldMappings.begin(); it != fieldMappings.end(); it++) {
+        std::cout << "    " << it->describe() << endl;
+    }
+    
+    cout << "] END MAPPING SCHEME DUMP" << endl;
 }

@@ -27,7 +27,11 @@ public:
     const optional<string> getSourceFile() const;
     const vector<string> getHeaderFields() const;
 
+    void dumpMappingScheme() const;
+
 private:
+    void initializeMappingScheme();
+
     // The source file may or may not have been picked.
     optional<string> sourceFile;
     vector<FieldEncoder> availableEncoders;

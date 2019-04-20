@@ -128,7 +128,6 @@ void ViewImpl::addQLog(QString logText) {
     logger->appendPlainText(logText);
 }
 
-
 void ViewImpl::showFileDialog() {
     QString documentsPath = 
         QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
