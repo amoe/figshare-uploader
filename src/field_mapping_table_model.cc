@@ -1,17 +1,16 @@
 #include <QDebug>
-#include <string>
-#include <vector>
 #include "field_mapping_table_model.hh"
-#include "qt_dto.hh"
 
 using std::string;
 using std::vector;
 
 FieldMappingTableModel::FieldMappingTableModel(
     vector<string> availableFields,
+    const MappingScheme& mappingScheme,
     QObject* parent
-): QAbstractTableModel(parent) {
-    this->availableFields = availableFields;
+): availableFields(availableFields), mappingScheme(mappingScheme), QAbstractTableModel(parent) {
+    // this->availableFields = availableFields;
+    // this->mappingScheme = mappingScheme;
 }
 
 
@@ -31,7 +30,7 @@ QVariant FieldMappingTableModel::data(const QModelIndex &index, int role) const 
     }
 
     if (role == Qt::DisplayRole) {
-        return QString::
+        return QVariant("FOO");
     } else {
         return QVariant();
     }

@@ -14,6 +14,7 @@
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_model.hh"
 #include "qt_dto.hh"
+#include "default_field_encoders.hh"
 
 using std::string;
 using std::vector;

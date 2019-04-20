@@ -6,6 +6,7 @@
 #include "optional.hpp"
 #include "mapping_types.hh"
 #include "interfaces.hh"
+#include "default_field_encoders.hh"
 
 using std::string;
 using std::vector;

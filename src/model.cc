@@ -1,6 +1,5 @@
 #include <iostream>
 #include "model.hh"
-#include "default_field_encoders.hh"
 
 ModelImpl::ModelImpl() {
     this->sourceFile = nullopt;

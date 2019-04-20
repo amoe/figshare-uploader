@@ -15,8 +15,6 @@
 #include <QSize>
 #include <QStringListModel>
 
-#include "field_mapping_table_model.hh"
-#include "logging.hh"
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
@@ -24,6 +22,8 @@
 #include "about_dialog.hh"
 #include "field_encoder_model.hh"
 #include "domain_dto.hh"
+#include "field_mapping_table_model.hh"
+#include "logging.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     QWidget* contentWidget = new QWidget(this);
@@ -157,7 +157,10 @@ void ViewImpl::showAboutDialog() {
 }
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {
-    fieldMappingModel = new FieldMappingTableModel(headerFields, this);
+    // Just a fake mapping scheme to demonstrate the model with less distance.
+    MappingScheme blankScheme(100, default_field_encoders::DISCARD_ENCODER);
+    fieldMappingModel = new FieldMappingTableModel(headerFields, blankScheme, this);
+
     connect(
         fieldMappingModel, &FieldMappingTableModel::mappingEncoderSet,
         this, &ViewImpl::onMappingEncoderSetOperation
