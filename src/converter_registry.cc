@@ -78,6 +78,11 @@ ConverterRegistry::~ConverterRegistry() {
 
 // We are a simple delegator.
 IntermediateMappingOutput ConverterRegistry::convert(ConverterName c, string value, OptionsMap options) {
-    Converter* converter = converterMap.at(c);
-    return converter->applyConversion(value, options);
+    auto iter = converterMap.find(c);
+    if (iter == converterMap.end()) {
+        throw std::runtime_error("converter not found");
+    } else {
+        Converter* converter = converterMap.at(c);
+        return converter->applyConversion(value, options);
+    }
 }

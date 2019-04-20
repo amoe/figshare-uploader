@@ -130,3 +130,25 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, DiscardConverterCheck) {
+    FieldEncoder discardEncoder(
+        nullopt,
+        ConverterName::DISCARD,
+        {},
+        {}
+    );
+    MappingScheme theScheme = {discardEncoder};
+    vector<string> theDocument = {"foo"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
