@@ -109,13 +109,8 @@ vector<ValidationRule> FieldEncoder::getValidationRules() const {
 
 // Return a string description of the field encoder
 string FieldEncoder::describe() const {
+    ConverterNameBijectiveMapper mapper;    // XXX: Extremely wasteful
     string result;
-
-    if (targetField.has_value()) {
-        result = targetField.value().getName();
-    } else {
-        result = "<Unknown>";
-    }
-
+    result = mapper.getSerializableName(converterName);
     return result;
 }

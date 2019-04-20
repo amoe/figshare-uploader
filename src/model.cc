@@ -14,8 +14,6 @@ ModelImpl::ModelImpl() {
 ModelImpl::~ModelImpl() {
 }
 
-
-
 void ModelImpl::setSourceFile(string newSourceFile) {
     this->sourceFile = optional<string>(newSourceFile);
 }
@@ -55,10 +53,10 @@ void ModelImpl::initializeMappingScheme() {
 
 void ModelImpl::dumpMappingScheme() const {
     cout << "START MAPPING SCHEME DUMP: " << "[" << endl;
-    using iter_t = MappingScheme::const_iterator;
 
-    for (iter_t it = fieldMappings.begin(); it != fieldMappings.end(); it++) {
-        std::cout << "    " << it->describe() << endl;
+    for (int i = 0; i < fieldMappings.size(); i++) {
+        FieldEncoder theEncoder = fieldMappings.at(i);
+        std::cout << "    Index " << i << ": " << theEncoder.describe() << endl;
     }
     
     cout << "] END MAPPING SCHEME DUMP" << endl;

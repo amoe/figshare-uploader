@@ -58,13 +58,8 @@ QJsonValue MappingSchemeSerializer::mapTargetFieldType(TargetFieldType t) const 
 }
 
 QJsonValue MappingSchemeSerializer::mapConverterName(ConverterName c) const {
-    switch (c) {
-        case ConverterName::STRING:
-            return QJsonValue("string");
-            break;
-        default:
-            throw new std::runtime_error("unknown converter name value");
-    }
+    ConverterNameBijectiveMapper mapper;
+    return QJsonValue(QString::fromStdString(mapper.getSerializableName(c)));
 }
 
 QJsonValue MappingSchemeSerializer::serializeValidationRules(

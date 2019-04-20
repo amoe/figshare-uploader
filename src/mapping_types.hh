@@ -83,11 +83,11 @@ public:
             stringToName.insert({pair.second, pair.first});
         }
     }
-    string getFriendlyName(ConverterName symbolicName) const {
+    string getSerializableName(ConverterName symbolicName) const {
         return nameToString.at(symbolicName);
     }
-    ConverterName getSymbolicName(string friendlyName) const {
-        return stringToName.at(friendlyName);
+    ConverterName getSymbolicName(string serializableName) const {
+        return stringToName.at(serializableName);
     }
 
 private:
