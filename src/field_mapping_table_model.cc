@@ -8,11 +8,11 @@ FieldMappingTableModel::FieldMappingTableModel(
     vector<string> availableFields,
     const MappingScheme& mappingScheme,
     QObject* parent
-): availableFields(availableFields), mappingScheme(mappingScheme), QAbstractTableModel(parent) {
-    // this->availableFields = availableFields;
-    // this->mappingScheme = mappingScheme;
+): availableFields(availableFields),
+   mappingScheme(mappingScheme),
+   QAbstractTableModel(parent) {
+    qDebug() << "initializing FieldMappingTableModel";
 }
-
 
 int FieldMappingTableModel::rowCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
