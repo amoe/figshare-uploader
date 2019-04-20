@@ -75,13 +75,24 @@ class ConverterNameBijectiveMapper {
 public:
     ConverterNameBijectiveMapper() {
         nameToString = {
-            {ConverterName::DISCARD, "Discard" }
+            {ConverterName::DISCARD, "Discard"}            
         };
+
+        // invert the map
+        for (const auto& pair: nameToString) {
+            stringToName.insert({pair.second, pair.first});
+        }
+    }
+    string getFriendlyName(ConverterName symbolicName) const {
+        return nameToString.at(symbolicName);
+    }
+    ConverterName getSymbolicName(string friendlyName) const {
+        return stringToName.at(friendlyName);
     }
 
 private:
     unordered_map<ConverterName, string, EnumClassHash> nameToString;
-    unordered_map<ConverterName, string, EnumClassHash> stringToName;
+    unordered_map<string, ConverterName> stringToName;
 };
 
 enum class TargetFieldType { STANDARD, CUSTOM };
