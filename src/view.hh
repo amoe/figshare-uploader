@@ -33,15 +33,20 @@ public:
     void showFileDialog();
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
-    void showSettingsDialog(vector<string> headerFields);
     void setSourceFile(std::string sourceFile);
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
+    void showSettingsDialog(
+        vector<string> headerFields, const MappingScheme& fieldMappings
+    );
+
 
 private slots:
     void addQLog(QString logText);
     void onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation dto);
-    void onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderConfigurationOperation dto);
+    void onFieldEncoderConfigurationDialogConfirmed(
+        qt_dto::FieldEncoderConfigurationOperation dto
+    );
 
 private:
     Presenter* presenter;

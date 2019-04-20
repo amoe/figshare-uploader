@@ -13,6 +13,7 @@ public:
     MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
     MOCK_METHOD2(bindRow, void(int, int));
     MOCK_METHOD1(setHeaderFields, void(vector<string>));
+    MOCK_CONST_METHOD0(getFieldMappings, const MappingScheme&());
     MOCK_CONST_METHOD0(getSourceFile, const optional<string>());
     MOCK_CONST_METHOD0(getHeaderFields, const vector<string>());
     MOCK_CONST_METHOD0(dumpMappingScheme, void());

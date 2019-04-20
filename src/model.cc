@@ -60,3 +60,7 @@ void ModelImpl::dumpMappingScheme() const {
     
     cout << "] END MAPPING SCHEME DUMP" << endl;
 }
+
+const MappingScheme& ModelImpl::getFieldMappings() const {
+    return fieldMappings;
+}

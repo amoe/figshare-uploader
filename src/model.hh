@@ -28,6 +28,9 @@ public:
     const optional<string> getSourceFile() const;
     const vector<string> getHeaderFields() const;
 
+    // This observing reference is used by the field mapping model.
+    const MappingScheme& getFieldMappings() const;
+
     void dumpMappingScheme() const;
 
 private:

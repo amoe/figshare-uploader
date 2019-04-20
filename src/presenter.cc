@@ -86,7 +86,11 @@ void PresenterImpl::showSettingsDialog() {
     debugf("requested to show settings dialog");
     if (model->getSourceFile().has_value()) {
         // At this point, the source file has already been scanned.
-        view->showSettingsDialog(model->getHeaderFields());
+        // We pass a reference to the field mappings stored inside the model.
+        view->showSettingsDialog(
+            model->getHeaderFields(),
+            model->getFieldMappings()
+        );
     } else {
         view->reportError("Please select an input file first.");
     }

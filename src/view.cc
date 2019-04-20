@@ -156,10 +156,12 @@ void ViewImpl::showAboutDialog() {
     aboutDialog->exec();
 }
 
-void ViewImpl::showSettingsDialog(vector<string> headerFields) {
-    // Just a fake mapping scheme to demonstrate the model with less distance.
-    MappingScheme blankScheme(100, default_field_encoders::DISCARD_ENCODER);
-    fieldMappingModel = new FieldMappingTableModel(headerFields, blankScheme, this);
+void ViewImpl::showSettingsDialog(
+    vector<string> headerFields, const MappingScheme& fieldMappings
+) {
+    fieldMappingModel = new FieldMappingTableModel(
+        headerFields, fieldMappings, this
+    );
 
     connect(
         fieldMappingModel, &FieldMappingTableModel::mappingEncoderSet,

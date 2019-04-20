@@ -30,7 +30,10 @@ QVariant FieldMappingTableModel::data(const QModelIndex &index, int role) const 
     }
 
     if (role == Qt::DisplayRole) {
-        return QVariant("FOO");
+        int row = index.row();
+        FieldEncoder encoder = mappingScheme.at(row);
+        QString description = QString::fromStdString(encoder.describe());
+        return QVariant(description);
     } else {
         return QVariant();
     }

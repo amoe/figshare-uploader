@@ -19,7 +19,10 @@ public:
     virtual void showFileDialog() = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
-    virtual void showSettingsDialog(vector<string> headerFields) = 0;
+    virtual void showSettingsDialog(
+        vector<string> headerFields,
+        const MappingScheme& fieldMappings
+    ) = 0;
     virtual void setSourceFile(std::string sourceFile) = 0;
     virtual void iterateFieldMappingModel() = 0;
     virtual void setToken(std::string newToken) = 0;
@@ -56,6 +59,7 @@ public:
     virtual void bindRow(int excelRow, int fieldEncoderIndex) = 0;
     virtual void setHeaderFields(vector<string> headerFields) = 0;
     virtual void dumpMappingScheme() const = 0;
+    virtual const MappingScheme& getFieldMappings() const = 0;
     virtual const vector<string> getHeaderFields() const = 0;
     virtual const optional<string> getSourceFile() const = 0;
 };
