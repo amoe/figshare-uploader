@@ -8,7 +8,8 @@ using std::string;
 using std::vector;
 
 FieldMappingTableModel::FieldMappingTableModel(
-    vector<string> availableFields, QObject* parent
+    vector<string> availableFields,
+    QObject* parent
 ): QAbstractTableModel(parent) {
     this->availableFields = availableFields;
 }
@@ -30,7 +31,7 @@ QVariant FieldMappingTableModel::data(const QModelIndex &index, int role) const 
     }
 
     if (role == Qt::DisplayRole) {
-        return QString::fromStdString("FOO");
+        return QString::
     } else {
         return QVariant();
     }
