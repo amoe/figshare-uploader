@@ -18,16 +18,19 @@ public:
     ~ModelImpl();
 
     void setSourceFile(string newSourceFile);
-    optional<string> getSourceFile() const;
     vector<FieldEncoder>& getAvailableEncoders();
     void addFieldEncoder(FieldEncoder f);
     void bindRow(int excelRow, int fieldEncoderIndex);
+    void setHeaderFields(vector<string> headerFields);
+    optional<string> getSourceFile() const;
+    vector<string> getHeaderFields() const;
 
 private:
     // The source file may or may not have been picked.
     optional<string> sourceFile;
     vector<FieldEncoder> availableEncoders;
     MappingScheme fieldMappings;
+    vector<string> headerFields;
 };
 
 #endif /* MODEL_HH */

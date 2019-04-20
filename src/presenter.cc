@@ -84,16 +84,9 @@ void PresenterImpl::showAboutDialog() {
 
 void PresenterImpl::showSettingsDialog() {
     debugf("requested to show settings dialog");
-    // Gather data from the model.
-
-    optional<string> sourceFile = model->getSourceFile();
-
-    if (sourceFile.has_value()) {
-        string theSourceFile = sourceFile.value();
-        XlsxReader reader(theSourceFile);
-        vector<string> headerFields = reader.rowToString(1);
-
-        view->showSettingsDialog(headerFields);
+    if (model->getSourceFile().has_value()) {
+        // At this point, the source file has already been scanned.
+        view->showSettingsDialog(model->getHeaderFields());
     } else {
         view->reportError("Please select an input file first.");
     }
@@ -111,6 +104,11 @@ void PresenterImpl::fileConfirmed(string fileName) {
     // doesn't.
 
     view->setSourceFile(fileName);
+    view->addLog("Scanning sheet columns.");
+    XlsxReader reader(fileName);
+    vector<string> headerFields = reader.rowToString(1);
+    model->setHeaderFields(headerFields);
+    view->addLog("Scanned sheet headers.");
 }
 
 

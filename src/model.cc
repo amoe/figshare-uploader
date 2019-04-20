@@ -37,3 +37,11 @@ void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
     // This will give a runtime failure.
     fieldMappings.at(excelRow) = availableEncoders.at(fieldEncoderIndex);
 }
+
+void ModelImpl::setHeaderFields(vector<string> headerFields) {
+    this->headerFields = headerFields;
+}
+
+vector<string> ModelImpl::getHeaderFields() const {
+    return headerFields;
+}

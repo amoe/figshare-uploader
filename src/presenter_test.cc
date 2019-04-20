@@ -12,7 +12,9 @@ public:
     MOCK_METHOD0(getAvailableEncoders, vector<FieldEncoder>&());
     MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
     MOCK_METHOD2(bindRow, void(int, int));
+    MOCK_METHOD1(setHeaderFields, void(vector<string>));
     MOCK_CONST_METHOD0(getSourceFile, optional<string>());
+    MOCK_CONST_METHOD0(getHeaderFields, vector<string>());
 };
 
 TEST_F(PresenterTest, HandlesNewFieldEncoder) {
