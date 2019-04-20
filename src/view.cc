@@ -21,6 +21,7 @@
 #include "presenter.hh"
 #include "slot_adapter.hh"
 #include "settings_dialog.hh"
+#include "about_dialog.hh"
 #include "field_encoder_model.hh"
 #include "domain_dto.hh"
 
@@ -152,19 +153,8 @@ void ViewImpl::setProgressReporter(ViewProgressAdapter* reporter) {
 }
 
 void ViewImpl::showAboutDialog() {
-    debugf("inside about dialog");
-
-    QMessageBox* msgBox = new QMessageBox(
-        "Figshare Uploader", versionString, QMessageBox::Information, 0, 0, 0, this
-    );
-    
-    msgBox->setAttribute(Qt::WA_DeleteOnClose);
-
-    QIcon icon = msgBox->windowIcon();
-    QSize size = icon.actualSize(QSize(64, 64));
-
-    msgBox->setIconPixmap(icon.pixmap(size));
-    msgBox->exec();
+    AboutDialog* aboutDialog = new AboutDialog(this);
+    aboutDialog->exec();
 }
 
 void ViewImpl::showSettingsDialog(vector<string> headerFields) {

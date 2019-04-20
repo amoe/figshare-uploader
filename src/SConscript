@@ -136,6 +136,7 @@ env.Command(
 )
 
 PROGRAM_SOURCES = [
+    "about_dialog.cc",
     "article_mapper.cc",
     "article_type_mapper.cc",
     "category_mapper.cc",
@@ -225,9 +226,11 @@ env.Program(
     source=TEST_SOURCES + PROGRAM_SOURCES + [gtest_all_path, gmock_all_path]
 )
 
+rcc_output = env.Qrc5('#/main')
+
 main_binary = env.Program(
     target='main',
-    source=PROGRAM_SOURCES + ['main.cc']
+    source=PROGRAM_SOURCES + ['main.cc', rcc_output]
 )
 
 
