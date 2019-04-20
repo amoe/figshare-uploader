@@ -13,8 +13,8 @@ public:
     MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
     MOCK_METHOD2(bindRow, void(int, int));
     MOCK_METHOD1(setHeaderFields, void(vector<string>));
-    MOCK_CONST_METHOD0(getSourceFile, optional<string>());
-    MOCK_CONST_METHOD0(getHeaderFields, vector<string>());
+    MOCK_CONST_METHOD0(getSourceFile, const optional<string>());
+    MOCK_CONST_METHOD0(getHeaderFields, const vector<string>());
 };
 
 TEST_F(PresenterTest, HandlesNewFieldEncoder) {

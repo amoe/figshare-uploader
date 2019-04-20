@@ -20,7 +20,7 @@ void ModelImpl::setSourceFile(string newSourceFile) {
     this->sourceFile = optional<string>(newSourceFile);
 }
 
-optional<string> ModelImpl::getSourceFile() const {
+const optional<string> ModelImpl::getSourceFile() const {
     return this->sourceFile;
 }
 
@@ -42,6 +42,6 @@ void ModelImpl::setHeaderFields(vector<string> headerFields) {
     this->headerFields = headerFields;
 }
 
-vector<string> ModelImpl::getHeaderFields() const {
+const vector<string> ModelImpl::getHeaderFields() const {
     return headerFields;
 }

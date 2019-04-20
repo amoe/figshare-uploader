@@ -54,9 +54,9 @@ public:
     virtual vector<FieldEncoder>& getAvailableEncoders() = 0;
     virtual void addFieldEncoder(FieldEncoder f) = 0;
     virtual void bindRow(int excelRow, int fieldEncoderIndex) = 0;
-    virtual optional<string> getSourceFile() const = 0;
     virtual void setHeaderFields(vector<string> headerFields) = 0;
-    virtual vector<string> getHeaderFields() const = 0;
+    virtual const vector<string> getHeaderFields() const = 0;
+    virtual const optional<string> getSourceFile() const = 0;
 };
 
 #endif // INTERFACES_HH

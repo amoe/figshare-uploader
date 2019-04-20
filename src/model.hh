@@ -22,8 +22,10 @@ public:
     void addFieldEncoder(FieldEncoder f);
     void bindRow(int excelRow, int fieldEncoderIndex);
     void setHeaderFields(vector<string> headerFields);
-    optional<string> getSourceFile() const;
-    vector<string> getHeaderFields() const;
+
+    // Low-level accessor functions should have const return types if possible.
+    const optional<string> getSourceFile() const;
+    const vector<string> getHeaderFields() const;
 
 private:
     // The source file may or may not have been picked.
