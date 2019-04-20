@@ -41,7 +41,7 @@ private:
     vector<string> sourcePaths;
 };
 
-enum class CombinationOperation { CONJOIN };
+enum class CombinationOperation { CONJOIN, DISCARD };
 
 // INTERMEDIATE OUTPUT TYPE.  It needs to be combined with a MappingOutput and
 // a TargetField, by the FieldEncoder's `applyEncoder` method.
@@ -115,6 +115,11 @@ public:
     bool operator==(const FieldEncoder& other) const;
 
 private:
+    void handleConjoin(
+        QJsonObject& newArticleObject, vector<string>& newSourcePaths,
+        IntermediateMappingOutput operand
+    ) const;
+
     optional<TargetField> targetField;
     ConverterName converterName;
     vector<ValidationRule> validationRules;

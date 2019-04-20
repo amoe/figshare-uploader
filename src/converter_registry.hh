@@ -67,6 +67,12 @@ private:
     LookupRegistry* registry;
 };
 
+class DiscardConverter: public Converter {
+public:
+    DiscardConverter() { }
+    IntermediateMappingOutput applyConversion(string input, OptionsMap options);
+};
+
 class ConverterRegistry {
 public:
     ConverterRegistry(LookupRegistry* lookups);

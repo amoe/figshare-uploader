@@ -63,36 +63,44 @@ MappingOutput FieldEncoder::applyEncoder(MappingOutput seed, IntermediateMapping
     // Start with a copy.
     QJsonObject newArticleObject(seed.getArticleObject());
     vector<string> newSourcePaths(seed.getSourcePaths());
-    
-    QJsonValue producedValue = operand.getProducedValue();
-    vector<string> producedPaths = operand.getProducedPaths();
 
-    if (operand.getOperation() == CombinationOperation::CONJOIN) {
-        if (targetField.has_value()) {
-            // FIXME: We don't handle custom fields yet!
-            TargetField field = targetField.value();
-            newArticleObject.insert(
-                QString::fromStdString(field.getName()), producedValue
-            );
-        }
-
-        // Always extend the source paths with the produced ones.
-        // If there weren't any contributed files, newSourcePaths is just
-        // an empty vector, so this is a no-op.
-        newSourcePaths.insert(
-            newSourcePaths.end(),
-            producedPaths.begin(),
-            producedPaths.end()
-        );
-    } else {
-        // We only support CONJOIN at present.
-        // Other possibilities might be, like, NUKE or something which would
-        // just annul an existing field.
-        throw std::runtime_error("unexpected combination operation");
+    switch (operand.getOperation()) {
+        case CombinationOperation::CONJOIN:
+            handleConjoin(newArticleObject, newSourcePaths, operand);
+            break;
+        case CombinationOperation::DISCARD:
+            break;
+        default:
+            throw std::runtime_error("unexpected combination operation");
     }
     
     MappingOutput result(newArticleObject, newSourcePaths);
     return result;
+}
+
+
+void FieldEncoder::handleConjoin(
+    QJsonObject& newArticleObject, vector<string>& newSourcePaths,
+    IntermediateMappingOutput operand
+) const {
+    if (targetField.has_value()) {
+        // FIXME: We don't handle custom fields yet!
+        TargetField field = targetField.value();
+        newArticleObject.insert(
+            QString::fromStdString(field.getName()), operand.getProducedValue()
+        );
+    }
+
+    vector<string> producedPaths = operand.getProducedPaths();
+
+    // Always extend the source paths with the produced ones.
+    // If there weren't any contributed files, newSourcePaths is just
+    // an empty vector, so this is a no-op.
+    newSourcePaths.insert(
+        newSourcePaths.end(),
+        producedPaths.begin(),
+        producedPaths.end()
+    );
 }
 
 vector<ValidationRule> FieldEncoder::getValidationRules() const {
