@@ -25,9 +25,12 @@ public:
 };
 
 
-enum class LookupType { DEFINED_TYPE };
+enum class LookupType { 
+    DEFINED_TYPE, CATEGORY
+};
 static const unordered_map<string, LookupType> LOOKUP_TYPE_NAMES = {
     {"definedType", LookupType::DEFINED_TYPE},
+    {"category", LookupType::CATEGORY}
 };
 
 class LookupRegistry {

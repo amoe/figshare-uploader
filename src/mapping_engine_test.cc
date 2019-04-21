@@ -186,7 +186,12 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
 
 // TEST_F(MappingEngineTest, CategoryEncoderCheck) {
 //     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
-//     vector<string> theDocument = {"foo, bar, baz"};
+//     vector<string> theDocument = {"North American History"};
+
+//     EXPECT_CALL(
+//         lookups, lookupByString(LookupType::CATEGORY, _)
+//     ).WillOnce(Return(QJsonValue(1703)));
+
 //     MappingOutput result = this->engine->convert(theDocument, theScheme);
 
 //     // Expect an empty article object because we haven't defined any other

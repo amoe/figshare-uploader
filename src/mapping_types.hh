@@ -68,7 +68,8 @@ private:
 using OptionsMap = map<string, optional<string>>;
 
 enum class ConverterName { 
-    DISCARD, STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_LIST, CONTRIBUTE_FILES
+    DISCARD, STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_LIST, 
+    CONTRIBUTE_FILES
 };
 
 class ConverterNameBijectiveMapper {
