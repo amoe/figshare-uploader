@@ -10,8 +10,7 @@
 #include "article_mapper.hh"
 #include "progress_reporter.hh"
 #include "column_mapping.hh"
-
-using namespace testing;
+#include "test_vocabulary.hh"
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {

@@ -13,10 +13,15 @@ using nonstd::nullopt;
 using std::vector;
 using std::string;
 
+class MockLookupRegistry: public LookupRegistry {
+public:
+    MOCK_METHOD2(lookupByString, QJsonValue(LookupType, string));
+};
+
 class MappingEngineTest: public Test {
 public:
     MappingEngineTest() {
-        lookups = new LookupRegistryImpl;
+        lookups = new MockLookupRegistry;
         engine = new MappingEngine(lookups);
         
     }
@@ -88,41 +93,43 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
 }
 
 
-TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
-    vector<string> theDocument = {
-        "Figure"
-    };
-    OptionsMap options = {
-        {"resourceName", optional<string>("definedType")}
-    };
+// TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
+//     vector<string> theDocument = {
+//         "Figure"
+//     };
+//     OptionsMap options = {
+//         {"resourceName", optional<string>("definedType")}
+//     };
 
 
-    TargetField targetField(TargetFieldType::STANDARD, "defined_type");
-    FieldEncoder lookupListEncoder(
-        optional<TargetField>(targetField),
-        ConverterName::LOOKUP_LIST,
-        {},
-        options
-    );
-    MappingScheme theScheme = {lookupListEncoder};
+//     TargetField targetField(TargetFieldType::STANDARD, "defined_type");
+//     FieldEncoder lookupListEncoder(
+//         optional<TargetField>(targetField),
+//         ConverterName::LOOKUP_LIST,
+//         {},
+//         options
+//     );
+//     MappingScheme theScheme = {lookupListEncoder};
 
-    MappingOutput result = this->engine->convert(theDocument, theScheme);
+//     EXPECT_CALL(lookups, lookupByString(_)).WillOnce(Return(QJsonValue("blah")));
 
-    // Expect an empty article object because we haven't defined any other
-    // converters.
-    QJsonObject expectedArticle;
-    vector<string> expectedSourcePaths = {};
+//     MappingOutput result = this->engine->convert(theDocument, theScheme);
 
-    const string expectedResult = R"(
-        {
-           "defined_type": "figure"
-        }
-    )";
+//     // Expect an empty article object because we haven't defined any other
+//     // converters.
+//     QJsonObject expectedArticle;
+//     vector<string> expectedSourcePaths = {};
+
+//     const string expectedResult = R"(
+//         {
+//            "defined_type": "figure"
+//         }
+//     )";
 
 
-    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
-    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
-}
+//     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+//     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+// }
 
 TEST_F(MappingEngineTest, DiscardConverterCheck) {
     MappingScheme theScheme = {default_field_encoders::DISCARD_ENCODER};
@@ -175,3 +182,25 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+
+
+// TEST_F(MappingEngineTest, CategoryEncoderCheck) {
+//     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+//     vector<string> theDocument = {"foo, bar, baz"};
+//     MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+//     // Expect an empty article object because we haven't defined any other
+//     // converters.
+//     QJsonObject expectedArticle;
+//     vector<string> expectedSourcePaths = {};
+
+//     const string expectedResult = R"(
+//         {
+//            "categories": [1703]
+//         }
+//     )";
+
+
+//     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+//     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+// }

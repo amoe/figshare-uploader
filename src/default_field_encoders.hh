@@ -46,7 +46,7 @@ namespace default_field_encoders {
     );
 
     // Only support one category with this encoder.
-    const FieldEncoder CATEGORIES_ENCODER(
+    const FieldEncoder CATEGORY_ENCODER(
         optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
         ConverterName::LOOKUP_LIST,
         {},
