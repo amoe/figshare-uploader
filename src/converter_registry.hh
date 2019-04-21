@@ -51,9 +51,9 @@ private:
 
 // This one works using a similar pattern.  The registry can be passed in for
 // stubbing.
-class LookupListConverter: public Converter {
+class LookupValueConverter: public Converter {
 public:
-    LookupListConverter(LookupRegistry* registry): registry(registry) { }
+    LookupValueConverter(LookupRegistry* registry): registry(registry) { }
     IntermediateMappingOutput applyConversion(string input, OptionsMap options);
 
 private:

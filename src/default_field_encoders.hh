@@ -46,13 +46,13 @@ namespace default_field_encoders {
     );
 
     // Only support one category with this encoder.
-    const FieldEncoder CATEGORY_ENCODER(
-        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
-        ConverterName::LOOKUP_LIST,
-        {},
-        {{"delimiter", nullopt},
-         {"resourceName", optional<string>("category")}}
-    );
+    // const FieldEncoder CATEGORY_ENCODER(
+    //     optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
+    //     ConverterName::LOOKUP_LIST,
+    //     {},
+    //     {{"delimiter", nullopt},
+    //      {"resourceName", optional<string>("category")}}
+    // );
 
 }
 

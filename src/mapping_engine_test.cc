@@ -103,7 +103,7 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
     TargetField targetField(TargetFieldType::STANDARD, "defined_type");
     FieldEncoder lookupListEncoder(
         optional<TargetField>(targetField),
-        ConverterName::LOOKUP_LIST,
+        ConverterName::LOOKUP_VALUE,
         {},
         options
     );
