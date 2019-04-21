@@ -57,7 +57,7 @@ namespace column_mapping {
         {"Project", PROJECT, FieldEncoderOld::LIST},
         {"Collection", COLLECTION, FieldEncoderOld::LIST}
     };
-};
+}
 
 
 #endif /* COLUMN_MAPPING_HH */

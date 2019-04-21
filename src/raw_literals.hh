@@ -262,6 +262,6 @@ const std::string generatedRequest = R"V0G0N(
 )V0G0N";
 
 
-};
+}
 
 #endif // RAW_LITERALS_HH
