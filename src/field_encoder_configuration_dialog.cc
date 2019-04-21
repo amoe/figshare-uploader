@@ -147,7 +147,6 @@ void FieldEncoderConfigurationDialog::showEncoderOptionsDialog() {
     qDebug() << "I would show dialog";
     // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
 
-
     QMessageBox::critical(
         this,
         "Error",

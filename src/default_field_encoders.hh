@@ -53,6 +53,12 @@ namespace default_field_encoders {
          {"resourceName", optional<string>("category")}}
     );
 
+    const FieldEncoder CONTRIBUTE_FILES_ENCODER(
+        nullopt,
+        ConverterName::CONTRIBUTE_FILES,
+        {},
+        {{"delimiter", optional<string>("\\s*;\\s*")}}
+    );
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */

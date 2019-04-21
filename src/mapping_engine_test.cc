@@ -61,17 +61,10 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
     vector<string> theDocument = {
         "foo.tiff;bar.tiff"
     };
-    OptionsMap options = {
-        {"delimiter", optional<string>(";")}
-    };
 
-    FieldEncoder contributeFilesEncoder(
-        nullopt,
-        ConverterName::CONTRIBUTE_FILES,
-        {},
-        options
-    );
-    MappingScheme theScheme = {contributeFilesEncoder};
+    MappingScheme theScheme = {
+        default_field_encoders::CONTRIBUTE_FILES_ENCODER
+    };
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
 
