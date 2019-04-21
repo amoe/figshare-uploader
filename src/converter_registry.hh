@@ -63,6 +63,12 @@ public:
     IntermediateMappingOutput applyConversion(string input, OptionsMap options);
 };
 
+class ListOfStringConverter: public Converter {
+public:
+    ListOfStringConverter() { }
+    IntermediateMappingOutput applyConversion(string input, OptionsMap options);
+};
+
 class ConverterRegistry {
 public:
     ConverterRegistry(LookupRegistry* lookups);

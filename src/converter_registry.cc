@@ -1,6 +1,8 @@
 #include <stdexcept>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QString>
+#include <QDebug>
 #include <iostream>
 #include "converter_registry.hh"
 #include "utility.hh"
@@ -14,6 +16,7 @@ ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {
     converterMap.insert({ConverterName::LOOKUP_LIST, new LookupListConverter(lookupRegistry)});
 
     converterMap.insert({ConverterName::DISCARD, new DiscardConverter});
+    converterMap.insert({ConverterName::LIST_OF_STRING, new ListOfStringConverter});
 }
 
 ConverterRegistry::~ConverterRegistry() {
@@ -78,6 +81,34 @@ IntermediateMappingOutput LookupListConverter::applyConversion(string input, Opt
     vector<string> producedPaths;
 
     IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
+    return result;
+}
+
+IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, OptionsMap options) {
+    QJsonValue producedValue;        // Will be initialized to null.
+    vector<string> producedPaths;    // We won't produce any paths.
+    
+    optional<string> delimiter = options.at("delimiter");
+
+    QJsonArray keywordsArray;
+
+    if (delimiter.has_value()) {
+        string delimiterRegex = delimiter.value();
+        vector<string> keywords = splitByRegexp(input, delimiterRegex);
+        for (string k: keywords) {
+            keywordsArray.append(QJsonValue(QString::fromStdString(k)));
+        }
+    } else {
+        keywordsArray.append(QJsonValue(QString::fromStdString(input)));
+    }
+
+    producedValue = keywordsArray;
+
+    qDebug() << producedValue;
+
+    IntermediateMappingOutput result(
+        keywordsArray, producedPaths, CombinationOperation::CONJOIN
+    );
     return result;
 }
 

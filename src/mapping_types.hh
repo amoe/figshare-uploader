@@ -78,7 +78,8 @@ public:
             {ConverterName::DISCARD, "Discard"},
             {ConverterName::STRING, "String"},
             {ConverterName::CONTRIBUTE_FILES, "ContributeFiles"},
-            {ConverterName::LOOKUP_LIST, "LookupList"}
+            {ConverterName::LOOKUP_LIST, "LookupList"},
+            {ConverterName::LIST_OF_STRING, "ListOfString"}
         };
 
         // invert the map

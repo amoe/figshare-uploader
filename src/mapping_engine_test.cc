@@ -139,3 +139,21 @@ TEST_F(MappingEngineTest, DiscardConverterCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, KeywordEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::KEYWORDS_ENCODER};
+    vector<string> theDocument = {"foo, bar, baz"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "keywords": ["foo", "bar", "baz"]
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
