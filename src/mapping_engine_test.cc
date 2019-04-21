@@ -157,3 +157,21 @@ TEST_F(MappingEngineTest, KeywordEncoderCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+
+TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::REFERENCES_ENCODER};
+    vector<string> theDocument = {"foo, bar, baz"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "references": ["foo, bar, baz"]
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
