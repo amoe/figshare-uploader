@@ -35,6 +35,16 @@ namespace default_field_encoders {
         {},
         {{"delimiter", optional<string>(",\\s*")}}
     );
+
+    // when we pass delimiter=null, coerce the entire References field to a
+    // single-element JSON array
+    const FieldEncoder REFERENCES_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "references")),
+        ConverterName::LIST_OF_STRING,
+        {},
+        {{"delimiter", nullopt}}
+    );
+
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
