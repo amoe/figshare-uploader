@@ -22,12 +22,8 @@ class MappingEngineTest: public Test {
 public:
     MappingEngineTest() {
         engine = new MappingEngine(&lookups);
-        
     }
     ~MappingEngineTest() {
-        // It can be this that triggers the problem, because it's deallocating
-        // this pointer.  However, this is allocated with new, so no reason
-        // for it to happen really.
         delete engine;
     }
 
@@ -181,7 +177,6 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
-
 
 
 TEST_F(MappingEngineTest, CategoryEncoderCheck) {
