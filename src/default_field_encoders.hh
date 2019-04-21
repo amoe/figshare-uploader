@@ -45,6 +45,15 @@ namespace default_field_encoders {
         {{"delimiter", nullopt}}
     );
 
+    // Only support one category with this encoder.
+    const FieldEncoder CATEGORIES_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
+        ConverterName::LOOKUP_LIST,
+        {},
+        {{"delimiter", nullopt},
+         {"resourceName", optional<string>("category")}}
+    );
+
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
