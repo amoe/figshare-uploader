@@ -29,7 +29,7 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
                             "fieldType": "standard",
                             "name": "title"
                         },
-                        "name": "string",
+                        "name": "String",
                         "validationRules": [],
                         "options": {}
                     }
