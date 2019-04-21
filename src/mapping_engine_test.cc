@@ -111,7 +111,7 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
 
     EXPECT_CALL(
         lookups, lookupByString(LookupType::DEFINED_TYPE, _)
-    ).WillOnce(Return(QJsonValue("blah")));
+    ).WillOnce(Return(QJsonValue("figure")));
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
 

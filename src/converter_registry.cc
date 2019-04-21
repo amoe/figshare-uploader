@@ -40,7 +40,9 @@ const vector<ConverterName> ConverterRegistry::getRegisteredConverters() const {
 
 
 // We are a simple delegator.
-IntermediateMappingOutput ConverterRegistry::convert(ConverterName c, string value, OptionsMap options) {
+IntermediateMappingOutput ConverterRegistry::convert(
+    ConverterName c, string value, OptionsMap options
+) {
     auto iter = converterMap.find(c);
     if (iter == converterMap.end()) {
         throw std::runtime_error("converter not found");
