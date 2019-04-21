@@ -14,7 +14,8 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
 
     MappingOutput seed(resultObject, resultPaths);
 
-    for (int i = 0; i < scheme.size(); i++) {
+    using sz = vector<string>::size_type;
+    for (sz i = 0; i < scheme.size(); i++) {
         int sourceRowIndex = i;
         FieldEncoder fieldEncoder = scheme.at(i);
 

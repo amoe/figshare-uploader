@@ -39,9 +39,9 @@ public:
     void log(string message) const;
 
 private:
-    FileSpecGenerator* fileSpecGenerator;
     FigshareGateway* gateway;
     PartPreparer* partPreparer;
+    FileSpecGenerator* fileSpecGenerator;
     ArticleMapper* articleMapper;
     ProgressReporter* progressReporter;
 };

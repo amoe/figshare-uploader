@@ -53,7 +53,8 @@ void ModelImpl::initializeMappingScheme() {
 void ModelImpl::dumpMappingScheme() const {
     cout << "START MAPPING SCHEME DUMP: " << "[" << endl;
 
-    for (int i = 0; i < fieldMappings.size(); i++) {
+    using sz = MappingScheme::size_type;
+    for (sz i = 0; i < fieldMappings.size(); i++) {
         FieldEncoder theEncoder = fieldMappings.at(i);
         std::cout << "    Index " << i << ": " << theEncoder.describe() << endl;
     }

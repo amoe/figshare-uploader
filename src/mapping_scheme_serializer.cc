@@ -5,7 +5,8 @@ QJsonObject MappingSchemeSerializer::serialize(MappingScheme scheme) const {
     QJsonObject result;
     QJsonArray rowContent;
 
-    for (int i = 0; i < scheme.size(); i++) {
+    using sz = vector<string>::size_type;
+    for (sz i = 0; i < scheme.size(); i++) {
         int sourceRowIndex = i;
         QJsonObject rowMappingObject;
         FieldEncoder encoder = scheme.at(sourceRowIndex);

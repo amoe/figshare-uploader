@@ -8,9 +8,10 @@ FieldMappingTableModel::FieldMappingTableModel(
     vector<string> availableFields,
     const MappingScheme& mappingScheme,
     QObject* parent
-): availableFields(availableFields),
-   mappingScheme(mappingScheme),
-   QAbstractTableModel(parent) {
+): QAbstractTableModel(parent),
+   availableFields(availableFields),
+   mappingScheme(mappingScheme)
+{
     qDebug() << "initializing FieldMappingTableModel";
 }
 

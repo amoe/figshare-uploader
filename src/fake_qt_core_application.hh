@@ -1,3 +1,3 @@
-static int* getFakeArgc();
-static char** getFakeArgv();
+int* getFakeArgc();
+char** getFakeArgv();
 void bootQtEventLoop();

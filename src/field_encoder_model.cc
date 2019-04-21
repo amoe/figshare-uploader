@@ -54,6 +54,7 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
     endRemoveRows();
 
     qDebug() << "size is now " << availableEncoders.size();
+    return true;
 }
 
 void FieldEncoderModel::blah() {

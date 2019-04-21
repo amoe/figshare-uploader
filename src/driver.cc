@@ -22,6 +22,8 @@ void Driver::handleRow(const ExcelRow row, const string inputPath) const {
     ArticleCreationResponse response = gateway->createArticle(acr);
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
+    debugf("article created with id %d", articleData.id);
+
 
     vector<string> filesToUpload
         = PathExtractor::getRequestedFiles(acr.identifier, inputPath);
