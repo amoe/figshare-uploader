@@ -184,28 +184,28 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
 
 
 
-// TEST_F(MappingEngineTest, CategoryEncoderCheck) {
-//     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
-//     vector<string> theDocument = {"North American History"};
+TEST_F(MappingEngineTest, CategoryEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+    vector<string> theDocument = {"North American History"};
 
-//     EXPECT_CALL(
-//         lookups, lookupByString(LookupType::CATEGORY, _)
-//     ).WillOnce(Return(QJsonValue(1703)));
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::CATEGORY, _)
+    ).WillOnce(Return(QJsonValue(1703)));
 
-//     MappingOutput result = this->engine->convert(theDocument, theScheme);
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
 
-//     // Expect an empty article object because we haven't defined any other
-//     // converters.
-//     QJsonObject expectedArticle;
-//     vector<string> expectedSourcePaths = {};
+    // Expect an empty article object because we haven't defined any other
+    // converters.
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
 
-//     const string expectedResult = R"(
-//         {
-//            "categories": [1703]
-//         }
-//     )";
+    const string expectedResult = R"(
+        {
+           "categories": [1703]
+        }
+    )";
 
 
-//     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
-//     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
-// }
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}

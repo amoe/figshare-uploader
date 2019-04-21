@@ -60,6 +60,16 @@ private:
     LookupRegistry* registry;
 };
 
+class LookupListConverter: public Converter {
+public:
+    LookupListConverter(LookupRegistry* registry): registry(registry) { }
+    IntermediateMappingOutput applyConversion(string input, OptionsMap options);
+
+private:
+    LookupRegistry* registry;
+};
+
+
 class DiscardConverter: public Converter {
 public:
     DiscardConverter() { }

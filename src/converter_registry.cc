@@ -17,6 +17,11 @@ ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {
         {ConverterName::LOOKUP_VALUE, new LookupValueConverter(lookupRegistry)}
     );
 
+    converterMap.insert(
+        {ConverterName::LOOKUP_LIST, new LookupListConverter(lookupRegistry)}
+    );
+
+
     converterMap.insert({ConverterName::DISCARD, new DiscardConverter});
     converterMap.insert({ConverterName::LIST_OF_STRING, new ListOfStringConverter});
 }
@@ -83,8 +88,23 @@ IntermediateMappingOutput LookupValueConverter::applyConversion(string input, Op
     LookupType type = LOOKUP_TYPE_NAMES.at(resourceName);
     QJsonValue producedValue = registry->lookupByString(type, input);
     vector<string> producedPaths;
-
     IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
+    return result;
+}
+
+IntermediateMappingOutput LookupListConverter::applyConversion(
+    string input, OptionsMap options
+) {
+    string resourceName = options.at("resourceName").value();
+    LookupType type = LOOKUP_TYPE_NAMES.at(resourceName);
+
+    vector<string> producedPaths;
+    QJsonArray producedValue;
+    producedValue.append(registry->lookupByString(type, input));
+
+    IntermediateMappingOutput result(
+        producedValue, producedPaths, CombinationOperation::CONJOIN
+    );
     return result;
 }
 

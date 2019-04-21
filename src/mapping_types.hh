@@ -68,7 +68,7 @@ private:
 using OptionsMap = map<string, optional<string>>;
 
 enum class ConverterName { 
-    DISCARD, STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_VALUE, 
+    DISCARD, STRING, LIST_OF_OBJECT, LIST_OF_STRING, LOOKUP_VALUE, LOOKUP_LIST, 
     CONTRIBUTE_FILES
 };
 
@@ -80,6 +80,7 @@ public:
             {ConverterName::STRING, "String"},
             {ConverterName::CONTRIBUTE_FILES, "ContributeFiles"},
             {ConverterName::LOOKUP_VALUE, "LookupValue"},
+            {ConverterName::LOOKUP_LIST, "LookupList"},
             {ConverterName::LIST_OF_STRING, "ListOfString"}
         };
 
