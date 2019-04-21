@@ -23,7 +23,7 @@ MappingTableWidget::MappingTableWidget(
 QWidget* MappingTableWidget::makeFirstGroup() {
     QWidget* group = new QWidget(this);
 
-    QLabel* label = new QLabel("Hello, world!", group);
+    QLabel* label = new QLabel("Map between spreadsheet rows and field encoders.", group);
     QTableView* table = new QTableView(this);
 
     // This is passed in by the parent, which is the settings dialog in this

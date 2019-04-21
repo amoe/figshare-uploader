@@ -163,12 +163,17 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     }
 
     // Some crap to satisfy the not-specific-enough test.
-    TargetField targetField(
-        static_cast<TargetFieldType>(dto.targetFieldTypeId),
-        dto.fieldName
-    );
+
+    optional<TargetField> targetField = nullopt;
+    if (dto.isTargetFieldSet) {
+        targetField = TargetField(
+            static_cast<TargetFieldType>(dto.targetFieldTypeId),
+            dto.fieldName
+        );
+    }
+
     FieldEncoder titleEncoder(
-        optional<TargetField>(targetField),
+        targetField,
         static_cast<ConverterName>(dto.converterIndex),
         {},
         {}   // Not supporting passing options!

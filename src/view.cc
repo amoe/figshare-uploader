@@ -198,6 +198,7 @@ void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderCo
     domain::FieldEncoderListOperation result;
 
     result.index = dto.index.row();
+    result.isTargetFieldSet = dto.targetFieldControlsChecked;
     result.targetFieldTypeId = dto.targetFieldTypeId;
     result.fieldName = dto.fieldName.toStdString();
     result.converterIndex = dto.selectedConverter.row();
