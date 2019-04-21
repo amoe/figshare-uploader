@@ -5,7 +5,7 @@
 #include <QGridLayout>
 #include <QJsonObject>
 #include <QDebug>
-#include "field_encoder.hh"
+#include "field_encoder_widget.hh"
 
 ListOfObjectFieldEncoder::ListOfObjectFieldEncoder() {
     this->delimiter = nullptr;

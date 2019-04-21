@@ -147,7 +147,7 @@ PROGRAM_SOURCES = [
     "custom_fields.cc",
     "driver.cc",
     "driver_thread.cc",
-    "field_encoder.cc",
+    "field_encoder_widget.cc",
     "field_encoder_configuration_dialog.cc",
     "field_encoder_list_view.cc",
     "field_encoder_list_context_menu.cc",

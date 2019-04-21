@@ -25,7 +25,6 @@ ConverterRegistry::~ConverterRegistry() {
     std::cout << "successfully deleted everything" << std::endl;
 }
 
-
 // We are a simple delegator.
 IntermediateMappingOutput ConverterRegistry::convert(ConverterName c, string value, OptionsMap options) {
     auto iter = converterMap.find(c);

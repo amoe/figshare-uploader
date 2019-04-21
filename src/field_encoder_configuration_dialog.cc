@@ -8,7 +8,7 @@
 #include <QDialogButtonBox>
 #include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
-#include "field_encoder.hh"
+#include "field_encoder_widget.hh"
 
 using std::map;
 using std::string;
@@ -140,17 +140,17 @@ void FieldEncoderConfigurationDialog::showDialog() {
     string selectedFieldEncoder = theIndex.data().toString().toStdString();
 
     // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
-    map<string, FieldEncoder&> fieldEncoders;
+    map<string, FieldEncoderWidget&> fieldEncoders;
 
     ListOfObjectFieldEncoder encoder;
-    FieldEncoder& genericEncoder = encoder;
+    FieldEncoderWidget& genericEncoder = encoder;
 
     fieldEncoders.insert({"string", genericEncoder});
     fieldEncoders.insert({"listOfObjects", genericEncoder});
     fieldEncoders.insert({"lookupList", genericEncoder});
     fieldEncoders.insert({"contributeFiles", genericEncoder});
 
-    FieldEncoder& outOfMap = fieldEncoders.at(selectedFieldEncoder);
+    FieldEncoderWidget& outOfMap = fieldEncoders.at(selectedFieldEncoder);
 
     qDebug() << "Pulled field encoder out of map";
     qDebug() << "address is" << &outOfMap;

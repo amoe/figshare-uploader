@@ -1,10 +1,12 @@
 #include <QDebug>
-#include "mapping_types.hh"
 #include "converter_list_model.hh"
 
 ConverterListModel::ConverterListModel(QObject* parent): QAbstractListModel(parent) {
     qDebug() << "initializing converter list model";
+
+    lookupRegistry = unique_ptr<LookupRegistry>(new LookupRegistryImpl());
 }
+
 
 int ConverterListModel::rowCount(const QModelIndex &parent) const {
     return 1;

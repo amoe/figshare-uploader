@@ -27,7 +27,6 @@ MappingOutput MappingEngine::convert(vector<string> document, MappingScheme sche
             converterName, value, fieldEncoder.getOptions()
         );
 
-
         QJsonDocument doc(seed.getArticleObject());
         QString strJson(doc.toJson(QJsonDocument::Compact));
         qDebug() << "BEFORE: " << strJson;

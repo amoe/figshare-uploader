@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
     // the highest level of stack.  It will be in scope for the entire lifetime
     // of the program.
 
+
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
     TokenStore tokenStore;
