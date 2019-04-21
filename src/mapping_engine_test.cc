@@ -185,3 +185,24 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, AuthorsEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::AUTHORS_ENCODER};
+    vector<string> theDocument = {"foo, bar, baz"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "authors": [
+                {"name": "foo"}
+                {"name": "bar"},
+                {"name": "baz"}
+            ]
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
