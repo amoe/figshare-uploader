@@ -25,6 +25,17 @@ ConverterRegistry::~ConverterRegistry() {
     std::cout << "successfully deleted everything" << std::endl;
 }
 
+const vector<ConverterName> ConverterRegistry::getRegisteredConverters() const {
+    vector<ConverterName> result;
+
+    for (const auto& pair: converterMap) {
+        result.push_back(pair.first);
+    }
+
+    return result;
+}
+
+
 // We are a simple delegator.
 IntermediateMappingOutput ConverterRegistry::convert(ConverterName c, string value, OptionsMap options) {
     auto iter = converterMap.find(c);

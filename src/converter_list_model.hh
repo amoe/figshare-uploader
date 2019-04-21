@@ -15,9 +15,10 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    static vector<string> getSerializableNames();
+
 private:
-    unique_ptr<LookupRegistry> lookupRegistry;
-    unique_ptr<ConverterRegistry> converterRegistry;
+    vector<string> serializableNames;
 };
 
 

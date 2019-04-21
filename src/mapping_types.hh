@@ -76,7 +76,9 @@ public:
     ConverterNameBijectiveMapper() {
         nameToString = {
             {ConverterName::DISCARD, "Discard"},
-            {ConverterName::STRING, "String"}
+            {ConverterName::STRING, "String"},
+            {ConverterName::CONTRIBUTE_FILES, "ContributeFiles"},
+            {ConverterName::LOOKUP_LIST, "LookupList"}
         };
 
         // invert the map
