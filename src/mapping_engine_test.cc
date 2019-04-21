@@ -206,3 +206,27 @@ TEST_F(MappingEngineTest, AuthorsEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, GroupEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::GROUP_ENCODER};
+    vector<string> theDocument = {"The Planet Bethlehem Project"};
+
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::GROUP, _)
+    ).WillOnce(Return(QJsonValue(11611)));
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
+
+    const string expectedResult = R"(
+        {
+           "group_id": 11611
+        }
+    )";
+
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}

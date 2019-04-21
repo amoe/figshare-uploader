@@ -75,6 +75,12 @@ namespace default_field_encoders {
          {"delimiter", optional<string>("\\s*,\\s*")}}
     );
 
+    const FieldEncoder GROUP_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "group_id")),
+        ConverterName::LOOKUP_VALUE,
+        {},
+        {{"resourceName", optional<string>("group")}}
+    );
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
