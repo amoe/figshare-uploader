@@ -75,7 +75,8 @@ class ConverterNameBijectiveMapper {
 public:
     ConverterNameBijectiveMapper() {
         nameToString = {
-            {ConverterName::DISCARD, "Discard"}            
+            {ConverterName::DISCARD, "Discard"},
+            {ConverterName::STRING, "String"}
         };
 
         // invert the map

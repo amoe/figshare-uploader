@@ -1,5 +1,8 @@
 #include <stdexcept>
+#include <sstream>
 #include "mapping_types.hh"
+
+using std::ostringstream;
 
 OptionsMap FieldEncoder::getOptions() const {
     return options;
@@ -110,7 +113,15 @@ vector<ValidationRule> FieldEncoder::getValidationRules() const {
 // Return a string description of the field encoder
 string FieldEncoder::describe() const {
     ConverterNameBijectiveMapper mapper;    // XXX: Extremely wasteful
-    string result;
-    result = mapper.getSerializableName(converterName);
-    return result;
+    string converterNameString = mapper.getSerializableName(converterName);
+
+    ostringstream descriptionStream;
+
+    if (targetField.has_value()) {
+        descriptionStream << targetField.value().getName()
+                          << " ";
+    }
+
+    descriptionStream << "[" << converterNameString << "]";
+    return descriptionStream.str();
 }

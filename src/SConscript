@@ -234,7 +234,6 @@ main_binary = env.Program(
     source=PROGRAM_SOURCES + ['main.cc', rcc_output]
 )
 
-
 # We have to use a fresh environment for the bundling process.
 def do_bundle():
     bundle_env = Environment()
