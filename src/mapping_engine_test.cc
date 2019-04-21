@@ -84,19 +84,7 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
     vector<string> theDocument = {
         "Figure"
     };
-    OptionsMap options = {
-        {"resourceName", optional<string>("definedType")}
-    };
-
-
-    TargetField targetField(TargetFieldType::STANDARD, "defined_type");
-    FieldEncoder lookupListEncoder(
-        optional<TargetField>(targetField),
-        ConverterName::LOOKUP_VALUE,
-        {},
-        options
-    );
-    MappingScheme theScheme = {lookupListEncoder};
+    MappingScheme theScheme = {default_field_encoders::DEFINED_TYPE_ENCODER};
 
     EXPECT_CALL(
         lookups, lookupByString(LookupType::DEFINED_TYPE, _)

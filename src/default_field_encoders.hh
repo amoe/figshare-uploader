@@ -59,6 +59,13 @@ namespace default_field_encoders {
         {},
         {{"delimiter", optional<string>("\\s*;\\s*")}}
     );
+
+    const FieldEncoder DEFINED_TYPE_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "defined_type")),
+        ConverterName::LOOKUP_VALUE,
+        {},
+        {{"resourceName", optional<string>("definedType")}}
+    );
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
