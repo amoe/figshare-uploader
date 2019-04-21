@@ -30,6 +30,7 @@ signals:
 public slots:
     void showDialog();
     void accept();
+    void complain();
 
 private:
     QGroupBox *createFirstGroup();
@@ -43,6 +44,7 @@ private:
     QButtonGroup* targetFieldTypeGroup;
     QLineEdit* targetFieldName;
     QGroupBox* targetFieldGroupBox;
+    QGroupBox* validationRulesGroupBox;
 };
 
 #endif

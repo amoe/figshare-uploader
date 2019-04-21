@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QDialogButtonBox>
+#include <QMessageBox>
 #include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_widget.hh"
@@ -22,9 +23,16 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
 
     targetFieldGroupBox = createFirstGroup();
 
+    validationRulesGroupBox = createThirdGroup();
+
+    connect(
+        validationRulesGroupBox, &QGroupBox::toggled, 
+        this, &FieldEncoderConfigurationDialog::complain
+    );
+
     grid->addWidget(targetFieldGroupBox, 0, 0);
     grid->addWidget(createSecondGroup(), 1, 0);
-    grid->addWidget(createThirdGroup(), 2, 0);
+    grid->addWidget(validationRulesGroupBox, 2, 0);
     grid->addWidget(makeControls(), 3, 0);
 
     setLayout(grid);
@@ -101,6 +109,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
 
 QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
     QGroupBox *groupBox = new QGroupBox("Local validation rules");
+    
     groupBox->setCheckable(true);
     groupBox->setChecked(false);
 
@@ -182,4 +191,9 @@ void FieldEncoderConfigurationDialog::accept() {
     qDebug() << "About to emit confirmation signal";
     emit fieldEncoderDialogConfirmed(result);
     done(QDialog::Accepted);
+}
+
+void FieldEncoderConfigurationDialog::complain() {
+    validationRulesGroupBox->setChecked(false);
+    QMessageBox::critical(this, "Error", "Not implemented yet.");
 }

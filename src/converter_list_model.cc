@@ -16,7 +16,6 @@ int ConverterListModel::rowCount(const QModelIndex &parent) const {
 }
 
 QVariant ConverterListModel::data(const QModelIndex &index, int role) const {
-
     string requestedName = serializableNames.at(index.row());
 
     if (role == Qt::DisplayRole) {
