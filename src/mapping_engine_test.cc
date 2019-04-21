@@ -6,6 +6,7 @@
 #include "mapping_types.hh"
 #include "test_utility.hh"
 #include "test_vocabulary.hh"
+#include "default_field_encoders.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -38,15 +39,7 @@ public:
 // later.
 
 TEST_F(MappingEngineTest, TitleStringConversionCheck) {
-    // Create a simple scheme
-    TargetField targetField(TargetFieldType::STANDARD, "title");
-    FieldEncoder titleEncoder(
-        optional<TargetField>(targetField),
-        ConverterName::STRING,
-        {},
-        {}
-    );
-    MappingScheme theScheme = {titleEncoder};
+    MappingScheme theScheme = {default_field_encoders::TITLE_ENCODER};
 
     vector<string> theDocument = {"foo"};
 
@@ -132,13 +125,7 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
 }
 
 TEST_F(MappingEngineTest, DiscardConverterCheck) {
-    FieldEncoder discardEncoder(
-        nullopt,
-        ConverterName::DISCARD,
-        {},
-        {}
-    );
-    MappingScheme theScheme = {discardEncoder};
+    MappingScheme theScheme = {default_field_encoders::DISCARD_ENCODER};
     vector<string> theDocument = {"foo"};
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
