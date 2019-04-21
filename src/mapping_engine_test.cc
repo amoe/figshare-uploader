@@ -21,19 +21,17 @@ public:
 class MappingEngineTest: public Test {
 public:
     MappingEngineTest() {
-        lookups = new MockLookupRegistry;
-        engine = new MappingEngine(lookups);
+        engine = new MappingEngine(&lookups);
         
     }
     ~MappingEngineTest() {
         // It can be this that triggers the problem, because it's deallocating
         // this pointer.  However, this is allocated with new, so no reason
         // for it to happen really.
-        delete lookups;
         delete engine;
     }
 
-    LookupRegistry* lookups;
+    MockLookupRegistry lookups;
     MappingEngine* engine;
 };
 
@@ -93,43 +91,45 @@ TEST_F(MappingEngineTest, ContributeFilesCheck) {
 }
 
 
-// TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
-//     vector<string> theDocument = {
-//         "Figure"
-//     };
-//     OptionsMap options = {
-//         {"resourceName", optional<string>("definedType")}
-//     };
+TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
+    vector<string> theDocument = {
+        "Figure"
+    };
+    OptionsMap options = {
+        {"resourceName", optional<string>("definedType")}
+    };
 
 
-//     TargetField targetField(TargetFieldType::STANDARD, "defined_type");
-//     FieldEncoder lookupListEncoder(
-//         optional<TargetField>(targetField),
-//         ConverterName::LOOKUP_LIST,
-//         {},
-//         options
-//     );
-//     MappingScheme theScheme = {lookupListEncoder};
+    TargetField targetField(TargetFieldType::STANDARD, "defined_type");
+    FieldEncoder lookupListEncoder(
+        optional<TargetField>(targetField),
+        ConverterName::LOOKUP_LIST,
+        {},
+        options
+    );
+    MappingScheme theScheme = {lookupListEncoder};
 
-//     EXPECT_CALL(lookups, lookupByString(_)).WillOnce(Return(QJsonValue("blah")));
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::DEFINED_TYPE, _)
+    ).WillOnce(Return(QJsonValue("blah")));
 
-//     MappingOutput result = this->engine->convert(theDocument, theScheme);
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
 
-//     // Expect an empty article object because we haven't defined any other
-//     // converters.
-//     QJsonObject expectedArticle;
-//     vector<string> expectedSourcePaths = {};
+    // Expect an empty article object because we haven't defined any other
+    // converters.
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
 
-//     const string expectedResult = R"(
-//         {
-//            "defined_type": "figure"
-//         }
-//     )";
+    const string expectedResult = R"(
+        {
+           "defined_type": "figure"
+        }
+    )";
 
 
-//     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
-//     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
-// }
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
 
 TEST_F(MappingEngineTest, DiscardConverterCheck) {
     MappingScheme theScheme = {default_field_encoders::DISCARD_ENCODER};
