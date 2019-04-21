@@ -27,8 +27,8 @@ void ComboBoxItemDelegate::setEditorData(
     QWidget* editor, const QModelIndex& index
 ) const {
     QComboBox* comboBox = getComboBox(editor);
-    int row = index.row();
-    int column = index.column();
+    // int row = index.row();
+    // int column = index.column();
     QString currentText = index.data(Qt::EditRole).toString();
     int cbIndex = comboBox->findText(currentText);
     if (cbIndex >= 0) 
