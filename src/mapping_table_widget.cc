@@ -34,9 +34,10 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     );
     table->setItemDelegateForColumn(0, delegate);
 
-    QVBoxLayout* vbox = new QVBoxLayout();
+    QVBoxLayout* vbox = new QVBoxLayout(this);
     vbox->addWidget(label);
     vbox->addWidget(table);
+
     group->setLayout(vbox);
 
     // Fix the appearance of the table
