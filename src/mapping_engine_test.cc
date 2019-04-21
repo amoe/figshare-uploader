@@ -195,7 +195,7 @@ TEST_F(MappingEngineTest, AuthorsEncoderCheck) {
     const string expectedResult = R"(
         {
             "authors": [
-                {"name": "foo"}
+                {"name": "foo"},
                 {"name": "bar"},
                 {"name": "baz"}
             ]
