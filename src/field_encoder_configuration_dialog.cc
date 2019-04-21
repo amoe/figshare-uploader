@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QDialogButtonBox>
+#include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder.hh"
 
@@ -71,14 +72,16 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     converterList = new QListView;
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    QStringList stringList = {
-        "string",
-        "listOfObjects",
-        "lookupList",
-        "contributeFiles",
-    };
+    // QStringList stringList = {
+    //     "string",
+    //     "listOfObjects",
+    //     "lookupList",
+    //     "contributeFiles",
+    // };
 
-    QAbstractItemModel* converterListModel = new QStringListModel(stringList);
+    // QAbstractItemModel* converterListModel = new QStringListModel(stringList);
+
+    QAbstractItemModel* converterListModel = new ConverterListModel(this);
     converterList->setModel(converterListModel);
 
     QPushButton* advancedButton = new QPushButton("Advanced...");
