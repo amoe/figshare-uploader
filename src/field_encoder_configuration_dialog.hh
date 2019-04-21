@@ -28,7 +28,7 @@ signals:
     );
     
 public slots:
-    void showDialog();
+    void showEncoderOptionsDialog();
     void accept();
     void complain();
 

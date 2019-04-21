@@ -6,7 +6,11 @@ ModelImpl::ModelImpl() {
 
     availableEncoders = {
         default_field_encoders::DISCARD_ENCODER,
-        default_field_encoders::TITLE_ENCODER
+        default_field_encoders::TITLE_ENCODER,
+        default_field_encoders::DESCRIPTION_ENCODER,
+        default_field_encoders::KEYWORDS_ENCODER,
+        default_field_encoders::REFERENCES_ENCODER,
+        default_field_encoders::CATEGORY_ENCODER
     };
 }
 

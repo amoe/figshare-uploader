@@ -112,7 +112,13 @@ if env['PLATFORM'] == 'win32':
 	'xlnt'
     ]
 else:
-    ccflags = ['-fPIC', '-std=c++11', '-Wall', '-Werror', '-pedantic']
+    ccflags = [
+        '-fPIC', 
+        '-std=c++11'
+        # '-Wall',
+        # '-Werror',
+        # '-pedantic'
+    ]
     libs = ['pthread', 'xlnt']
 
 

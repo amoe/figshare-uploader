@@ -98,7 +98,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
         advancedButton,
         &QAbstractButton::clicked,
         this,
-        &FieldEncoderConfigurationDialog::showDialog
+        &FieldEncoderConfigurationDialog::showEncoderOptionsDialog
     );
 
     vbox->addWidget(converterList);
@@ -143,33 +143,42 @@ QWidget* FieldEncoderConfigurationDialog::makeControls()  {
 }
 
 
-void FieldEncoderConfigurationDialog::showDialog() {
+void FieldEncoderConfigurationDialog::showEncoderOptionsDialog() {
     qDebug() << "I would show dialog";
-    QModelIndex theIndex = converterList->currentIndex();
-    string selectedFieldEncoder = theIndex.data().toString().toStdString();
-
     // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
-    map<string, FieldEncoderWidget&> fieldEncoders;
 
-    ListOfObjectFieldEncoder encoder;
-    FieldEncoderWidget& genericEncoder = encoder;
 
-    fieldEncoders.insert({"string", genericEncoder});
-    fieldEncoders.insert({"listOfObjects", genericEncoder});
-    fieldEncoders.insert({"lookupList", genericEncoder});
-    fieldEncoders.insert({"contributeFiles", genericEncoder});
+    QMessageBox::critical(
+        this,
+        "Error",
+        "FIX ME!"
+    );
 
-    FieldEncoderWidget& outOfMap = fieldEncoders.at(selectedFieldEncoder);
+    
+    // QModelIndex theIndex = converterList->currentIndex();
+    // string selectedFieldEncoder = theIndex.data().toString().toStdString();
 
-    qDebug() << "Pulled field encoder out of map";
-    qDebug() << "address is" << &outOfMap;
+    // map<string, FieldEncoderWidget&> fieldEncoders;
 
-    QDialog* dialog = outOfMap.makeConfigurationDialog(this);
-    dialog->show();
-    QJsonValue json = outOfMap.asJson();
+    // ListOfObjectFieldEncoder encoder;
+    // FieldEncoderWidget& genericEncoder = encoder;
 
-    qDebug() << "serialization is" << json;
-    qDebug() << "index is" << theIndex;
+    // fieldEncoders.insert({"string", genericEncoder});
+    // fieldEncoders.insert({"listOfObjects", genericEncoder});
+    // fieldEncoders.insert({"lookupList", genericEncoder});
+    // fieldEncoders.insert({"contributeFiles", genericEncoder});
+
+    // FieldEncoderWidget& outOfMap = fieldEncoders.at(selectedFieldEncoder);
+
+    // qDebug() << "Pulled field encoder out of map";
+    // qDebug() << "address is" << &outOfMap;
+
+    // QDialog* dialog = outOfMap.makeConfigurationDialog(this);
+    // dialog->show();
+    // QJsonValue json = outOfMap.asJson();
+
+    // qDebug() << "serialization is" << json;
+    // qDebug() << "index is" << theIndex;
 }
 
 void FieldEncoderConfigurationDialog::accept() {
@@ -195,5 +204,9 @@ void FieldEncoderConfigurationDialog::accept() {
 
 void FieldEncoderConfigurationDialog::complain() {
     validationRulesGroupBox->setChecked(false);
-    QMessageBox::critical(this, "Error", "Not implemented yet.");
+    QMessageBox::critical(
+        this,
+        "Error",
+        "Sorry — local validation rules are not implemented yet."
+    );
 }
