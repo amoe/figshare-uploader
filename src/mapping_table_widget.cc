@@ -2,6 +2,7 @@
 #include <QGridLayout>
 #include <QTableView>
 #include <QHeaderView>
+#include <QPushButton>
 #include "field_mapping_table_model.hh"
 #include "mapping_table_widget.hh"
 #include "combo_box_item_delegate.hh"
@@ -14,9 +15,9 @@ MappingTableWidget::MappingTableWidget(
     this->fieldEncoderModel = fieldEncoderModel;
     this->fieldMappingModel = fieldMappingModel;
 
-    QGridLayout *grid = new QGridLayout;
+    QGridLayout *grid = new QGridLayout(this);
+    grid->setSpacing(16);
     grid->addWidget(makeFirstGroup(), 0, 0);
-    setLayout(grid);
     setWindowTitle("Mapping configuration");
 }
 
@@ -34,11 +35,21 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     );
     table->setItemDelegateForColumn(0, delegate);
 
-    QVBoxLayout* vbox = new QVBoxLayout(this);
+    QVBoxLayout* vbox = new QVBoxLayout(group);
     vbox->addWidget(label);
     vbox->addWidget(table);
 
-    group->setLayout(vbox);
+    QWidget* buttonContainer = new QWidget(this);
+    QHBoxLayout* hbox = new QHBoxLayout(buttonContainer);
+    QPushButton* loadButton = new QPushButton("Load", this);
+    QPushButton* saveButton = new QPushButton("Save", this);
+
+    buttonContainer->setLayout(hbox);
+    hbox->addWidget(loadButton);
+    hbox->addWidget(saveButton);
+
+    vbox->addWidget(buttonContainer);
+
 
     // Fix the appearance of the table
     // popEditors is from utility.hh
