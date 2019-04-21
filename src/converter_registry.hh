@@ -82,6 +82,12 @@ public:
     IntermediateMappingOutput applyConversion(string input, OptionsMap options);
 };
 
+class ListOfObjectConverter: public Converter {
+public:
+    ListOfObjectConverter() { }
+    IntermediateMappingOutput applyConversion(string input, OptionsMap options);
+};
+
 class ConverterRegistry {
 public:
     ConverterRegistry(LookupRegistry* lookups);

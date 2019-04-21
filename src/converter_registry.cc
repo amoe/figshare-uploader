@@ -24,6 +24,7 @@ ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {
 
     converterMap.insert({ConverterName::DISCARD, new DiscardConverter});
     converterMap.insert({ConverterName::LIST_OF_STRING, new ListOfStringConverter});
+    converterMap.insert({ConverterName::LIST_OF_OBJECT, new ListOfObjectConverter});
 }
 
 ConverterRegistry::~ConverterRegistry() {
@@ -108,30 +109,70 @@ IntermediateMappingOutput LookupListConverter::applyConversion(
     return result;
 }
 
+IntermediateMappingOutput ListOfObjectConverter::applyConversion(
+    string input, OptionsMap options
+) {
+    QJsonValue producedValue;        // Will be initialized to null.
+    vector<string> producedPaths;    // We won't produce any paths.
+
+    string objectField = options.at("objectField").value();
+    optional<string> delimiter = options.at("delimiter");
+
+    QJsonArray resultArray;
+
+    if (delimiter.has_value()) {
+        string delimiterRegex = delimiter.value();
+        vector<string> discreteValues = splitByRegexp(input, delimiterRegex);
+        for (string v: discreteValues) {
+            QJsonObject containerObject;
+            containerObject.insert(
+                QString::fromStdString(objectField),
+                QJsonValue(QString::fromStdString(v))
+            );
+
+            resultArray.append(containerObject);
+        }
+    } else {
+        QJsonObject containerObject;
+        containerObject.insert(
+            QString::fromStdString(objectField),
+            QJsonValue(QString::fromStdString(input))
+        );
+        resultArray.append(containerObject);
+    }
+
+    producedValue = resultArray;
+
+    IntermediateMappingOutput result(
+        resultArray, producedPaths, CombinationOperation::CONJOIN
+    );
+    return result;
+}
+
 IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, OptionsMap options) {
     QJsonValue producedValue;        // Will be initialized to null.
     vector<string> producedPaths;    // We won't produce any paths.
     
     optional<string> delimiter = options.at("delimiter");
 
-    QJsonArray keywordsArray;
+    QJsonArray resultArray;
 
     if (delimiter.has_value()) {
         string delimiterRegex = delimiter.value();
-        vector<string> keywords = splitByRegexp(input, delimiterRegex);
-        for (string k: keywords) {
-            keywordsArray.append(QJsonValue(QString::fromStdString(k)));
+        vector<string> discreteValues = splitByRegexp(input, delimiterRegex);
+        for (string v: discreteValues) {
+            resultArray.append(QJsonValue(QString::fromStdString(v)));
         }
     } else {
-        keywordsArray.append(QJsonValue(QString::fromStdString(input)));
+        resultArray.append(QJsonValue(QString::fromStdString(input)));
     }
 
-    producedValue = keywordsArray;
+    producedValue = resultArray;
 
     qDebug() << producedValue;
 
     IntermediateMappingOutput result(
-        keywordsArray, producedPaths, CombinationOperation::CONJOIN
+        producedValue, producedPaths, CombinationOperation::CONJOIN
     );
     return result;
 }
