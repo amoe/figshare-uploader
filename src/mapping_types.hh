@@ -81,7 +81,8 @@ public:
             {ConverterName::CONTRIBUTE_FILES, "ContributeFiles"},
             {ConverterName::LOOKUP_VALUE, "LookupValue"},
             {ConverterName::LOOKUP_LIST, "LookupList"},
-            {ConverterName::LIST_OF_STRING, "ListOfString"}
+            {ConverterName::LIST_OF_STRING, "ListOfString"},
+            {ConverterName::LIST_OF_OBJECT, "ListOfObject"}
         };
 
         // invert the map

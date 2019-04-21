@@ -10,7 +10,8 @@ ModelImpl::ModelImpl() {
         default_field_encoders::DESCRIPTION_ENCODER,
         default_field_encoders::KEYWORDS_ENCODER,
         default_field_encoders::REFERENCES_ENCODER,
-        default_field_encoders::CATEGORY_ENCODER
+        default_field_encoders::CATEGORY_ENCODER,
+        default_field_encoders::AUTHORS_ENCODER
     };
 }
 
