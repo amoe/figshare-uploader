@@ -21,6 +21,20 @@ namespace default_field_encoders {
         {},
         {}
     );
+
+    const FieldEncoder DESCRIPTION_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "description")),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+
+    const FieldEncoder KEYWORDS_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "keywords")),
+        ConverterName::LIST_OF_STRING,
+        {},
+        {{"delimiter", optional<string>(",\\s*")}}
+    );
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
