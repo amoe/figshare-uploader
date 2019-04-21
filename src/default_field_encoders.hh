@@ -66,6 +66,15 @@ namespace default_field_encoders {
         {},
         {{"resourceName", optional<string>("definedType")}}
     );
+
+    const FieldEncoder AUTHORS_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "authors")),
+        ConverterName::LIST_OF_OBJECT,
+        {},
+        {{"objectField", optional<string>("name")},
+         {"delimiter", optional<string>("\\s*,\\s*")}}
+    );
+
 }
 
 #endif /* DEFAULT_FIELD_ENCODERS_HH */
