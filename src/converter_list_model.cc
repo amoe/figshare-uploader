@@ -5,6 +5,9 @@ ConverterListModel::ConverterListModel(QObject* parent): QAbstractListModel(pare
     qDebug() << "initializing converter list model";
 
     lookupRegistry = unique_ptr<LookupRegistry>(new LookupRegistryImpl());
+    converterRegistry = unique_ptr<ConverterRegistry>(
+        new ConverterRegistry(lookupRegistry.get())
+    ); 
 }
 
 

@@ -72,6 +72,8 @@ public:
     // access state in this case.
     IntermediateMappingOutput convert(ConverterName c, string value, OptionsMap options);
 
+//    const vector<ConverterName> getRegisteredConverters() const;
+
 private:
     unordered_map<ConverterName, Converter*, EnumClassHash> converterMap;
 };

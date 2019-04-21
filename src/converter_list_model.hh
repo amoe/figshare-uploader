@@ -17,6 +17,7 @@ public:
 
 private:
     unique_ptr<LookupRegistry> lookupRegistry;
+    unique_ptr<ConverterRegistry> converterRegistry;
 };
 
 
