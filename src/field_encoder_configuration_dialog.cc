@@ -12,7 +12,6 @@
 using std::map;
 using std::string;
 
-
 FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     optional<QModelIndex> editIndex,
     QWidget *parent
@@ -20,7 +19,9 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     this->editIndex = editIndex;
     QGridLayout *grid = new QGridLayout;
 
-    grid->addWidget(createFirstGroup(), 0, 0);
+    targetFieldGroupBox = createFirstGroup();
+
+    grid->addWidget(targetFieldGroupBox, 0, 0);
     grid->addWidget(createSecondGroup(), 1, 0);
     grid->addWidget(createThirdGroup(), 2, 0);
     grid->addWidget(makeControls(), 3, 0);
@@ -29,20 +30,10 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     setWindowTitle("Field encoder configuration");
 }
 
-QWidget* FieldEncoderConfigurationDialog::makeControls()  {
-    // Standard-ass buttons
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(
-        QDialogButtonBox::Ok | QDialogButtonBox::Cancel
-    );
-
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &FieldEncoderConfigurationDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-
-    return buttonBox;
-}
 
 QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup() {
     QGroupBox* groupBox = new QGroupBox("Target field");
+    groupBox->setCheckable(true);
 
     targetFieldTypeGroup = new QButtonGroup(this);
     QRadioButton* radio1 = new QRadioButton("Standard field");
@@ -74,8 +65,8 @@ QGroupBox *FieldEncoderConfigurationDialog::createFirstGroup() {
 }
 
 QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
-    QGroupBox *groupBox = new QGroupBox("Conversion types");
-    QVBoxLayout *vbox = new QVBoxLayout;
+    QGroupBox* groupBox = new QGroupBox("Conversion types");
+    QVBoxLayout* vbox = new QVBoxLayout;
 
     converterList = new QListView;
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -127,6 +118,18 @@ QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
     return groupBox;
 }
 
+QWidget* FieldEncoderConfigurationDialog::makeControls()  {
+    // Standard-ass buttons
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(
+        QDialogButtonBox::Ok | QDialogButtonBox::Cancel
+    );
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &FieldEncoderConfigurationDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    return buttonBox;
+}
+
 
 void FieldEncoderConfigurationDialog::showDialog() {
     qDebug() << "I would show dialog";
@@ -167,6 +170,7 @@ void FieldEncoderConfigurationDialog::accept() {
     qt_dto::FieldEncoderConfigurationOperation result;
 
     result.index = editIndex.value_or(QModelIndex());
+    result.targetFieldControlsChecked = targetFieldGroupBox->isChecked();
     result.targetFieldTypeId = targetFieldTypeGroup->checkedId();
     result.fieldName = targetFieldName->text();
     result.selectedConverter = converterList->currentIndex();

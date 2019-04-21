@@ -42,6 +42,7 @@ private:
     QListView* validatorList;
     QButtonGroup* targetFieldTypeGroup;
     QLineEdit* targetFieldName;
+    QGroupBox* targetFieldGroupBox;
 };
 
 #endif

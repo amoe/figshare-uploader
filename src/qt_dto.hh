@@ -19,6 +19,7 @@ namespace qt_dto {
 
     struct FieldEncoderConfigurationOperation {
         QModelIndex index;
+        bool targetFieldControlsChecked;
         int targetFieldTypeId;
         QString fieldName;
         QModelIndex selectedConverter;
