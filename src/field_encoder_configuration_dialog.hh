@@ -20,6 +20,7 @@ public:
     FieldEncoderConfigurationDialog(
         optional<QModelIndex> editIndex, QWidget *parent = nullptr
     );
+    void setContent();
 
 signals:
     // This is manually forwarded all the way to the View.
@@ -44,6 +45,7 @@ private:
     QButtonGroup* targetFieldTypeGroup;
     QLineEdit* targetFieldName;
     QGroupBox* targetFieldGroupBox;
+    QGroupBox* converterGroupBox;
     QGroupBox* validationRulesGroupBox;
 };
 

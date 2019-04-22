@@ -10,6 +10,7 @@
 #include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_widget.hh"
+#include "default_field_encoders.hh" //XXX
 
 using std::map;
 using std::string;
@@ -22,7 +23,7 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     QGridLayout *grid = new QGridLayout;
 
     targetFieldGroupBox = createFirstGroup();
-
+    converterGroupBox = createSecondGroup();
     validationRulesGroupBox = createThirdGroup();
 
     connect(
@@ -31,12 +32,29 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     );
 
     grid->addWidget(targetFieldGroupBox, 0, 0);
-    grid->addWidget(createSecondGroup(), 1, 0);
+    grid->addWidget(converterGroupBox, 1, 0);
     grid->addWidget(validationRulesGroupBox, 2, 0);
     grid->addWidget(makeControls(), 3, 0);
 
     setLayout(grid);
     setWindowTitle("Field encoder configuration");
+}
+
+void FieldEncoderConfigurationDialog::setContent() {
+    FieldEncoder inputEncoder = default_field_encoders::CATEGORY_ENCODER;
+
+    // Handle field type
+
+    optional<TargetField> targetField = inputEncoder.getTargetField();
+
+    if (targetField.has_value()) {
+        //... 
+    } else {
+        targetFieldGroupBox->setChecked(false);
+        targetFieldName->setText("");
+    }
+
+//    int targetFieldTypeIndex = static_cast<int>(inputEncoder.targetField
 }
 
 
