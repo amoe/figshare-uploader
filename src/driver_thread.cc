@@ -31,7 +31,7 @@ void DriverThread::perform() {
     for (int i = INITIAL_ROW; i <= rowCount; i++) {
         debugf("handling row %d", i);
         vector<string> rowData = theReader.rowToString(i);
-        ExcelRow row(rowData);
+        ExcelRow row(rowData, i);
         driver->handleRow(row, inputPath, fieldMappings);
     }
 

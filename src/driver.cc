@@ -18,7 +18,7 @@ void Driver::log(string message) const {
 void Driver::handleRow(
     const ExcelRow row, const string inputPath, const MappingScheme& mappingScheme
 ) const {
-    log("Handling row.");
+    log("Handling row");
 
     MappingOutput result = mappingEngine->convert(row.rowData, mappingScheme);
     QJsonObject articleObject = result.getArticleObject();
@@ -28,7 +28,10 @@ void Driver::handleRow(
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
     debugf("article created with id %d", articleData.id);
 
-    for (const string& thisFile: sourcePaths) {
+    vector<string> filesToUpload
+        = PathExtractor::resolvePaths(sourcePaths, inputPath);
+
+    for (const string& thisFile: filesToUpload) {
         debugf("handling upload for file: '%s'", thisFile.c_str());
         UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);
         handleUpload(stemArticle, thisFile, ucr);

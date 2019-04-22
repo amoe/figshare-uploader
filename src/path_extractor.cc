@@ -13,16 +13,17 @@ vector<string> PathExtractor::getRequestedFiles(
     string uploadSpec, string xlsxPath
 ) {
     vector<string> splitVersion =  splitByRegexp(uploadSpec, "\\s*[;,]\\s*");
-
-    vector<string> result;
-        
-    for (const string& str : splitVersion) {
-        if (str.empty() || isWhitespaceOnly(str))
-            continue;
-
-        result.push_back(resolvePath(xlsxPath, str));
-    }
-
-    return result;
+    return resolvePaths(splitVersion, xlsxPath);
 }
 
+vector<string> PathExtractor::resolvePaths(
+    vector<string> speccedPaths, string sourceExcelPath
+) {
+    vector<string> result;
+    for (const string& str : speccedPaths) {
+        if (str.empty() || isWhitespaceOnly(str))
+            continue;
+        result.push_back(resolvePath(sourceExcelPath, str));
+    }
+    return result;
+}

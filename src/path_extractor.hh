@@ -6,7 +6,6 @@ using std::string;
 
 class PathExtractor {
 public:
-    static std::vector<std::string> getRequestedFiles(
-        std::string uploadSpec, std::string xlsxPath
-    );
+    static vector<string> getRequestedFiles(string uploadSpec, string xlsxPath);
+    static vector<string> resolvePaths(vector<string> speccedPaths, string sourceExcelPath);
 };

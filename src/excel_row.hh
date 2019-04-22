@@ -3,8 +3,9 @@
 
 struct ExcelRow {
 public:
-    ExcelRow(vector<string> rowData) : rowData(rowData) {}
+    ExcelRow(vector<string> rowData, int rowNumber) : rowData(rowData), rowNumber(rowNumber) {}
 
+    int rowNumber;
     vector<string> rowData;
 };
 
