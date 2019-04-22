@@ -1,11 +1,13 @@
 #ifndef CONVERTER_REGISTRY_HH
 #define CONVERTER_REGISTRY_HH
 
+#include <map>
 #include <unordered_map>
 #include <QJsonValue>
 #include "mapping_types.hh"
 #include "enum_class_hash.hh"
 
+using std::map;
 using std::unordered_map;
 
 class Converter {
@@ -100,7 +102,10 @@ public:
     const vector<ConverterName> getRegisteredConverters() const;
 
 private:
-    unordered_map<ConverterName, Converter*, EnumClassHash> converterMap;
+    // It's important that this is an ordered std::map, because 
+    // ConverterListModel exploits this property to make sure that field encoders
+    // get executed correctly.
+    map<ConverterName, Converter*> converterMap;
 };
 
 #endif /* CONVERTER_REGISTRY_HH */
