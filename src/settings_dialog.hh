@@ -29,6 +29,9 @@ signals:
     void fieldEncoderDialogConfirmed(
         qt_dto::FieldEncoderConfigurationOperation data
     );
+
+    void saveFieldMappingsRequested();
+    void loadFieldMappingsRequested();
 };
 
 #endif /* SETTINGS_DIALOG_HH */

@@ -186,6 +186,16 @@ void ViewImpl::showSettingsDialog(
         this, &ViewImpl::onFieldEncoderConfigurationDialogConfirmed
     );
 
+    connect(
+        settingsDialog, &SettingsDialog::saveFieldMappingsRequested,
+        this, &ViewImpl::onSaveFieldMappingsRequested
+    );
+
+    connect(
+        settingsDialog, &SettingsDialog::loadFieldMappingsRequested,
+        this, &ViewImpl::onLoadFieldMappingsRequested
+    );
+
     // Block execution until "accepted" signal is emitted.
     settingsDialog->show();
 }
@@ -228,14 +238,13 @@ void ViewImpl::onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation d
     domain::MappingEncoderSetOperation domainOperation;
     domainOperation.excelRowIndex = dto.index.row();
     domainOperation.fieldEncoderIndex = dto.value.toInt();
-
-    // HOW TO IDENTIFY THE FIELD ENCODER???
-    // We only have the string value.  That's not enough to identify it
-
-    // We need some way to hash all of its components.
-    // How could the model find some way to update ITS internal mapping?
-    // It should really just be an index into availableEncoders.
-//    int fieldEncoderIndex = ???
-
     presenter->onMappingEncoderSetOperation(domainOperation);
+}
+
+void ViewImpl::onSaveFieldMappingsRequested() {
+    qDebug() << "The view would present a file pick dialog to save";
+}
+
+void ViewImpl::onLoadFieldMappingsRequested() {
+    qDebug() << "The view would present a file pick dialog to load";
 }

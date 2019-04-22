@@ -49,6 +49,8 @@ private slots:
     void onFieldEncoderConfigurationDialogConfirmed(
         qt_dto::FieldEncoderConfigurationOperation dto
     );
+    void onSaveFieldMappingsRequested();
+    void onLoadFieldMappingsRequested();
 
 private:
     Presenter* presenter;

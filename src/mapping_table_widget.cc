@@ -2,7 +2,6 @@
 #include <QGridLayout>
 #include <QTableView>
 #include <QHeaderView>
-#include <QPushButton>
 #include "field_mapping_table_model.hh"
 #include "mapping_table_widget.hh"
 #include "combo_box_item_delegate.hh"
@@ -19,7 +18,16 @@ MappingTableWidget::MappingTableWidget(
     grid->setSpacing(16);
     grid->addWidget(makeFirstGroup(), 0, 0);
     setWindowTitle("Mapping configuration");
+
+    connect(
+        saveButton, &QPushButton::released, this, &MappingTableWidget::saveRequested
+    );
+
+    connect(
+        loadButton, &QPushButton::released, this, &MappingTableWidget::loadRequested
+    );
 }
+
 
 QWidget* MappingTableWidget::makeFirstGroup() {
     QWidget* group = new QWidget(this);
@@ -41,8 +49,9 @@ QWidget* MappingTableWidget::makeFirstGroup() {
 
     QWidget* buttonContainer = new QWidget(this);
     QHBoxLayout* hbox = new QHBoxLayout(buttonContainer);
-    QPushButton* loadButton = new QPushButton("Load", this);
-    QPushButton* saveButton = new QPushButton("Save", this);
+
+    loadButton = new QPushButton("Load", this);
+    saveButton = new QPushButton("Save", this);
 
     buttonContainer->setLayout(hbox);
     hbox->addWidget(loadButton);

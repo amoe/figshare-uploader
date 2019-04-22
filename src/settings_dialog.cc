@@ -40,6 +40,16 @@ SettingsDialog::SettingsDialog(
         this, &SettingsDialog::fieldEncoderDialogConfirmed
     );
 
+    connect(
+        mappingTable, &MappingTableWidget::saveRequested, this,
+        &SettingsDialog::saveFieldMappingsRequested
+    );
+
+    connect(
+        mappingTable, &MappingTableWidget::loadRequested, this,
+        &SettingsDialog::loadFieldMappingsRequested
+    );
+
     container->addTab(mappingTable, "Field mapping");
     container->addTab(fieldEncoderList, "Encoder configuration");
 
