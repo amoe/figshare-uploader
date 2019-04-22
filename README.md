@@ -29,3 +29,7 @@ It only supports `.xlsx`.
 ## Support
 
 This work was supported by the [Sussex Humanities Lab](http://www.sussex.ac.uk/shl).
+
+## License
+
+Apache 2.0.

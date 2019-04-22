@@ -13,8 +13,7 @@ const char *foo = "Figshare Uploader\n"
 
 const char* title = "<strong>Figshare Uploader</strong>";
 const char* copyright = "Copyright © 2019 University of Sussex";
-const char* license = "Licensed under the GNU Affero General Public License, "
-  "version 3 or later.";
+const char* license = "Licensed under the Apache 2.0 License.";
 const char* url = "http://github.com/amoe/figshare-uploader";
 
 

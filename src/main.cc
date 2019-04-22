@@ -42,8 +42,9 @@ int main(int argc, char **argv) {
 
     LookupRegistryImpl lookupRegistry(&categoryMapper);
     ConverterRegistry converterRegistry;
-    ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
-
+    ConverterRegistry::initializeStandardConverters(
+        converterRegistry, &lookupRegistry
+    );
 
     ArticleTypeMapper typeMapper;
     GroupMapperImpl groupMapper(&httpGetter);
