@@ -1,4 +1,5 @@
 #include "qt_utility.hh"
+#include <QStandardPaths>
 
 namespace qt_utility {
     void popEditors(QAbstractItemModel* model, QAbstractItemView* view) {
@@ -20,5 +21,11 @@ namespace qt_utility {
             debugStream << logPrefix << error << "; content =" << QString::fromUtf8(result);
             throw std::runtime_error(errorMessage.toStdString());
         }
+    }
+
+    QString getDocumentsPath() {
+        return QStandardPaths::standardLocations(
+            QStandardPaths::DocumentsLocation
+        ).first();
     }
 }

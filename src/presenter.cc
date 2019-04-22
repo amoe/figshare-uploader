@@ -189,3 +189,11 @@ void PresenterImpl::onMappingEncoderSetOperation(
 
     model->bindRow(dto.excelRowIndex, dto.fieldEncoderIndex);
 }
+
+void PresenterImpl::saveFieldMappings(string outputPath) {
+    debugf("presenter would save mappings");
+}
+
+void PresenterImpl::loadFieldMappings(string inputPath) {
+    debugf("presenter would load mappings");
+}

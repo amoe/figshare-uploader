@@ -24,6 +24,7 @@
 #include "domain_dto.hh"
 #include "field_mapping_table_model.hh"
 #include "logging.hh"
+#include "qt_utility.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
@@ -242,9 +243,18 @@ void ViewImpl::onMappingEncoderSetOperation(qt_dto::MappingEncoderSetOperation d
 }
 
 void ViewImpl::onSaveFieldMappingsRequested() {
-    qDebug() << "The view would present a file pick dialog to save";
+    QString documentsPath = qt_utility::getDocumentsPath(); 
+    QString fileName = QFileDialog::getSaveFileName(
+        this, "Save field mappings", documentsPath, "JSON (*.json)"
+    );
+    presenter->saveFieldMappings(fileName.toStdString());
 }
 
 void ViewImpl::onLoadFieldMappingsRequested() {
-    qDebug() << "The view would present a file pick dialog to load";
+    QString documentsPath = qt_utility::getDocumentsPath(); 
+    QString fileName = QFileDialog::getOpenFileName(
+        this, "Load field mappings", documentsPath, "JSON (*.json)"
+    );
+    presenter->loadFieldMappings(fileName.toStdString());
 }
+

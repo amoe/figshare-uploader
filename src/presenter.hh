@@ -40,6 +40,9 @@ public:
     void onMappingEncoderSetOperation(
         domain::MappingEncoderSetOperation dto
     );
+    void saveFieldMappings(string outputPath);
+    void loadFieldMappings(string inputPath);
+
 
 private:
     Model* model;
