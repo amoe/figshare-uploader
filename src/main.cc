@@ -58,7 +58,13 @@ int main(int argc, char **argv) {
     CustomFieldMapper customFieldMapper;
     ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
-    Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
+    Driver driver(
+        &gateway,
+        &partPreparer,
+        &fileSpecGenerator,
+        &articleMapper,
+        &mappingEngine
+    );
 
     // Model owns the various user-manipulable data.
     // Pass the converter registry by implicit const reference.
