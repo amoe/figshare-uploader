@@ -23,7 +23,11 @@ TEST(PartPreparerTest, CanPrepareUpload) {
     // This is insanely weird but the offset from 2 to 8 should actually be 1
     // larger for some reason.  This is an oddity of Figshare, AFAICS, unless
     // I'm just being an idiot.
-    ASSERT_THAT(result.getData().size(), Eq(7));
+    
+    using sz = vector<char>::size_type;
+    sz expectedSize = 7;
+
+    ASSERT_THAT(result.getData().size(), Eq(expectedSize));
 
 }
 

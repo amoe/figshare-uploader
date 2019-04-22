@@ -21,7 +21,7 @@ UploadCreationResponse ObjectMother::makeUploadCreationResponse() {
 UploadCreationRequest ObjectMother::makeUploadCreationRequest() {
     string md5;
     string name;
-    int64_t size;
+    int64_t size = 0;
     UploadCreationRequest ucr(name, md5, size);
 
     return ucr;
@@ -82,10 +82,10 @@ FileInfo ObjectMother::makeFileInfo() {
 
 UploadContainerInfo ObjectMother::makeUploadContainerInfo(int nParts) {
     string name;
-    int64_t size;
+    int64_t size = 0;
     string md5;
     string token;
-    UploadContainerStatus status;
+    UploadContainerStatus status = UploadContainerStatus::PENDING;
     vector<FilePart> parts;
 
     // 1-based loop!

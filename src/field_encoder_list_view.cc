@@ -75,6 +75,7 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
     );
 
     int result = dialog->exec();
+    Q_UNUSED(result);
 }
 
 void FieldEncoderListView::triggerNew() {
@@ -89,6 +90,7 @@ void FieldEncoderListView::triggerNew() {
     );
 
     int result = dialog->exec();
+    Q_UNUSED(result);
 }
 
 void FieldEncoderListView::deleteItem(QModelIndex index) {

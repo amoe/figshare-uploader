@@ -18,8 +18,8 @@ UploadCommand PartPreparerImpl::prepareUpload(
     int64_t start = part.getStartOffset();
     int64_t end = part.getEndOffset();
 
-    debugf("will try start: %d", start);
-    debugf("will try end: %d", end);
+    debugf("will try start: %ld", start);
+    debugf("will try end: %ld", end);
 
     std::vector<char> data = getDataSlice(
         sourcePath,
