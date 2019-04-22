@@ -89,7 +89,8 @@ void PresenterImpl::showSettingsDialog() {
         // We pass a reference to the field mappings stored inside the model.
         view->showSettingsDialog(
             model->getHeaderFields(),
-            model->getFieldMappings()
+            model->getFieldMappings(),
+            model->getConverterRegistry()
         );
     } else {
         view->reportError("Please select an input file first.");

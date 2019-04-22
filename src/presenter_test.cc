@@ -16,6 +16,7 @@ public:
     MOCK_CONST_METHOD0(getFieldMappings, const MappingScheme&());
     MOCK_CONST_METHOD0(getSourceFile, const optional<string>());
     MOCK_CONST_METHOD0(getHeaderFields, const vector<string>());
+    MOCK_CONST_METHOD0(getConverterRegistry, const ConverterRegistry&());
     MOCK_CONST_METHOD0(dumpMappingScheme, void());
 };
 

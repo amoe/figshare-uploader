@@ -38,7 +38,8 @@ public:
     void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
     void showSettingsDialog(
-        vector<string> headerFields, const MappingScheme& fieldMappings
+        vector<string> headerFields, const MappingScheme& fieldMappings,
+        const ConverterRegistry& converterRegistry
     );
 
 

@@ -26,7 +26,6 @@
 #include "logging.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
-    converterListModel = new ConverterListModel(this);
 
     QWidget* contentWidget = new QWidget(this);
     setWindowTitle("Figshare Uploader");
@@ -158,11 +157,14 @@ void ViewImpl::showAboutDialog() {
 }
 
 void ViewImpl::showSettingsDialog(
-    vector<string> headerFields, const MappingScheme& fieldMappings
+    vector<string> headerFields, const MappingScheme& fieldMappings,
+    const ConverterRegistry& converterRegistry
+
 ) {
     fieldMappingModel = new FieldMappingTableModel(
         headerFields, fieldMappings, this
     );
+    converterListModel = new ConverterListModel(converterRegistry, this);
 
     connect(
         fieldMappingModel, &FieldMappingTableModel::mappingEncoderSet,

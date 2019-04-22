@@ -72,3 +72,7 @@ void ModelImpl::dumpMappingScheme() const {
 const MappingScheme& ModelImpl::getFieldMappings() const {
     return fieldMappings;
 }
+
+const ConverterRegistry& ModelImpl::getConverterRegistry() const {
+    return converterRegistry;
+}

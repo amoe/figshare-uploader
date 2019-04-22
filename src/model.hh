@@ -32,6 +32,9 @@ public:
     // This observing reference is used by the field mapping model.
     const MappingScheme& getFieldMappings() const;
 
+    const ConverterRegistry& getConverterRegistry() const;
+
+
     void dumpMappingScheme() const;
 
 private:

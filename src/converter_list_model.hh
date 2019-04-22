@@ -11,14 +11,15 @@ class ConverterListModel: public QAbstractListModel {
     Q_OBJECT
 
 public:
-    ConverterListModel(QObject* parent);
+    ConverterListModel(const ConverterRegistry& converterRegistry, QObject* parent);
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    static vector<string> getSerializableNames();
+    vector<string> getSerializableNames() const;
 
 private:
     vector<string> serializableNames;
+    const ConverterRegistry& converterRegistry;
 };
 
 

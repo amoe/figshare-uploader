@@ -6,6 +6,7 @@
 #include "progress_reporter.hh"
 #include "mapping_types.hh"
 #include "domain_dto.hh"
+#include "converter_registry.hh"
 
 using std::string;
 using std::vector;
@@ -21,7 +22,8 @@ public:
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog(
         vector<string> headerFields,
-        const MappingScheme& fieldMappings
+        const MappingScheme& fieldMappings,
+        const ConverterRegistry& converterRegistry
     ) = 0;
     virtual void setSourceFile(std::string sourceFile) = 0;
     virtual void iterateFieldMappingModel() = 0;
@@ -62,6 +64,7 @@ public:
     virtual const MappingScheme& getFieldMappings() const = 0;
     virtual const vector<string> getHeaderFields() const = 0;
     virtual const optional<string> getSourceFile() const = 0;
+    virtual const ConverterRegistry& getConverterRegistry() const = 0;
 };
 
 #endif // INTERFACES_HH

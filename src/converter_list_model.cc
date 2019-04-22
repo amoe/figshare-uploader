@@ -2,7 +2,9 @@
 #include "converter_list_model.hh"
 
 
-ConverterListModel::ConverterListModel(QObject* parent): QAbstractListModel(parent) {
+ConverterListModel::ConverterListModel(
+    const ConverterRegistry& converterRegistry, QObject* parent
+): QAbstractListModel(parent), converterRegistry(converterRegistry) {
     qDebug() << "initializing converter list model";
 
     // We just assume that the converter list can never be modified during
@@ -26,10 +28,8 @@ QVariant ConverterListModel::data(const QModelIndex &index, int role) const {
 }
 
 
-vector<string> ConverterListModel::getSerializableNames() {
+vector<string> ConverterListModel::getSerializableNames() const {
     ConverterNameBijectiveMapper nameMapper;
-    LookupRegistryImpl lookupRegistry;
-    ConverterRegistry converterRegistry(&lookupRegistry);
     vector<ConverterName> converterNames = converterRegistry.getRegisteredConverters();
 
     vector<string> result;
