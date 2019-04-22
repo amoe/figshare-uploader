@@ -20,23 +20,15 @@ void Driver::handleRow(
 ) const {
     log("Handling row.");
 
-    // New algorithm:
-
-    // First, the mapping engine applies the mapping scheme to the row.
-    // That produces a QJsonObject
-    // Figshare gateway no longer needs to know about the various mappers.
-
-    ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
-    ArticleCreationResponse response = gateway->createArticle(acr);
+    MappingOutput result = mappingEngine->convert(row.rowData, mappingScheme);
+    QJsonObject articleObject = result.getArticleObject();
+    vector<string> sourcePaths = result.getSourcePaths();
+    ArticleCreationResponse response = gateway->createArticle(articleObject);
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
     debugf("article created with id %d", articleData.id);
 
-
-    vector<string> filesToUpload
-        = PathExtractor::getRequestedFiles(acr.identifier, inputPath);
-
-    for (const string& thisFile: filesToUpload) {
+    for (const string& thisFile: sourcePaths) {
         debugf("handling upload for file: '%s'", thisFile.c_str());
         UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);
         handleUpload(stemArticle, thisFile, ucr);

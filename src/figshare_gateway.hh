@@ -19,6 +19,10 @@ public:
         ArticleCreationRequest request
     ) = 0;
 
+    virtual ArticleCreationResponse createArticle(
+        QJsonObject articleObject
+    ) = 0;
+
     virtual UploadCreationResponse createUpload(
         string articleUrl,
         UploadCreationRequest request
@@ -49,6 +53,8 @@ public:
 
     // These methods form the official Figshare API
     ArticleCreationResponse createArticle(ArticleCreationRequest request);
+    ArticleCreationResponse createArticle(QJsonObject articleObject);
+
     UploadCreationResponse createUpload(
         string articleUrl,
         UploadCreationRequest request
@@ -75,19 +81,14 @@ private:
 
 class MockFigshareGateway : public FigshareGateway {
 public:
-    MOCK_METHOD1(createArticle, ArticleCreationResponse(ArticleCreationRequest request));
-    MOCK_METHOD2(
-        createUpload, 
-        UploadCreationResponse(string articleUrl, UploadCreationRequest request)
-    );
-    MOCK_METHOD1(getUploadInfo, FileInfo(string uploadUrl));
-    MOCK_METHOD1(
-        getUploadContainerInfo,
-        UploadContainerInfo(string uploadContainerUrl)
-    );
-    MOCK_METHOD1(putUpload, PartPutResponse(UploadCommand uc));
-    MOCK_METHOD2(completeUpload, string(int articleId, int uploadId));
-    MOCK_METHOD1(getArticle, ArticleGetResponse(string url));
+    MOCK_METHOD1(createArticle, ArticleCreationResponse(ArticleCreationRequest));
+    MOCK_METHOD1(createArticle, ArticleCreationResponse(QJsonObject));
+    MOCK_METHOD2(createUpload, UploadCreationResponse(string, UploadCreationRequest));
+    MOCK_METHOD1(getUploadInfo, FileInfo(string));
+    MOCK_METHOD1(getUploadContainerInfo, UploadContainerInfo(string));
+    MOCK_METHOD1(putUpload, PartPutResponse(UploadCommand));
+    MOCK_METHOD2(completeUpload, string(int, int));
+    MOCK_METHOD1(getArticle, ArticleGetResponse(string));
 };
 
 #endif // FIGSHARE_GATEWAY_HH
