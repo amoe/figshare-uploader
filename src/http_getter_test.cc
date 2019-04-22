@@ -8,7 +8,7 @@
 using std::string;
 using ::testing::Eq;
 
-TEST(HttpGetter, DISABLED_GetsTheByteArraySuccessfully) {
+TEST(HttpGetter, GetsTheByteArraySuccessfully) {
     bootQtEventLoop();
     TokenStore store("NOT USED");
     HttpGetter* getter = new QtHttpGetter(&store);
