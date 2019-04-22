@@ -29,11 +29,6 @@ int main(int argc, char **argv) {
     // the highest level of stack.  It will be in scope for the entire lifetime
     // of the program.
 
-
-    LookupRegistryImpl lookupRegistry;
-    ConverterRegistry converterRegistry;
-    ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
-
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
     TokenStore tokenStore;
@@ -42,6 +37,11 @@ int main(int argc, char **argv) {
     QtHttpPoster httpPoster(&tokenStore);
     QtHttpPutter httpPutter(&tokenStore);
     QtSizeGetter sizeGetter;
+
+    LookupRegistryImpl lookupRegistry;
+    ConverterRegistry converterRegistry;
+    ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
+
 
     // debugf("loading categories");
     // string result = httpGetter.request("https://api.figshare.com/v2/categories");
