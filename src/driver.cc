@@ -15,7 +15,9 @@ void Driver::log(string message) const {
         progressReporter->updateProgress(message);
 }
 
-void Driver::handleRow(const ExcelRow row, const string inputPath) const {
+void Driver::handleRow(
+    const ExcelRow row, const string inputPath, const MappingScheme& mappingScheme
+) const {
     log("Handling row.");
 
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);

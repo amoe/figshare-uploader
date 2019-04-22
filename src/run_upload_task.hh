@@ -3,12 +3,14 @@
 #include <QString>
 #include "slot_adapter.hh"
 #include "driver_thread.hh"
+#include "mapping_types.hh"
+
 
 class RunUploadTask : public QObject {
 public:
     RunUploadTask(
         Driver* driver, StringAdapter adapter, StringAdapter errorAdapter, 
-        string inputPath
+        string inputPath, const MappingScheme& fieldMappings
     );
     ~RunUploadTask();
     void run();

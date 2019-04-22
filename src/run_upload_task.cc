@@ -7,9 +7,10 @@
 using std::string;
 
 RunUploadTask::RunUploadTask(
-    Driver* driver, StringAdapter adapter, StringAdapter errorAdapter, string inputPath
+    Driver* driver, StringAdapter adapter, StringAdapter errorAdapter,
+    string inputPath, const MappingScheme& fieldMappings
 ) : adapter(adapter), errorAdapter(errorAdapter) {
-    theTask = new DriverThread(0, driver, inputPath);   // XXX should pass top level widget?
+    theTask = new DriverThread(0, driver, inputPath, fieldMappings);   // XXX should pass top level widget?
 
     connect(
         theTask,

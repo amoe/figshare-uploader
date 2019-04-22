@@ -32,7 +32,7 @@ void DriverThread::perform() {
         debugf("handling row %d", i);
         vector<string> rowData = theReader.rowToString(i);
         ExcelRow row(rowData);
-        driver->handleRow(row, inputPath);
+        driver->handleRow(row, inputPath, fieldMappings);
     }
 
     driver->log("Finished uploading.");

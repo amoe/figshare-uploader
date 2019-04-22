@@ -198,7 +198,6 @@ TEST_SOURCES = [
     "category_test.cc",
     "custom_fields_test.cc",
     "driver_test.cc",
-    "driver_thread_test.cc",
     "fake_qt_core_application.cc",
     "figshare_gateway_test.cc",
     "file_info_test.cc",

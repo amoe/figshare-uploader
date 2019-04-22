@@ -9,6 +9,7 @@
 #include "excel_row.hh"
 #include "file_spec_generator.hh"
 #include "progress_reporter.hh"
+#include "mapping_types.hh"
 
 class Driver {
 public:
@@ -24,7 +25,10 @@ public:
         progressReporter = NULL;
     }
 
-    void handleRow(const ExcelRow row, const string inputPath) const;
+    void handleRow(
+        const ExcelRow row, const string inputPath,
+        const MappingScheme& mappingScheme
+    ) const;
     void handleUpload(
         const string stemArticle,
         const string sourcePath,    // the ABSOLUTE path that can be opened

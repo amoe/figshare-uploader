@@ -50,7 +50,7 @@ void PresenterImpl::startUpload() {
 
         // XXX: malloc
         RunUploadTask* task = new RunUploadTask(
-            driver, adapter, errorAdapter, inputFile
+            driver, adapter, errorAdapter, inputFile, model->getFieldMappings()
         );
 
         // By this stage, the token has already been initialized.
