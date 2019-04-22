@@ -62,8 +62,6 @@ int main(int argc, char **argv) {
     // Pass the converter registry by implicit const reference.
     ModelImpl model(converterRegistry);
 
-
-
     Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
     ViewImpl* view = new ViewImpl(presenter);
 
