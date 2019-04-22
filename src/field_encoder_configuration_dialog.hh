@@ -21,6 +21,7 @@ public:
     FieldEncoderConfigurationDialog(
         optional<QModelIndex> editIndex,
         optional<FieldEncoder> initializingEncoder,
+        QAbstractItemModel* converterListModel,
         QWidget *parent = nullptr
     );
 

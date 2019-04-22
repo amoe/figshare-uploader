@@ -11,9 +11,10 @@
 #include "field_encoder_list_context_menu.hh"
 
 FieldEncoderListView::FieldEncoderListView(
-    FieldEncoderModel* theModel, QWidget* parent
+    FieldEncoderModel* theModel, QAbstractItemModel* converterListModel, QWidget* parent
 ): QWidget(parent) {
     this->theModel = theModel;
+    this->converterListModel = converterListModel;
     QVBoxLayout* vbox = new QVBoxLayout(this);
 
     QLabel* help1 = new QLabel("Available field encoders are listed below.", this);
@@ -63,6 +64,7 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
         optional<QModelIndex>(index),
         optional<FieldEncoder>(initializingEncoder),
+        converterListModel,
         this
     );
 
@@ -77,7 +79,7 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
 
 void FieldEncoderListView::triggerNew() {
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
-        nullopt, nullopt, this
+        nullopt, nullopt, converterListModel, this
     );
 
     // Forward this signal

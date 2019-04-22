@@ -18,9 +18,11 @@ using std::string;
 FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     optional<QModelIndex> editIndex, 
     optional<FieldEncoder> initializingEncoder,
+    QAbstractItemModel* converterListModel,
     QWidget *parent
 ) : QDialog(parent) {
     this->editIndex = editIndex;
+    this->converterListModel = converterListModel;
     QGridLayout *grid = new QGridLayout;
 
     targetFieldGroupBox = createFirstGroup();
@@ -112,8 +114,6 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
 
     converterList = new QListView;
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
-
-    converterListModel = new ConverterListModel(this);
     converterList->setModel(converterListModel);
 
     QPushButton* advancedButton = new QPushButton("Advanced...");

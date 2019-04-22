@@ -9,12 +9,13 @@
 #include "field_encoder_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "qt_dto.hh"
+#include "converter_list_model.hh"
 
 class FieldEncoderListView: public QWidget {
     Q_OBJECT
 
 public:
-    FieldEncoderListView(FieldEncoderModel* theModel, QWidget* parent);
+    FieldEncoderListView(FieldEncoderModel* theModel, QAbstractItemModel* converterListModel, QWidget* parent);
     void contextMenuEvent(QContextMenuEvent* event) override;
 
 signals:
@@ -34,8 +35,8 @@ public slots:
 private:
     QListView* listView;
     
-    //QAbstractItemModel* theModel;
     FieldEncoderModel* theModel;
+    QAbstractItemModel* converterListModel;
 };
 
 

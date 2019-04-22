@@ -17,6 +17,7 @@
 SettingsDialog::SettingsDialog(
     QAbstractItemModel* fieldMappingModel,
     FieldEncoderModel* fieldEncoderModel,
+    QAbstractItemModel* converterListModel,
     QWidget* parent
 ): QDialog(parent) {
     setWindowTitle("Settings");
@@ -30,7 +31,9 @@ SettingsDialog::SettingsDialog(
     MappingTableWidget* mappingTable = new MappingTableWidget(
         fieldEncoderModel, fieldMappingModel, this
     );
-    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(fieldEncoderModel, this);
+    FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(
+        fieldEncoderModel, converterListModel, this
+    );
 
     connect(
         fieldEncoderList, &FieldEncoderListView::fieldEncoderDialogConfirmed,

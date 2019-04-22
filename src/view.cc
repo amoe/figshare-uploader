@@ -26,8 +26,9 @@
 #include "logging.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
+    converterListModel = new ConverterListModel(this);
+
     QWidget* contentWidget = new QWidget(this);
-    
     setWindowTitle("Figshare Uploader");
 
     QMenu* optionsMenu = new QMenu("Options");
@@ -168,7 +169,9 @@ void ViewImpl::showSettingsDialog(
         this, &ViewImpl::onMappingEncoderSetOperation
     );
 
-    SettingsDialog* settingsDialog = new SettingsDialog(fieldMappingModel, fieldEncoderModel, this);
+    SettingsDialog* settingsDialog = new SettingsDialog(
+        fieldMappingModel, fieldEncoderModel, converterListModel, this
+    );
 
     // We should be setting up the connections here.
     // We should connect to presenter.

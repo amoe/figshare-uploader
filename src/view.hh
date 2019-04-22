@@ -15,6 +15,7 @@
 #include "field_encoder_model.hh"
 #include "qt_dto.hh"
 #include "default_field_encoders.hh"
+#include "converter_list_model.hh"
 
 using std::string;
 using std::vector;
@@ -57,6 +58,7 @@ private:
     ViewProgressAdapter* reporter;
     FieldMappingTableModel* fieldMappingModel;
     FieldEncoderModel* fieldEncoderModel;
+    ConverterListModel* converterListModel;
 };
 
 #endif // VIEW_HH

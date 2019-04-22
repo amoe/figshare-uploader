@@ -19,6 +19,7 @@ public:
     SettingsDialog(
         QAbstractItemModel* fieldMappingModel,
         FieldEncoderModel* fieldEncoderModel,
+        QAbstractItemModel* converterListModel,
         QWidget* parent
     );
     QSize sizeHint() const;
