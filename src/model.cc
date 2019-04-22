@@ -13,7 +13,8 @@ ModelImpl::ModelImpl(
         default_field_encoders::KEYWORDS_ENCODER,
         default_field_encoders::REFERENCES_ENCODER,
         default_field_encoders::CATEGORY_ENCODER,
-        default_field_encoders::AUTHORS_ENCODER
+        default_field_encoders::AUTHORS_ENCODER,
+        default_field_encoders::CONTRIBUTE_FILES_ENCODER
     };
 }
 
@@ -40,6 +41,7 @@ void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
     std::cout << "I would bind row " << excelRow << " to field encoder with index " << fieldEncoderIndex << std::endl;
     // This will give a runtime failure.
     fieldMappings.at(excelRow) = availableEncoders.at(fieldEncoderIndex);
+    dumpMappingScheme();
 }
 
 void ModelImpl::setHeaderFields(vector<string> headerFields) {
