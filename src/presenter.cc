@@ -5,7 +5,6 @@
 #include "settings.hh"
 #include "logging.hh"
 #include "slot_adapter.hh"
-#include "run_upload_task.hh"
 #include "xlsx.hh"
 
 using std::string;
@@ -47,14 +46,10 @@ void PresenterImpl::startUpload() {
         StringAdapter adapter(this, &Presenter::uploadFinished);
         StringAdapter errorAdapter(this, &Presenter::fatalError);
 
-
-        // XXX: malloc
-        RunUploadTask* task = new RunUploadTask(
+        uploadTask = unique_ptr<RunUploadTask>(new RunUploadTask(
             driver, adapter, errorAdapter, inputFile, model->getFieldMappings()
-        );
-
-        // By this stage, the token has already been initialized.
-        task->run();
+        ));
+        uploadTask->run();
     // exceptions aren't polymorphic so we have to catch both
     } catch (std::runtime_error e) {
         debugf("caught std-exception in gui thread handler: %s", e.what());

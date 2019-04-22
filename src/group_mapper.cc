@@ -21,6 +21,9 @@ GroupMapperImpl::GroupMapperImpl(HttpGetter* httpGetter) : httpGetter(httpGetter
 }
 
 void GroupMapperImpl::initializeGroups() {
+
+    std::cout << "initializing group data from figshare api" << std::endl;
+
     std::ostringstream stringStream;
     stringStream << "https://api.figshare.com/v2"
                  << "/account/institution/groups";
@@ -44,6 +47,9 @@ void GroupMapperImpl::initializeGroups() {
         
         lookup.insert({title, id});
     }
+
+    std::cout << "initialized group data" << std::endl;
+
 }
 
 int GroupMapperImpl::getGroupIdByName(string groupName) {

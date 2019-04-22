@@ -1,10 +1,14 @@
 #ifndef PRESENTER_HH
 #define PRESENTER_HH
 
+#include <memory>
 #include "driver.hh"
 #include "model.hh"
 #include "interfaces.hh"
 #include "domain_dto.hh"
+#include "run_upload_task.hh"
+
+using std::unique_ptr;
 
 class PresenterImpl : public Presenter {
 public:
@@ -43,6 +47,7 @@ private:
     Driver* driver;
     TokenStore* tokenStore;
     ViewProgressAdapter* progressReporter;
+    unique_ptr<RunUploadTask> uploadTask;
 };
 
 #endif
