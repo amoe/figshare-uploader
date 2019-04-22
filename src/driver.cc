@@ -20,6 +20,12 @@ void Driver::handleRow(
 ) const {
     log("Handling row.");
 
+    // New algorithm:
+
+    // First, the mapping engine applies the mapping scheme to the row.
+    // That produces a QJsonObject
+    // Figshare gateway no longer needs to know about the various mappers.
+
     ArticleCreationRequest acr = articleMapper->mapFromExcel(row.rowData);
     ArticleCreationResponse response = gateway->createArticle(acr);
     string stemArticle = response.location;
