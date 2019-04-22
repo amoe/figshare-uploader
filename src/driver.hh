@@ -10,6 +10,7 @@
 #include "file_spec_generator.hh"
 #include "progress_reporter.hh"
 #include "mapping_types.hh"
+#include "mapping_engine.hh"
 
 class Driver {
 public:
@@ -17,11 +18,13 @@ public:
         FigshareGateway* gateway,
         PartPreparer* partPreparer,
         FileSpecGenerator* fileSpecGenerator,
-        ArticleMapper* articleMapper
+        ArticleMapper* articleMapper,
+        MappingEngine* mappingEngine
     ) : gateway(gateway),
         partPreparer(partPreparer), 
         fileSpecGenerator(fileSpecGenerator),
-        articleMapper(articleMapper) {
+        articleMapper(articleMapper),
+        mappingEngine(mappingEngine) {
         progressReporter = NULL;
     }
 
@@ -48,6 +51,7 @@ private:
     FileSpecGenerator* fileSpecGenerator;
     ArticleMapper* articleMapper;
     ProgressReporter* progressReporter;
+    MappingEngine* mappingEngine;
 };
 
 #endif // DRIVER_HH
