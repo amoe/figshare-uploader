@@ -14,6 +14,8 @@
 #include "application_metadata.hh"
 #include "converter_registry.hh"
 
+void fillConverterRegistry(ConverterRegistry& r,  LookupRegistry* lookupRegistry);
+
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
@@ -30,6 +32,7 @@ int main(int argc, char **argv) {
 
     LookupRegistryImpl lookupRegistry;
     ConverterRegistry converterRegistry(&lookupRegistry);
+    ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
 
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
@@ -74,3 +77,4 @@ int main(int argc, char **argv) {
 
     return app.exec();
 }
+

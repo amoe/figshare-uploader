@@ -7,33 +7,11 @@
 #include "converter_registry.hh"
 #include "utility.hh"
 
-ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {
-    std::cout << "initializing converter registry" << std::endl;
-    converterMap.insert({ConverterName::STRING, new StringConverter});
-    converterMap.insert({ConverterName::CONTRIBUTE_FILES, new ContributeFilesConverter});
+ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {}
+ConverterRegistry::~ConverterRegistry() {}
 
-    // Lookup list needs more information to initialize itself.
-    converterMap.insert(
-        {ConverterName::LOOKUP_VALUE, new LookupValueConverter(lookupRegistry)}
-    );
-
-    converterMap.insert(
-        {ConverterName::LOOKUP_LIST, new LookupListConverter(lookupRegistry)}
-    );
-
-
-    converterMap.insert({ConverterName::DISCARD, new DiscardConverter});
-    converterMap.insert({ConverterName::LIST_OF_STRING, new ListOfStringConverter});
-    converterMap.insert({ConverterName::LIST_OF_OBJECT, new ListOfObjectConverter});
-}
-
-ConverterRegistry::~ConverterRegistry() {
-    std::cout << "destroying converter registry" << std::endl;
-    for (const auto& pair: converterMap) {
-        Converter* c = pair.second;
-        delete c;
-    }
-    std::cout << "successfully deleted everything" << std::endl;
+void ConverterRegistry::registerConverter(ConverterName symbolicName, Converter* implementation) {
+    converterMap.insert({symbolicName, implementation});
 }
 
 const vector<ConverterName> ConverterRegistry::getRegisteredConverters() const {
@@ -201,4 +179,24 @@ QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
 
 
     return result;
+}
+
+
+
+void ConverterRegistry::initializeStandardConverters(
+    ConverterRegistry& r,  LookupRegistry* lookupRegistry
+) {
+    r.registerConverter(ConverterName::STRING, new StringConverter);
+    r.registerConverter(ConverterName::CONTRIBUTE_FILES, new ContributeFilesConverter);
+
+    // Lookup list needs more information to initialize itself.
+    r.registerConverter(
+        ConverterName::LOOKUP_VALUE, new LookupValueConverter(lookupRegistry)
+    );
+    r.registerConverter(
+        ConverterName::LOOKUP_LIST, new LookupListConverter(lookupRegistry)
+    );
+    r.registerConverter(ConverterName::DISCARD, new DiscardConverter);
+    r.registerConverter(ConverterName::LIST_OF_STRING, new ListOfStringConverter);
+    r.registerConverter(ConverterName::LIST_OF_OBJECT, new ListOfObjectConverter);
 }

@@ -100,6 +100,11 @@ public:
     // access state in this case.
     IntermediateMappingOutput convert(ConverterName c, string value, OptionsMap options);
     const vector<ConverterName> getRegisteredConverters() const;
+    void registerConverter(ConverterName symbolicName, Converter* implementation);
+
+    static void initializeStandardConverters(
+        ConverterRegistry& r,  LookupRegistry* lookupRegistry
+    );
 
 private:
     // It's important that this is an ordered std::map, because 
