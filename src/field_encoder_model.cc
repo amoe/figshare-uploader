@@ -25,11 +25,13 @@ QVariant FieldEncoderModel::data(const QModelIndex& index, int role) const {
     }
 }
 
-QVariant FieldEncoderModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant FieldEncoderModel::headerData(
+    int section, Qt::Orientation orientation, int role) const {
     return QVariant();
 }
 
-QModelIndex FieldEncoderModel::index(int row, int column, const QModelIndex& parent) const {
+QModelIndex FieldEncoderModel::index(
+    int row, int column, const QModelIndex& parent) const {
     if (parent.isValid()) {
         return QModelIndex();
     }
@@ -37,7 +39,9 @@ QModelIndex FieldEncoderModel::index(int row, int column, const QModelIndex& par
     return createIndex(row, column);
 }
 
-QModelIndex FieldEncoderModel::parent(const QModelIndex& child) const {
+QModelIndex FieldEncoderModel::parent(
+    const QModelIndex& child) const
+ {
     return QModelIndex();
 }
 
@@ -50,6 +54,8 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
 
     int lastIndex = row + count;
     beginRemoveRows(parent, row, lastIndex);
+    // XXX: Instead of modifying the reference, should probably emit a signal
+    // which is handled by the view.
     availableEncoders.erase(start + row, start + lastIndex);
     endRemoveRows();
 
@@ -57,8 +63,6 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
     return true;
 }
 
-void FieldEncoderModel::blah() {
-    qDebug() << "inside model etc";
-    // Shows that the change did NOT percolate.
-    qDebug() << "size in FieldEncoderModel is now " << availableEncoders.size();
+const FieldEncoder FieldEncoderModel::getFieldEncoderByRow(int row) const {
+    return availableEncoders.at(row);
 }

@@ -16,7 +16,8 @@ using std::map;
 using std::string;
 
 FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
-    optional<QModelIndex> editIndex,
+    optional<QModelIndex> editIndex, 
+    optional<FieldEncoder> initializingEncoder,
     QWidget *parent
 ) : QDialog(parent) {
     this->editIndex = editIndex;
@@ -38,6 +39,9 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
 
     setLayout(grid);
     setWindowTitle("Field encoder configuration");
+    
+    if (initializingEncoder.has_value())
+        setContent(initializingEncoder.value());
 }
 
 void FieldEncoderConfigurationDialog::setContent(FieldEncoder inputEncoder) {

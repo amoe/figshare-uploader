@@ -19,9 +19,10 @@ class FieldEncoderConfigurationDialog : public QDialog
 
 public:
     FieldEncoderConfigurationDialog(
-        optional<QModelIndex> editIndex, QWidget *parent = nullptr
+        optional<QModelIndex> editIndex,
+        optional<FieldEncoder> initializingEncoder,
+        QWidget *parent = nullptr
     );
-    void setContent(FieldEncoder inputEncoder);
 
 signals:
     // This is manually forwarded all the way to the View.
@@ -35,6 +36,7 @@ public slots:
     void complain();
 
 private:
+    void setContent(FieldEncoder inputEncoder);
     QGroupBox *createFirstGroup();
     QGroupBox *createSecondGroup();
     QGroupBox *createThirdGroup();

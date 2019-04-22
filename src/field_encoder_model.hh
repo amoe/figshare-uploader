@@ -16,6 +16,7 @@ public:
         vector<FieldEncoder>& availableEncoders
     ): availableEncoders(availableEncoders) {}
 
+    // These methods are part of the QAbstractItemModel interface.
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -25,9 +26,11 @@ public:
     QModelIndex parent(const QModelIndex& index) const override;
     bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
-    void blah();
+    // These methods are extensions for use by collaborating classes.
+    const FieldEncoder getFieldEncoderByRow(int row) const;
 
 private:
+    // presently a non-const reference, removeRows directly modifies the array
     vector<FieldEncoder>& availableEncoders;
 };
 

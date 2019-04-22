@@ -34,7 +34,9 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
         // They probably clicked outside of the list view
     }
 
-    FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(result, this);
+    FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(
+        result, this
+    );
 
     connect(
         thisMenu, &FieldEncoderListContextMenu::newRequested, 
@@ -56,9 +58,12 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 
 
 void FieldEncoderListView::triggerEdit(QModelIndex index) {
-    // locate the field encoder?
+    FieldEncoder initializingEncoder = theModel->getFieldEncoderByRow(index.row());
+
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
-        optional<QModelIndex>(index), this
+        optional<QModelIndex>(index),
+        optional<FieldEncoder>(initializingEncoder),
+        this
     );
 
     // Forward this signal
@@ -72,7 +77,7 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
 
 void FieldEncoderListView::triggerNew() {
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
-        nullopt, this
+        nullopt, nullopt, this
     );
 
     // Forward this signal
