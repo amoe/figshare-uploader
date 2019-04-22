@@ -6,6 +6,7 @@
 #include <QJsonValue>
 #include "mapping_types.hh"
 #include "enum_class_hash.hh"
+#include "category_mapper.hh"
 
 using std::map;
 using std::unordered_map;
@@ -44,12 +45,13 @@ public:
 
 class LookupRegistryImpl: public LookupRegistry {
 public:
-    LookupRegistryImpl();
+    LookupRegistryImpl(CategoryMapper* categoryMapper);
     ~LookupRegistryImpl();
     QJsonValue lookupByString(LookupType type, string value);
 
 private:
     unordered_map<string, string> definedTypeMap;
+    CategoryMapper* categoryMapper;
 };
 
 // This one works using a similar pattern.  The registry can be passed in for

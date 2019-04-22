@@ -38,11 +38,12 @@ int main(int argc, char **argv) {
     QtHttpPutter httpPutter(&tokenStore);
     QtSizeGetter sizeGetter;
 
-    LookupRegistryImpl lookupRegistry;
+    CategoryMapper categoryMapper(&httpGetter);
+
+    LookupRegistryImpl lookupRegistry(&categoryMapper);
     ConverterRegistry converterRegistry;
     ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
 
-    CategoryMapper categoryMapper(&httpGetter);
 
     ArticleTypeMapper typeMapper;
     GroupMapperImpl groupMapper(&httpGetter);

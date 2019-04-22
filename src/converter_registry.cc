@@ -157,28 +157,25 @@ IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, O
 
 // LOOKUP REGISTRY
 
-LookupRegistryImpl::LookupRegistryImpl() {
+LookupRegistryImpl::LookupRegistryImpl(CategoryMapper* categoryMapper) {
     // unused as yet due to hacks
     definedTypeMap.insert({"Figure", "figure"});
+    this->categoryMapper = categoryMapper;
 }
 
 LookupRegistryImpl::~LookupRegistryImpl() {
 }
 
 QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
-    QJsonValue result;
-
     // Now we need to look it up using LookupType.
-
-    if (type == LookupType::DEFINED_TYPE) {
-        string figshareName = definedTypeMap.at(value);
-        return QJsonValue(QString::fromStdString(figshareName));
-    } else {
-        throw new std::runtime_error("invalid lookup type");
+    switch (type) {
+        case LookupType::DEFINED_TYPE: {
+            string figshareName = definedTypeMap.at(value);
+            return QJsonValue(QString::fromStdString(figshareName));
+        }
+        default:
+            throw new std::runtime_error("invalid lookup type");
     }
-
-
-    return result;
 }
 
 
