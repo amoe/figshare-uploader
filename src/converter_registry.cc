@@ -173,6 +173,9 @@ QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
             string figshareName = definedTypeMap.at(value);
             return QJsonValue(QString::fromStdString(figshareName));
         }
+        case LookupType::CATEGORY: {
+            return QJsonValue(categoryMapper->mapTitle(value));
+        }
         default:
             throw new std::runtime_error("invalid lookup type");
     }
