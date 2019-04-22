@@ -12,6 +12,7 @@
 #include "upload_container_info.hh"
 #include "group_mapper.hh"
 #include <QDebug>
+#include <QJsonDocument>
 
 using std::vector;
 using std::string;
@@ -25,19 +26,23 @@ ArticleCreationResponse HttpFigshareGateway::createArticle(
     ArticleTypeMapper typeMapper;
     CustomFieldMapper customFieldMapper;
     ArticleMapperImpl mapper(typeMapper, categoryMapper, customFieldMapper, groupMapper);
-
     const string url = "https://api.figshare.com/v2/account/articles";
     const string payload = mapper.mapToFigshare(request);
-    
-    for (auto ref : request.references) {
-        std::cout << "references value is '" << ref << "'" << std::endl;
-    }
-
-
     const string response = poster->request(url, payload);
     string location = fetchString(response, "location");
     return ArticleCreationResponse(location);
 }
+
+ArticleCreationResponse HttpFigshareGateway::createArticle(QJsonObject articleObject) {
+    const string url = "https://api.figshare.com/v2/account/articles";
+    const string payload = QString::fromUtf8(
+        QJsonDocument(articleObject).toJson()
+    ).toStdString();
+    const string response = poster->request(url, payload);
+    string location = fetchString(response, "location");
+    return ArticleCreationResponse(location);
+}
+
 
 ArticleGetResponse HttpFigshareGateway::getArticle(string url) {
     const string response = getter->request(url);
