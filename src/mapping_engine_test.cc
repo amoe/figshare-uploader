@@ -21,12 +21,14 @@ public:
 class MappingEngineTest: public Test {
 public:
     MappingEngineTest() {
-        engine = new MappingEngine(&lookups);
+        ConverterRegistry::initializeStandardConverters(converterRegistry, &lookups);
+        engine = new MappingEngine(&converterRegistry);
     }
     ~MappingEngineTest() {
         delete engine;
     }
 
+    ConverterRegistry converterRegistry;
     MockLookupRegistry lookups;
     MappingEngine* engine;
 };

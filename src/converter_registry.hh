@@ -93,7 +93,7 @@ public:
 
 class ConverterRegistry {
 public:
-    ConverterRegistry(LookupRegistry* lookups);
+    ConverterRegistry();
     ~ConverterRegistry();
 
     // This should really be static, but we don't know any sensible way to

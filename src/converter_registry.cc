@@ -7,7 +7,7 @@
 #include "converter_registry.hh"
 #include "utility.hh"
 
-ConverterRegistry::ConverterRegistry(LookupRegistry* lookupRegistry) {}
+ConverterRegistry::ConverterRegistry() {}
 ConverterRegistry::~ConverterRegistry() {}
 
 void ConverterRegistry::registerConverter(ConverterName symbolicName, Converter* implementation) {

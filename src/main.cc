@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 
 
     LookupRegistryImpl lookupRegistry;
-    ConverterRegistry converterRegistry(&lookupRegistry);
+    ConverterRegistry converterRegistry;
     ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
 
     // Token store is spooky action at a distance that's used to thread the

@@ -14,18 +14,13 @@
 
 class MappingEngine {
 public:
-    MappingEngine(LookupRegistry* lookupRegistry): lookupRegistry(lookupRegistry) {
-        converterRegistry = new ConverterRegistry(lookupRegistry);
-    }
-    ~MappingEngine() {
-        delete converterRegistry;
-    }
+    MappingEngine(ConverterRegistry* converterRegistry):
+        converterRegistry(converterRegistry) { }
 
     MappingOutput convert(vector<string> document, MappingScheme scheme);
 
 private:
     ConverterRegistry* converterRegistry;
-    LookupRegistry* lookupRegistry;
 };
 
 #endif /* MAPPING_ENGINE_HH */
