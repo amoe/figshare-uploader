@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QAbstractButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QStringListModel>
@@ -44,17 +45,30 @@ void FieldEncoderConfigurationDialog::setContent() {
     FieldEncoder inputEncoder = default_field_encoders::CATEGORY_ENCODER;
 
     // Handle field type
+    if (inputEncoder.getTargetField().has_value()) {
+        TargetField targetField = inputEncoder.getTargetField().value();
+        targetFieldGroupBox->setChecked(true);
 
-    optional<TargetField> targetField = inputEncoder.getTargetField();
+        int buttonIndex = static_cast<int>(targetField.getTargetFieldType());
+        targetFieldTypeGroup->button(buttonIndex)->setChecked(true);
 
-    if (targetField.has_value()) {
-        //... 
+        targetFieldName->setText(QString::fromStdString(targetField.getName()));
     } else {
         targetFieldGroupBox->setChecked(false);
         targetFieldName->setText("");
+
+        for (QAbstractButton* button: targetFieldTypeGroup->buttons()) {
+            button->setChecked(false);
+        }
     }
 
-//    int targetFieldTypeIndex = static_cast<int>(inputEncoder.targetField
+    // Select the correct converter
+    int row = static_cast<int>(inputEncoder.getConverterName());
+    converterList->setCurrentIndex(converterListModel->index(row, 0));
+
+    // XXX: Ensure the validation rules are selected
+
+    // XXX: Add the options to the options map
 }
 
 
@@ -98,16 +112,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     converterList = new QListView;
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    // QStringList stringList = {
-    //     "string",
-    //     "listOfObjects",
-    //     "lookupList",
-    //     "contributeFiles",
-    // };
-
-    // QAbstractItemModel* converterListModel = new QStringListModel(stringList);
-
-    QAbstractItemModel* converterListModel = new ConverterListModel(this);
+    converterListModel = new ConverterListModel(this);
     converterList->setModel(converterListModel);
 
     QPushButton* advancedButton = new QPushButton("Advanced...");

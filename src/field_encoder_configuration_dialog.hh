@@ -47,6 +47,7 @@ private:
     QGroupBox* targetFieldGroupBox;
     QGroupBox* converterGroupBox;
     QGroupBox* validationRulesGroupBox;
+    QAbstractItemModel* converterListModel;
 };
 
 #endif
