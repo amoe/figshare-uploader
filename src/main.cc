@@ -42,12 +42,6 @@ int main(int argc, char **argv) {
     ConverterRegistry converterRegistry;
     ConverterRegistry::initializeStandardConverters(converterRegistry, &lookupRegistry);
 
-
-    // debugf("loading categories");
-    // string result = httpGetter.request("https://api.figshare.com/v2/categories");
-    // CategoryMapper categoryMapper(result);
-    // debugf("loaded categories");
-
     CategoryMapper categoryMapper(&httpGetter);
 
     ArticleTypeMapper typeMapper;
