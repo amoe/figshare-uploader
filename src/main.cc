@@ -12,6 +12,7 @@
 #include "token_store.hh"
 #include "group_mapper.hh"
 #include "application_metadata.hh"
+#include "converter_registry.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -26,6 +27,8 @@ int main(int argc, char **argv) {
     // the highest level of stack.  It will be in scope for the entire lifetime
     // of the program.
 
+
+    LookupRegistryImpl lookupRegistry;
 
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
