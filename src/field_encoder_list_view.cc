@@ -14,14 +14,10 @@ FieldEncoderListView::FieldEncoderListView(
     FieldEncoderModel* theModel, QWidget* parent
 ): QWidget(parent) {
     this->theModel = theModel;
-
     QVBoxLayout* vbox = new QVBoxLayout(this);
-    this->setLayout(vbox);
-
 
     QLabel* help1 = new QLabel("Available field encoders are listed below.", this);
     vbox->addWidget(help1);
-
 
     listView = new QListView(this);
     listView->setModel(theModel);
@@ -29,20 +25,14 @@ FieldEncoderListView::FieldEncoderListView(
 }
 
 void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
-    qDebug() << "event happened";
-    qDebug() << "list view is registered as" << listView;
-
     QPoint widgetPos = listView->mapFromGlobal(event->globalPos());
     QModelIndex result = listView->indexAt(widgetPos);
-
 
     if (result.isValid()) {
         // They clicked on a 'real' item
     } else {
         // They probably clicked outside of the list view
     }
-
-    qDebug() << "model index result was" << result;
 
     FieldEncoderListContextMenu* thisMenu = new FieldEncoderListContextMenu(result, this);
 
@@ -66,7 +56,7 @@ void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
 
 
 void FieldEncoderListView::triggerEdit(QModelIndex index) {
-    qDebug() << "I would trigger an edit";
+    // locate the field encoder?
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
         optional<QModelIndex>(index), this
     );
@@ -78,11 +68,9 @@ void FieldEncoderListView::triggerEdit(QModelIndex index) {
     );
 
     int result = dialog->exec();
-    qDebug() << "dialog exited with result" << result;
 }
 
 void FieldEncoderListView::triggerNew() {
-    qDebug() << "I would trigger a new-field-encoder dialog";
     FieldEncoderConfigurationDialog* dialog = new FieldEncoderConfigurationDialog(
         nullopt, this
     );
@@ -94,11 +82,9 @@ void FieldEncoderListView::triggerNew() {
     );
 
     int result = dialog->exec();
-    qDebug() << "dialog exited with result" << result;
 }
 
 void FieldEncoderListView::deleteItem(QModelIndex index) {
-    qDebug() << "I would delete an item" << index;
     theModel->removeRow(index.row());
 }
 

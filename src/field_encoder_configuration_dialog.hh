@@ -8,6 +8,7 @@
 #include <QButtonGroup>
 #include "optional.hpp"
 #include "qt_dto.hh"
+#include "mapping_types.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -20,7 +21,7 @@ public:
     FieldEncoderConfigurationDialog(
         optional<QModelIndex> editIndex, QWidget *parent = nullptr
     );
-    void setContent();
+    void setContent(FieldEncoder inputEncoder);
 
 signals:
     // This is manually forwarded all the way to the View.

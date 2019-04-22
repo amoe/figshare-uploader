@@ -11,7 +11,6 @@
 #include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_widget.hh"
-#include "default_field_encoders.hh" //XXX
 
 using std::map;
 using std::string;
@@ -41,9 +40,7 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     setWindowTitle("Field encoder configuration");
 }
 
-void FieldEncoderConfigurationDialog::setContent() {
-    FieldEncoder inputEncoder = default_field_encoders::CATEGORY_ENCODER;
-
+void FieldEncoderConfigurationDialog::setContent(FieldEncoder inputEncoder) {
     // Handle field type
     if (inputEncoder.getTargetField().has_value()) {
         TargetField targetField = inputEncoder.getTargetField().value();
