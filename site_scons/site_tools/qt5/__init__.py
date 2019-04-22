@@ -31,9 +31,11 @@ selection method.
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+from __future__ import print_function
 
 import os.path
 import re
+import sys
 
 import SCons.Action
 import SCons.Builder
@@ -41,7 +43,6 @@ import SCons.Defaults
 import SCons.Scanner
 import SCons.Tool
 import SCons.Util
-
 
 class ToolQt5Warning(SCons.Warnings.Warning):
     pass
@@ -79,9 +80,17 @@ except NameError:
             result.reverse()
         return result
 
+def _contents_regex(e):
+    # get_contents() of scons nodes returns a binary buffer, so we convert the regexes also to binary here
+    # this won't work for specific encodings like UTF-16, but most of the time we will be fine here.
+    # note that the regexes used here are always pure ascii, so we don't have an issue here.
+    if sys.version_info.major >= 3:
+        e = e.encode('ascii')
+    return e
+
 qrcinclude_re = re.compile(r'<file[^>]*>([^<]*)</file>', re.M)
 
-mocver_re = re.compile(r'.*(\d+)\.(\d+)\.(\d+).*')
+mocver_re = re.compile(_contents_regex(r'.*(\d+)\.(\d+)\.(\d+).*'))
 
 def transformToWinePath(path) :
     return os.popen('winepath -w "%s"'%path).read().strip().replace('\\','/')
@@ -125,12 +134,12 @@ class _Automoc:
         self.objBuilderName = objBuilderName
         # some regular expressions:
         # Q_OBJECT detection
-        self.qo_search = re.compile(br'[^A-Za-z0-9]Q_OBJECT[^A-Za-z0-9]')
+        self.qo_search = re.compile(_contents_regex(r'[^A-Za-z0-9]Q_OBJECT[^A-Za-z0-9]'))
         # cxx and c comment 'eater'
-        self.ccomment = re.compile(br'/\*(.*?)\*/',re.S)
-        self.cxxcomment = re.compile(br'//.*$',re.M)
+        self.ccomment = re.compile(_contents_regex(r'/\*(.*?)\*/'),re.S)
+        self.cxxcomment = re.compile(_contents_regex(r'//.*$'),re.M)
         # we also allow Q_OBJECT in a literal string
-        self.literal_qobject = re.compile(br'"[^\n]*Q_OBJECT[^\n]*"')
+        self.literal_qobject = re.compile(_contents_regex(r'"[^\n]*Q_OBJECT[^\n]*"'))
         
     def create_automoc_options(self, env):
         """
@@ -183,7 +192,7 @@ class _Automoc:
         If a Q_OBJECT macro is also found in the cpp/cxx itself,
         it gets MOCed too.
         """
-
+        
         h=None
         for h_ext in header_extensions:
             # try to find the header file in the corresponding source
@@ -195,9 +204,9 @@ class _Automoc:
                     print("scons: qt5: Scanning '%s' (header of '%s')" % (str(h), str(cpp)))
                 h_contents = h.get_contents()
                 if moc_options['gobble_comments']:
-                    h_contents = self.ccomment.sub('', h_contents)
-                    h_contents = self.cxxcomment.sub('', h_contents)
-                h_contents = self.literal_qobject.sub('""', h_contents)
+                    h_contents = self.ccomment.sub(_contents_regex(''), h_contents)
+                    h_contents = self.cxxcomment.sub(_contents_regex(''), h_contents)
+                h_contents = self.literal_qobject.sub(_contents_regex('""'), h_contents)
                 break
         if not h and moc_options['debug']:
             print("scons: qt5: no header for '%s'." % (str(cpp)))
@@ -209,16 +218,7 @@ class _Automoc:
             
             # Now, check whether the corresponding CPP file
             # includes the moc'ed output directly...
-
-            # The problem is
-            # cpp_contents is the full contents of the source which is quite
-            # likely to be utf8 (non-ascii)
-            # The filename is less likely to be utf8 therefore we make the
-            # pragmatic choice of decoding the filename as utf8
-
-            b_moc_cpp = str(moc_cpp[0]).encode('utf-8')
-            inc_moc_cpp = br'^\s*#\s*include\s+"' + b_moc_cpp + br'"'
-
+            inc_moc_cpp = _contents_regex(r'^\s*#\s*include\s+"%s"' % str(moc_cpp[0]))
             if cpp and re.search(inc_moc_cpp, cpp_contents, re.M):
                 if moc_options['debug']:
                     print("scons: qt5: CXX file '%s' directly includes the moc'ed output '%s', no compiling required" % (str(cpp), str(moc_cpp)))
@@ -252,8 +252,8 @@ class _Automoc:
             cxx_moc = "%s%s%s" % (env.subst('$QT5_XMOCCXXPREFIX'),
                                   self.splitext(cpp.name)[0],
                                   env.subst('$QT5_XMOCCXXSUFFIX'))
-            inc_h_moc = r'#include\s+"%s"' % h_moc
-            inc_cxx_moc = r'#include\s+"%s"' % cxx_moc
+            inc_h_moc = _contents_regex(r'#include\s+"%s"' % h_moc)
+            inc_cxx_moc = _contents_regex(r'#include\s+"%s"' % cxx_moc)
             
             # Search for special includes in qtsolutions style
             if cpp and re.search(inc_h_moc, cpp_contents):
@@ -358,10 +358,7 @@ class _Automoc:
                     cpp_contents = self.ccomment.sub('', cpp_contents)
                     cpp_contents = self.cxxcomment.sub('', cpp_contents)
                 cpp_contents = self.literal_qobject.sub('""', cpp_contents)
-            except Exception as e: 
-                # DO NOT FUCKING SWALLOW EXCEPTIONS
-                print("Inside except", e)
-                continue # may be an still not generated source
+            except: continue # may be an still not generated source
             
             if moc_options['auto_scan_strategy'] == 0:
                 # Default Automoc strategy (Q_OBJECT driven)
@@ -440,6 +437,9 @@ def __scanResources(node, env, path, arg):
                 result.append(itemPath)
         return result
     contents = node.get_contents()
+    if sys.version_info.major >= 3:
+        # we assume the default xml encoding (utf-8) here
+        contents = contents.decode('utf-8')
     includes = qrcinclude_re.findall(contents)
     qrcpath = os.path.dirname(node.path)
     dirs = [included for included in includes if os.path.isdir(os.path.join(qrcpath,included))]
@@ -852,11 +852,10 @@ def generate(env):
     # We can't refer to the builders directly, we have to fetch them
     # as Environment attributes because that sets them up to be called
     # correctly later by our emitter.
-    env.AppendUnique(
-        PROGEMITTER =[AutomocStatic],
-        SHLIBEMITTER=[AutomocShared],
-        LIBEMITTER  =[AutomocStatic],
-    )
+    env.AppendUnique(PROGEMITTER =[AutomocStatic],
+                     SHLIBEMITTER=[AutomocShared],
+                     LIBEMITTER  =[AutomocStatic],
+                    )
 
     # TODO: Does dbusxml2cpp need an adapter
     try:
@@ -936,8 +935,7 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
         try : self.AppendUnique(CPPDEFINES=moduleDefines[module])
         except: pass
     debugSuffix = ''
-
-    if sys.platform in ["darwin", "linux", "linux2"] and not crosscompiling :
+    if sys.platform in ["darwin", "linux2", "linux"] and not crosscompiling :
         if debug : debugSuffix = '_debug'
         for module in modules :
             if module not in pclessModules : continue
