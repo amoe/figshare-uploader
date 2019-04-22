@@ -13,8 +13,7 @@
 #include "group_mapper.hh"
 #include "application_metadata.hh"
 #include "converter_registry.hh"
-
-void fillConverterRegistry(ConverterRegistry& r,  LookupRegistry* lookupRegistry);
+#include "mapping_engine.hh"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
@@ -46,9 +45,13 @@ int main(int argc, char **argv) {
     ConverterRegistry::initializeStandardConverters(
         converterRegistry, &lookupRegistry
     );
+    MappingEngine mappingEngine(&converterRegistry);
+
 
     ArticleTypeMapper typeMapper;
-    HttpFigshareGateway gateway(&httpGetter, &httpPoster, &httpPutter, categoryMapper, &groupMapper);
+    HttpFigshareGateway gateway(
+        &httpGetter, &httpPoster, &httpPutter, categoryMapper, &groupMapper
+    );
 
     PartPreparerImpl partPreparer;
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
