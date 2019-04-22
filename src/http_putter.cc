@@ -13,6 +13,7 @@
 #include <QDebug>
 #include "http_putter.hh"
 #include "logging.hh"
+#include "qt_utility.hh"
 
 using std::string;
 
@@ -66,15 +67,9 @@ string QtHttpPutter::request(const string url, const string payload) {
 
     QByteArray result = reply->readAll();
 
-    auto error = reply->error();
-    if (error != QNetworkReply::NoError && error != QNetworkReply::RemoteHostClosedError) {
-        qDebug() << error;
-        qDebug() << reply->errorString();
-        qDebug() << result;
-        throw std::runtime_error(
-            "something went wrong in the network request"
-        );
-    }
+    // NB: Might need to ignore RemoteHostClosedError?
+    qt_utility::handleHttpError("HTTP PUT:", reply, result);
+
 
     return QString(result).toStdString();
 }

@@ -8,6 +8,7 @@
 #include <QNetworkRequest>
 #include <QString>
 #include "http_getter.hh"
+#include "qt_utility.hh"
 
 using std::string;
 
@@ -28,6 +29,8 @@ string QtHttpGetter::request(const string url) {
     QObject::connect(reply, &QNetworkReply::finished, &waitLoop, &QEventLoop::quit);
     waitLoop.exec();
     QByteArray result = reply->readAll();
+
+    qt_utility::handleHttpError("HTTP GET:", reply, result);
 
     return QString(result).toStdString();
 }

@@ -3,9 +3,11 @@
 
 #include <QAbstractItemView>
 #include <QAbstractItemModel>
+#include <QNetworkReply>
 
 namespace qt_utility {
     void popEditors(QAbstractItemModel* model, QAbstractItemView* view);
+    void handleHttpError(QString logPrefix, QNetworkReply* reply, QByteArray result);
 }
 
 #endif /* QT_UTILITY_HH */

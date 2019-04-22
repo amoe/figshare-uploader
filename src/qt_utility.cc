@@ -9,4 +9,16 @@ namespace qt_utility {
             }
         }
     }
+
+    void handleHttpError(QString logPrefix, QNetworkReply* reply, QByteArray result) {
+        QNetworkReply::NetworkError error = reply->error();
+        qDebug() << error;
+        qDebug() << result;
+        if (error != QNetworkReply::NoError) {
+            QString errorMessage;
+            QDebug debugStream(&errorMessage);
+            debugStream << logPrefix << error << "; content =" << QString::fromUtf8(result);
+            throw std::runtime_error(errorMessage.toStdString());
+        }
+    }
 }

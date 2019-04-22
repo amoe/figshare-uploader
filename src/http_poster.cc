@@ -13,6 +13,7 @@
 #include <iostream>
 #include "http_poster.hh"
 #include "logging.hh"
+#include "qt_utility.hh"
 
 using std::string;
 
@@ -45,17 +46,7 @@ string QtHttpPoster::request(const string url, const string payload) {
     waitLoop.exec();
 
     QByteArray result = reply->readAll();
-
-    auto error = reply->error();
-    qDebug() << error;
-    qDebug() << result;
-    if (error != QNetworkReply::NoError) {
-        qDebug() << result;
-        QString errorMessage = QString::fromUtf8(result);
-        string message = "HTTP POST: " + errorMessage.toStdString();
-        throw std::runtime_error(message);
-    }
-
+    qt_utility::handleHttpError("HTTP POST:", reply, result);
 
     return QString(result).toStdString();
 }
