@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
 
 
     LookupRegistryImpl lookupRegistry;
+    ConverterRegistry converterRegistry(&lookupRegistry);
 
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
@@ -57,8 +58,11 @@ int main(int argc, char **argv) {
 
     Driver driver(&gateway, &partPreparer, &fileSpecGenerator, &articleMapper);
 
-    // Model owns the various data.
-    ModelImpl model;
+    // Model owns the various user-manipulable data.
+    // Pass the converter registry by implicit const reference.
+    ModelImpl model(converterRegistry);
+
+
 
     Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
     ViewImpl* view = new ViewImpl(presenter);

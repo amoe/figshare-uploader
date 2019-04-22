@@ -1,7 +1,9 @@
 #include <iostream>
 #include "model.hh"
 
-ModelImpl::ModelImpl() {
+ModelImpl::ModelImpl(
+    const ConverterRegistry& converterRegistry
+): converterRegistry(converterRegistry) {
     this->sourceFile = nullopt;
 
     availableEncoders = {

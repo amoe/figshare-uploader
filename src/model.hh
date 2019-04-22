@@ -7,6 +7,7 @@
 #include "mapping_types.hh"
 #include "interfaces.hh"
 #include "default_field_encoders.hh"
+#include "converter_registry.hh"
 
 using std::string;
 using std::vector;
@@ -15,7 +16,7 @@ using nonstd::nullopt;
 
 class ModelImpl: public Model {
 public:
-    ModelImpl();
+    ModelImpl(const ConverterRegistry& converterRegistry);
     ~ModelImpl();
 
     void setSourceFile(string newSourceFile);
@@ -41,6 +42,7 @@ private:
     vector<FieldEncoder> availableEncoders;
     MappingScheme fieldMappings;
     vector<string> headerFields;
+    const ConverterRegistry& converterRegistry;
 };
 
 #endif /* MODEL_HH */
