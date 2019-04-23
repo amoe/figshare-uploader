@@ -41,7 +41,7 @@ private:
     QGroupBox *createFirstGroup();
     QGroupBox *createSecondGroup();
     QGroupBox *createThirdGroup();
-    OptionsEditorView* createOptionsEditor();
+    OptionsEditorView* createOptionsEditor(optional<FieldEncoder> initializingEncoder);
     QWidget* makeControls();
 
     optional<QModelIndex> editIndex;
@@ -54,12 +54,8 @@ private:
     QGroupBox* validationRulesGroupBox;
     QAbstractItemModel* converterListModel;
     OptionsEditorView* optionsEditorView;
-
-    OptionsMap demoOptions = {
-        {"name", optional<string>("dave")},
-        {"gender", nullopt},
-        {"age", optional<string>("32")}
-    };
+    OptionsEditorModel* optionsEditorModel;
+    OptionsMap blankMap;
 };
 
 #endif

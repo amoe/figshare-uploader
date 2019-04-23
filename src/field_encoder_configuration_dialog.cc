@@ -28,7 +28,7 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     targetFieldGroupBox = createFirstGroup();
     converterGroupBox = createSecondGroup();
     validationRulesGroupBox = createThirdGroup();
-    optionsEditorView = createOptionsEditor();
+    optionsEditorView = createOptionsEditor(initializingEncoder);
 
     connect(
         validationRulesGroupBox, &QGroupBox::toggled, 
@@ -74,8 +74,6 @@ void FieldEncoderConfigurationDialog::setContent(FieldEncoder inputEncoder) {
     converterList->setCurrentIndex(converterListModel->index(row, 0));
 
     // XXX: Ensure the validation rules are selected
-
-    // XXX: Add the options to the options map
 }
 
 
@@ -192,11 +190,14 @@ void FieldEncoderConfigurationDialog::complain() {
 
 
 
-OptionsEditorView* FieldEncoderConfigurationDialog::createOptionsEditor() {
-    OptionsEditorModel* model = new OptionsEditorModel(demoOptions, this);
+OptionsEditorView* FieldEncoderConfigurationDialog::createOptionsEditor(
+    optional<FieldEncoder> initializingEncoder
+) {
+    OptionsEditorModel* model = new OptionsEditorModel(
+        blankMap,
+        this
+    );
     OptionsEditorView* view = new OptionsEditorView(model, this);
-
     view->setModel(model);
-
     return view;
 }
