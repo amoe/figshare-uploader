@@ -13,15 +13,18 @@ using nonstd::nullopt;
 using nonstd::optional;
 
 MappingScheme MappingSchemeDeserializer::loadMappingScheme(string inputPath) const {
-    // QFile fileHandle(QString::fromStdString(inputPath));
+    QFile fileHandle(QString::fromStdString(inputPath));
 
-    // bool openResult = fileHandle.open(QIODevice::ReadOnly);
-    // if (!openResult) {
-    //     throw new runtime_error("unable to open file: " + outputPath);
-    // }
+    bool openResult = fileHandle.open(QIODevice::ReadOnly);
+    if (!openResult) {
+        throw new runtime_error("unable to open file: " + inputPath);
+    }
 
-    // QByteArray saveData = fileHandle.readAll();
-    // QJsonDocument theDocument = QJsonDocument::fromJson(saveData);
+    QByteArray saveData = fileHandle.readAll();
+    QJsonDocument theDocument = QJsonDocument::fromJson(saveData);
+    fileHandle.close();
+    
+    return deserialize(theDocument);
 }
 
 

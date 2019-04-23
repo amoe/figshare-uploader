@@ -6,6 +6,28 @@
 #include "default_field_encoders.hh"
 #include "test_vocabulary.hh"
 
+const string expectedResultForDiscardEncoder = R"(
+    {
+        "rows": [
+            {
+                "targetField": null,
+                "name": "Discard",
+                "validationRules": [],
+                "options": {}
+            }
+        ]
+    }
+)";
+
+
+TEST(MappingSchemeSerializerTest, CanSerializeDiscardEncoder) {
+    MappingScheme theScheme = {default_field_encoders::DISCARD_ENCODER};
+    MappingSchemeSerializer serializer;
+    QJsonObject result = serializer.serialize(theScheme);
+    qDebug() << result;
+    ASSERT_THAT(result, Eq(deserialize(expectedResultForDiscardEncoder)));
+}
+
 TEST(MappingSchemeSerializerTest, CanSerializeMappingSchemeWithTitleEncoder) {
     // Create a simple scheme
     TargetField targetField(TargetFieldType::STANDARD, "title");
