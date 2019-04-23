@@ -7,13 +7,10 @@ QJsonObject MappingSchemeSerializer::serialize(MappingScheme scheme) const {
 
     using sz = vector<string>::size_type;
     for (sz i = 0; i < scheme.size(); i++) {
-        int sourceRowIndex = i;
-        QJsonObject rowMappingObject;
-        FieldEncoder encoder = scheme.at(sourceRowIndex);
+        FieldEncoder encoder = scheme.at(i);
 
-        rowMappingObject.insert("sourceRowIndex", sourceRowIndex);
-        rowMappingObject.insert("fieldEncoder", serializeFieldEncoder(encoder));
-        rowContent.push_back(rowMappingObject);
+        QJsonValue fieldEncoderObject =  serializeFieldEncoder(encoder);
+        rowContent.push_back(fieldEncoderObject);
     }
 
     result.insert("rows", rowContent);

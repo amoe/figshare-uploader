@@ -23,16 +23,13 @@ TEST(MappingTypesSerializationTest, CanSerializeMappingScheme) {
         {
             "rows": [
                 {
-                    "sourceRowIndex": 0,
-                    "fieldEncoder": {
-                        "targetField": {
-                            "fieldType": "standard",
-                            "name": "title"
-                        },
-                        "name": "String",
-                        "validationRules": [],
-                        "options": {}
-                    }
+                    "targetField": {
+                        "fieldType": "standard",
+                        "name": "title"
+                    },
+                    "name": "String",
+                    "validationRules": [],
+                    "options": {}
                 }
             ]
         }
