@@ -81,18 +81,26 @@ bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int
     int row = index.row();
     int column = index.column();
 
-    bool newValue = value.toBool();
-    optional<string> theOptional = options.at(keyOrdering.at(row));
+    string keyForRow = keyOrdering.at(row);
+    optional<string> theOptional = options.at(keyForRow);
 
     qDebug() << "setdata called for column" << column;
     qDebug() << "role was" << role;
     qDebug() << "value was" << value;
 
     switch (column) {
+        case OPTION_NAME:
+            // Can't happen because the flag is never set
+            return false;
         case HAS_VALUE:
             toggleOptional(row);
             // Invalidate ourselves and the column next to us!
             emit dataChanged(index, this->index(row, column + 1));
+            return true;
+        case OPTION_VALUE:
+            options.at(keyForRow) = optional<string>(
+                value.toString().toStdString()
+            );
             return true;
         default:
             return false;
