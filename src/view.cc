@@ -111,7 +111,7 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
         {"age", optional<string>("32")}
     };
 
-    LinkDemoModel* model = new LinkDemoModel(options, this);
+    LinkDemoModel* model = new LinkDemoModel(demoOptions, this);
     QTableView* view = new QTableView(this);
 
     view->setModel(model);
