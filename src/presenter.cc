@@ -178,4 +178,22 @@ void PresenterImpl::saveFieldMappings(string outputPath) {
 
 void PresenterImpl::loadFieldMappings(string inputPath) {
     debugf("presenter would load mappings");
+
+    // The difficult part here becomes, how to update the view?
+
+    // Basically we need to force-emit layoutChanged() on the MappingTableWidget
+    // somehow.
+    // The mappingtablewidget holds a reference to the mappingscheme.  No idea
+    // if this will reflect the changes or not.  I'd probably say, likely not.
+    // There are two options really,
+    // refactor the mappingtablewidget to manage its own copy of the data,
+    // If we do that, there's definitely no way we're getting new data on load,
+    // we'd have to basically provide another method on the mappingwidget
+    // that overwrites all its data.
+    // Something like we do on the OptionsEditorModel with the setOptions method.
+    // First we should try just updating the reference and see if it magically
+    // works.
+    // Then we should try to force-emit layoutChanged on the model.
+
+    // If these fail, then we do the refactor to avoid read-only references.
 }
