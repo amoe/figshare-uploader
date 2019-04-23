@@ -8,6 +8,10 @@ public:
     MappingSchemeDeserializer() { }
 
     MappingScheme deserialize(string input) const;
+
+private:
+    FieldEncoder deserializeEncoder(QJsonObject object) const;
 };
+
 
 #endif /* MAPPING_SCHEME_DESERIALIZER_HH */

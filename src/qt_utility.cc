@@ -1,5 +1,12 @@
 #include "qt_utility.hh"
 #include <QStandardPaths>
+#include <QJsonArray>
+#include <QJsonValue>
+#include <QJsonObject>
+#include <exception>
+#include <stdexcept>
+
+using std::runtime_error;
 
 namespace qt_utility {
     void popEditors(QAbstractItemModel* model, QAbstractItemView* view) {
@@ -33,6 +40,32 @@ namespace qt_utility {
         QPoint widgetPos = view->mapFromGlobal(event->globalPos());
         QModelIndex result = view->indexAt(widgetPos);
         qDebug() << "found index" << result;
+        return result;
+    }
+
+    QJsonArray valueToArray(QJsonValue v) {
+        if (!v.isArray()) {
+            throw new runtime_error("unexpected non-array type");
+        }
+
+        return v.toArray();
+    }
+
+    QJsonObject valueToObject(QJsonValue v) {
+        if (!v.isObject()) {
+            throw new runtime_error("unexpected non-object type");
+        }
+
+        return v.toObject();
+    }
+    
+    QJsonValue safeValue(QJsonObject object, string key) {
+        QJsonValue result = object.value(key);
+
+        if (result.isUndefined()) {
+            throw new runtime_error("unable to find key: " + key);
+        }
+
         return result;
     }
 }

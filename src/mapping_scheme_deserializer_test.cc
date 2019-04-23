@@ -22,7 +22,6 @@ TEST_F(MappingSchemeDeserializerTest, CanDeserializeEmptyScheme) {
     MappingSchemeDeserializer deserializer;
 
     MappingScheme expectedResult;
-
     MappingScheme actualResult = deserializer.deserialize(inputEmpty);
 
     ASSERT_THAT(actualResult, Eq(expectedResult));
