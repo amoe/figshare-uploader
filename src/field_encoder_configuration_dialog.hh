@@ -41,7 +41,6 @@ private:
     QGroupBox *createFirstGroup();
     QGroupBox *createSecondGroup();
     QGroupBox *createThirdGroup();
-    OptionsEditorView* createOptionsEditor(optional<FieldEncoder> initializingEncoder);
     QWidget* makeControls();
 
     optional<QModelIndex> editIndex;

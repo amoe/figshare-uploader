@@ -6,7 +6,7 @@
 using nonstd::optional;
 using nonstd::nullopt;
 
-OptionsEditorModel::OptionsEditorModel(OptionsMap& options, QObject* parent):
+OptionsEditorModel::OptionsEditorModel(OptionsMap options, QObject* parent):
     QAbstractTableModel(parent), options(options) {
     reIndex();
 }
@@ -205,4 +205,16 @@ void OptionsEditorModel::addOption(string result) {
     options.insert({result, nullopt});
     reIndex();
     endInsertRows();
+}
+
+void OptionsEditorModel::setOptions(OptionsMap newOptions) {
+    emit layoutAboutToBeChanged();
+    this->options = newOptions;
+    reIndex();
+    emit layoutChanged();
+}
+
+
+OptionsMap OptionsEditorModel::getModifiedOptions() const {
+    return this->options;
 }

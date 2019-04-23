@@ -24,7 +24,7 @@ class OptionsEditorModel: public QAbstractTableModel {
     Q_OBJECT
 
 public:
-    OptionsEditorModel(OptionsMap& options, QObject* parent = nullptr);
+    OptionsEditorModel(OptionsMap options, QObject* parent = nullptr);
 
     // Minimal set for non-editable display model.
     int rowCount(
@@ -55,6 +55,7 @@ public:
     void addOption(string result);
     
     OptionsMap getModifiedOptions() const;
+    void setOptions(OptionsMap newOptions);
 
 private:
     QVariant handleDisplayRole(int row, int column) const;

@@ -28,7 +28,10 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     targetFieldGroupBox = createFirstGroup();
     converterGroupBox = createSecondGroup();
     validationRulesGroupBox = createThirdGroup();
-    optionsEditorView = createOptionsEditor(initializingEncoder);
+
+    optionsEditorModel = new OptionsEditorModel(blankMap, this);
+    optionsEditorView = new OptionsEditorView(optionsEditorModel, this);
+    optionsEditorView->setModel(optionsEditorModel);
 
     connect(
         validationRulesGroupBox, &QGroupBox::toggled, 
@@ -73,7 +76,11 @@ void FieldEncoderConfigurationDialog::setContent(FieldEncoder inputEncoder) {
     int row = static_cast<int>(inputEncoder.getConverterName());
     converterList->setCurrentIndex(converterListModel->index(row, 0));
 
-    // XXX: Ensure the validation rules are selected
+    // Copy the options map into the model for editing
+    OptionsMap foo = inputEncoder.getOptions();
+    qDebug() << "size of foo is" << foo.size();
+
+    optionsEditorModel->setOptions(inputEncoder.getOptions());
 }
 
 
@@ -188,15 +195,3 @@ void FieldEncoderConfigurationDialog::complain() {
     );
 }
 
-
-
-OptionsEditorView* FieldEncoderConfigurationDialog::createOptionsEditor(
-    optional<FieldEncoder> initializingEncoder
-) {
-    OptionsEditorModel* model = new OptionsEditorModel(
-        blankMap, this
-    );
-    OptionsEditorView* view = new OptionsEditorView(model, this);
-    view->setModel(model);
-    return view;
-}
