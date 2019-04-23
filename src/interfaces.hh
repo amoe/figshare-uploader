@@ -28,6 +28,7 @@ public:
     virtual void setSourceFile(string sourceFile) = 0;
     virtual void setToken(string newToken) = 0;
     virtual void setAvailableEncoders(vector<FieldEncoder>& availableEncoders) = 0;
+    virtual void infoBox(string message) = 0;
 };
 
 class Presenter {

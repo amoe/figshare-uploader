@@ -267,3 +267,6 @@ void ViewImpl::onLoadFieldMappingsRequested() {
     presenter->loadFieldMappings(fileName.toStdString());
 }
 
+void ViewImpl::infoBox(string message) {
+    QMessageBox::information(this, "Information", QString::fromStdString(message));
+}

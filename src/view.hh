@@ -40,6 +40,7 @@ public:
         vector<string> headerFields, const MappingScheme& fieldMappings,
         const ConverterRegistry& converterRegistry
     );
+    void infoBox(string message);
 
 
 private slots:

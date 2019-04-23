@@ -173,7 +173,7 @@ void PresenterImpl::saveFieldMappings(string outputPath) {
     debugf("presenter would save mappings");
     MappingSchemeSerializer serializer;
     serializer.saveMappingScheme(model->getFieldMappings(), outputPath);
-    // Need to do an information box here using qmessagebox.
+    view->infoBox("Saved mappings successfully.");
 }
 
 void PresenterImpl::loadFieldMappings(string inputPath) {
