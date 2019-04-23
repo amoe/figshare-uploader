@@ -107,5 +107,26 @@ vector<ValidationRule> MappingSchemeDeserializer::deserializeValidationRules(
 
 OptionsMap MappingSchemeDeserializer::deserializeOptions(QJsonValue value) const {
     OptionsMap result;
+    QJsonObject optionsObject = valueToObject(value);
+
+    using iter = QJsonObject::const_iterator;
+
+    for (iter it = optionsObject.constBegin(); it != optionsObject.constEnd(); it++) {
+        QString iteratedKey = it.key();
+        QJsonValue iteratedValue = it.value();
+
+        string key = iteratedKey.toStdString();
+        optional<string> value = nullopt;
+
+        if (!iteratedValue.isNull()) {
+            value = optional<string>(
+                valueToString(iteratedValue).toStdString()
+            );
+        }
+
+
+        result.insert({key, value});
+    }
+
     return result;
 }

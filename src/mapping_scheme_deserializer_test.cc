@@ -4,6 +4,7 @@
 #include "test_vocabulary.hh"
 #include "mapping_scheme_deserializer.hh"
 #include "mapping_types.hh"
+#include "default_field_encoders.hh"
 
 using std::cout;
 using std::endl;
@@ -61,3 +62,30 @@ TEST_F(MappingSchemeDeserializerTest, CanDeserializeSingleTitleEncoder) {
     ASSERT_THAT(actualResult, Eq(expectedResult));
 }
 
+
+const string inputForCategoryEncoder = R"(
+    {
+        "rows": [
+            {
+                "targetField": {
+                    "fieldType": "standard",
+                    "name": "categories"
+                },
+                "name": "LookupList",
+                "validationRules": [],
+                "options": {
+                    "delimiter": null,
+                    "resourceName": "category"
+                }
+            }
+        ]
+    }
+)";
+
+TEST_F(MappingSchemeDeserializerTest, CanDeserializeCategoryEncoder) {
+    MappingSchemeDeserializer deserializer;
+    MappingScheme expectedResult = {default_field_encoders::CATEGORY_ENCODER};
+
+    MappingScheme actualResult = deserializer.deserialize(inputForCategoryEncoder);
+    ASSERT_THAT(actualResult, Eq(expectedResult));
+}
