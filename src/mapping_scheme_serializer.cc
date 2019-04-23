@@ -107,9 +107,11 @@ void MappingSchemeSerializer::saveMappingScheme(
     QJsonObject serialized = serialize(mappingScheme);
     QJsonDocument mappingSchemeDocument(serialized);
 
-
+    QByteArray binaryContent = mappingSchemeDocument.toJson();
+    
+    int expectedSize = binaryContent.size();
     qint64 writeResult = fileHandle.write(mappingSchemeDocument.toJson());
-    if (writeResult == -1) {
+    if (writeResult != expectedSize) {
         throw new runtime_error("unable to write data to file");
     }
 
