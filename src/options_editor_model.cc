@@ -201,7 +201,8 @@ void OptionsEditorModel::reIndex() {
 }
 
 void OptionsEditorModel::addOption(string result) {
-    // beginInsertRows(QModelIndex(), options.size(), options.size());
-    // reIndex();
-    // endInsertRows();
+    beginInsertRows(QModelIndex(), options.size(), options.size());
+    options.insert({result, nullopt});
+    reIndex();
+    endInsertRows();
 }
