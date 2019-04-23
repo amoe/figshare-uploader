@@ -1,9 +1,12 @@
 #include <string>
+#include <iostream>
 #include <gmock/gmock.h>
 #include "test_vocabulary.hh"
 #include "mapping_scheme_deserializer.hh"
 #include "mapping_types.hh"
 
+using std::cout;
+using std::endl;
 using std::string;
 
 class MappingSchemeDeserializerTest: public Test {
@@ -15,8 +18,6 @@ const string inputEmpty = R"(
         ]
     }
 )";
-
-
 
 TEST_F(MappingSchemeDeserializerTest, CanDeserializeEmptyScheme) {
     MappingSchemeDeserializer deserializer;
@@ -44,10 +45,6 @@ const string inputTitleEncoder = R"(
     }
 )";
 
-
-
-
-
 TEST_F(MappingSchemeDeserializerTest, CanDeserializeSingleTitleEncoder) {
     MappingSchemeDeserializer deserializer;
 
@@ -61,7 +58,6 @@ TEST_F(MappingSchemeDeserializerTest, CanDeserializeSingleTitleEncoder) {
     };
 
     MappingScheme actualResult = deserializer.deserialize(inputTitleEncoder);
-
     ASSERT_THAT(actualResult, Eq(expectedResult));
 }
 

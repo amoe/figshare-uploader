@@ -33,6 +33,7 @@ MappingScheme MappingSchemeDeserializer::deserialize(string input) const {
     for (iter it = rowsArray.constBegin(); it != rowsArray.end(); it++) {
         QJsonObject thisValue = valueToObject(*it);
         FieldEncoder thisEncoder = deserializeEncoder(thisValue);
+        result.push_back(thisEncoder);
     }
 
     return result;
@@ -92,6 +93,8 @@ ConverterName MappingSchemeDeserializer::deserializeConverterName(
     QJsonValue value
 ) const {
     ConverterName result;
+    ConverterNameBijectiveMapper mapper;
+    result = mapper.getSymbolicName(valueToString(value).toStdString());
     return result;
 }
 
