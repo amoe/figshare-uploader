@@ -44,7 +44,7 @@ QVariant LinkDemoModel::data(
                     // return the real data
                     return QVariant(QString::fromStdString(theOptional.value()));
                 } else {
-                    return QVariant();
+                    return QVariant("NULL");
                 }
             } else {
                 return QVariant();
@@ -67,7 +67,22 @@ QVariant LinkDemoModel::headerData(
     Qt::Orientation orientation,
     int role
 ) const {
-    return QVariant();
+    if (orientation != Qt::Horizontal)
+        return QVariant();
+
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    switch (section) {
+        case OPTION_NAME:
+            return QVariant("Option name");
+        case HAS_VALUE:
+            return QVariant("Has value?");
+        case OPTION_VALUE:
+            return QVariant("Option value");
+        default:
+            return QVariant();
+    }
 }
 
 // Required for editable model.
