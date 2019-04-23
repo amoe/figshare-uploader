@@ -28,6 +28,7 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     targetFieldGroupBox = createFirstGroup();
     converterGroupBox = createSecondGroup();
     validationRulesGroupBox = createThirdGroup();
+    optionsEditorView = createOptionsEditor();
 
     connect(
         validationRulesGroupBox, &QGroupBox::toggled, 
@@ -37,13 +38,16 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     grid->addWidget(targetFieldGroupBox, 0, 0);
     grid->addWidget(converterGroupBox, 1, 0);
     grid->addWidget(validationRulesGroupBox, 2, 0);
-    grid->addWidget(makeControls(), 3, 0);
+    grid->addWidget(optionsEditorView, 3, 0);
+    grid->addWidget(makeControls(), 4, 0);
 
     setLayout(grid);
     setWindowTitle("Field encoder configuration");
     
     if (initializingEncoder.has_value())
         setContent(initializingEncoder.value());
+
+    optionsEditorView->resizeColumnsToContents();
 }
 
 void FieldEncoderConfigurationDialog::setContent(FieldEncoder inputEncoder) {
@@ -116,17 +120,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
     converterList->setModel(converterListModel);
 
-    QPushButton* advancedButton = new QPushButton("Advanced...");
-
-    connect(
-        advancedButton,
-        &QAbstractButton::clicked,
-        this,
-        &FieldEncoderConfigurationDialog::showEncoderOptionsDialog
-    );
-
     vbox->addWidget(converterList);
-    vbox->addWidget(advancedButton);
     groupBox->setLayout(vbox);
     return groupBox;
 }
@@ -166,44 +160,6 @@ QWidget* FieldEncoderConfigurationDialog::makeControls()  {
     return buttonBox;
 }
 
-
-void FieldEncoderConfigurationDialog::showEncoderOptionsDialog() {
-    qDebug() << "I would show dialog";
-    // FYI: THIS IS ILLEGAL AND UNDEFINED BEHAVIOUR!
-
-    QMessageBox::critical(
-        this,
-        "Error",
-        "FIX ME!"
-    );
-
-    
-    // QModelIndex theIndex = converterList->currentIndex();
-    // string selectedFieldEncoder = theIndex.data().toString().toStdString();
-
-    // map<string, FieldEncoderWidget&> fieldEncoders;
-
-    // ListOfObjectFieldEncoder encoder;
-    // FieldEncoderWidget& genericEncoder = encoder;
-
-    // fieldEncoders.insert({"string", genericEncoder});
-    // fieldEncoders.insert({"listOfObjects", genericEncoder});
-    // fieldEncoders.insert({"lookupList", genericEncoder});
-    // fieldEncoders.insert({"contributeFiles", genericEncoder});
-
-    // FieldEncoderWidget& outOfMap = fieldEncoders.at(selectedFieldEncoder);
-
-    // qDebug() << "Pulled field encoder out of map";
-    // qDebug() << "address is" << &outOfMap;
-
-    // QDialog* dialog = outOfMap.makeConfigurationDialog(this);
-    // dialog->show();
-    // QJsonValue json = outOfMap.asJson();
-
-    // qDebug() << "serialization is" << json;
-    // qDebug() << "index is" << theIndex;
-}
-
 void FieldEncoderConfigurationDialog::accept() {
     // Emit our own object to transfer the data back to somewhere that it can
     // be dealt with.  We get the data out of the dialog in the most basic way
@@ -232,4 +188,15 @@ void FieldEncoderConfigurationDialog::complain() {
         "Error",
         "Sorry — local validation rules are not implemented yet."
     );
+}
+
+
+
+OptionsEditorView* FieldEncoderConfigurationDialog::createOptionsEditor() {
+    OptionsEditorModel* model = new OptionsEditorModel(demoOptions, this);
+    OptionsEditorView* view = new OptionsEditorView(model, this);
+
+    view->setModel(model);
+
+    return view;
 }

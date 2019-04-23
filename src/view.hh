@@ -62,8 +62,6 @@ private:
     FieldMappingTableModel* fieldMappingModel;
     FieldEncoderModel* fieldEncoderModel;
     ConverterListModel* converterListModel;
-
-    OptionsMap demoOptions;
 };
 
 #endif // VIEW_HH

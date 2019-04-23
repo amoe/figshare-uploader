@@ -9,6 +9,7 @@
 #include "optional.hpp"
 #include "qt_dto.hh"
 #include "mapping_types.hh"
+#include "options_editor_view.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -32,7 +33,6 @@ signals:
     );
     
 public slots:
-    void showEncoderOptionsDialog();
     void accept();
     void complain();
 
@@ -41,6 +41,7 @@ private:
     QGroupBox *createFirstGroup();
     QGroupBox *createSecondGroup();
     QGroupBox *createThirdGroup();
+    OptionsEditorView* createOptionsEditor();
     QWidget* makeControls();
 
     optional<QModelIndex> editIndex;
@@ -52,6 +53,13 @@ private:
     QGroupBox* converterGroupBox;
     QGroupBox* validationRulesGroupBox;
     QAbstractItemModel* converterListModel;
+    OptionsEditorView* optionsEditorView;
+
+    OptionsMap demoOptions = {
+        {"name", optional<string>("dave")},
+        {"gender", nullopt},
+        {"age", optional<string>("32")}
+    };
 };
 
 #endif
