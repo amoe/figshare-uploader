@@ -199,3 +199,9 @@ void OptionsEditorModel::reIndex() {
         keyOrdering.push_back(key);
     }
 }
+
+void OptionsEditorModel::addOption(string result) {
+    // beginInsertRows(QModelIndex(), options.size(), options.size());
+    // reIndex();
+    // endInsertRows();
+}

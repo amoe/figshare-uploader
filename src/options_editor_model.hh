@@ -46,7 +46,7 @@ public:
         int row, int count, const QModelIndex &parent = QModelIndex()
     ) override;
 
-
+    void addOption(string result);
 
 private:
     QVariant handleDisplayRole(int row, int column) const;

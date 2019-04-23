@@ -113,7 +113,7 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
     };
 
     OptionsEditorModel* model = new OptionsEditorModel(demoOptions, this);
-    OptionsEditorView* view = new OptionsEditorView(this);
+    OptionsEditorView* view = new OptionsEditorView(model, this);
 
     view->setModel(model);
     view->resizeColumnsToContents();
