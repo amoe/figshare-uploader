@@ -34,7 +34,6 @@ using nonstd::optional;
 using nonstd::nullopt;
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
-
     QWidget* contentWidget = new QWidget(this);
     setWindowTitle("Figshare Uploader");
 
@@ -106,7 +105,7 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
 
     // START
-    OptionsMap options = {
+    demoOptions = {
         {"name", optional<string>("dave")},
         {"gender", nullopt},
         {"age", optional<string>("32")}
