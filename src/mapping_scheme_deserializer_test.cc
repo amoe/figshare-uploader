@@ -32,20 +32,19 @@ const string inputTitleEncoder = R"(
     {
         "rows": [
             {
-                "sourceRowIndex": 0,
-                "fieldEncoder": {
-                    "targetField": {
-                        "fieldType": "standard",
-                        "name": "title"
-                    },
-                    "name": "String",
-                    "validationRules": [],
-                    "options": {}
-                }
+                "targetField": {
+                    "fieldType": "standard",
+                    "name": "title"
+                },
+                "name": "String",
+                "validationRules": [],
+                "options": {}
             }
         ]
     }
 )";
+
+
 
 
 
