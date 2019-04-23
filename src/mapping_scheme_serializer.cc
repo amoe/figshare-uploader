@@ -68,9 +68,23 @@ QJsonValue MappingSchemeSerializer::serializeValidationRules(
 }
 
 QJsonValue MappingSchemeSerializer::serializeOptions(OptionsMap options) const {
-    QJsonValue result;
+    QJsonObject result;
 
-    
+    for (const auto& pair: options) {
+        optional<string> optionValue = pair.second;
+        QJsonValue objectValue;
+        
+        if (optionValue.has_value()) {
+            objectValue = QString::fromStdString(optionValue.value());
+        } else {
+            // It stays null, as it should
+        }
+        
+        result.insert(
+            QString::fromStdString(pair.first), 
+            objectValue
+        );
+    }
 
     return result;
 }
