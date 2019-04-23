@@ -17,7 +17,7 @@ public:
     virtual string getToken() = 0;
     virtual void reportError(string errorText) = 0;
     virtual void addLog(string logText) = 0;
-    virtual void showFileDialog() = 0;
+    virtual bool showFileDialog() = 0;
     virtual void setProgressReporter(ViewProgressAdapter* reporter) = 0;
     virtual void showAboutDialog() = 0;
     virtual void showSettingsDialog(

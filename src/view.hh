@@ -31,7 +31,7 @@ public:
     void setToken(std::string newToken);
     void addLog(std::string logText);
     void reportError(std::string errorText);
-    void showFileDialog();
+    bool showFileDialog();
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
     void setSourceFile(std::string sourceFile);

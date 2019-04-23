@@ -68,8 +68,11 @@ void PresenterImpl::fatalError(string what) {
 
 void PresenterImpl::pickFile() {
     debugf("file pick requested");
-    view->showFileDialog();
-    view->addLog("Ready to upload.");
+    bool fileWasPicked = view->showFileDialog();
+
+    if (fileWasPicked) {
+        view->addLog("Ready to upload.");
+    }
 }
 
 void PresenterImpl::showAboutDialog() {

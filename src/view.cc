@@ -136,16 +136,21 @@ void ViewImpl::addQLog(QString logText) {
     logger->appendPlainText(logText);
 }
 
-void ViewImpl::showFileDialog() {
+bool ViewImpl::showFileDialog() {
     QString documentsPath = 
         QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation).first();
     QString fileName = QFileDialog::getOpenFileName(
         this, "Open File", documentsPath, "Excel documents (*.xlsx)"
     );
 
+    if (fileName.isNull())
+        return false;
+
     // We immediately need to delegate back to the presenter, which will call
     // us back later (on changeSourceFile) after storing the chosen filename.
     presenter->fileConfirmed(fileName.toStdString());
+    
+    return true;
 }
 
 // Wiring method for updating the view of the source file name.
