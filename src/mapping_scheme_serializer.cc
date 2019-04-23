@@ -35,15 +35,15 @@ QJsonValue MappingSchemeSerializer::serializeFieldEncoder(FieldEncoder f) const 
 }
 
 QJsonValue MappingSchemeSerializer::serializeTargetField(optional<TargetField> t) const {
-    QJsonObject result;
-
     if (t.has_value()) {
+        QJsonObject targetFieldObject;
         TargetField field = t.value();
-        result.insert("fieldType", mapTargetFieldType(field.getTargetFieldType()));
-        result.insert("name", QJsonValue(QString::fromStdString(field.getName())));
+        targetFieldObject.insert("fieldType", mapTargetFieldType(field.getTargetFieldType()));
+        targetFieldObject.insert("name", QJsonValue(QString::fromStdString(field.getName())));
+        return QJsonValue(targetFieldObject);
+    } else {
+        return QJsonValue();   // null
     }
-
-    return result;
 }
 
 QJsonValue MappingSchemeSerializer::mapTargetFieldType(TargetFieldType t) const {
