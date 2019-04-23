@@ -168,6 +168,7 @@ PROGRAM_SOURCES = [
     "mapping_table_widget.cc",
     "mapping_types.cc",
     "mapping_scheme_serializer.cc",
+    "mapping_scheme_deserializer.cc",
     "model.cc",
     "monospace_delegate.cc",
     "options_editor_model.cc",
@@ -224,7 +225,8 @@ TEST_SOURCES = [
     "upload_container_info_test.cc",
     "utility_test.cc",
     "xlsx_test.cc",
-    "mapping_types_serialization_test.cc"
+    "mapping_types_serialization_test.cc",
+    "mapping_scheme_deserializer_test.cc"
 ]
 
 env.Program(
