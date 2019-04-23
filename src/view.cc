@@ -28,7 +28,8 @@
 #include "field_mapping_table_model.hh"
 #include "logging.hh"
 #include "qt_utility.hh"
-#include "link_demo_model.hh"
+#include "options_editor_model.hh"
+#include "options_editor_view.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -111,8 +112,8 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
         {"age", optional<string>("32")}
     };
 
-    LinkDemoModel* model = new LinkDemoModel(demoOptions, this);
-    QTableView* view = new QTableView(this);
+    OptionsEditorModel* model = new OptionsEditorModel(demoOptions, this);
+    OptionsEditorView* view = new OptionsEditorView(this);
 
     view->setModel(model);
     view->resizeColumnsToContents();

@@ -1,5 +1,5 @@
-#ifndef LINK_DEMO_MODEL_HH
-#define LINK_DEMO_MODEL_HH
+#ifndef OPTIONS_EDITOR_MODEL_HH
+#define OPTIONS_EDITOR_MODEL_HH
 
 #include <vector>
 #include <QAbstractTableModel>
@@ -14,11 +14,11 @@ enum OptionsMapTableModelColumn {
     OPTION_VALUE
 };
 
-class LinkDemoModel: public QAbstractTableModel {
+class OptionsEditorModel: public QAbstractTableModel {
     Q_OBJECT
 
 public:
-    LinkDemoModel(OptionsMap& options, QObject* parent = nullptr);
+    OptionsEditorModel(OptionsMap& options, QObject* parent = nullptr);
 
     // Minimal set for non-editable display model.
     int rowCount(
@@ -53,4 +53,4 @@ private:
     vector<string> keyOrdering;
 };
 
-#endif /* LINK_DEMO_MODEL_HH */
+#endif /* OPTIONS_EDITOR_MODEL_HH */

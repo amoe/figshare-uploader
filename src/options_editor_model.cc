@@ -1,12 +1,12 @@
 #include <iterator>
 #include <QDebug>
-#include "link_demo_model.hh"
+#include "options_editor_model.hh"
 #include "optional.hpp"
 
 using nonstd::optional;
 using nonstd::nullopt;
 
-LinkDemoModel::LinkDemoModel(OptionsMap& options, QObject* parent):
+OptionsEditorModel::OptionsEditorModel(OptionsMap& options, QObject* parent):
     QAbstractTableModel(parent), options(options) {
     
     for (const auto& pair: options) {
@@ -16,19 +16,19 @@ LinkDemoModel::LinkDemoModel(OptionsMap& options, QObject* parent):
 }
 
 
-int LinkDemoModel::rowCount(
+int OptionsEditorModel::rowCount(
     const QModelIndex &parent
 ) const {
     return options.size();
 }
 
-int LinkDemoModel::columnCount(
+int OptionsEditorModel::columnCount(
     const QModelIndex &parent
 ) const {
     return 3;
 }
 
-QVariant LinkDemoModel::data(
+QVariant OptionsEditorModel::data(
     const QModelIndex &index,
     int role
 ) const {
@@ -52,7 +52,7 @@ QVariant LinkDemoModel::data(
     }
 }
 
-QVariant LinkDemoModel::headerData(
+QVariant OptionsEditorModel::headerData(
     int section,
     Qt::Orientation orientation,
     int role
@@ -76,7 +76,7 @@ QVariant LinkDemoModel::headerData(
 }
 
 // Required for editable model.
-bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int role) {
+bool OptionsEditorModel::setData(const QModelIndex& index, const QVariant& value, int role) {
 
     int row = index.row();
     int column = index.column();
@@ -107,7 +107,7 @@ bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int
     }
 }
 
-Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
+Qt::ItemFlags OptionsEditorModel::flags(const QModelIndex& index) const {
     // Don't use the superclass method.
     Qt::ItemFlags baseFlags = Qt::NoItemFlags;
 
@@ -133,7 +133,7 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     }
 }
 
-void LinkDemoModel::toggleOptional(int row) {
+void OptionsEditorModel::toggleOptional(int row) {
     string keyForRow = keyOrdering.at(row);
 
     optional<string> theOptional = options.at(keyForRow);
@@ -146,12 +146,12 @@ void LinkDemoModel::toggleOptional(int row) {
 }
 
 
-bool LinkDemoModel::removeRows(int row, int count, const QModelIndex &parent) {
+bool OptionsEditorModel::removeRows(int row, int count, const QModelIndex &parent) {
     return true;
 }
 
 
-QVariant LinkDemoModel::handleDisplayRole(int row, int column) const {
+QVariant OptionsEditorModel::handleDisplayRole(int row, int column) const {
     string keyForRow = keyOrdering.at(row);
     optional<string> theOptional = options.at(keyOrdering.at(row));
 

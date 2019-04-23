@@ -169,6 +169,8 @@ PROGRAM_SOURCES = [
     "mapping_types.cc",
     "mapping_scheme_serializer.cc",
     "model.cc",
+    "options_editor_model.cc",
+    "options_editor_view.cc",
     "part_preparer.cc",
     "path_extractor.cc",
     "presenter.cc",
@@ -188,7 +190,6 @@ PROGRAM_SOURCES = [
     "version.cc",
     "view.cc",
     "xlsx.cc",
-    "link_demo_model.cc"
 ]
 
 TEST_SOURCES = [
