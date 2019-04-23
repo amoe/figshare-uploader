@@ -15,6 +15,7 @@ private:
     QJsonValue mapTargetFieldType(TargetFieldType t) const;
     QJsonValue mapConverterName(ConverterName c) const;
     QJsonValue serializeValidationRules(vector<ValidationRule> rules) const;
+    QJsonValue serializeOptions(OptionsMap options) const;
 };
 
 
