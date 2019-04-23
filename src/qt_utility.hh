@@ -14,7 +14,7 @@ namespace qt_utility {
     QModelIndex indexOfEvent(QAbstractItemView* view, QContextMenuEvent* event);
     QJsonArray valueToArray(QJsonValue v);
     QJsonObject valueToObject(QJsonValue v);
-    QJsonValue safeValue(QJsonObject object, string key);
+    QJsonValue safeValue(QJsonObject object, QString key);
 }
 
 #endif /* QT_UTILITY_HH */

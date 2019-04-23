@@ -59,11 +59,12 @@ namespace qt_utility {
         return v.toObject();
     }
     
-    QJsonValue safeValue(QJsonObject object, string key) {
+    QJsonValue safeValue(QJsonObject object, QString key) {
         QJsonValue result = object.value(key);
 
         if (result.isUndefined()) {
-            throw new runtime_error("unable to find key: " + key);
+            qDebug() << key;
+            throw new runtime_error("unable to find key: " + key.toStdString());
         }
 
         return result;
