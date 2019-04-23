@@ -9,9 +9,16 @@ OptionsEditorView::OptionsEditorView(QWidget* parent): QTableView(parent) {
 
 void OptionsEditorView::contextMenuEvent(QContextMenuEvent *event) {
     qDebug() << "received context menu event for options editor";
-    QModelIndex index = qt_utility::indexOfEvent(this, event);
+    QModelIndex index = indexAt(event->pos());
+    qDebug() << "index is" << index;
     QMenu* menu = new QMenu(this);
     QAction* deleteAction = new QAction("Delete", this);
     menu->addAction(deleteAction);
+
+    connect(
+        deleteAction, &QAction::triggered, [=](bool) {
+            model()->removeRows(index.row(), 1);
+        }
+    );
     menu->exec(event->globalPos());
 }

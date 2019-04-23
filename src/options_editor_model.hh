@@ -42,13 +42,16 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 
-    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+    bool removeRows(
+        int row, int count, const QModelIndex &parent = QModelIndex()
+    ) override;
 
 
 
 private:
     QVariant handleDisplayRole(int row, int column) const;
     void toggleOptional(int row);
+    void reIndex();
     OptionsMap& options;
     vector<string> keyOrdering;
 };

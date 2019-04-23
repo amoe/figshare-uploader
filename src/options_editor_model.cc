@@ -8,11 +8,7 @@ using nonstd::nullopt;
 
 OptionsEditorModel::OptionsEditorModel(OptionsMap& options, QObject* parent):
     QAbstractTableModel(parent), options(options) {
-    
-    for (const auto& pair: options) {
-        string key = pair.first;
-        keyOrdering.push_back(key);
-    }
+    reIndex();
 }
 
 
@@ -46,7 +42,6 @@ QVariant OptionsEditorModel::data(
             } else {
                 return QVariant();
             }
-            break;
         default:
             return QVariant();
     }
@@ -112,7 +107,14 @@ Qt::ItemFlags OptionsEditorModel::flags(const QModelIndex& index) const {
     Qt::ItemFlags baseFlags = Qt::NoItemFlags;
 
     int row = index.row();
-    optional<string>& theOptional = options.at(keyOrdering.at(row));
+
+    // Do a bounds check.
+    // This shouldn't really ever happen, but for some reason it can.
+    vector<string>::size_type s = row;
+    if (s >= keyOrdering.size()) 
+        return baseFlags;
+
+    optional<string> theOptional = options.at(keyOrdering.at(row));
 
     switch (index.column()) {
         case OPTION_NAME:
@@ -147,6 +149,27 @@ void OptionsEditorModel::toggleOptional(int row) {
 
 
 bool OptionsEditorModel::removeRows(int row, int count, const QModelIndex &parent) {
+    beginRemoveRows(parent, row, (row + count) - 1);
+    qDebug() << "I would remove rows";
+    qDebug() << "requested row is " << row;
+
+    for (int i = 0; i < count; i++) {
+        int effectiveIndex = row + i;
+        qDebug() << "attempting index" << effectiveIndex;
+        qDebug() << "key ordering size" << keyOrdering.size();
+
+        for (string k: keyOrdering) {
+            qDebug() << QString::fromStdString(k);
+        }
+
+        string key = keyOrdering.at(effectiveIndex);
+        qDebug() << "key is" << QString::fromStdString(key);
+
+        options.erase(options.find(key));
+    }
+
+    reIndex();
+    endRemoveRows();
     return true;
 }
 
@@ -164,5 +187,15 @@ QVariant OptionsEditorModel::handleDisplayRole(int row, int column) const {
             return QVariant(QString::fromStdString(theOptional.value_or("NULL")));
         default:
             return QVariant();
+    }
+}
+
+
+void OptionsEditorModel::reIndex() {
+    keyOrdering.clear();
+
+    for (const auto& pair: options) {
+        string key = pair.first;
+        keyOrdering.push_back(key);
     }
 }

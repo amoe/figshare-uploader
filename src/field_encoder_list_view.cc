@@ -26,6 +26,9 @@ FieldEncoderListView::FieldEncoderListView(
 }
 
 void FieldEncoderListView::contextMenuEvent(QContextMenuEvent* event) {
+    // The reason that we need to use mapFromGlobal here is because we aren't
+    // the direct child, we're not a subclass of QListView.  Contrast the
+    // approach in OptionsEditorView.
     QPoint widgetPos = listView->mapFromGlobal(event->globalPos());
     QModelIndex result = listView->indexAt(widgetPos);
 

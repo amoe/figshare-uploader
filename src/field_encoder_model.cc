@@ -53,7 +53,7 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
     it start = availableEncoders.begin();
 
     int lastIndex = row + count;
-    beginRemoveRows(parent, row, lastIndex);
+    beginRemoveRows(parent, row, (row + count) - 1);
     // XXX: Instead of modifying the reference, should probably emit a signal
     // which is handled by the view.
     availableEncoders.erase(start + row, start + lastIndex);

@@ -32,6 +32,7 @@ namespace qt_utility {
     QModelIndex indexOfEvent(QAbstractItemView* view, QContextMenuEvent* event) {
         QPoint widgetPos = view->mapFromGlobal(event->globalPos());
         QModelIndex result = view->indexAt(widgetPos);
+        qDebug() << "found index" << result;
         return result;
     }
 }
