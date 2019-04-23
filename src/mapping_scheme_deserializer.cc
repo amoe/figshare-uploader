@@ -8,6 +8,9 @@ using std::runtime_error;
 using qt_utility::safeValue;
 using qt_utility::valueToObject;
 using qt_utility::valueToArray;
+using qt_utility::valueToString;
+using nonstd::nullopt;
+using nonstd::optional;
 
 MappingScheme MappingSchemeDeserializer::deserialize(string input) const {
     MappingScheme result;
@@ -59,6 +62,29 @@ optional<TargetField> MappingSchemeDeserializer::deserializeTargetField(
     QJsonValue value
 ) const {
     optional<TargetField> result;
+    
+    if (value.isNull()) {
+        result = nullopt;
+    } else {
+        QJsonObject obj = valueToObject(value);
+        QString typeSpec = valueToString(safeValue(obj, "fieldType"));
+        TargetFieldType type;
+
+        if (typeSpec == "standard") {
+            type = TargetFieldType::STANDARD;
+        } else if (typeSpec == "custom") {
+            type = TargetFieldType::CUSTOM;
+        } else {
+            throw new runtime_error("unexpected target field type");
+        }
+
+        QString fieldName = valueToString(safeValue(obj, "name"));
+        
+        result = optional<TargetField>(
+            TargetField(type, fieldName.toStdString())
+        );
+    }
+
     return result;
 }
 

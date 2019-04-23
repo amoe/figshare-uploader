@@ -58,6 +58,15 @@ namespace qt_utility {
 
         return v.toObject();
     }
+
+    QString valueToString(QJsonValue v) {
+        if (!v.isString()) {
+            throw new runtime_error("unexpected non-string type");
+        }
+
+        return v.toString();
+    }
+
     
     QJsonValue safeValue(QJsonObject object, QString key) {
         QJsonValue result = object.value(key);
