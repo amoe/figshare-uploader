@@ -39,17 +39,7 @@ QVariant LinkDemoModel::data(
 
     switch (role) {
         case Qt::DisplayRole:
-            if (column == OPTION_VALUE) {
-                if (theOptional.has_value()) {
-                    // return the real data
-                    return QVariant(QString::fromStdString(theOptional.value()));
-                } else {
-                    return QVariant("NULL");
-                }
-            } else {
-                return QVariant();
-            }
-            break;
+            return handleDisplayRole(row, column);
         case Qt::CheckStateRole:
             if (column == HAS_VALUE) {
                 return QVariant(theOptional.has_value());
@@ -117,6 +107,9 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     optional<string>& theOptional = options.at(keyOrdering.at(row));
 
     switch (index.column()) {
+        case OPTION_NAME:
+            return baseFlags | Qt::ItemIsEnabled;
+            break;
         case HAS_VALUE:
             return baseFlags | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
             break;
@@ -141,5 +134,25 @@ void LinkDemoModel::toggleOptional(int row) {
         options.at(keyForRow) = nullopt;
     } else {
         options.at(keyForRow) = optional<string>("");
+    }
+}
+
+
+bool LinkDemoModel::removeRows(int row, int count, const QModelIndex &parent) {
+    return true;
+}
+
+
+QVariant LinkDemoModel::handleDisplayRole(int row, int column) const {
+    string keyForRow = keyOrdering.at(row);
+    optional<string> theOptional = options.at(keyOrdering.at(row));
+
+    switch (column) {
+        case OPTION_NAME:
+            return QVariant(QString::fromStdString(keyForRow));
+        case OPTION_VALUE:
+            return QVariant(QString::fromStdString(theOptional.value_or("NULL")));
+        default:
+            return QVariant();
     }
 }
