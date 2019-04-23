@@ -18,9 +18,7 @@ class LinkDemoModel: public QAbstractTableModel {
     Q_OBJECT
 
 public:
-    LinkDemoModel(OptionsMap& options, QObject* parent = nullptr):
-        QAbstractTableModel(parent), options(options) {
-    }
+    LinkDemoModel(OptionsMap& options, QObject* parent = nullptr);
 
     // Minimal set for non-editable display model.
     int rowCount(
@@ -44,10 +42,10 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 
-
 private:
-    pair<string, optional<string>> getRow(int row) const;
+    void toggleOptional(int row);
     OptionsMap& options;
+    vector<string> keyOrdering;
 };
 
 #endif /* LINK_DEMO_MODEL_HH */

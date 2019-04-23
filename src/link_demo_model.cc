@@ -1,7 +1,19 @@
 #include <iterator>
 #include <QDebug>
 #include "link_demo_model.hh"
+#include "optional.hpp"
 
+using nonstd::optional;
+using nonstd::nullopt;
+
+LinkDemoModel::LinkDemoModel(OptionsMap& options, QObject* parent):
+    QAbstractTableModel(parent), options(options) {
+    
+    for (const auto& pair: options) {
+        string key = pair.first;
+        keyOrdering.push_back(key);
+    }
+}
 
 
 int LinkDemoModel::rowCount(
@@ -23,14 +35,14 @@ QVariant LinkDemoModel::data(
     int row = index.row();
     int column = index.column();
 
-    optional<string> theOptional = getRow(row).second;
+    optional<string> theOptional = options.at(keyOrdering.at(row));
 
     switch (role) {
         case Qt::DisplayRole:
             if (column == OPTION_VALUE) {
                 if (theOptional.has_value()) {
                     // return the real data
-                    return QVariant("FOO");
+                    return QVariant(QString::fromStdString(theOptional.value()));
                 } else {
                     return QVariant();
                 }
@@ -65,6 +77,7 @@ bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int
     int column = index.column();
 
     bool newValue = value.toBool();
+    optional<string> theOptional = options.at(keyOrdering.at(row));
 
     qDebug() << "setdata called for column" << column;
     qDebug() << "role was" << role;
@@ -72,8 +85,7 @@ bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int
 
     switch (column) {
         case HAS_VALUE:
-            // Invert the value of the boolean
-            //personData.at(row).hasName = !personData.at(row).hasName;
+            toggleOptional(row);
             // Invalidate ourselves and the column next to us!
             emit dataChanged(index, this->index(row, column + 1));
             return true;
@@ -87,7 +99,7 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     Qt::ItemFlags baseFlags = Qt::NoItemFlags;
 
     int row = index.row();
-    optional<string> theOptional = getRow(row).second;
+    optional<string>& theOptional = options.at(keyOrdering.at(row));
 
     switch (index.column()) {
         case HAS_VALUE:
@@ -105,10 +117,14 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     }
 }
 
+void LinkDemoModel::toggleOptional(int row) {
+    string keyForRow = keyOrdering.at(row);
 
-pair<string, optional<string>> LinkDemoModel::getRow(int row) const {
-    using iter_t = OptionsMap::const_iterator;
-    iter_t iter = options.begin();
-    advance(iter, row);
-    return *iter;
+    optional<string> theOptional = options.at(keyForRow);
+    
+    if (theOptional.has_value()) {
+        options.at(keyForRow) = nullopt;
+    } else {
+        options.at(keyForRow) = optional<string>("");
+    }
 }
