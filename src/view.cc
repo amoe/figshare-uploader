@@ -16,6 +16,8 @@
 #include <QStringListModel>
 #include <QTableView>
 
+#include "optional.hpp"
+
 #include "view.hh"
 #include "presenter.hh"
 #include "slot_adapter.hh"
@@ -27,6 +29,9 @@
 #include "logging.hh"
 #include "qt_utility.hh"
 #include "link_demo_model.hh"
+
+using nonstd::optional;
+using nonstd::nullopt;
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
@@ -53,23 +58,23 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
     QLabel* tokenLabel =  new QLabel("Token:");
     this->token = new QLineEdit(this);
-    layout->addWidget(tokenLabel, 0, 0, 1, 1);
-    layout->addWidget(this->token, 0, 1, 1, 11);
+    // layout->addWidget(tokenLabel, 0, 0, 1, 1);
+    // layout->addWidget(this->token, 0, 1, 1, 11);
 
     QLabel* fileLabel =  new QLabel("File:");
     this->selectedFile = new QLineEdit(this);
     QPushButton* pickButton = new QPushButton("Pick", this);
-    layout->addWidget(fileLabel, 1, 0, 1, 1);
-    layout->addWidget(this->selectedFile, 1, 1, 1, 10);
-    layout->addWidget(pickButton, 1, 11, 1, 1);
+    // layout->addWidget(fileLabel, 1, 0, 1, 1);
+    // layout->addWidget(this->selectedFile, 1, 1, 1, 10);
+    // layout->addWidget(pickButton, 1, 11, 1, 1);
 
     this->actionButton = new QPushButton("Start upload process", this);
-    layout->addWidget(this->actionButton, 2, 0, 1, 12);
+    // layout->addWidget(this->actionButton, 2, 0, 1, 12);
 
     this->logger = new QPlainTextEdit("Waiting for file selection.");
     logger->setReadOnly(true);
     logger->setCenterOnScroll(true);
-    layout->addWidget(logger, 3, 0, 1, 12);
+    // layout->addWidget(logger, 3, 0, 1, 12);
 
     contentWidget->setLayout(layout);
     setCentralWidget(contentWidget);
@@ -101,13 +106,13 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
 
     // START
-    vector<Person> personData = {
-        Person(true, "Dave"),
-        Person(false, "Endless Nameless"),
-        Person(true, "Monika")
+    OptionsMap options = {
+        {"name", optional<string>("dave")},
+        {"gender", nullopt},
+        {"age", optional<string>("32")}
     };
 
-    LinkDemoModel* model = new LinkDemoModel(personData, this);
+    LinkDemoModel* model = new LinkDemoModel(options, this);
     QTableView* view = new QTableView(this);
 
     view->setModel(model);
