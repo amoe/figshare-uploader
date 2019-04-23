@@ -6,6 +6,8 @@
 #include "logging.hh"
 #include "slot_adapter.hh"
 #include "xlsx.hh"
+#include "mapping_scheme_serializer.hh"
+#include "mapping_scheme_deserializer.hh"
 
 using std::string;
 
@@ -169,6 +171,8 @@ void PresenterImpl::onMappingEncoderSetOperation(
 
 void PresenterImpl::saveFieldMappings(string outputPath) {
     debugf("presenter would save mappings");
+    MappingSchemeSerializer serializer;
+    serializer.saveMappingScheme(model->getFieldMappings(), outputPath);
 }
 
 void PresenterImpl::loadFieldMappings(string inputPath) {

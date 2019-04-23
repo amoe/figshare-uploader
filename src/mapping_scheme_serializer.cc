@@ -1,5 +1,9 @@
 #include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
 #include "mapping_scheme_serializer.hh"
+
+using std::runtime_error;
 
 QJsonObject MappingSchemeSerializer::serialize(MappingScheme scheme) const {
     QJsonObject result;
@@ -88,3 +92,27 @@ QJsonValue MappingSchemeSerializer::serializeOptions(OptionsMap options) const {
 
     return result;
 }
+
+
+void MappingSchemeSerializer::saveMappingScheme(
+    MappingScheme mappingScheme, string outputPath
+) const {
+    QFile fileHandle(QString::fromStdString(outputPath));
+    
+    bool openResult = fileHandle.open(QIODevice::WriteOnly);
+    if (!openResult) {
+        throw new runtime_error("unable to open file: " + outputPath);
+    }
+
+    QJsonObject serialized = serialize(mappingScheme);
+    QJsonDocument mappingSchemeDocument(serialized);
+
+
+    qint64 writeResult = fileHandle.write(mappingSchemeDocument.toJson());
+    if (writeResult == -1) {
+        throw new runtime_error("unable to write data to file");
+    }
+
+    fileHandle.close();
+}
+

@@ -8,6 +8,7 @@
 class MappingSchemeSerializer {
 public:
     QJsonObject serialize(MappingScheme input) const;
+    void saveMappingScheme(MappingScheme mappingScheme, string outputPath) const;
 
 private:
     QJsonValue serializeFieldEncoder(FieldEncoder f) const;
