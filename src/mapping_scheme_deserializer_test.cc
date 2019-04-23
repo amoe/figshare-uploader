@@ -10,9 +10,12 @@ class MappingSchemeDeserializerTest: public Test {
 };
 
 const string inputEmpty = R"(
-    [
-    ]
+    {
+        "rows": [
+        ]
+    }
 )";
+
 
 
 TEST_F(MappingSchemeDeserializerTest, CanDeserializeEmptyScheme) {
@@ -20,8 +23,47 @@ TEST_F(MappingSchemeDeserializerTest, CanDeserializeEmptyScheme) {
 
     MappingScheme expectedResult;
 
-    deserializer.deserialize(inputEmpty);
+    MappingScheme actualResult = deserializer.deserialize(inputEmpty);
 
-    ASSERT_THAT(2 + 2, Eq(4));
+    ASSERT_THAT(actualResult, Eq(expectedResult));
+}
+
+
+const string inputTitleEncoder = R"(
+    {
+        "rows": [
+            {
+                "sourceRowIndex": 0,
+                "fieldEncoder": {
+                    "targetField": {
+                        "fieldType": "standard",
+                        "name": "title"
+                    },
+                    "name": "String",
+                    "validationRules": [],
+                    "options": {}
+                }
+            }
+        ]
+    }
+)";
+
+
+
+TEST_F(MappingSchemeDeserializerTest, CanDeserializeSingleTitleEncoder) {
+    MappingSchemeDeserializer deserializer;
+
+    MappingScheme expectedResult = {
+        FieldEncoder(
+            optional<TargetField>(TargetField(TargetFieldType::STANDARD, "title")),
+            ConverterName::STRING,
+            {},
+            {}
+        )
+    };
+
+    MappingScheme actualResult = deserializer.deserialize(inputTitleEncoder);
+
+    ASSERT_THAT(actualResult, Eq(expectedResult));
 }
 
