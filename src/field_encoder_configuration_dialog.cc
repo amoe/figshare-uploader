@@ -194,8 +194,7 @@ OptionsEditorView* FieldEncoderConfigurationDialog::createOptionsEditor(
     optional<FieldEncoder> initializingEncoder
 ) {
     OptionsEditorModel* model = new OptionsEditorModel(
-        blankMap,
-        this
+        blankMap, this
     );
     OptionsEditorView* view = new OptionsEditorView(model, this);
     view->setModel(model);
