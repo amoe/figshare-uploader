@@ -42,7 +42,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     dto.fieldName = "title2";
     dto.validationRuleIndices = {};
     dto.converterIndex = 1;
-
+    dto.newOptions = {};
 
     TargetField targetField(TargetFieldType::STANDARD, "title2");
     FieldEncoder expectedFieldEncoder(
@@ -52,6 +52,9 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
         {}
     );
 
+
+    // Something is going very wrong here, this is a nasty heisenbug!
+    // std::cout << "Expected: " << expectedFieldEncoder.describe() << std::endl;
     EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
 }
