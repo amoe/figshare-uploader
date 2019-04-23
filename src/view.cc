@@ -14,6 +14,7 @@
 #include <QIcon>
 #include <QSize>
 #include <QStringListModel>
+#include <QTableView>
 
 #include "view.hh"
 #include "presenter.hh"
@@ -25,6 +26,7 @@
 #include "field_mapping_table_model.hh"
 #include "logging.hh"
 #include "qt_utility.hh"
+#include "link_demo_model.hh"
 
 ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
@@ -96,6 +98,23 @@ ViewImpl::ViewImpl(Presenter* presenter) : QMainWindow(), presenter(presenter) {
 
     SlotAdapter showSettingsDialogAdapter(presenter, &Presenter::showSettingsDialog);
     connect(showSettingsAction, &QAction::triggered, showSettingsDialogAdapter);
+
+
+    // START
+    vector<Person> personData = {
+        Person(true, "Dave"),
+        Person(false, "Endless Nameless"),
+        Person(true, "Monika")
+    };
+
+    LinkDemoModel* model = new LinkDemoModel(personData, this);
+    QTableView* view = new QTableView(this);
+
+    view->setModel(model);
+    view->resizeColumnsToContents();
+    // END
+
+    layout->addWidget(view);
 }
 
 std::string ViewImpl::getSelectedFile() {

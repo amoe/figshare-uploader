@@ -131,9 +131,6 @@ env.Append(CCFLAGS=ccflags)
 env.Append(LIBS=libs)
 env.Append(LINKFLAGS=linkflags)
 
-print("Prog emitter:", env['PROGEMITTER'])
-print("Program is" + repr(env['BUILDERS']['Program'].emitter))
-
 # Build version file using the special action
 env.Command(
     target='version.cc',
@@ -190,7 +187,8 @@ PROGRAM_SOURCES = [
     "utility.cc",
     "version.cc",
     "view.cc",
-    "xlsx.cc"
+    "xlsx.cc",
+    "link_demo_model.cc"
 ]
 
 TEST_SOURCES = [
