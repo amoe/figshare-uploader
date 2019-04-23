@@ -3,15 +3,23 @@
 
 #include <vector>
 #include <QAbstractTableModel>
-#include "person.hh"
+#include "mapping_types.hh"
 
+using std::pair;
 using std::vector;
+
+enum OptionsMapTableModelColumn {
+    OPTION_NAME,
+    HAS_VALUE,
+    OPTION_VALUE
+};
 
 class LinkDemoModel: public QAbstractTableModel {
     Q_OBJECT
 
 public:
-    LinkDemoModel(vector<Person> personData, QObject* parent = nullptr): QAbstractTableModel(parent), personData(personData) {
+    LinkDemoModel(OptionsMap& options, QObject* parent = nullptr):
+        QAbstractTableModel(parent), options(options) {
     }
 
     // Minimal set for non-editable display model.
@@ -35,8 +43,11 @@ public:
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
+
+
 private:
-    vector<Person> personData;
+    pair<string, optional<string>> getRow(int row) const;
+    OptionsMap& options;
 };
 
 #endif /* LINK_DEMO_MODEL_HH */

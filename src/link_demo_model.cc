@@ -1,16 +1,19 @@
+#include <iterator>
 #include <QDebug>
 #include "link_demo_model.hh"
+
+
 
 int LinkDemoModel::rowCount(
     const QModelIndex &parent
 ) const {
-    return personData.size();
+    return options.size();
 }
 
 int LinkDemoModel::columnCount(
     const QModelIndex &parent
 ) const {
-    return 2;
+    return 3;
 }
 
 QVariant LinkDemoModel::data(
@@ -20,13 +23,14 @@ QVariant LinkDemoModel::data(
     int row = index.row();
     int column = index.column();
 
-    Person person = personData.at(row);
+    optional<string> theOptional = getRow(row).second;
 
     switch (role) {
         case Qt::DisplayRole:
-            if (column == 1) {
-                if (person.hasName) {
-                    return QVariant(QString::fromStdString(person.name));
+            if (column == OPTION_VALUE) {
+                if (theOptional.has_value()) {
+                    // return the real data
+                    return QVariant("FOO");
                 } else {
                     return QVariant();
                 }
@@ -35,8 +39,8 @@ QVariant LinkDemoModel::data(
             }
             break;
         case Qt::CheckStateRole:
-            if (column == 0) {
-                return QVariant(person.hasName);
+            if (column == HAS_VALUE) {
+                return QVariant(theOptional.has_value());
             } else {
                 return QVariant();
             }
@@ -67,8 +71,9 @@ bool LinkDemoModel::setData(const QModelIndex& index, const QVariant& value, int
     qDebug() << "value was" << value;
 
     switch (column) {
-        case 0:
-            personData.at(row).hasName = !personData.at(row).hasName;
+        case HAS_VALUE:
+            // Invert the value of the boolean
+            //personData.at(row).hasName = !personData.at(row).hasName;
             // Invalidate ourselves and the column next to us!
             emit dataChanged(index, this->index(row, column + 1));
             return true;
@@ -82,13 +87,14 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     Qt::ItemFlags baseFlags = Qt::NoItemFlags;
 
     int row = index.row();
-    
+    optional<string> theOptional = getRow(row).second;
+
     switch (index.column()) {
-        case 0:
+        case HAS_VALUE:
             return baseFlags | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
             break;
-        case 1:
-            if (personData.at(row).hasName) {
+        case OPTION_VALUE:
+            if (theOptional.has_value()) {
                 return baseFlags | Qt::ItemIsEnabled | Qt::ItemIsEditable;
             } else {
                 return baseFlags;
@@ -99,3 +105,10 @@ Qt::ItemFlags LinkDemoModel::flags(const QModelIndex& index) const {
     }
 }
 
+
+pair<string, optional<string>> LinkDemoModel::getRow(int row) const {
+    using iter_t = OptionsMap::const_iterator;
+    iter_t iter = options.begin();
+    advance(iter, row);
+    return *iter;
+}
