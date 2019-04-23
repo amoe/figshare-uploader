@@ -3,6 +3,7 @@
 
 #include <QModelIndex>
 #include <QVariant>
+#include "mapping_types.hh"
 
 namespace qt_dto {
     // Because these are const references (they're provided by
@@ -24,6 +25,7 @@ namespace qt_dto {
         QString fieldName;
         QModelIndex selectedConverter;
         QModelIndexList selectedValidationRules;
+        OptionsMap optionsMap;
     };
 }
 

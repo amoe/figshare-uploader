@@ -1,6 +1,10 @@
 #ifndef DOMAIN_DTO_HH
 #define DOMAIN_DTO_HH
 
+#include "optional.hpp"
+
+using nonstd::optional;
+
 namespace domain {
     struct FieldEncoderListOperation {
         int index;
@@ -9,6 +13,7 @@ namespace domain {
         string fieldName;
         vector<int> validationRuleIndices;
         int converterIndex;
+        map<string, optional<string>> newOptions;
     };
 
     struct MappingEncoderSetOperation {

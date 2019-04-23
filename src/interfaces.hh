@@ -26,7 +26,6 @@ public:
         const ConverterRegistry& converterRegistry
     ) = 0;
     virtual void setSourceFile(string sourceFile) = 0;
-    virtual void iterateFieldMappingModel() = 0;
     virtual void setToken(string newToken) = 0;
     virtual void setAvailableEncoders(vector<FieldEncoder>& availableEncoders) = 0;
 };

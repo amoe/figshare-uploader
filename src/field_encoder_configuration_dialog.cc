@@ -169,7 +169,9 @@ void FieldEncoderConfigurationDialog::accept() {
     // Emit our own object to transfer the data back to somewhere that it can
     // be dealt with.  We get the data out of the dialog in the most basic way
     // possible.  We want this part of the code to not contain tons of munging
-    // logic.
+    // logic.  Note that NONE of these are references or pointers, it's just
+    // plain-old-data.
+
     // This DTO will be received in FieldEncoderListView#encoderDialogConfirmed.
 
     qt_dto::FieldEncoderConfigurationOperation result;
@@ -180,6 +182,7 @@ void FieldEncoderConfigurationDialog::accept() {
     result.fieldName = targetFieldName->text();
     result.selectedConverter = converterList->currentIndex();
     result.selectedValidationRules = validatorList->selectionModel()->selectedIndexes();
+    result.optionsMap = optionsEditorModel->getModifiedOptions();
 
     qDebug() << "About to emit confirmation signal";
     emit fieldEncoderDialogConfirmed(result);

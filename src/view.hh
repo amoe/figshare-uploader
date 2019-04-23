@@ -35,7 +35,6 @@ public:
     void showAboutDialog();
     void setProgressReporter(ViewProgressAdapter* reporter);
     void setSourceFile(std::string sourceFile);
-    void iterateFieldMappingModel();
     void setAvailableEncoders(vector<FieldEncoder>& availableEncoders);
     void showSettingsDialog(
         vector<string> headerFields, const MappingScheme& fieldMappings,

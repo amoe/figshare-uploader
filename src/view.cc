@@ -208,10 +208,6 @@ void ViewImpl::showSettingsDialog(
     settingsDialog->show();
 }
 
-void ViewImpl::iterateFieldMappingModel() {
-    qDebug() << "iterating field mapping model";
-}
-
 void ViewImpl::setAvailableEncoders(vector<FieldEncoder>& availableEncoders) {
     fieldEncoderModel = new FieldEncoderModel(availableEncoders);
 }
@@ -225,6 +221,7 @@ void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderCo
     result.targetFieldTypeId = dto.targetFieldTypeId;
     result.fieldName = dto.fieldName.toStdString();
     result.converterIndex = dto.selectedConverter.row();
+    result.newOptions = dto.optionsMap;
 
     // Map QList destructively
     vector<int> validationRuleIndices;
