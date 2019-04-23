@@ -150,6 +150,8 @@ QVariant LinkDemoModel::handleDisplayRole(int row, int column) const {
     switch (column) {
         case OPTION_NAME:
             return QVariant(QString::fromStdString(keyForRow));
+        case HAS_VALUE:
+            return QVariant();
         case OPTION_VALUE:
             return QVariant(QString::fromStdString(theOptional.value_or("NULL")));
         default:
