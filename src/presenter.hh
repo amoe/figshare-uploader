@@ -44,7 +44,10 @@ public:
     void loadFieldMappings(string inputPath);
 
 
+
 private:
+    FieldEncoder getEncoderFromDto(domain::FieldEncoderListOperation dto) const;
+
     Model* model;
     View* view;
     Driver* driver;

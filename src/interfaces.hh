@@ -58,10 +58,13 @@ class Model {
 public:
     virtual void setSourceFile(string newSourceFile) = 0;
     virtual vector<FieldEncoder>& getAvailableEncoders() = 0;
-    virtual void addFieldEncoder(FieldEncoder f) = 0;
     virtual void bindRow(int excelRow, int fieldEncoderIndex) = 0;
     virtual void setHeaderFields(vector<string> headerFields) = 0;
     virtual void dumpMappingScheme() const = 0;
+
+    virtual void addFieldEncoder(FieldEncoder f) = 0;
+    virtual void replaceFieldEncoder(int index, FieldEncoder f) = 0;
+
     virtual const MappingScheme& getFieldMappings() const = 0;
     virtual const vector<string> getHeaderFields() const = 0;
     virtual const optional<string> getSourceFile() const = 0;

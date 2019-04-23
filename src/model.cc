@@ -37,6 +37,11 @@ void ModelImpl::addFieldEncoder(FieldEncoder f) {
     availableEncoders.push_back(f);
 }
 
+void ModelImpl::replaceFieldEncoder(int index, FieldEncoder f) {
+    availableEncoders.at(index) = f;
+}
+
+
 void ModelImpl::bindRow(int excelRow, int fieldEncoderIndex) {
     std::cout << "I would bind row " << excelRow << " to field encoder with index " << fieldEncoderIndex << std::endl;
     // This will give a runtime failure.

@@ -122,17 +122,18 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
 ) {
     debugf("inside presenter fieldEncoderConfigurationDialogConfirmed");
 
-    std::cout << "Index is " << dto.index << std::endl;
-    std::cout << "Field target type id is " << dto.targetFieldTypeId << std::endl;
-    std::cout << "Field name is " << dto.fieldName << std::endl;
-    std::cout << "Converter index is " << dto.converterIndex << std::endl;
+    FieldEncoder newEncoderState = getEncoderFromDto(dto);
 
-    for (int v: dto.validationRuleIndices) {
-        std::cout << "Validation rule assigned: " << v << std::endl;
+    if (dto.index >= 0) {
+        model->replaceFieldEncoder(dto.index, newEncoderState);
+    } else {
+        model->addFieldEncoder(newEncoderState);
     }
+}
 
-    // Some crap to satisfy the not-specific-enough test.
-
+FieldEncoder PresenterImpl::getEncoderFromDto(
+    domain::FieldEncoderListOperation dto
+) const {
     optional<TargetField> targetField = nullopt;
     if (dto.isTargetFieldSet) {
         targetField = TargetField(
@@ -148,7 +149,7 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
         dto.newOptions
     );
 
-    model->addFieldEncoder(newEncoder);
+    return newEncoder;
 }
 
 void PresenterImpl::onMappingEncoderSetOperation(

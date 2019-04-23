@@ -21,7 +21,6 @@ public:
 
     void setSourceFile(string newSourceFile);
     vector<FieldEncoder>& getAvailableEncoders();
-    void addFieldEncoder(FieldEncoder f);
     void bindRow(int excelRow, int fieldEncoderIndex);
     void setHeaderFields(vector<string> headerFields);
 
@@ -34,6 +33,9 @@ public:
 
     const ConverterRegistry& getConverterRegistry() const;
 
+
+    void addFieldEncoder(FieldEncoder f);
+    void replaceFieldEncoder(int index, FieldEncoder f);
 
     void dumpMappingScheme() const;
 
