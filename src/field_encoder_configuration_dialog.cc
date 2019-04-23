@@ -11,6 +11,7 @@
 #include "converter_list_model.hh"
 #include "field_encoder_configuration_dialog.hh"
 #include "field_encoder_widget.hh"
+#include "monospace_delegate.hh"
 
 using std::map;
 using std::string;
@@ -32,6 +33,9 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     optionsEditorModel = new OptionsEditorModel(blankMap, this);
     optionsEditorView = new OptionsEditorView(optionsEditorModel, this);
     optionsEditorView->setModel(optionsEditorModel);
+
+    MonospaceDelegate* delegate = new MonospaceDelegate;
+    optionsEditorView->setItemDelegateForColumn(2, delegate);
 
     connect(
         validationRulesGroupBox, &QGroupBox::toggled, 
