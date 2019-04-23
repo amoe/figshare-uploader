@@ -196,4 +196,8 @@ void PresenterImpl::loadFieldMappings(string inputPath) {
     // Then we should try to force-emit layoutChanged on the model.
 
     // If these fail, then we do the refactor to avoid read-only references.
+
+    MappingSchemeDeserializer deserializer;
+    MappingScheme newMappings = deserializer.loadMappingScheme(inputPath);
+    model->replaceFieldMappings(newMappings);
 }

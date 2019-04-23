@@ -66,6 +66,8 @@ public:
     virtual void addFieldEncoder(FieldEncoder f) = 0;
     virtual void replaceFieldEncoder(int index, FieldEncoder f) = 0;
 
+    virtual void replaceFieldMappings(MappingScheme newMappingScheme) = 0;
+
     virtual const MappingScheme& getFieldMappings() const = 0;
     virtual const vector<string> getHeaderFields() const = 0;
     virtual const optional<string> getSourceFile() const = 0;

@@ -83,3 +83,7 @@ const MappingScheme& ModelImpl::getFieldMappings() const {
 const ConverterRegistry& ModelImpl::getConverterRegistry() const {
     return converterRegistry;
 }
+
+void ModelImpl::replaceFieldMappings(MappingScheme newMappingScheme) {
+    this->fieldMappings = newMappingScheme;
+}

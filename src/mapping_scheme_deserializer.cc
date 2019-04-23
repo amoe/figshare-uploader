@@ -12,12 +12,21 @@ using qt_utility::valueToString;
 using nonstd::nullopt;
 using nonstd::optional;
 
-MappingScheme MappingSchemeDeserializer::deserialize(string input) const {
-    MappingScheme result;
+MappingScheme MappingSchemeDeserializer::loadMappingScheme(string inputPath) const {
+    // QFile fileHandle(QString::fromStdString(inputPath));
 
-    QJsonDocument document = QJsonDocument::fromJson(
-        QString::fromStdString(input).toUtf8()
-    );
+    // bool openResult = fileHandle.open(QIODevice::ReadOnly);
+    // if (!openResult) {
+    //     throw new runtime_error("unable to open file: " + outputPath);
+    // }
+
+    // QByteArray saveData = fileHandle.readAll();
+    // QJsonDocument theDocument = QJsonDocument::fromJson(saveData);
+}
+
+
+MappingScheme MappingSchemeDeserializer::deserialize(QJsonDocument document) const {
+    MappingScheme result;
 
     QJsonObject rootObject = document.object();
 
@@ -37,6 +46,15 @@ MappingScheme MappingSchemeDeserializer::deserialize(string input) const {
     }
 
     return result;
+}
+
+
+MappingScheme MappingSchemeDeserializer::deserialize(string input) const {
+    return deserialize(
+        QJsonDocument::fromJson(
+            QString::fromStdString(input).toUtf8()
+        )
+    );
 }
 
 FieldEncoder MappingSchemeDeserializer::deserializeEncoder(QJsonObject object) const {
