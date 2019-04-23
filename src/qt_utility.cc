@@ -28,4 +28,10 @@ namespace qt_utility {
             QStandardPaths::DocumentsLocation
         ).first();
     }
+
+    QModelIndex indexOfEvent(QAbstractItemView* view, QContextMenuEvent* event) {
+        QPoint widgetPos = view->mapFromGlobal(event->globalPos());
+        QModelIndex result = view->indexAt(widgetPos);
+        return result;
+    }
 }
