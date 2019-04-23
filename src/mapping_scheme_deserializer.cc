@@ -55,6 +55,28 @@ FieldEncoder MappingSchemeDeserializer::deserializeEncoder(QJsonObject object) c
 }
 
 
-// FieldEncoder MappingSchemeDeserializer::deserializeTargetField(QJsonValue value) const {
-//     if (value.is
-// }
+optional<TargetField> MappingSchemeDeserializer::deserializeTargetField(
+    QJsonValue value
+) const {
+    optional<TargetField> result;
+    return result;
+}
+
+ConverterName MappingSchemeDeserializer::deserializeConverterName(
+    QJsonValue value
+) const {
+    ConverterName result;
+    return result;
+}
+
+vector<ValidationRule> MappingSchemeDeserializer::deserializeValidationRules(
+    QJsonValue value
+) const {
+    vector<ValidationRule> result;
+    return result;
+}
+
+OptionsMap MappingSchemeDeserializer::deserializeOptions(QJsonValue value) const {
+    OptionsMap result;
+    return result;
+}

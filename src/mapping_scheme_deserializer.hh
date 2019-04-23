@@ -11,6 +11,11 @@ public:
 
 private:
     FieldEncoder deserializeEncoder(QJsonObject object) const;
+
+    optional<TargetField> deserializeTargetField(QJsonValue value) const;
+    ConverterName deserializeConverterName(QJsonValue value) const;
+    vector<ValidationRule> deserializeValidationRules(QJsonValue value) const;
+    OptionsMap deserializeOptions(QJsonValue value) const;
 };
 
 
