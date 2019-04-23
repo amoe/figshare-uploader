@@ -225,7 +225,7 @@ TEST_SOURCES = [
     "upload_container_info_test.cc",
     "utility_test.cc",
     "xlsx_test.cc",
-    "mapping_types_serialization_test.cc",
+    "mapping_scheme_serializer_test.cc",
     "mapping_scheme_deserializer_test.cc"
 ]
 
