@@ -34,7 +34,7 @@ FieldEncoderConfigurationDialog::FieldEncoderConfigurationDialog(
     optionsEditorView = new OptionsEditorView(optionsEditorModel, this);
     optionsEditorView->setModel(optionsEditorModel);
 
-    MonospaceDelegate* delegate = new MonospaceDelegate;
+    MonospaceDelegate* delegate = new MonospaceDelegate(optionsEditorView);
     optionsEditorView->setItemDelegateForColumn(2, delegate);
 
     connect(
