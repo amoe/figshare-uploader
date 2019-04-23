@@ -14,6 +14,12 @@ enum OptionsMapTableModelColumn {
     OPTION_VALUE
 };
 
+// This class will take a copy of its constructor argument, which it will
+// administer internally.  There's no way to get it to modify your own data
+// structure.  Instead, you need to retrieve its internal copy once you've
+// finished using it, by calling the 'getModifiedOptions' method, and sync it
+// with your own store.
+
 class OptionsEditorModel: public QAbstractTableModel {
     Q_OBJECT
 
@@ -47,12 +53,14 @@ public:
     ) override;
 
     void addOption(string result);
+    
+    OptionsMap getModifiedOptions() const;
 
 private:
     QVariant handleDisplayRole(int row, int column) const;
     void toggleOptional(int row);
     void reIndex();
-    OptionsMap& options;
+    OptionsMap options;
     vector<string> keyOrdering;
 };
 
