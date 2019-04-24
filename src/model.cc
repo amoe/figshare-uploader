@@ -14,6 +14,8 @@ ModelImpl::ModelImpl(
         default_field_encoders::REFERENCES_ENCODER,
         default_field_encoders::CATEGORY_ENCODER,
         default_field_encoders::AUTHORS_ENCODER,
+        default_field_encoders::DEFINED_TYPE_ENCODER,
+        default_field_encoders::GROUP_ENCODER,
         default_field_encoders::CONTRIBUTE_FILES_ENCODER
     };
 }
