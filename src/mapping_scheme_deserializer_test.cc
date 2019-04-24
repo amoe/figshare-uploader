@@ -1,13 +1,10 @@
 #include <string>
-#include <iostream>
 #include <gmock/gmock.h>
 #include "test_vocabulary.hh"
 #include "mapping_scheme_deserializer.hh"
 #include "mapping_types.hh"
 #include "default_field_encoders.hh"
 
-using std::cout;
-using std::endl;
 using std::string;
 
 class MappingSchemeDeserializerTest: public Test {

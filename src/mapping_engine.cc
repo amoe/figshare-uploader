@@ -4,6 +4,7 @@
 #include <iostream>
 #include "mapping_engine.hh"
 #include "converter_registry.hh"
+#include "logging.hh"
 
 using std::cout;
 using std::endl;
@@ -20,7 +21,7 @@ MappingOutput MappingEngineImpl::convert(vector<string> document, MappingScheme 
         FieldEncoder fieldEncoder = scheme.at(i);
 
         string value = document.at(sourceRowIndex);
-        cout << "value is " << value << endl;
+        spdlog::info("value is {}", value);
         
         ConverterName converterName = fieldEncoder.getConverterName();
 
