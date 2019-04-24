@@ -10,6 +10,8 @@
 #include "part_preparer.hh"
 #include "interfaces.hh"
 #include "file_spec_generator.hh"
+#include "upload_container_info.hh"
+#include "figshare_gateway.hh"
 
 class MockPartPreparer : public PartPreparer {
 public:
@@ -38,7 +40,7 @@ public:
 };
 
 
-class MockFigshareGateway : public FigshareGateway {
+class MockFigshareGateway: public FigshareGateway {
 public:
     MOCK_METHOD1(createArticle, ArticleCreationResponse(ArticleCreationRequest));
     MOCK_METHOD1(createArticle, ArticleCreationResponse(QJsonObject));
@@ -70,3 +72,5 @@ public:
     MOCK_METHOD1(mapFromExcel, ArticleCreationRequest(const vector<string> excelRow));
     MOCK_METHOD1(mapToFigshare, string(ArticleCreationRequest request));
 };
+
+
