@@ -1,13 +1,9 @@
 #include <QDebug>
 #include <QJsonDocument>
 #include <QString>
-#include <iostream>
 #include "mapping_engine.hh"
 #include "converter_registry.hh"
 #include "logging.hh"
-
-using std::cout;
-using std::endl;
 
 MappingOutput MappingEngineImpl::convert(vector<string> document, MappingScheme scheme) const { 
     QJsonObject resultObject;
