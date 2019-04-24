@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     ConverterRegistry::initializeStandardConverters(
         converterRegistry, &lookupRegistry
     );
-    MappingEngine mappingEngine(&converterRegistry);
+    MappingEngineImpl mappingEngine(&converterRegistry);
 
 
     ArticleTypeMapper typeMapper;

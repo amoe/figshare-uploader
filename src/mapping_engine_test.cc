@@ -18,7 +18,7 @@ class MappingEngineTest: public Test {
 public:
     MappingEngineTest() {
         ConverterRegistry::initializeStandardConverters(converterRegistry, &lookups);
-        engine = new MappingEngine(&converterRegistry);
+        engine = new MappingEngineImpl(&converterRegistry);
     }
     ~MappingEngineTest() {
         delete engine;

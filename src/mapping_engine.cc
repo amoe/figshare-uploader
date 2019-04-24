@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 
-MappingOutput MappingEngine::convert(vector<string> document, MappingScheme scheme) { 
+MappingOutput MappingEngineImpl::convert(vector<string> document, MappingScheme scheme) const { 
     QJsonObject resultObject;
     vector<string> resultPaths;
 

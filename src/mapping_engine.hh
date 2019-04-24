@@ -14,10 +14,17 @@
 
 class MappingEngine {
 public:
-    MappingEngine(ConverterRegistry* converterRegistry):
-        converterRegistry(converterRegistry) { }
+    virtual ~MappingEngine() { }
+    virtual MappingOutput convert(vector<string> document, MappingScheme scheme) const = 0;
+};
 
-    MappingOutput convert(vector<string> document, MappingScheme scheme);
+class MappingEngineImpl: public MappingEngine {
+public:
+    MappingEngineImpl(ConverterRegistry* converterRegistry):
+        converterRegistry(converterRegistry) { }
+    ~MappingEngineImpl() { }
+
+    MappingOutput convert(vector<string> document, MappingScheme scheme) const;
 
 private:
     ConverterRegistry* converterRegistry;
