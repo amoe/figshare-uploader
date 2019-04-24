@@ -24,7 +24,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex& index) const override;
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
     // These methods are extensions for use by collaborating classes.
     const FieldEncoder getFieldEncoderByRow(int row) const;
