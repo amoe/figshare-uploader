@@ -9,7 +9,7 @@
 using std::string;
 using ::testing::Eq;
 
-TEST(HttpGetter, DISABLED_GetsTheByteArraySuccessfully) {
+TEST(HttpGetter, GetsTheByteArraySuccessfully) {
     bootQtEventLoop();
     MockTokenStore store;
     HttpGetter* getter = new QtHttpGetter(&store);
