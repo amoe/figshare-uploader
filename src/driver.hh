@@ -14,7 +14,25 @@
 
 class Driver {
 public:
-    Driver(
+    virtual void handleRow(const ExcelRow row, const string inputPath,
+                   const MappingScheme& mappingScheme) const = 0;
+    virtual void handleUpload(
+        const string stemArticle,
+        const string sourcePath,    // the ABSOLUTE path that can be opened
+        const UploadCreationRequest ucr
+    ) const = 0;
+    virtual void handlePart(
+        const string sourcePath,
+        const FileInfo sourceFile, 
+        const FilePart partSpec
+    ) const = 0;
+    virtual void setProgressReporter(ProgressReporter* reporter) = 0;
+    virtual void log(string message) const = 0;
+};
+
+class DriverImpl: public Driver {
+public:
+    DriverImpl(
         FigshareGateway* gateway,
         PartPreparer* partPreparer,
         FileSpecGenerator* fileSpecGenerator,
@@ -31,19 +49,19 @@ public:
     void handleRow(
         const ExcelRow row, const string inputPath,
         const MappingScheme& mappingScheme
-    ) const;
+    ) const override;
     void handleUpload(
         const string stemArticle,
-        const string sourcePath,    // the ABSOLUTE path that can be opened
+        const string sourcePath,
         const UploadCreationRequest ucr
-    ) const;
+    ) const override;
     void handlePart(
         const string sourcePath,
         const FileInfo sourceFile, 
         const FilePart partSpec
-    ) const;
-    void setProgressReporter(ProgressReporter* reporter);
-    void log(string message) const;
+    ) const override;
+    void setProgressReporter(ProgressReporter* reporter) override;
+    void log(string message) const override;
 
 private:
     FigshareGateway* gateway;
