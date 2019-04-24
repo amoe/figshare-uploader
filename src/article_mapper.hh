@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <QJsonValue>
-#include <gmock/gmock.h>
 #include "article_type_mapper.hh"
 #include "requests.hh"
 #include "category_mapper.hh"
@@ -44,10 +43,5 @@ private:
     QJsonValue mapType(ArticleType type);
 };
 
-class MockArticleMapper : public ArticleMapper {
-public:
-    MOCK_METHOD1(mapFromExcel, ArticleCreationRequest(const vector<string> excelRow));
-    MOCK_METHOD1(mapToFigshare, string(ArticleCreationRequest request));
-};
 
 #endif // ARTICLE_MAPPER_HH

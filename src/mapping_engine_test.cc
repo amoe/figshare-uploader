@@ -7,16 +7,12 @@
 #include "test_utility.hh"
 #include "test_vocabulary.hh"
 #include "default_field_encoders.hh"
+#include "mocks.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
 using std::vector;
 using std::string;
-
-class MockLookupRegistry: public LookupRegistry {
-public:
-    MOCK_METHOD2(lookupByString, QJsonValue(LookupType, string));
-};
 
 class MappingEngineTest: public Test {
 public:

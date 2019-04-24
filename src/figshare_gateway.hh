@@ -1,7 +1,6 @@
 #ifndef FIGSHARE_GATEWAY_HH
 #define FIGSHARE_GATEWAY_HH
 
-#include <gmock/gmock.h>
 #include "responses.hh"
 #include "requests.hh"
 #include "http_poster.hh"
@@ -77,18 +76,6 @@ private:
     HttpPutter* putter;
     CategoryMapper categoryMapper;
     GroupMapper* groupMapper;
-};
-
-class MockFigshareGateway : public FigshareGateway {
-public:
-    MOCK_METHOD1(createArticle, ArticleCreationResponse(ArticleCreationRequest));
-    MOCK_METHOD1(createArticle, ArticleCreationResponse(QJsonObject));
-    MOCK_METHOD2(createUpload, UploadCreationResponse(string, UploadCreationRequest));
-    MOCK_METHOD1(getUploadInfo, FileInfo(string));
-    MOCK_METHOD1(getUploadContainerInfo, UploadContainerInfo(string));
-    MOCK_METHOD1(putUpload, PartPutResponse(UploadCommand));
-    MOCK_METHOD2(completeUpload, string(int, int));
-    MOCK_METHOD1(getArticle, ArticleGetResponse(string));
 };
 
 #endif // FIGSHARE_GATEWAY_HH

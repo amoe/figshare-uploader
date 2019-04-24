@@ -2,26 +2,12 @@
 #include "interfaces.hh"
 #include "presenter.hh"
 #include "test_vocabulary.hh"
+#include "mocks.hh"
+
 
 class PresenterTest: public Test {
 };
 
-class MockModel: public Model {
-public:
-    MOCK_METHOD1(setSourceFile, void(string));
-    MOCK_METHOD0(getAvailableEncoders, vector<FieldEncoder>&());
-    MOCK_METHOD2(bindRow, void(int, int));
-    MOCK_METHOD1(setHeaderFields, void(vector<string>));
-    MOCK_METHOD1(addFieldEncoder, void(FieldEncoder));
-    MOCK_METHOD2(replaceFieldEncoder, void(int, FieldEncoder));
-    MOCK_METHOD1(replaceFieldMappings, void(MappingScheme));
-
-    MOCK_CONST_METHOD0(getFieldMappings, const MappingScheme&());
-    MOCK_CONST_METHOD0(getSourceFile, const optional<string>());
-    MOCK_CONST_METHOD0(getHeaderFields, const vector<string>());
-    MOCK_CONST_METHOD0(getConverterRegistry, const ConverterRegistry&());
-    MOCK_CONST_METHOD0(dumpMappingScheme, void());
-};
 
 TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     // Set up the presenter with some mocked out collaborators.
