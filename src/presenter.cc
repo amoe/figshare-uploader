@@ -130,11 +130,11 @@ void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     FieldEncoder newEncoderState = getEncoderFromDto(dto);
 
     if (dto.index >= 0) {
-        std::cout << "I will replace" << std::endl;
+        std::cout << "I will replace an encoder." << std::endl;
         model->replaceFieldEncoder(dto.index, newEncoderState);
     } else {
-        std::cout << "I will add" << std::endl;
-        // std::cout << "Found: " << newEncoderState.describe() << std::endl;
+        std::cout << "I will add an encoder." << std::endl;
+        std::cout << "Found: " << newEncoderState.describe() << std::endl;
         model->addFieldEncoder(newEncoderState);
     }
 }

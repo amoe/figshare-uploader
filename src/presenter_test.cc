@@ -6,20 +6,17 @@
 
 
 class PresenterTest: public Test {
+public:
+    PresenterTest() {
+    }
+
+    MockModel model;
+    MockDriver driver;
+    MockTokenStore tokenStore;
 };
 
 
 TEST_F(PresenterTest, HandlesNewFieldEncoder) {
-    // Set up the presenter with some mocked out collaborators.
-    // Check that it makes the right calls on the model.
-
-    // Mock this out to run call assertions on it.
-    MockModel model;
-
-    // Don't need to bother with these.
-    MockDriver driver;
-    MockTokenStore tokenStore;
-
     Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
 
     domain::FieldEncoderListOperation dto;
@@ -29,6 +26,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     dto.validationRuleIndices = {};
     dto.converterIndex = 1;
     dto.newOptions = {};
+    dto.isTargetFieldSet = true;
 
     TargetField targetField(TargetFieldType::STANDARD, "title2");
     FieldEncoder expectedFieldEncoder(
