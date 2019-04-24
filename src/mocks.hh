@@ -91,3 +91,9 @@ public:
     MOCK_CONST_METHOD0(getToken, string());
     MOCK_METHOD1(setToken, void(string));
 };
+
+
+class MockMappingEngine: public MappingEngine {
+public:
+    MOCK_CONST_METHOD2(convert, MappingOutput(vector<string>, MappingScheme));
+};
