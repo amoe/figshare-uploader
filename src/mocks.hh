@@ -79,9 +79,9 @@ public:
 
 class MockDriver: public Driver {
 public:
-    MOCK_CONST_METHOD3(handleRow, void(ExcelRow, string, MappingScheme&));
+    MOCK_CONST_METHOD3(handleRow, void(ExcelRow, string, const MappingScheme&));
     MOCK_CONST_METHOD3(handleUpload, void(string, string, UploadCreationRequest));
     MOCK_CONST_METHOD3(handlePart, void(string, FileInfo, FilePart));
     MOCK_CONST_METHOD1(log, void(string));
-    MOCK_METHOD1(handlePart, void(ProgressReporter*));
+    MOCK_METHOD1(setProgressReporter, void(ProgressReporter*));
 };
