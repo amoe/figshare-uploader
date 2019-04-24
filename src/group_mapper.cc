@@ -2,14 +2,19 @@
 #include <string>
 #include <exception>
 #include <stdexcept>
-#include "http_getter.hh"
-#include "group_mapper.hh"
+#include <sstream>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include "http_getter.hh"
+#include "group_mapper.hh"
+
 using std::runtime_error;
+using std::ostringstream;
+using std::cout;
+using std::endl;
 
 // Note that the GroupMapper and the CategoryMapper share nearly identical
 // implementations, except one uses a manual stub and one uses a gmock-created
@@ -22,14 +27,14 @@ GroupMapperImpl::GroupMapperImpl(HttpGetter* httpGetter) : httpGetter(httpGetter
 
 void GroupMapperImpl::initializeGroups() {
 
-    std::cout << "initializing group data from figshare api" << std::endl;
+    cout << "initializing group data from figshare api" << endl;
 
-    std::ostringstream stringStream;
+    ostringstream stringStream;
     stringStream << "https://api.figshare.com/v2"
                  << "/account/institution/groups";
     
     string result = httpGetter->request(stringStream.str());
-    std::cout << "group response was " << result;
+    cout << "group response was " << result;
 
     auto document = QJsonDocument::fromJson(QString::fromStdString(result).toUtf8());
     
@@ -59,7 +64,7 @@ int GroupMapperImpl::getGroupIdByName(string groupName) {
 
     auto it = lookup.find(groupName);
     if (it == lookup.end()) {
-        throw std::runtime_error("group title not found");
+        throw runtime_error("group title not found");
     } else {
         return it->second;
     }
