@@ -14,6 +14,15 @@ files of unlimited size.
 A personal token is required to access your Figshare account.  Please read the
 [instructions](doc/creating_personal_token.md) for getting one.
 
+## Guide
+
+The program works simply.  You prepare your uploads in Excel format, following a
+certain schema.  The settings allow flexible mapping of Excel fields.  If you
+want a demo to get started, you can follow the [example upload
+sheet](resources/basic_schema_upload.xlsx).  Using this format, you should load
+the mapping configuration `basic_schema.json`.  You can reconfigure it for your
+needs.
+
 ## Limitations
 
 Currently the tool does not operate as a 'synchronization': that is, if you
