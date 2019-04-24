@@ -12,6 +12,7 @@
 #include "column_mapping.hh"
 #include "test_vocabulary.hh"
 #include "mocks.hh"
+#include "default_field_encoders.hh"
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {
@@ -32,26 +33,23 @@ public:
     Driver* driver;
 };
 
-// TEST_F(DriverTest, DISABLED_canHandleRow) {
-//     vector<string> rowData(20);
-//     rowData.at(column_mapping::IDENTIFIER) = "my_file.tiff";
+TEST_F(DriverTest, DISABLED_canHandleRow) {
+    ExcelRow row({"my_file.tiff"}, 0);
 
-//     ExcelRow row(rowData);
+    // Set up expectations, because this row contains one file with exactly two
+    // pieces, we expect two PUTs to occur.
 
-//     // Set up expectations, because this row contains one file with exactly two
-//     // pieces, we expect two PUTs to occur.
+    ArticleCreationRequest acr = ObjectMother::makeArticleCreationRequest();
+    ArticleCreationResponse aResponse = ObjectMother::makeArticleCreationResponse();
+    ArticleGetResponse agr = ObjectMother::makeArticleGetResponse();
+    UploadCreationRequest ucr = ObjectMother::makeUploadCreationRequest();
+    UploadCreationResponse uResponse = ObjectMother::makeUploadCreationResponse();
+    FileInfo fileInfo = ObjectMother::makeFileInfo();
+    UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
+    UploadCommand emptyCommand = ObjectMother::makeUploadCommand();
 
-//     ArticleCreationRequest acr = ObjectMother::makeArticleCreationRequest();
-//     ArticleCreationResponse aResponse = ObjectMother::makeArticleCreationResponse();
-//     ArticleGetResponse agr = ObjectMother::makeArticleGetResponse();
-//     UploadCreationRequest ucr = ObjectMother::makeUploadCreationRequest();
-//     UploadCreationResponse uResponse = ObjectMother::makeUploadCreationResponse();
-//     FileInfo fileInfo = ObjectMother::makeFileInfo();
-//     UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
-//     UploadCommand emptyCommand = ObjectMother::makeUploadCommand();
-
-//     EXPECT_CALL(articleMapper, mapFromExcel(_))
-//         .WillOnce(Return(acr));
+    // EXPECT_CALL(articleMapper, mapFromExcel(_))
+    //     .WillOnce(Return(acr));
 
 //     EXPECT_CALL(gateway, createArticle(_))
 //         .WillOnce(Return(aResponse));
@@ -76,9 +74,9 @@ public:
 //         .WillRepeatedly(Return(emptyCommand));
 //     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
 
-//     MappingScheme scheme; // FIXME!!
-//     driver->handleRow(row, "/fakeinput.xlsx", scheme);
-// }
+    MappingScheme scheme = {default_field_encoders::CONTRIBUTE_FILES_ENCODER};
+    driver->handleRow(row, "/fakeinput.xlsx", scheme);
+}
 
 TEST_F(DriverTest, canHandleUpload) {
     string stemArticle;
