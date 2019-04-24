@@ -12,7 +12,7 @@
 #include "http_getter.hh"
 #include "group_mapper.hh"
 #include "mocks.hh"
-
+#include "logging.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
@@ -229,7 +229,7 @@ TEST_F(MapToFigshareTest, SerializesToJson) {
 
     string serializedResult = myMapper->mapToFigshare(request);
 
-    std::cout << serializedResult << std::endl;
+    spdlog::info("serialized result: {}", serializedResult);
 
     ASSERT_THAT(
         deserialize(serializedResult),

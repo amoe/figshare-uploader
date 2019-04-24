@@ -5,9 +5,10 @@
 #include "http_getter.hh"
 #include "token_store.hh"
 #include "mocks.hh"
+#include "logging.hh"
+#include "test_vocabulary.hh"
 
 using std::string;
-using ::testing::Eq;
 
 TEST(HttpGetter, GetsTheByteArraySuccessfully) {
     bootQtEventLoop();
@@ -15,7 +16,7 @@ TEST(HttpGetter, GetsTheByteArraySuccessfully) {
     HttpGetter* getter = new QtHttpGetter(&store);
     string body = getter->request("https://httpbin.org/user-agent");
 
-    std::cout << body << std::endl;
+    spdlog::info("full response body: {}", body);
 
     ASSERT_THAT(
         deserialize(body),
