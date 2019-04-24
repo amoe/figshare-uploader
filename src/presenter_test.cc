@@ -3,7 +3,7 @@
 #include "presenter.hh"
 #include "test_vocabulary.hh"
 #include "mocks.hh"
-
+#include "logging.hh"
 
 class PresenterTest: public Test {
 public:
@@ -37,7 +37,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     );
 
 
-    std::cout << "Expected: " << expectedFieldEncoder.describe() << std::endl;
+    spdlog::info("Expected: {}", expectedFieldEncoder.describe());
     EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
 }
