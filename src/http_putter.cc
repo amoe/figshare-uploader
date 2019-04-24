@@ -24,7 +24,7 @@ using std::string;
 // http://code.qt.io/cgit/qt/qtbase.git/tree/src/network/access/qhttpthreaddelegate.cpp?h=dev
 
 string QtHttpPutter::request(const string url, const string payload) {
-    debugf("payload size in putter is %zu", payload.size());
+    spdlog::info("payload size in putter is {}", payload.size());
     
     QEventLoop waitLoop;
     QUrl endpoint(QString::fromStdString(url));
@@ -58,7 +58,7 @@ string QtHttpPutter::request(const string url, const string payload) {
     // However, we need to support Qt 5.2 due to the Trusty CI server.
     QByteArray content(payload.data(), int(payload.size()));
 
-    debugf("content size just before sending is %d", content.size());
+    spdlog::info("content size just before sending is {}", content.size());
 
     QNetworkReply* reply = manager.put(request, content);
 

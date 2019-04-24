@@ -36,12 +36,12 @@ RunUploadTask::~RunUploadTask() {
 }
 
 void RunUploadTask::run() {
-    debugf("calling start on thread object");
+    spdlog::info("calling start on thread object");
     theTask->start();
 }
 
 void RunUploadTask::onFullyDone() {
-    debugf("inside result ready");
+    spdlog::info("inside result ready");
     string greeting = "hello, world";
     adapter(greeting);
 }

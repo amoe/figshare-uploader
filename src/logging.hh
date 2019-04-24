@@ -2,7 +2,6 @@
 #define LOGGING_HH
 
 #include <spdlog/spdlog.h>
-
-auto console = spdlog::stdout_color_mt("console");
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #endif // LOGGING_HH

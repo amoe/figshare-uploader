@@ -11,10 +11,10 @@ void DriverThread::run() {
     try {
         perform();
     } catch (std::runtime_error e) {
-        debugf("caught std-exception in driver thread handler: %s", e.what());
+        spdlog::info("caught std-exception in driver thread handler: {}", e.what());
         emit fatalError(QString(e.what()));
     } catch (std::exception e) {
-        debugf("caught runtime-exception in driver thread handler: %s", e.what());
+        spdlog::info("caught runtime-exception in driver thread handler: {}", e.what());
         emit fatalError(QString(e.what()));
     }
 }
@@ -23,19 +23,19 @@ void DriverThread::run() {
 void DriverThread::perform() {
     XlsxReader theReader(inputPath);
     
-    debugf("using input path: %s", inputPath.c_str());
+    spdlog::info("using input path: {}", inputPath.c_str());
 
     int rowCount = theReader.getRowCount();
-    debugf("detected row count: %d", theReader.getRowCount());
+    spdlog::info("detected row count: {}", theReader.getRowCount());
 
     for (int i = INITIAL_ROW; i <= rowCount; i++) {
-        debugf("handling row %d", i);
+        spdlog::info("handling row {}", i);
         vector<string> rowData = theReader.rowToString(i);
         ExcelRow row(rowData, i);
         driver->handleRow(row, inputPath, fieldMappings);
     }
 
-    driver->log("Finished uploading.");
+    spdlog::info("Finished uploading.");
 
     emit fullyDone(42);
 }

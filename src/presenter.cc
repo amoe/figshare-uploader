@@ -26,7 +26,7 @@ void PresenterImpl::setView(View* view) {
 }
 
 void PresenterImpl::initializeView() {
-    debugf("initializing view");
+    spdlog::info("initializing view");
 
     view->setToken(Settings::getTokenOrEmpty());
     view->setAvailableEncoders(model->getAvailableEncoders());
@@ -34,7 +34,7 @@ void PresenterImpl::initializeView() {
 
 void PresenterImpl::startUpload() {
     try {
-        debugf("presenter slot was called");
+        spdlog::info("presenter slot was called");
 
         // This token will now be used by everything, because everything else
         // holds a reference to it.
@@ -43,7 +43,7 @@ void PresenterImpl::startUpload() {
         Settings::setToken(token);
 
         string inputFile = view->getSelectedFile();
-        debugf("value of text input is %s", view->getSelectedFile().c_str());
+        spdlog::info("value of text input is {}", view->getSelectedFile());
 
         StringAdapter adapter(this, &Presenter::uploadFinished);
         StringAdapter errorAdapter(this, &Presenter::fatalError);
@@ -54,14 +54,14 @@ void PresenterImpl::startUpload() {
         uploadTask->run();
     // exceptions aren't polymorphic so we have to catch both
     } catch (std::runtime_error e) {
-        debugf("caught std-exception in gui thread handler: %s", e.what());
+        spdlog::info("caught std-exception in gui thread handler: {}", e.what());
     } catch (std::exception e) {
-        debugf("caught runtime-exception in gui thread handler: %s", e.what());
+        spdlog::info("caught runtime-exception in gui thread handler: {}", e.what());
     }
 }
 
 void PresenterImpl::uploadFinished(string value) {
-    debugf("upload was finished: %s", value.c_str());
+    spdlog::info("upload was finished: %s", value.c_str());
 }
 
 void PresenterImpl::fatalError(string what) {
@@ -69,7 +69,7 @@ void PresenterImpl::fatalError(string what) {
 }
 
 void PresenterImpl::pickFile() {
-    debugf("file pick requested");
+    spdlog::info("file pick requested");
     bool fileWasPicked = view->showFileDialog();
 
     if (fileWasPicked) {
@@ -78,12 +78,12 @@ void PresenterImpl::pickFile() {
 }
 
 void PresenterImpl::showAboutDialog() {
-    debugf("about dialog requested");
+    spdlog::info("about dialog requested");
     view->showAboutDialog();
 }
 
 void PresenterImpl::showSettingsDialog() {
-    debugf("requested to show settings dialog");
+    spdlog::info("requested to show settings dialog");
     if (model->getSourceFile().has_value()) {
         // At this point, the source file has already been scanned.
         // We pass a reference to the field mappings stored inside the model.
@@ -119,13 +119,13 @@ void PresenterImpl::fileConfirmed(string fileName) {
 
 
 void PresenterImpl::settingsConfirmed() {
-    debugf("settings confirmed");
+    spdlog::info("settings confirmed");
 }
 
 void PresenterImpl::fieldEncoderConfigurationDialogConfirmed(
     domain::FieldEncoderListOperation dto
 ) {
-    debugf("inside presenter fieldEncoderConfigurationDialogConfirmed");
+    spdlog::info("inside presenter fieldEncoderConfigurationDialogConfirmed");
 
     FieldEncoder newEncoderState = getEncoderFromDto(dto);
 
@@ -163,7 +163,7 @@ FieldEncoder PresenterImpl::getEncoderFromDto(
 void PresenterImpl::onMappingEncoderSetOperation(
     domain::MappingEncoderSetOperation dto
 ) {
-    debugf("inside presenterimpl mappingencodersetoperation");
+    spdlog::info("inside presenterimpl mappingencodersetoperation");
 
     // Take action based on what happened
     std::cout << "Excel row index was " << dto.excelRowIndex << std::endl;
@@ -173,14 +173,14 @@ void PresenterImpl::onMappingEncoderSetOperation(
 }
 
 void PresenterImpl::saveFieldMappings(string outputPath) {
-    debugf("presenter would save mappings");
+    spdlog::info("presenter would save mappings");
     MappingSchemeSerializer serializer;
     serializer.saveMappingScheme(model->getFieldMappings(), outputPath);
     view->infoBox("Saved mappings successfully.");
 }
 
 void PresenterImpl::loadFieldMappings(string inputPath) {
-    debugf("presenter would load mappings");
+    spdlog::info("presenter would load mappings");
 
     MappingSchemeDeserializer deserializer;
     MappingScheme newMappings = deserializer.loadMappingScheme(inputPath);

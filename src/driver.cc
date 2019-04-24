@@ -26,13 +26,15 @@ void DriverImpl::handleRow(
     ArticleCreationResponse response = gateway->createArticle(articleObject);
     string stemArticle = response.location;
     ArticleGetResponse articleData = gateway->getArticle(stemArticle);
-    debugf("article created with id %d", articleData.id);
+
+    spdlog::info("article created with id {}", articleData.id);
 
     vector<string> filesToUpload
         = PathExtractor::resolvePaths(sourcePaths, inputPath);
 
     for (const string& thisFile: filesToUpload) {
-        debugf("handling upload for file: '%s'", thisFile.c_str());
+        spdlog::info("handling upload for file: '{}'", thisFile);
+
         UploadCreationRequest ucr = fileSpecGenerator->getFileSpec(thisFile);
         handleUpload(stemArticle, thisFile, ucr);
     }

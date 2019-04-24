@@ -18,8 +18,6 @@
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
-    console->info("Welcome to spdlog!");
-
     auto& s = QString::fromStdString;
 
     app.setOrganizationName(s(application_metadata::ORGANIZATION_NAME));

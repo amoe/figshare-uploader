@@ -18,8 +18,8 @@ UploadCommand PartPreparerImpl::prepareUpload(
     int64_t start = part.getStartOffset();
     int64_t end = part.getEndOffset();
 
-    debugf("will try start: %ld", start);
-    debugf("will try end: %ld", end);
+    spdlog::info("will try start: {}", start);
+    spdlog::info("will try end: {}", end);
 
     std::vector<char> data = getDataSlice(
         sourcePath,
@@ -37,7 +37,7 @@ vector<char> PartPreparerImpl::getDataSlice(string filePath, int64_t startOffset
     QFile theFile(QString::fromStdString(filePath));
     bool openResult = theFile.open(QIODevice::ReadOnly);
     if (!openResult) {
-        debugf("attempt on %s failed", filePath.c_str());
+        spdlog::info("attempt on {} failed", filePath);
         qFatal("could not open file");
     }
 

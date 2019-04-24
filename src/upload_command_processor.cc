@@ -14,7 +14,7 @@
 // the ring.
 
 void UploadCommandProcessor::process(UploadCommand command) {
-    debugf("processing upload command, url = %s", command.getUrl().c_str());
+    spdlog::info("processing upload command, url = {}", command.getUrl());
 
     // Convert everything into QT-layer.  In reality this is just one QT-specific
     // adapter, we could also use cpp-netlib etc.
@@ -36,7 +36,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
         theData[i] = charVersion;
     }
 
-    debugf("size is now %d", theData.size());
+    spdlog::info("size is now {}", theData.size());
 
     // Not clear that this should be here.
     request.setHeader(
@@ -44,7 +44,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
         "application/octet-stream"
     );
 
-    debugf("sending upload");
+    spdlog::info("sending upload");
 
     QNetworkReply* reply = manager.put(request, theData);
     QEventLoop waitLoop;
@@ -54,7 +54,7 @@ void UploadCommandProcessor::process(UploadCommand command) {
     );
     waitLoop.exec();
 
-    debugf("finished sending upload");
+    spdlog::info("finished sending upload");
 
     std::cout << "finished" << std::endl;
 

@@ -65,10 +65,10 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
 FileInfo HttpFigshareGateway::getUploadInfo(string uploadUrl) {
     const string response = getter->request(uploadUrl);
 
-    debugf("RAW UPLOAD INFO");
-    debugf("---- BEGIN ----");
-    debugf("%s", response.c_str());
-    debugf("---- END   ----");
+    spdlog::info("RAW UPLOAD INFO");
+    spdlog::info("---- BEGIN ----");
+    spdlog::info("{}", response.c_str());
+    spdlog::info("---- END   ----");
     
     return FileInfo::fromJson(response);;
 }
