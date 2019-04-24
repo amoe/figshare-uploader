@@ -56,8 +56,6 @@ void UploadCommandProcessor::process(UploadCommand command) {
 
     spdlog::info("finished sending upload");
 
-    std::cout << "finished" << std::endl;
-
     QByteArray result = reply->readAll();
     qDebug() << result;
 }
