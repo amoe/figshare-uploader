@@ -1,7 +1,7 @@
 #include <iostream>
 #include <gmock/gmock.h>
 #include <string>
-
+#include "mocks.hh"
 #include "group_mapper.hh"
 #include "http_getter.hh"
 #include "raw_literals.hh"

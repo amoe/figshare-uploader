@@ -13,6 +13,7 @@
 #include "progress_reporter.hh"
 #include "column_mapping.hh"
 #include "test_vocabulary.hh"
+#include "mocks.hh"
 
 // Now we can store state for multiple tests here.
 class DriverTest : public Test {

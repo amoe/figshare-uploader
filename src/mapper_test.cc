@@ -11,6 +11,8 @@
 #include "custom_field_mapper.hh"
 #include "http_getter.hh"
 #include "group_mapper.hh"
+#include "mocks.hh"
+
 
 using nonstd::optional;
 using nonstd::nullopt;

@@ -3,6 +3,7 @@
 #include "stubs.hh"
 #include "raw_literals.hh"
 #include "group_mapper.hh"
+#include "mocks.hh"
 
 using namespace testing;
 
