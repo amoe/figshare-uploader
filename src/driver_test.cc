@@ -33,7 +33,7 @@ public:
     Driver* driver;
 };
 
-TEST_F(DriverTest, DISABLED_canHandleRow) {
+TEST_F(DriverTest, canHandleRow) {
     ExcelRow row({"my_file.tiff"}, 0);
 
     // Set up expectations, because this row contains one file with exactly two
@@ -48,31 +48,36 @@ TEST_F(DriverTest, DISABLED_canHandleRow) {
     UploadContainerInfo uploadContainerInfo = ObjectMother::makeUploadContainerInfo(2);
     UploadCommand emptyCommand = ObjectMother::makeUploadCommand();
 
-    // EXPECT_CALL(articleMapper, mapFromExcel(_))
-    //     .WillOnce(Return(acr));
 
-//     EXPECT_CALL(gateway, createArticle(_))
-//         .WillOnce(Return(aResponse));
+    MappingOutput mockedMappingOutput(QJsonObject(), {"my_file.tiff"});
 
-//     EXPECT_CALL(gateway, getArticle(_))
-//         .WillOnce(Return(agr));
+    EXPECT_CALL(mappingEngine, convert(_, _)).WillOnce(Return(mockedMappingOutput));
 
-//     EXPECT_CALL(fileSpecGenerator, getFileSpec(_))
-//         .WillOnce(Return(ucr));
+    EXPECT_CALL(
+        gateway,
+        createArticle(Matcher<QJsonObject>(_))
+    ) .WillOnce(Return(aResponse));
 
-//     EXPECT_CALL(gateway, createUpload(_, _))
-//         .WillOnce(Return(uResponse));
+    EXPECT_CALL(gateway, getArticle(_))
+        .WillOnce(Return(agr));
 
-//     EXPECT_CALL(gateway, getUploadInfo(_))
-//         .WillOnce(Return(fileInfo));
+    EXPECT_CALL(fileSpecGenerator, getFileSpec(_))
+        .WillOnce(Return(ucr));
 
-//     EXPECT_CALL(gateway, getUploadContainerInfo(_))
-//       .WillOnce(Return(uploadContainerInfo));
+    EXPECT_CALL(gateway, createUpload(_, _))
+        .WillOnce(Return(uResponse));
 
-//     EXPECT_CALL(partPreparer, prepareUpload(_, _, _))
-//         .Times(Exactly(2))
-//         .WillRepeatedly(Return(emptyCommand));
-//     EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
+    EXPECT_CALL(gateway, getUploadInfo(_))
+        .WillOnce(Return(fileInfo));
+
+    EXPECT_CALL(gateway, getUploadContainerInfo(_))
+      .WillOnce(Return(uploadContainerInfo));
+
+    EXPECT_CALL(partPreparer, prepareUpload(_, _, _))
+        .Times(Exactly(2))
+        .WillRepeatedly(Return(emptyCommand));
+
+    EXPECT_CALL(gateway, putUpload(_)).Times(Exactly(2));
 
     MappingScheme scheme = {default_field_encoders::CONTRIBUTE_FILES_ENCODER};
     driver->handleRow(row, "/fakeinput.xlsx", scheme);

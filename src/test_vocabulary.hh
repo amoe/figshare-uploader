@@ -10,6 +10,7 @@ using ::testing::_;
 using ::testing::AtLeast;
 using ::testing::Return;
 using ::testing::Exactly;
+using ::testing::Matcher;
 
 #endif /* TEST_VOCABULARY_HH */
 
