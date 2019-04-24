@@ -245,7 +245,7 @@ TEST_F(MapToFigshareTest, DoesNotSerializeFundingWhenNotProvided) {
     ArticleCreationRequest request = ObjectMother::makeArticleCreationRequest();
     string serializedResult = myMapper->mapToFigshare(request);
 
-    std::cout << serializedResult << std::endl;
+    spdlog::info("serialized result: {}", serializedResult);
 
     ASSERT_THAT(
         containsKey(serializedResult, "funding"),
