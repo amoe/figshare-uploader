@@ -16,6 +16,7 @@
 #include "mapping_engine.hh"
 
 int main(int argc, char **argv) {
+#include "windows_shim.hh"
     QApplication app(argc, argv);
 
     auto& s = QString::fromStdString;
