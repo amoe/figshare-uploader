@@ -10,7 +10,6 @@
 #include <QNetworkRequest>
 #include <QString>
 #include <QDebug>
-#include <iostream>
 #include "http_poster.hh"
 #include "logging.hh"
 #include "qt_utility.hh"
@@ -26,8 +25,8 @@ string QtHttpPoster::request(const string url, const string payload) {
 
     QUrl endpoint(QString::fromStdString(url));
 
-    qDebug() << "url is" << endpoint;
-    std::cout << "payload is" << payload;
+    spdlog::info("url is {}", url);
+    spdlog::info("payload is {}", payload);
 
     QNetworkAccessManager manager;
     QNetworkRequest request(endpoint);
