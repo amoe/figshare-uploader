@@ -1,4 +1,15 @@
+#include <QJsonObject>
+#include <QJsonValue>
 #include <gmock/gmock.h>
+#include "file_info.hh"
+#include "mapping_types.hh"
+#include "requests.hh"
+#include "responses.hh"
+#include "article_mapper.hh"
+#include "converter_registry.hh"
+#include "part_preparer.hh"
+#include "interfaces.hh"
+#include "file_spec_generator.hh"
 
 class MockPartPreparer : public PartPreparer {
 public:

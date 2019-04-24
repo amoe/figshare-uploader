@@ -1,4 +1,5 @@
 #include <map>
+#include <iostream>
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -17,7 +18,8 @@ using nonstd::nullopt;
 using std::vector;
 using std::string;
 using std::map;
-
+using std::cout;
+using std::endl;
 
 ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
     string title = excelRow.at(0);
