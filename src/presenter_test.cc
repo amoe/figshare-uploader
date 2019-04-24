@@ -17,10 +17,10 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     MockModel model;
 
     // Don't need to bother with these.
-    Driver* driver;
+    MockDriver driver;
     TokenStore* tokenStore;
 
-    Presenter* presenter = new PresenterImpl(&model, driver, tokenStore);
+    Presenter* presenter = new PresenterImpl(&model, &driver, tokenStore);
 
     domain::FieldEncoderListOperation dto;
     dto.index = -1;   // indicates an add
@@ -39,17 +39,7 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
     );
 
 
-    // Something is going very wrong here, this is a nasty heisenbug!
-    // The presence of this call to describe() causes the check to fail?
-    // Running this test alone will always fail.
-    // That means that some other test is interfering with state.
-    // The test command is as follows:
-    // 
-
-    // ./build/unit_tests --gtest_filter='PresenterTest.*'                                                                                                                                      0.05s 
-
-
-    // std::cout << "Expected: " << expectedFieldEncoder.describe() << std::endl;
+    std::cout << "Expected: " << expectedFieldEncoder.describe() << std::endl;
     EXPECT_CALL(model, addFieldEncoder(expectedFieldEncoder));
     presenter->fieldEncoderConfigurationDialogConfirmed(dto);
 }

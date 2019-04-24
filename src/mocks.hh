@@ -12,6 +12,8 @@
 #include "file_spec_generator.hh"
 #include "upload_container_info.hh"
 #include "figshare_gateway.hh"
+#include "excel_row.hh"
+#include "driver.hh"
 
 class MockPartPreparer : public PartPreparer {
 public:
@@ -74,3 +76,12 @@ public:
 };
 
 
+
+class MockDriver: public Driver {
+public:
+    MOCK_CONST_METHOD3(handleRow, void(ExcelRow, string, const MappingScheme&));
+    MOCK_CONST_METHOD3(handleUpload, void(string, string, UploadCreationRequest));
+    MOCK_CONST_METHOD3(handlePart, void(string, FileInfo, FilePart));
+    MOCK_CONST_METHOD1(log, void(string));
+    MOCK_METHOD1(setProgressReporter, void(ProgressReporter*));
+};

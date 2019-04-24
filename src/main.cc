@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     CustomFieldMapper customFieldMapper;
     ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
-    Driver driver(
+    DriverImpl driver(
         &gateway,
         &partPreparer,
         &fileSpecGenerator,

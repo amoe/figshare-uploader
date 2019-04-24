@@ -6,16 +6,16 @@
 #include "excel_row.hh"
 #include "path_extractor.hh"
 
-void Driver::setProgressReporter(ProgressReporter* reporter) {
+void DriverImpl::setProgressReporter(ProgressReporter* reporter) {
     progressReporter = reporter;
 }
 
-void Driver::log(string message) const {
+void DriverImpl::log(string message) const {
     if (progressReporter)
         progressReporter->updateProgress(message);
 }
 
-void Driver::handleRow(
+void DriverImpl::handleRow(
     const ExcelRow row, const string inputPath, const MappingScheme& mappingScheme
 ) const {
     log("Handling row");
@@ -41,7 +41,7 @@ void Driver::handleRow(
 // although the fileinfo does contain the base name of the file.
 // it doesn't contain the full path
 // so we probably need to pass all things through?????
-void Driver::handleUpload(
+void DriverImpl::handleUpload(
     const string stemArticle,
     const string sourcePath,
     const UploadCreationRequest ucr
@@ -57,7 +57,7 @@ void Driver::handleUpload(
     }
 }
 
-void Driver::handlePart(
+void DriverImpl::handlePart(
     const string sourcePath, const FileInfo sourceInfo, const FilePart partSpec
 ) const {
     UploadCommand command = partPreparer->prepareUpload(sourcePath, sourceInfo, partSpec);
