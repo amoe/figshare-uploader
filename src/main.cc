@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 
     // Token store is spooky action at a distance that's used to thread the
     // token through the various dependencies.
-    TokenStore tokenStore;
+    TokenStoreImpl tokenStore;
 
     QtHttpGetter httpGetter(&tokenStore);
     QtHttpPoster httpPoster(&tokenStore);

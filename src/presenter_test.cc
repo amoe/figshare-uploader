@@ -18,9 +18,9 @@ TEST_F(PresenterTest, HandlesNewFieldEncoder) {
 
     // Don't need to bother with these.
     MockDriver driver;
-    TokenStore* tokenStore;
+    MockTokenStore tokenStore;
 
-    Presenter* presenter = new PresenterImpl(&model, &driver, tokenStore);
+    Presenter* presenter = new PresenterImpl(&model, &driver, &tokenStore);
 
     domain::FieldEncoderListOperation dto;
     dto.index = -1;   // indicates an add

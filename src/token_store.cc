@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include "token_store.hh"
 
-string TokenStore::getToken() {
+string TokenStoreImpl::getToken() const {
     if (this->token) {
         return this->token.value();
     } else {
@@ -9,6 +9,6 @@ string TokenStore::getToken() {
     }
 }
 
-void TokenStore::setToken(string token) {
+void TokenStoreImpl::setToken(string token) {
     this->token = token;
 }

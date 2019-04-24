@@ -10,13 +10,19 @@ using nonstd::nullopt;
 
 class TokenStore {
 public:
-    TokenStore(string token) : token(token) { }
-    TokenStore() {
+    virtual string getToken() const = 0;
+    virtual void setToken(string token) = 0;
+};
+
+class TokenStoreImpl: public TokenStore {
+public:
+    TokenStoreImpl(string token) : token(token) { }
+    TokenStoreImpl() {
         this->token = nullopt;
     }
 
-    string getToken();
-    void setToken(string token);
+    string getToken() const override;
+    void setToken(string token) override;
 
 private:
     optional<string> token;

@@ -2,16 +2,16 @@
 #include "fake_qt_core_application.hh"
 #include "http_poster.hh"
 #include "utility.hh"
-
+#include "mocks.hh"
 
 using ::testing::Eq;
 using std::string;
 
 TEST(HttpPoster, DISABLED_CanPost) {
     bootQtEventLoop();
-    TokenStore store("NOT USED");
-    HttpPoster* getter = new QtHttpPoster(&store);
-    string body = getter->request("https://httpbin.org/post", "nonesuch");
+    MockTokenStore store;
+    HttpPoster* poster = new QtHttpPoster(&store);
+    string body = poster->request("https://httpbin.org/post", "nonesuch");
 
     std::cout << body << std::endl;
 

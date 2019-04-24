@@ -85,3 +85,9 @@ public:
     MOCK_CONST_METHOD1(log, void(string));
     MOCK_METHOD1(setProgressReporter, void(ProgressReporter*));
 };
+
+class MockTokenStore: public TokenStore {
+public:
+    MOCK_CONST_METHOD0(getToken, string());
+    MOCK_METHOD1(setToken, void(string));
+};

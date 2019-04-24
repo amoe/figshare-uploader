@@ -4,13 +4,14 @@
 #include "raw_literals.hh"
 #include "http_getter.hh"
 #include "token_store.hh"
+#include "mocks.hh"
 
 using std::string;
 using ::testing::Eq;
 
 TEST(HttpGetter, DISABLED_GetsTheByteArraySuccessfully) {
     bootQtEventLoop();
-    TokenStore store("NOT USED");
+    MockTokenStore store;
     HttpGetter* getter = new QtHttpGetter(&store);
     string body = getter->request("https://httpbin.org/user-agent");
 
