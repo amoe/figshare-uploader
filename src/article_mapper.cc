@@ -1,5 +1,4 @@
 #include <map>
-#include <iostream>
 #include <QString>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -12,14 +11,13 @@
 #include "article_mapper.hh"
 #include "utility.hh"
 #include "column_mapping.hh"
+#include "logging.hh"
 
 using nonstd::optional;
 using nonstd::nullopt;
 using std::vector;
 using std::string;
 using std::map;
-using std::cout;
-using std::endl;
 
 ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> excelRow) {
     string title = excelRow.at(0);
@@ -28,7 +26,7 @@ ArticleCreationRequest ArticleMapperImpl::mapFromExcel(const vector<string> exce
     vector<string> keywords = splitCommas(excelRow.at(4));
 
     for (auto k: keywords) {
-        std::cout << "keyword: " << k << std::endl;
+        spdlog::info("keyword: {}", k);
     }
 
     // We only support one reference at the moment!

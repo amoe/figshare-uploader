@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
         ArticleCreationRequest request = mapper.mapFromExcel(row);
         string uploadJson = mapper.mapToFigshare(request);
 
-        std::cout << uploadJson << std::endl;
+        spdlog::info("uploadJson: {}", uploadJson);
 
         auto articleCreateResponse = gateway->createArticle(request);
 
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 
         string stemArticle = articleCreateResponse.location;
 
-        std::cout << stemArticle << std::endl;
+        spdlog::info("stemArticle: {}", stemArticle);
 
         // Now we get the info on the newly-created article.
 
@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
         IOSlicer* slicer = new FileSlicer(relationField);
         PartPreparer pp(slicer);
 
-        std::cout << relationField << std::endl;
+        spdlog::info("relationField: {}", relationField);
 
         UploadCreationRequest ucr = fsg->getFileSpec(relationField);
 
