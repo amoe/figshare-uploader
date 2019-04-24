@@ -19,8 +19,7 @@ class DriverTest : public Test {
 public:
     DriverTest() {
         driver = new DriverImpl(
-            &gateway, &partPreparer, &fileSpecGenerator, &articleMapper,
-            &mappingEngine
+            &gateway, &partPreparer, &fileSpecGenerator, &mappingEngine
         );
     }
 
@@ -28,7 +27,6 @@ public:
     MockPartPreparer partPreparer;
     MockFigshareGateway gateway;
     MockFileSpecGenerator fileSpecGenerator;
-    MockArticleMapper articleMapper;
     MockMappingEngine mappingEngine;
     Driver* driver;
 };

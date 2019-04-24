@@ -55,14 +55,11 @@ int main(int argc, char **argv) {
 
     PartPreparerImpl partPreparer;
     FileSpecGeneratorImpl fileSpecGenerator(&sizeGetter);
-    CustomFieldMapper customFieldMapper;
-    ArticleMapperImpl articleMapper(typeMapper, categoryMapper, customFieldMapper, &groupMapper);
 
     DriverImpl driver(
         &gateway,
         &partPreparer,
         &fileSpecGenerator,
-        &articleMapper,
         &mappingEngine
     );
 

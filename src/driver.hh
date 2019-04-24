@@ -36,12 +36,10 @@ public:
         FigshareGateway* gateway,
         PartPreparer* partPreparer,
         FileSpecGenerator* fileSpecGenerator,
-        ArticleMapper* articleMapper,
         MappingEngine* mappingEngine
     ) : gateway(gateway),
         partPreparer(partPreparer), 
         fileSpecGenerator(fileSpecGenerator),
-        articleMapper(articleMapper),
         mappingEngine(mappingEngine) {
         progressReporter = NULL;
     }
@@ -67,7 +65,6 @@ private:
     FigshareGateway* gateway;
     PartPreparer* partPreparer;
     FileSpecGenerator* fileSpecGenerator;
-    ArticleMapper* articleMapper;
     ProgressReporter* progressReporter;
     MappingEngine* mappingEngine;
 };
