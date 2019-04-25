@@ -142,6 +142,12 @@ DLLs into the source directory:
 * OpenSSL libraries
 * xlnt libraries
 
+These files are:
+
+* `xlnt.dll`
+* `ssleay32.dll`
+* `libeay32.dll`
+
 Now it should be able to run.
 
 Yow! x7

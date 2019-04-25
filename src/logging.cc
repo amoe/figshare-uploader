@@ -18,7 +18,7 @@ void configureLogging() {
     auto console_sink = make_shared<spdlog::sinks::stdout_color_sink_mt>();
     console_sink->set_level(spdlog::level::warn);
     console_sink->set_pattern("[multi_sink_example] [%^%l%$] %v");
-    auto file_sink = make_shared<spdlog::sinks::basic_file_sink_mt>("logs/multisink.txt", true);
+    auto file_sink = make_shared<spdlog::sinks::basic_file_sink_mt>("figshare-uploader.log", true);
     file_sink->set_level(spdlog::level::trace);
     auto logger = shared_ptr<spdlog::logger>(new spdlog::logger("multi_sink", {console_sink, file_sink}));
     logger->set_level(spdlog::level::debug);
