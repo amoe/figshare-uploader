@@ -16,6 +16,8 @@
 #include "mapping_engine.hh"
 
 int main(int argc, char **argv) {
+    configureLogging();
+
     QApplication app(argc, argv);
 
     auto& s = QString::fromStdString;

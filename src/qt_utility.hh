@@ -6,6 +6,9 @@
 #include <QContextMenuEvent>
 #include <QModelIndex>
 #include <QNetworkReply>
+#include <string>
+
+using std::string;
 
 namespace qt_utility {
     void popEditors(QAbstractItemModel* model, QAbstractItemView* view);
@@ -16,6 +19,10 @@ namespace qt_utility {
     QJsonObject valueToObject(QJsonValue v);
     QString valueToString(QJsonValue v);
     QJsonValue safeValue(QJsonObject object, QString key);
+    const string qtStringToStdString(QString s); 
+    
+    // function alias, this is for use with spdlog.
+    const auto QS = qtStringToStdString;
 }
 
 #endif /* QT_UTILITY_HH */

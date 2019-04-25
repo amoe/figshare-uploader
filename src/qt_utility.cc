@@ -78,4 +78,8 @@ namespace qt_utility {
 
         return result;
     }
+
+    const string qtStringToStdString(QString s) {
+        return s.toStdString();
+    }
 }

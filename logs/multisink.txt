@@ -1,0 +1,3 @@
+[2019-04-25 11:15:35.442] [multi_sink] [warning] this should appear in both console and file
+[2019-04-25 11:15:35.442] [multi_sink] [info] this message should not appear in the console, only in the file
+[2019-04-25 11:15:35.486] [multi_sink] [info] initializing view
