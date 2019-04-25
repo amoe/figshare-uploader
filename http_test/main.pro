@@ -1,6 +1,6 @@
 QT += widgets
 QT += network
-CONFIG += debug
+CONFIG += release
 CONFIG += console
 SOURCES += main.cc
 TARGET = myapp.elf
