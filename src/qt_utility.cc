@@ -1,10 +1,11 @@
-#include "qt_utility.hh"
+#include <exception>
+#include <stdexcept>
 #include <QStandardPaths>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonObject>
-#include <exception>
-#include <stdexcept>
+#include "qt_utility.hh"
+#include "logging.hh"
 
 using std::runtime_error;
 
@@ -20,8 +21,15 @@ namespace qt_utility {
 
     void handleHttpError(QString logPrefix, QNetworkReply* reply, QByteArray result) {
         QNetworkReply::NetworkError error = reply->error();
-        qDebug() << error;
-        qDebug() << result;
+
+        // QString coercion;
+        // QDebug coercer(&coercion);
+        // coercer << error;
+        // spdlog::info("error: {}", coercion.toStdString());
+
+        spdlog::info("error: {}", error);
+        spdlog::info("result: {}", result);
+
         if (error != QNetworkReply::NoError) {
             QString errorMessage;
             QDebug debugStream(&errorMessage);
