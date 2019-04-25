@@ -105,7 +105,7 @@ if env['PLATFORM'] == 'win32':
         '/MD'       # dynamically link against VC++ CRT
     ]
     linkflags = [
-        '/subsystem:windows'    # do not spawn a console window
+#        '/subsystem:windows'    # do not spawn a console window
     ]
     libs = [
 	'shell32',    # /subsystem:windows requires this
