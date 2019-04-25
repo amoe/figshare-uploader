@@ -16,7 +16,7 @@
 #include "mapping_engine.hh"
 
 int main(int argc, char **argv) {
-    configureLogging();
+    // configureLogging();
 
     QApplication app(argc, argv);
 
