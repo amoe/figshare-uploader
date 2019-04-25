@@ -1,5 +1,6 @@
 #include <iostream>
 #include <QApplication>
+#include <QSslSocket>
 #include <QThread>
 #include "driver.hh"
 #include "figshare_gateway.hh"
@@ -15,6 +16,17 @@
 #include "converter_registry.hh"
 #include "mapping_engine.hh"
 
+
+void dumpSslInformation() {
+    qDebug() << "Supports SSL:" << QSslSocket::supportsSsl();
+    qDebug() << "COMPILE TIME INFO:";
+    qDebug() << "sslLibraryBuildVersionNumber:" << QSslSocket::sslLibraryBuildVersionNumber();
+    qDebug() << "sslLibraryBuildVersionString:" << QSslSocket::sslLibraryBuildVersionString();
+    qDebug() << "RUN TIME INFO:";
+    qDebug() << "sslLibraryVersionNumber:" << QSslSocket::sslLibraryVersionNumber();
+    qDebug() << "sslLibraryVersionString:" << QSslSocket::sslLibraryVersionString();
+}
+
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
@@ -22,6 +34,7 @@ int main(int argc, char **argv) {
     // Because Qt wants to mess around with the console stuff on Windows
     // platforms.
     configureLogging();
+    dumpSslInformation();
 
     auto& s = QString::fromStdString;
 
