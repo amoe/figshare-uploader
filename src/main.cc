@@ -16,9 +16,12 @@
 #include "mapping_engine.hh"
 
 int main(int argc, char **argv) {
-    // configureLogging();
-
     QApplication app(argc, argv);
+
+    // Logging configuration has to happen AFTER initialization of QApplication.
+    // Because Qt wants to mess around with the console stuff on Windows
+    // platforms.
+    configureLogging();
 
     auto& s = QString::fromStdString;
 
