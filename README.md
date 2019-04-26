@@ -23,6 +23,11 @@ sheet](resources/basic_schema_upload.xlsx).  Using this format, you should load
 the mapping configuration `basic_schema.json`.  You can reconfigure it for your
 needs.
 
+## Install
+
+Currently there's a .dmg file for Mac, a zip for windows (no installer), and
+Linux users have to build it yourselves.
+
 ## Limitations
 
 Currently the tool does not operate as a 'synchronization': that is, if you
