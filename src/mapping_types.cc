@@ -1,7 +1,9 @@
 #include <stdexcept>
 #include <sstream>
 #include "mapping_types.hh"
+#include <QDebug>
 
+using std::runtime_error;
 using std::ostringstream;
 
 OptionsMap FieldEncoder::getOptions() const {
@@ -74,7 +76,7 @@ MappingOutput FieldEncoder::applyEncoder(MappingOutput seed, IntermediateMapping
         case CombinationOperation::DISCARD:
             break;
         default:
-            throw std::runtime_error("unexpected combination operation");
+            throw runtime_error("unexpected combination operation");
     }
     
     MappingOutput result(newArticleObject, newSourcePaths);
@@ -87,11 +89,25 @@ void FieldEncoder::handleConjoin(
     IntermediateMappingOutput operand
 ) const {
     if (targetField.has_value()) {
-        // FIXME: We don't handle custom fields yet!
         TargetField field = targetField.value();
-        newArticleObject.insert(
-            QString::fromStdString(field.getName()), operand.getProducedValue()
-        );
+        QString fieldName = QString::fromStdString(field.getName());
+        qDebug() << "fieldname:" << fieldName;
+
+        switch (field.getTargetFieldType()) {
+            case TargetFieldType::STANDARD: {
+                newArticleObject.insert(fieldName, operand.getProducedValue());
+                break;
+            }
+            case TargetFieldType::CUSTOM: {
+                QJsonValue existingCustomFields = newArticleObject.value("custom_fields");
+                QJsonObject newCustomFields(existingCustomFields.toObject());
+                newCustomFields.insert(fieldName, operand.getProducedValue());
+                newArticleObject["custom_fields"] = newCustomFields;
+                break;
+            }
+            default:
+                throw runtime_error("invalid target field type");
+        }
     }
 
     vector<string> producedPaths = operand.getProducedPaths();

@@ -228,3 +228,74 @@ TEST_F(MappingEngineTest, GroupEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+
+TEST_F(MappingEngineTest, CustomFieldEncoderWorks) {
+
+    const FieldEncoder creatorEncoder(
+        optional<TargetField>(TargetField(TargetFieldType::CUSTOM, "Creator")),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+    MappingScheme theScheme = {creatorEncoder};
+
+
+    vector<string> theDocument = {"foo"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "custom_fields": {
+                "Creator": "foo"
+            }
+        }
+    )";
+
+    vector<string> expectedSourcePaths = {};
+
+    qDebug() << result.getArticleObject();
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
+TEST_F(MappingEngineTest, MultipleCustomFieldEncoderWorks) {
+    const FieldEncoder creatorEncoder(
+        optional<TargetField>(TargetField(TargetFieldType::CUSTOM, "Creator")),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+
+    const FieldEncoder languageEncoder(
+        optional<TargetField>(TargetField(TargetFieldType::CUSTOM, "Language")),
+        ConverterName::STRING,
+        {},
+        {}
+    );
+
+    MappingScheme theScheme = {creatorEncoder, languageEncoder};
+
+
+    vector<string> theDocument = {"foo", "English"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "custom_fields": {
+                "Creator": "foo",
+                "Language": "English"
+            }
+        }
+    )";
+
+    vector<string> expectedSourcePaths = {};
+
+    qDebug() << result.getArticleObject();
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
