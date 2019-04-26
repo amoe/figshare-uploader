@@ -35,7 +35,7 @@ void DriverThread::perform() {
         driver->handleRow(row, inputPath, fieldMappings);
     }
 
-    spdlog::info("Finished uploading.");
+    driver->log("Finished uploading.");
 
     emit fullyDone(42);
 }
