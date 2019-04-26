@@ -100,7 +100,15 @@
             "targetField": null,
             "validationRules": [
             ]
-        }
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
         {
             "name": "Discard",
             "options": {
