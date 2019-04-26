@@ -254,7 +254,7 @@ def do_bundle():
     macosx_binary_name = 'Figshare Uploader'
     
     env.Command(
-        macosx_binary_name, 'main'
+        macosx_binary_name, 'main',
         Copy("$TARGET", "$SOURCE")
     )
 
