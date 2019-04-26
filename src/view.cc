@@ -270,3 +270,8 @@ void ViewImpl::onLoadFieldMappingsRequested() {
 void ViewImpl::infoBox(string message) {
     QMessageBox::information(this, "Information", QString::fromStdString(message));
 }
+
+void ViewImpl::forceRefreshFieldMappings() {
+    fieldMappingModel->layoutAboutToBeChanged();
+    fieldMappingModel->layoutChanged();
+}

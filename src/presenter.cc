@@ -185,4 +185,5 @@ void PresenterImpl::loadFieldMappings(string inputPath) {
     MappingSchemeDeserializer deserializer;
     MappingScheme newMappings = deserializer.loadMappingScheme(inputPath);
     model->replaceFieldMappings(newMappings);
+    view->forceRefreshFieldMappings();
 }

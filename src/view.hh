@@ -41,6 +41,7 @@ public:
         const ConverterRegistry& converterRegistry
     );
     void infoBox(string message);
+    void forceRefreshFieldMappings();
 
 
 private slots:
