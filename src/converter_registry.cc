@@ -160,8 +160,17 @@ IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, O
 LookupRegistryImpl::LookupRegistryImpl(
     CategoryMapper* categoryMapper, GroupMapper* groupMapper
 ) {
-    // unused as yet due to hacks
+    // There may be more.
     definedTypeMap.insert({"Figure", "figure"});
+    definedTypeMap.insert({"Dataset", "dataset"});
+    definedTypeMap.insert({"Media", "media"});
+    definedTypeMap.insert({"Poster", "poster"});
+    definedTypeMap.insert({"Paper", "paper"});
+    definedTypeMap.insert({"Fileset", "fileset"});
+
+
+    definedarticle, project, collection, dataset, figure , poster, media, presentation, paper, fileset, thesis, code
+
     this->categoryMapper = categoryMapper;
     this->groupMapper = groupMapper;
 }
