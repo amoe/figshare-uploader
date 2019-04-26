@@ -168,9 +168,6 @@ LookupRegistryImpl::LookupRegistryImpl(
     definedTypeMap.insert({"Paper", "paper"});
     definedTypeMap.insert({"Fileset", "fileset"});
 
-
-    definedarticle, project, collection, dataset, figure , poster, media, presentation, paper, fileset, thesis, code
-
     this->categoryMapper = categoryMapper;
     this->groupMapper = groupMapper;
 }
