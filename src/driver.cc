@@ -18,7 +18,7 @@ void DriverImpl::log(string message) const {
 void DriverImpl::handleRow(
     const ExcelRow row, const string inputPath, const MappingScheme& mappingScheme
 ) const {
-    log("Handling row");
+    log("Handling row...");
 
     MappingOutput result = mappingEngine->convert(row.rowData, mappingScheme);
     QJsonObject articleObject = result.getArticleObject();
