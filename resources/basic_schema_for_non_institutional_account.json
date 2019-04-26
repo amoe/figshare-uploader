@@ -1,0 +1,217 @@
+{
+    "rows": [
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "String",
+            "options": {
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "title"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "String",
+            "options": {
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "description"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "ListOfString",
+            "options": {
+                "delimiter": ",\\s*"
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "keywords"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "ListOfString",
+            "options": {
+                "delimiter": null
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "references"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "LookupList",
+            "options": {
+                "delimiter": null,
+                "resourceName": "category"
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "categories"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "ListOfObject",
+            "options": {
+                "delimiter": "\\s*,\\s*",
+                "objectField": "name"
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "authors"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "LookupValue",
+            "options": {
+                "resourceName": "definedType"
+            },
+            "targetField": {
+                "fieldType": "standard",
+                "name": "defined_type"
+            },
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "ContributeFiles",
+            "options": {
+                "delimiter": "\\s*;\\s*"
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        }
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        },
+        {
+            "name": "Discard",
+            "options": {
+            },
+            "targetField": null,
+            "validationRules": [
+            ]
+        }
+    ]
+}
