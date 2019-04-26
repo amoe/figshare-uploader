@@ -2,5 +2,6 @@
 <RCC version="1.0">
   <qresource>
     <file>resources/SHL_5_Violet_on_Grass.svg</file>
+    <file>src/icon.png</file>
   </qresource>
 </RCC>

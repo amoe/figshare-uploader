@@ -30,6 +30,8 @@ void dumpSslInformation() {
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
+    app.setWindowIcon(QIcon(":/src/icon.png"));
+
     // Logging configuration has to happen AFTER initialization of QApplication.
     // Because Qt wants to mess around with the console stuff on Windows
     // platforms.
