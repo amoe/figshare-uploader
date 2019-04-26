@@ -251,13 +251,20 @@ main_binary = env.Program(
 
 # We have to use a fresh environment for the bundling process.
 def do_bundle():
+    macosx_binary_name = 'Figshare Uploader'
+    
+    env.Command(
+        'main', macosx_binary_name,
+        Copy("$TARGET", "$SOURCE")
+    )
+
     bundle_env = Environment()
     osxbundle.TOOL_BUNDLE(bundle_env)
 
     application_name = "Figshare Uploader"
 
     bundledir = "%s.app" % application_name
-    app = "main"
+    app = macosx_binary_name
     key = "uk.ac.sussex"
 
     # We use the initial hash-sign to refer to a path relative to the root
