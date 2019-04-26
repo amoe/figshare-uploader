@@ -10,4 +10,5 @@ fi
 echo "$version_number" > version
 git commit -am "releasing v${version_number}"
 git tag -a "release-${version_number}" -m "release ${version_number}"
-git push --all
+git push --tags
+git push
