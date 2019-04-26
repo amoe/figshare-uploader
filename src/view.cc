@@ -271,6 +271,8 @@ void ViewImpl::infoBox(string message) {
     QMessageBox::information(this, "Information", QString::fromStdString(message));
 }
 
+// MASSIVE HACK and MVP VIOLATION -- fieldMappingModel should be changed to use
+// a copy of state, not a reference
 void ViewImpl::forceRefreshFieldMappings() {
     fieldMappingModel->layoutAboutToBeChanged();
     fieldMappingModel->layoutChanged();
