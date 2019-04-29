@@ -47,9 +47,10 @@ public:
 
 private:
     FieldEncoder getEncoderFromDto(domain::FieldEncoderListOperation dto) const;
+    void checkState() const;
 
     Model* model;
-    View* view;
+    View* view = nullptr;
     Driver* driver;
     TokenStore* tokenStore;
     ViewProgressAdapter* progressReporter;

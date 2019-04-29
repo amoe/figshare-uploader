@@ -10,8 +10,8 @@
 #include "mapping_scheme_deserializer.hh"
 
 using std::string;
+using std::runtime_error;
 
-// XXX: There's no real reason for these to use raw pointers, they are non-Qt.
 void PresenterImpl::setView(View* view) {
     this->view = view;
 
@@ -180,10 +180,22 @@ void PresenterImpl::saveFieldMappings(string outputPath) {
 }
 
 void PresenterImpl::loadFieldMappings(string inputPath) {
+    checkState();
+
     spdlog::info("presenter would load mappings");
 
+    spdlog::info("init deserializer");
     MappingSchemeDeserializer deserializer;
+    spdlog::info("request load");
     MappingScheme newMappings = deserializer.loadMappingScheme(inputPath);
+    spdlog::info("request replace");
     model->replaceFieldMappings(newMappings);
+    spdlog::info("request refresh");
     view->forceRefreshFieldMappings();
+}
+
+void PresenterImpl::checkState() const {
+    if (view == nullptr) {
+        throw runtime_error("view was not initialized");
+    }
 }
