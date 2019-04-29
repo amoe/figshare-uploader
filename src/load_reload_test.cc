@@ -11,7 +11,7 @@ public:
     MockView view;
 };
 
-TEST_F(LoadReloadTest, LoadWithoutInitialPickShouldThrow) {
+TEST_F(LoadReloadTest, ModelCanLoadMappings) {
     ConverterRegistry converterRegistry;
     ConverterRegistry::initializeStandardConverters(
         converterRegistry, &lookupRegistry
