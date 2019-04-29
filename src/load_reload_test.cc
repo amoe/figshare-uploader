@@ -8,6 +8,7 @@ public:
     MockDriver driver;
     MockTokenStore tokenStore;
     MockLookupRegistry lookupRegistry;
+    MockView view;
 };
 
 TEST_F(LoadReloadTest, LoadWithoutInitialPickShouldThrow) {
@@ -19,11 +20,11 @@ TEST_F(LoadReloadTest, LoadWithoutInitialPickShouldThrow) {
 
 
     PresenterImpl presenter(&model, &driver, &tokenStore);
+
+    presenter.setView(&view);
+    presenter.loadFieldMappings("resources/basic_schema_for_non_institutional_account.json");
     presenter.loadFieldMappings("resources/basic_schema_for_institutional_account.json");
-
-
-    // this problem happens because we don't set the view properly
     
-    ASSERT_THAT(2 + 2, Eq(5));
+    // if we got here, the test should pass
 }
 

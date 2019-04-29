@@ -41,6 +41,31 @@ public:
     MOCK_CONST_METHOD0(dumpMappingScheme, void());
 };
 
+class MockView: public View {
+public:
+    MOCK_METHOD0(getSelectedFile, string());
+    MOCK_METHOD0(getToken, string());
+    MOCK_METHOD1(reportError, void(string));
+    MOCK_METHOD1(addLog, void(string));
+    MOCK_METHOD0(showFileDialog, bool());
+    MOCK_METHOD1(setProgressReporter, void(ViewProgressAdapter*));
+    MOCK_METHOD0(showAboutDialog, void());
+    MOCK_METHOD3(
+        showSettingsDialog,
+        void(
+            vector<string>,
+            const MappingScheme&,
+            const ConverterRegistry&
+        )
+    );
+
+    MOCK_METHOD1(setSourceFile, void(string));
+    MOCK_METHOD1(setToken, void(string));
+    MOCK_METHOD1(setAvailableEncoders, void(vector<FieldEncoder>&));
+    MOCK_METHOD1(infoBox, void(string));
+    MOCK_METHOD0(forceRefreshFieldMappings, void());
+};
+
 
 class MockFigshareGateway: public FigshareGateway {
 public:
