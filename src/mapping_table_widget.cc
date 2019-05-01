@@ -64,6 +64,7 @@ QWidget* MappingTableWidget::makeFirstGroup() {
     // popEditors is from utility.hh
     // qt_utility::popEditors(fieldMappingModel, table);
     table->horizontalHeader()->setStretchLastSection(true);
+    table->verticalHeader()->setMaximumWidth(128);
 
     return group;
 }
