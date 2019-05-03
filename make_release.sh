@@ -13,4 +13,16 @@ fi
 echo "$version_number" > version
 git commit -am "releasing v${version_number}"
 git tag -a "release-${version_number}" -m "release ${version_number}"
-git push --tags
+
+read -p "Push tag (y/n)?" choice
+case "$choice" in 
+    y|Y)
+        git push --tags
+        ;;
+    n|N) 
+        ;;
+    *) 
+        echo "invalid"
+        ;;
+esac
+
