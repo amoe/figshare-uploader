@@ -128,6 +128,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     converterList = new QListView(this);
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
     converterList->setModel(converterListModel);
+    converterList->setCurrentIndex(converterListModel->index(0, 0));
 
     vbox->addWidget(converterList);
     groupBox->setLayout(vbox);
