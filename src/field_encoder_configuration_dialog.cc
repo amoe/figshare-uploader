@@ -125,7 +125,7 @@ QGroupBox* FieldEncoderConfigurationDialog::createSecondGroup() {
     QGroupBox* groupBox = new QGroupBox("Conversion types");
     QVBoxLayout* vbox = new QVBoxLayout;
 
-    converterList = new QListView;
+    converterList = new QListView(this);
     converterList->setSelectionMode(QAbstractItemView::SingleSelection);
     converterList->setModel(converterListModel);
 
@@ -140,7 +140,7 @@ QGroupBox *FieldEncoderConfigurationDialog::createThirdGroup() {
     groupBox->setCheckable(true);
     groupBox->setChecked(false);
 
-    validatorList = new QListView;
+    validatorList = new QListView(this);
     validatorList->setSelectionMode(QAbstractItemView::MultiSelection);
     QStringList stringList = {
         "url",

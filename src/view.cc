@@ -226,6 +226,9 @@ void ViewImpl::onFieldEncoderConfigurationDialogConfirmed(qt_dto::FieldEncoderCo
     result.targetFieldTypeId = dto.targetFieldTypeId;
     result.fieldName = dto.fieldName.toStdString();
     result.converterIndex = dto.selectedConverter.row();
+    
+    spdlog::info("Converter index was {}", result.converterIndex);
+    
     result.newOptions = dto.optionsMap;
 
     // Map QList destructively

@@ -1,5 +1,6 @@
 #include <QDebug>
 #include "field_encoder_model.hh"
+#include "logging.hh"
 
 
 Qt::ItemFlags FieldEncoderModel::flags(const QModelIndex& index) const {
@@ -64,5 +65,7 @@ bool FieldEncoderModel::removeRows(int row, int count, const QModelIndex &parent
 }
 
 const FieldEncoder FieldEncoderModel::getFieldEncoderByRow(int row) const {
+    spdlog::info("request for row came in: {}", row);
+    spdlog::info("size of encoders array is: {}", availableEncoders.size());
     return availableEncoders.at(row);
 }
