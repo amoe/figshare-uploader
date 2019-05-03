@@ -2,7 +2,7 @@
 
 version_number=$1
 
-last_release=$(git tag | sort -rV | head -n 1)
+last_release=$(git tag | sort -rV | head -n 1 | sed 's|^release-||')
 echo "The last release was ${last_release}"
 
 if [ -z "$version_number" ]; then
