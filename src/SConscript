@@ -250,6 +250,11 @@ main_binary = env.Program(
     source=PROGRAM_SOURCES + ['main.cc', rcc_output]
 )
 
+xlsx_validator = env.Program(
+    target='xlsx_validator',
+    source=['xlsx_validation_driver.cc', 'xlsx.cc']
+)
+
 # We have to use a fresh environment for the bundling process.
 def do_bundle():
     macosx_binary_name = 'Figshare Uploader'
