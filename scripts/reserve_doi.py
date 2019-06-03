@@ -1,5 +1,6 @@
 import sys
 import requests
+import pprint
 
 token = sys.argv[1]
 API_PREFIX = "https://api.figshare.com/v2/"
@@ -13,7 +14,6 @@ def create_demo_article(token):
         'title': 'A test article',
         'group_id': 20852
     }
-
     result = requests.post(
         get_api_url('account/articles'), json=data, headers=headers
     )
@@ -21,12 +21,20 @@ def create_demo_article(token):
     article_data = requests.get(location, headers=headers).json()
     return article_data['id']
 
+def doi_to_url(doi):
+    return "https://doi.org/{}".format(doi)
+
+
+
 article_id = create_demo_article(token)
-
-
 reserve_response = requests.post(
     get_api_url("account/articles/{}/reserve_doi".format(article_id)),
     headers=headers
 )
-print(reserve_response.json())
+reserve_data = reserve_response.json()
+doi = reserve_data['doi']
+
+# it won't become active until it's actually reserved
+print(doi_to_url(doi))
+
 
