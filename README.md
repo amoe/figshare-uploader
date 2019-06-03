@@ -63,3 +63,5 @@ This work was supported by the [Sussex Humanities Lab](http://www.sussex.ac.uk/s
 ## License
 
 Apache 2.0, see the `LICENSE` file.
+
+Add support for skipping fields.
