@@ -60,6 +60,12 @@ It only supports `.xlsx`.
 
 This work was supported by the [Sussex Humanities Lab](http://www.sussex.ac.uk/shl).
 
+## CI
+
+### Travis builds failing (2019-07-10)
+
+See https://travis-ci.community/t/xcode-8-3-homebrew-outdated-error/3798/7
+
 ## License
 
 Apache 2.0, see the `LICENSE` file.
