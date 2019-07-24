@@ -69,4 +69,4 @@ See https://travis-ci.community/t/xcode-8-3-homebrew-outdated-error/3798/7
 ## License
 
 Apache 2.0, see the `LICENSE` file.
-Yow! x1
+Yow! x2
