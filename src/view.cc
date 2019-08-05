@@ -259,6 +259,13 @@ void ViewImpl::onSaveFieldMappingsRequested() {
     QString fileName = QFileDialog::getSaveFileName(
         this, "Save field mappings", documentsPath, "JSON (*.json)"
     );
+
+    // user cancelled dialog
+    if (fileName.isEmpty()) 
+        return;
+
+    qDebug() << "selected file name was " << fileName;
+
     presenter->saveFieldMappings(fileName.toStdString());
 }
 
@@ -267,6 +274,11 @@ void ViewImpl::onLoadFieldMappingsRequested() {
     QString fileName = QFileDialog::getOpenFileName(
         this, "Load field mappings", documentsPath, "JSON (*.json)"
     );
+
+    // user cancelled dialog
+    if (fileName.isEmpty()) 
+        return;
+
     presenter->loadFieldMappings(fileName.toStdString());
 }
 
