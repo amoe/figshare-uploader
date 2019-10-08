@@ -10,10 +10,10 @@ const int INITIAL_ROW = 2;
 void DriverThread::run() {
     try {
         perform();
-    } catch (std::runtime_error e) {
+    } catch (std::runtime_error& e) {
         spdlog::info("caught std-exception in driver thread handler: {}", e.what());
         emit fatalError(QString(e.what()));
-    } catch (std::exception e) {
+    } catch (std::exception& e) {
         spdlog::info("caught runtime-exception in driver thread handler: {}", e.what());
         emit fatalError(QString(e.what()));
     }
