@@ -68,7 +68,9 @@ RowContainer XlsxReader::rowToString(int row) {
             // Below bug contains example usage of the number-format system
             // to properly convert to string.
             // https://github.com/tfussell/xlnt/issues/220
-            strVersion = cell.number_format().format(cell.value<double>(), cell.base_date());
+            xlnt::number_format nf;
+            nf.format_string("YYYY-MM-DD");
+            strVersion = nf.format(cell.value<double>(), cell.base_date());
         } else {
             strVersion = cell.to_string();
         }

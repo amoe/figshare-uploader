@@ -37,7 +37,7 @@ TEST(XlsxReaderTest, DateFormattedFieldCanBeTransformedCorrectlyToString) {
     XlsxReader foo("resources/test.xlsx");
     vector<string> result = foo.rowToString(7);
 
-    ASSERT_THAT(result.at(column_mapping::DATE), "23/12/18");
+    ASSERT_THAT(result.at(column_mapping::DATE), "2018-12-23");
 }
 
 
