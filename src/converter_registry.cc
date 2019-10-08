@@ -135,14 +135,18 @@ IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, O
 
     QJsonArray resultArray;
 
-    if (delimiter.has_value()) {
-        string delimiterRegex = delimiter.value();
-        vector<string> discreteValues = splitByRegexp(input, delimiterRegex);
-        for (string v: discreteValues) {
-            resultArray.append(QJsonValue(QString::fromStdString(v)));
-        }
+    if (input.empty()) {
+        // Ignore empty input and produce a zero-element array.
     } else {
-        resultArray.append(QJsonValue(QString::fromStdString(input)));
+        if (delimiter.has_value()) {
+            string delimiterRegex = delimiter.value();
+            vector<string> discreteValues = splitByRegexp(input, delimiterRegex);
+            for (string v: discreteValues) {
+                resultArray.append(QJsonValue(QString::fromStdString(v)));
+            }
+        } else {
+            resultArray.append(QJsonValue(QString::fromStdString(input)));
+        }
     }
 
     producedValue = resultArray;
