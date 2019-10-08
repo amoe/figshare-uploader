@@ -62,7 +62,8 @@ class ClearAllArticlesScript(object):
         # articles left
 
         while True:
-            all_articles = self.list_articles()
+            all_articles = [a for a in self.list_articles()
+                            if a['published_date'] is None]
             if not all_articles: 
                 print("No more articles to delete.")
                 break
