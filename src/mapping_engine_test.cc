@@ -147,6 +147,7 @@ TEST_F(MappingEngineTest, KeywordEncoderElidesEmptyString) {
 
     const string expectedResult = R"(
         {
+            "keywords": []
         }
     )";
     vector<string> expectedSourcePaths = {};
