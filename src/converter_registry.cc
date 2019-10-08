@@ -176,11 +176,15 @@ LookupRegistryImpl::~LookupRegistryImpl() {
 }
 
 QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
-    // Now we need to look it up using LookupType.
     switch (type) {
         case LookupType::DEFINED_TYPE: {
-            string figshareName = definedTypeMap.at(value);
-            return QJsonValue(QString::fromStdString(figshareName));
+            auto it = definedTypeMap.find(value);
+            if (it == definedTypeMap.end()) {
+                throw std::runtime_error("unknown value in defined type converter");
+            } else {
+                return QJsonValue(QString::fromStdString(it->second));
+            }
+
         }
         case LookupType::CATEGORY: {
             return QJsonValue(categoryMapper->mapTitle(value));
