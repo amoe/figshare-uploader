@@ -1,5 +1,6 @@
 #include <QDebug>
 #include "license_mapper.hh"
+#include "logging.hh"
 
 LicenseMapper::LicenseMapper(HttpGetter* getter) : getter(getter) {
 }
@@ -9,7 +10,9 @@ LicenseMapper::LicenseMapper(string jsonInput) {
 }
 
 void LicenseMapper::initializeLookup() {
-    string result = getter->request("https://api.figshare.com/v2/licenses");
+    // Make sure that we use this endpoint (which requires auth), otherwise we
+    // won't get instutionally-defined licenses.
+    string result = getter->request("https://api.figshare.com/v2/account/licenses");
     setFromJson(result);
 }
 
