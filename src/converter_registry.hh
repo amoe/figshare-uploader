@@ -8,6 +8,7 @@
 #include "enum_class_hash.hh"
 #include "category_mapper.hh"
 #include "group_mapper.hh"
+#include "license_mapper.hh"
 
 using std::map;
 using std::unordered_map;
@@ -30,12 +31,13 @@ public:
 
 
 enum class LookupType { 
-    DEFINED_TYPE, CATEGORY, GROUP
+    DEFINED_TYPE, CATEGORY, GROUP, LICENSE
 };
 static const unordered_map<string, LookupType> LOOKUP_TYPE_NAMES = {
     {"definedType", LookupType::DEFINED_TYPE},
     {"category", LookupType::CATEGORY},
-    {"group", LookupType::GROUP}
+    {"group", LookupType::GROUP},
+    {"license", LookupType::LICENSE}
 };
 
 class LookupRegistry {
@@ -47,7 +49,8 @@ public:
 class LookupRegistryImpl: public LookupRegistry {
 public:
     LookupRegistryImpl(
-        CategoryMapper* categoryMapper, GroupMapper* groupMapper
+        CategoryMapper* categoryMapper, GroupMapper* groupMapper,
+        LicenseMapper* licenseMapper
     );
     ~LookupRegistryImpl();
     QJsonValue lookupByString(LookupType type, string value);
@@ -56,6 +59,7 @@ private:
     unordered_map<string, string> definedTypeMap;
     CategoryMapper* categoryMapper;
     GroupMapper* groupMapper;
+    LicenseMapper* licenseMapper;
 };
 
 // This one works using a similar pattern.  The registry can be passed in for

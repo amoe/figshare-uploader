@@ -59,8 +59,9 @@ int main(int argc, char **argv) {
 
     GroupMapperImpl groupMapper(&httpGetter);
     CategoryMapper categoryMapper(&httpGetter);
+    LicenseMapper licenseMapper(&httpGetter);
 
-    LookupRegistryImpl lookupRegistry(&categoryMapper, &groupMapper);
+    LookupRegistryImpl lookupRegistry(&categoryMapper, &groupMapper, &licenseMapper);
     ConverterRegistry converterRegistry;
     ConverterRegistry::initializeStandardConverters(
         converterRegistry, &lookupRegistry

@@ -56,6 +56,10 @@ be useful when dealing with upload of very large files.
 
 It only supports `.xlsx`.
 
+## TODO
+
+* Refactor out the various HTTP lookup classes, a lot of duplication at present.
+
 ## Support
 
 This work was supported by the [Sussex Humanities Lab](http://www.sussex.ac.uk/shl).
