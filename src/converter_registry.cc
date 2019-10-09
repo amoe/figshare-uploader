@@ -162,7 +162,7 @@ IntermediateMappingOutput ListOfStringConverter::applyConversion(string input, O
 // LOOKUP REGISTRY
 
 LookupRegistryImpl::LookupRegistryImpl(
-    CategoryMapper* categoryMapper, GroupMapper* groupMapper
+    CategoryMapper* categoryMapper, GroupMapper* groupMapper, LicenseMapper* licenseMapper
 ) {
     // There may be more.
     definedTypeMap.insert({"Figure", "figure"});
@@ -174,6 +174,7 @@ LookupRegistryImpl::LookupRegistryImpl(
 
     this->categoryMapper = categoryMapper;
     this->groupMapper = groupMapper;
+    this->licenseMapper = licenseMapper;
 }
 
 LookupRegistryImpl::~LookupRegistryImpl() {
@@ -196,8 +197,11 @@ QJsonValue LookupRegistryImpl::lookupByString(LookupType type, string value) {
         case LookupType::GROUP: {
             return QJsonValue(groupMapper->getGroupIdByName(value));
         }
+        case LookupType::LICENSE: {
+            return QJsonValue(licenseMapper->mapName(value));
+        }
         default:
-            throw new std::runtime_error("invalid lookup type");
+            throw std::runtime_error("invalid lookup type");
     }
 }
 

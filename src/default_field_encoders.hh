@@ -53,6 +53,15 @@ namespace default_field_encoders {
          {"resourceName", optional<string>("category")}}
     );
 
+    const FieldEncoder LICENSE_ENCODER(
+        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "license")),
+        ConverterName::LOOKUP_VALUE,
+        {},
+        {{"delimiter", nullopt},
+         {"resourceName", optional<string>("license")}}
+    );
+
+
     const FieldEncoder CONTRIBUTE_FILES_ENCODER(
         nullopt,
         ConverterName::CONTRIBUTE_FILES,

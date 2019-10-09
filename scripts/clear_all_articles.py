@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import click
 import hashlib
 import json
 import os
@@ -61,6 +62,8 @@ class ClearAllArticlesScript(object):
         # don't bother with pagination, just loop until there aren't any more
         # articles left
 
+        REQUIRE_CONFIRM = True
+
         while True:
             all_articles = [a for a in self.list_articles()
                             if a['published_date'] is None]
@@ -70,7 +73,11 @@ class ClearAllArticlesScript(object):
 
             for article in all_articles:
                 print("Deleting article ", article['id'])
-                self.delete_article(article)
+                if REQUIRE_CONFIRM:
+                    pprint.pprint(article)
+
+                    if click.confirm("Really delete?", default=True):
+                        self.delete_article(article)
 
 
 if __name__ == '__main__':

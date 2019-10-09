@@ -114,10 +114,15 @@
             ]
         },
         {
-            "name": "Discard",
+            "name": "LookupValue",
             "options": {
+                "delimiter": null,
+                "resourceName": "license"
             },
-            "targetField": null,
+            "targetField": {
+                "fieldType": "standard",
+                "name": "license"
+            },
             "validationRules": [
             ]
         },

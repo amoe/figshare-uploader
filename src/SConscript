@@ -170,6 +170,7 @@ PROGRAM_SOURCES = [
     "http_getter.cc",
     "http_poster.cc",
     "http_putter.cc",
+    "license_mapper.cc",
     "logging.cc",
     "mapping_engine.cc",
     "mapping_table_widget.cc",

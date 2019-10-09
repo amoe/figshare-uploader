@@ -204,6 +204,35 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+TEST_F(MappingEngineTest, LicenseEncoderCheck) {
+    MappingScheme theScheme = {default_field_encoders::LICENSE_ENCODER};
+    vector<string> theDocument = {"CC0"};
+
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::LICENSE, _)
+    ).WillOnce(Return(QJsonValue(42)));
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    // Expect an empty article object because we haven't defined any other
+    // converters.
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
+
+    const string expectedResult = R"(
+        {
+           "license": 42
+        }
+    )";
+
+
+    qDebug() << result.getArticleObject();
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
+
 TEST_F(MappingEngineTest, AuthorsEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::AUTHORS_ENCODER};
     vector<string> theDocument = {"foo, bar, baz"};
