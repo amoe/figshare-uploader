@@ -11,6 +11,10 @@ from requests.exceptions import HTTPError
 
 BASE_URL = 'https://api.figshare.com/v2/{endpoint}'
 
+# The limit can go to at least 200 and probably more, though response can be
+# slow.
+LIMIT = 10
+
 class ListArticlesScript(object):
     token = None
     file_path = None
@@ -34,12 +38,16 @@ class ListArticlesScript(object):
         return data
 
     def issue_request(self, method, endpoint, *args, **kwargs):
-        return self.raw_issue_request(method, BASE_URL.format(endpoint=endpoint), *args, **kwargs)
+        return self.raw_issue_request(
+            method, BASE_URL.format(endpoint=endpoint), *args, **kwargs
+        )
 
     def main(self, args):
         self.token = args[0]
 
-        result = self.issue_request('GET', 'account/articles')
+        final_url = 'account/articles?page_size={}'.format(LIMIT)
+
+        result = self.issue_request('GET', )
         json.dump(result, sys.stdout, indent=4)
         print()
 
