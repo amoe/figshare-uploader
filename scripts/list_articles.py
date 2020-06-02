@@ -46,8 +46,7 @@ class ListArticlesScript(object):
         self.token = args[0]
 
         final_url = 'account/articles?page_size={}'.format(LIMIT)
-
-        result = self.issue_request('GET', )
+        result = self.issue_request('GET', final_url)
         json.dump(result, sys.stdout, indent=4)
         print()
 
