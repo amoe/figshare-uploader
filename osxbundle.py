@@ -28,7 +28,7 @@ def TOOL_SUBST(env):
         then all instances of %VERSION% in the file will be replaced with 1.2345 etc.
         """
         try:
-            f = open(sourcefile, 'rb')
+            f = open(sourcefile, 'r')
             contents = f.read()
             f.close()
         except:
