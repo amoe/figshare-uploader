@@ -34,6 +34,9 @@ def TOOL_SUBST(env):
         except:
             raise SCons.Errors.UserError("Can't read source file %s"%sourcefile)
         for (k,v) in dict.items():
+            print("k =", repr(k))
+            print("v =", repr(v))
+            print("contents =", repr(contents))
             contents = re.sub(k, v, contents)
         try:
             f = open(targetfile, 'wb')
