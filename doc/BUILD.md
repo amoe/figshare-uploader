@@ -24,13 +24,18 @@ You should get a binary produced `./build/main`.
 
 ## Building on Mac
 
+Tested on Mojave (10.14).
+
+It looks like you don't need to install Xcode before.  If you did, it would be
+Xcode version 11.3.1.
+
 You need:
 
 * Homebrew
-* Python 3 - `brew install python3`
+* Python 3 - `brew install python3`.  Tested with Python 3.8.6.
 * xlnt
 * SCons - `pip3 install scons`
-* Qt5 - `brew install qt5`
+* Qt5 - `brew install qt5` -- 5.15.1
 * pkg-config - `brew install pkg-config`
 
 By default, Brew will install qt5 to `/usr/local/opt/qt`.  Take a note of this
@@ -39,7 +44,8 @@ path.
 ### Building xlnt
 
 There's no brew package for xlnt yet, so you'll have to install it yourself.
-Luckily this works identically to the standard Linux build instructions.
+Luckily this works identically to the standard Linux build instructions.  You'll
+need to have cmake though, which you can install using `cmake`.
 
 ### Building the program itself
 
