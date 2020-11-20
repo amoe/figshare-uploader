@@ -75,7 +75,7 @@ public:
     MOCK_METHOD1(getUploadInfo, FileInfo(string));
     MOCK_METHOD1(getUploadContainerInfo, UploadContainerInfo(string));
     MOCK_METHOD1(putUpload, PartPutResponse(UploadCommand));
-    MOCK_METHOD2(completeUpload, string(int, int));
+    MOCK_METHOD1(completeUpload, string(string));
     MOCK_METHOD1(getArticle, ArticleGetResponse(string));
 };
 

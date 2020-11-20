@@ -49,6 +49,7 @@ void DriverImpl::handleUpload(
     const UploadCreationRequest ucr
 ) const {
     UploadCreationResponse response = gateway->createUpload(stemArticle, ucr);
+
     FileInfo fileInfo = gateway->getUploadInfo(response.location);
     UploadContainerInfo uci = gateway->getUploadContainerInfo(
         fileInfo.uploadContainerUrl
@@ -57,6 +58,8 @@ void DriverImpl::handleUpload(
     for (FilePart part : uci.parts) {
         handlePart(sourcePath, fileInfo, part);
     }
+
+    gateway->completeUpload(response.location);
 }
 
 void DriverImpl::handlePart(

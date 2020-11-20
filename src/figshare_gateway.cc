@@ -57,7 +57,9 @@ UploadCreationResponse HttpFigshareGateway::createUpload(
     const string url = articleUrl + "/files";
     const string payload = request.toJson();
     const string response = poster->request(url, payload);
+    spdlog::info("create upload response was {}", response);
     string location = fetchString(response, "location");
+    spdlog::info("fetched string {}", location);
     return UploadCreationResponse(location);
 }
 
@@ -92,14 +94,12 @@ PartPutResponse HttpFigshareGateway::putUpload(UploadCommand uc) {
     return result;
 }
 
-string HttpFigshareGateway::completeUpload(int articleId, int uploadId) {
-    string uploadUrl = 
-        "https://api.figshare.com/v2/account/articles/" + std::to_string(articleId)
-        + "/files/" + std::to_string(uploadId);
-
+// The completion URL should be provided to us as the location attribute of an
+// UploadCreationResponse.
+string HttpFigshareGateway::completeUpload(string completeUrl) {
     // I assume that a payload of an empty string is equivalent to data=None in
     // python-requests.
-    const string response = poster->request(uploadUrl, "");
+    const string response = poster->request(completeUrl, "");
     return response;
 }
 
