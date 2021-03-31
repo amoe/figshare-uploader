@@ -123,8 +123,7 @@ else:
         '-std=c++11',
         '-Wall',
 #        '-Werror',
-        '-pedantic',
-        '-g'
+        '-pedantic'
     ]
     libs = ['pthread', 'xlnt']
 
