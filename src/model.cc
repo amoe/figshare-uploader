@@ -1,4 +1,5 @@
 #include <iostream>
+#include "logging.hh"
 #include "model.hh"
 
 ModelImpl::ModelImpl(
@@ -88,5 +89,16 @@ const ConverterRegistry& ModelImpl::getConverterRegistry() const {
 }
 
 void ModelImpl::replaceFieldMappings(MappingScheme newMappingScheme) {
+    int sheetColumns = headerFields.size();
+    int currentSize = newMappingScheme.size();
+
+    // Silently truncate longer mapping schemes
+    if (currentSize > sheetColumns) {
+        spdlog::warn("truncating mapping scheme larger than source sheet");
+    }
+
+    newMappingScheme.resize(sheetColumns, default_field_encoders::DISCARD_ENCODER);
+    
     this->fieldMappings = newMappingScheme;
+
 }

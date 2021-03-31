@@ -7,6 +7,8 @@
 #include "converter_registry.hh"
 #include "utility.hh"
 
+using std::runtime_error;
+
 ConverterRegistry::ConverterRegistry() {}
 ConverterRegistry::~ConverterRegistry() {}
 
@@ -64,7 +66,14 @@ IntermediateMappingOutput ContributeFilesConverter::applyConversion(string input
 
 IntermediateMappingOutput LookupValueConverter::applyConversion(string input, OptionsMap options) {
     string resourceName = options.at("resourceName").value();
-    LookupType type = LOOKUP_TYPE_NAMES.at(resourceName);
+
+    auto it = LOOKUP_TYPE_NAMES.find(resourceName);
+    if (it == LOOKUP_TYPE_NAMES.end()) {
+        throw runtime_error("resource name not found, check field encoder definition");
+    }
+    
+    
+    LookupType type = it->second;
     QJsonValue producedValue = registry->lookupByString(type, input);
     vector<string> producedPaths;
     IntermediateMappingOutput result(producedValue, producedPaths, CombinationOperation::CONJOIN);
