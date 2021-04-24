@@ -19,6 +19,22 @@ A personal token is required to access your Figshare account.  Please read the
 The program works simply.  You prepare your uploads in Excel format, following a
 certain schema.  The settings allow flexible mapping of Excel fields.
 
+## Why write this in C++?
+
+There are several reasons:
+
+* It was originally intended to be able to handle very large uploads.  When
+  saying large, I am talking terabytes of uncompressed video.  Such a program
+  would be difficult to make work with a web-based app.  Authentication would
+  also be more difficult to handle if creating a web app.
+* The Python Qt interface would be a reasonable option, but in my limited
+  experience, it didn't provide a good developer experience.  I had to
+  frequently resort to reading the C++ API anyway.
+* I dislike Electron.
+
+There are a lot of downsides to this decision as well, but this gives you the
+reasoning at least.
+
 ## Example
 
 You need three files:
