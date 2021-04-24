@@ -52,6 +52,12 @@ You can copy the sheet and modify it for your own purposes.  All non-header rows
 in the default sheet will be treated as items to upload.  (Multiple sheets in
 a workbook are not supported at this time.)
 
+### Supported item types
+
+The supported values for the "Item Type" field -- known as `defined_type` in API
+terms -- are Figure, Dataset, Media, Poster, Paper, and Fileset.  Other values
+are not yet supported.
+
 ## Install
 
 Currently there's a .dmg file for Mac, a zip for windows (no installer), and
