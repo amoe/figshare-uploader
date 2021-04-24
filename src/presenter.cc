@@ -54,9 +54,9 @@ void PresenterImpl::startUpload() {
         uploadTask->run();
     // exceptions aren't polymorphic so we have to catch both
     } catch (std::runtime_error& e) {
-        spdlog::info("caught std-exception in gui thread handler: {}", e.what());
+        spdlog::info("caught runtime-error in gui thread handler: {}", e.what());
     } catch (std::exception& e) {
-        spdlog::info("caught runtime-exception in gui thread handler: {}", e.what());
+        spdlog::info("caught std-exception in gui thread handler: {}", e.what());
     }
 }
 
