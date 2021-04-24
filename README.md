@@ -32,9 +32,6 @@ There are several reasons:
   frequently resort to reading the C++ API anyway.
 * I dislike Electron.
 
-There are a lot of downsides to this decision as well, but this gives you the
-reasoning at least.
-
 ## Example
 
 You need three files:
