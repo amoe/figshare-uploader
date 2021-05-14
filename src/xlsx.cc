@@ -47,11 +47,17 @@ RowContainer XlsxReader::rowToString(int row) {
         
     RowContainer result;
 
+    xlnt::column_t highestColumn = ws.highest_column();
+    
     // this should be done better somehow
     ostringstream rangeSpec;
-    rangeSpec << column_mapping::MINIMUM_COLUMN
-              << row << ":" << column_mapping::MAXIMUM_COLUMN << row;
+    rangeSpec << xlnt::column_t::column_string_from_index(1)
+              << row
+              << ":"
+              << xlnt::column_t::column_string_from_index(highestColumn.index)
+              << row;
 
+    
     // select one and just one row
     xlnt::range range = ws.range(rangeSpec.str());
 

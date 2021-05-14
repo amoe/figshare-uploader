@@ -39,6 +39,8 @@ namespace column_mapping {
     // int above.
     const int MAX_FIELD = 24;
     const string MINIMUM_COLUMN = "A";
+
+    // XXX: Should only be used by tests
     const string MAXIMUM_COLUMN = "X";
 
     const vector<CustomFieldSpecification> CUSTOM_FIELDS = {
