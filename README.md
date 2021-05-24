@@ -5,6 +5,8 @@ For docs on how to build the thing, read [doc/BUILD.md](doc/BUILD.md).
 _figshare-uploader_ is a bulk upload tool for the research archiving & storage
 provider, Figshare.
 
+**This is an unofficial tool and is not developed by Figshare-the-company.**
+
 It will accept spreadsheets in `.xlsx` format as input, upload the files listed
 therein, with their associated metadata.
 
