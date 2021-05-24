@@ -32,7 +32,8 @@ There are several reasons:
 * The Python Qt interface would be a reasonable option, but in my limited
   experience, it didn't provide a good developer experience.  I had to
   frequently resort to reading the C++ API anyway.
-* I dislike Electron.
+* I dislike Electron, and writing JavaScript is essentially a punishment
+  experience for me.
 
 ## Example
 
