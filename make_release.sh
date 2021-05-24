@@ -18,6 +18,7 @@ read -p "Push tag (y/n)? " choice
 case "$choice" in 
     y|Y)
         git push --tags
+        git push
         ;;
     n|N) 
         ;;
