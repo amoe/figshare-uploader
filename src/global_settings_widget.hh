@@ -8,6 +8,9 @@
 class GlobalSettingsWidget: public QWidget {
     Q_OBJECT
 
+signals:
+    void useStagingModified();
+
 public:
     GlobalSettingsWidget(QWidget* parent);
 };
