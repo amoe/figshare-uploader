@@ -13,6 +13,7 @@
 #include "settings_dialog.hh"
 #include "field_encoder_list_view.hh"
 #include "mapping_table_widget.hh"
+#include "global_settings_widget.hh"
 
 SettingsDialog::SettingsDialog(
     QAbstractItemModel* fieldMappingModel,
@@ -34,6 +35,9 @@ SettingsDialog::SettingsDialog(
     FieldEncoderListView* fieldEncoderList = new FieldEncoderListView(
         fieldEncoderModel, converterListModel, this
     );
+    GlobalSettingsWidget* globalSettings = new GlobalSettingsWidget(
+        this
+    );
 
     connect(
         fieldEncoderList, &FieldEncoderListView::fieldEncoderDialogConfirmed,
@@ -52,6 +56,7 @@ SettingsDialog::SettingsDialog(
 
     container->addTab(mappingTable, "Field mapping");
     container->addTab(fieldEncoderList, "Encoder configuration");
+    container->addTab(globalSettings, "Global settings");
 
     QVBoxLayout* dialogLayout = new QVBoxLayout;
     dialogLayout->addWidget(container);

@@ -166,6 +166,7 @@ PROGRAM_SOURCES = [
     "file_info.cc",
     "file_part.cc",
     "file_spec_generator.cc",
+    "global_settings_widget.cc",
     "group_mapper.cc",
     "http_getter.cc",
     "http_poster.cc",
