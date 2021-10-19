@@ -39,7 +39,7 @@ There are several reasons:
 
 You need three files:
 
-* [The XLSX file](resources/basic_schema_for_non_institutional_account_upload.xlsx)
+* [The XLSX file](resources/basic_schema_for_non_institutional_account_upload.xlsx?raw=true)
 * [The sample image to attach](resources/eye.jpg)
 * [The JSON field mapping file](resources/basic_schema_for_non_institutional_account.json)
 
