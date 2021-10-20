@@ -1,5 +1,4 @@
-# figshare-uploader (aka upgraded-fortnight)
-
+# figshare-uploader
 
 _figshare-uploader_ is a bulk upload tool for the research archiving & storage
 provider, Figshare.
