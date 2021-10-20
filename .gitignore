@@ -5,3 +5,4 @@ build/
 ext/googletest-release-1.8.0/googlemock/src/*.o
 ext/googletest-release-1.8.0/googletest/src/*.o
 __pycache__
+/ext/**/*
