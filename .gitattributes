@@ -1,2 +1,2 @@
 /ext/**/* linguist-vendored
-/site_scons/**/* linguist-generated
+/site_scons/**/* linguist-vendored
