@@ -177,6 +177,24 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+TEST_F(MappingEngineTest, HandlesBlankReferences) {
+    MappingScheme theScheme = {default_field_encoders::REFERENCES_ENCODER};
+    vector<string> theDocument = {""};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "references": []
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
+
 
 TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
