@@ -13,11 +13,13 @@ You need scons and xlnt installed.
 To install scons, use `pip3 install scons`, or use your distro's copy of scons.
 The build process was tested with SCons versions 2.5.1 and 3.0.1.
 
-It's easier to use a systemwide copy of xlnt, for which you'll also need cmake.
-You can also use the copy under `ext` directory.
+It's easier to use a systemwide copy of xlnt; xlnt is not packaged yet for
+Debian, so you'll also need cmake.  You can also use the copy under `ext`
+directory.
 
 You also need the appropriate Qt5 dev packages for your distribution.  This is
-often provided by the top level package `qt5-default` in Debian and derivatives.
+provided by the top level package `qtbase5-dev` in Debian bullseye and
+derivatives.
 
 Once you have these, run `scons` to build.
 You should get a binary produced `./build/main`.
