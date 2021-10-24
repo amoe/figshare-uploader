@@ -196,6 +196,7 @@ TEST_F(MappingEngineTest, HandlesBlankReferences) {
 
 
 
+
 TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
     vector<string> theDocument = {"North American History"};
@@ -221,6 +222,24 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, HandlesBlankCategories) {
+    MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+    vector<string> theDocument = {""};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "categories": []
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
 
 TEST_F(MappingEngineTest, LicenseEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::LICENSE_ENCODER};
