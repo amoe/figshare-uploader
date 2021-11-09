@@ -385,3 +385,26 @@ TEST_F(MappingEngineTest, MultipleCustomFieldEncoderWorks) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, MultipleStringFieldConversionCheck) {
+    MappingScheme theScheme = {
+        default_field_encoders::TITLE_ENCODER,
+        default_field_encoders::DESCRIPTION_ENCODER
+    };
+
+    vector<string> theDocument = {"foo", "bar"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+           "title": "foo",
+           "description": "bar"
+        }
+    )";
+
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
