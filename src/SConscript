@@ -216,7 +216,6 @@ TEST_SOURCES = [
     "http_poster_test.cc",
     "license_test.cc",
     "load_reload_test.cc",
-    "mapper_test.cc",
     "mapping_engine_test.cc",
     "md5_test.cc",
     "object_mother.cc",
