@@ -6,6 +6,7 @@
 #include <iostream>
 #include "converter_registry.hh"
 #include "utility.hh"
+#include "logging.hh"
 
 using std::runtime_error;
 
@@ -80,6 +81,9 @@ IntermediateMappingOutput LookupValueConverter::applyConversion(string input, Op
     return result;
 }
 
+// NB: Note that we don't support the delimiter here, even though we provide it
+// as an option on the default field encoders for some reason.   This is probably
+// a bug.
 IntermediateMappingOutput LookupListConverter::applyConversion(
     string input, OptionsMap options
 ) {
@@ -88,7 +92,25 @@ IntermediateMappingOutput LookupListConverter::applyConversion(
 
     vector<string> producedPaths;
     QJsonArray producedValue;
-    producedValue.append(registry->lookupByString(type, input));
+    using std::cout;
+    cout << "in here" << endl;
+
+    if (input.empty() || isWhitespaceOnly(input)) {
+        // In our domain this really doesn't make sense.  So just silently
+        // discard the input and move on.
+        spdlog::debug("LookupList: discarding blank input");
+    } else {
+        QJsonValue mappedResult = registry->lookupByString(type, input);
+    
+        if (mappedResult.isNull()) {
+            // We don't want to produce nulls in general.
+            spdlog::warn("LookupList: mapped value result was null, eliding");
+        } else {
+            producedValue.append(mappedResult);
+        }
+    }
+
+    qDebug() << producedValue << endl;
 
     IntermediateMappingOutput result(
         producedValue, producedPaths, CombinationOperation::CONJOIN
