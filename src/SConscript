@@ -146,7 +146,6 @@ env.Command(
 
 PROGRAM_SOURCES = [
     "about_dialog.cc",
-    "article_mapper.cc",
     "article_type_mapper.cc",
     "category_mapper.cc",
     "combo_box_item_delegate.cc",

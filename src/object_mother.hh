@@ -6,7 +6,6 @@
 #include "requests.hh"
 #include "responses.hh"
 #include "upload_command.hh"
-#include "article_mapper.hh"
 #include "raw_literals.hh"
 
 class ObjectMother {

@@ -1,7 +1,6 @@
 #ifndef DRIVER_HH
 #define DRIVER_HH
 
-#include "article_mapper.hh"
 #include "file_info.hh"
 #include "file_part.hh"
 #include "figshare_gateway.hh"
