@@ -7,7 +7,6 @@
 #include "object_mother.hh"
 #include "upload_container_info.hh"
 #include "excel_row.hh"
-#include "article_mapper.hh"
 #include "progress_reporter.hh"
 #include "column_mapping.hh"
 #include "test_vocabulary.hh"

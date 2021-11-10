@@ -15,10 +15,6 @@
 class FigshareGateway {
 public:
     virtual ArticleCreationResponse createArticle(
-        ArticleCreationRequest request
-    ) = 0;
-
-    virtual ArticleCreationResponse createArticle(
         QJsonObject articleObject
     ) = 0;
 

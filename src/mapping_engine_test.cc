@@ -177,6 +177,25 @@ TEST_F(MappingEngineTest, ReferencesEncoderCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+TEST_F(MappingEngineTest, HandlesBlankReferences) {
+    MappingScheme theScheme = {default_field_encoders::REFERENCES_ENCODER};
+    vector<string> theDocument = {""};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "references": []
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
+
+
 
 TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
@@ -203,6 +222,24 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, HandlesBlankCategories) {
+    MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+    vector<string> theDocument = {""};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+            "categories": []
+        }
+    )";
+    vector<string> expectedSourcePaths = {};
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
 
 TEST_F(MappingEngineTest, LicenseEncoderCheck) {
     MappingScheme theScheme = {default_field_encoders::LICENSE_ENCODER};
@@ -344,6 +381,29 @@ TEST_F(MappingEngineTest, MultipleCustomFieldEncoderWorks) {
     vector<string> expectedSourcePaths = {};
 
     qDebug() << result.getArticleObject();
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
+TEST_F(MappingEngineTest, MultipleStringFieldConversionCheck) {
+    MappingScheme theScheme = {
+        default_field_encoders::TITLE_ENCODER,
+        default_field_encoders::DESCRIPTION_ENCODER
+    };
+
+    vector<string> theDocument = {"foo", "bar"};
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    const string expectedResult = R"(
+        {
+           "title": "foo",
+           "description": "bar"
+        }
+    )";
+
+    vector<string> expectedSourcePaths = {};
 
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));

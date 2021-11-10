@@ -3,11 +3,12 @@
 #include "stubs.hh"
 #include "raw_literals.hh"
 #include "group_mapper.hh"
+#include "test_utility.hh"
 #include "mocks.hh"
 
 using namespace testing;
 
-TEST(FigshareGatewayTest, CanConvertArticle) {
+TEST(FigshareGatewayTest, CanPostArticle) {
     HttpGetter* getter = new StubHttpGetter("You should not see this");
 
     HttpPoster* poster = new StubHttpPoster(
@@ -19,43 +20,21 @@ TEST(FigshareGatewayTest, CanConvertArticle) {
 
     // This is really just a fancier way of using the stub objects above.
     MockHttpGetter httpGetter;
-    EXPECT_CALL(httpGetter, request(_))
-        .WillOnce(Return(raw_literals::groupApiResponse));
     GroupMapperImpl groupMapper(&httpGetter);
 
+    // XXX: Many of these mappers are not actually used anymore, post the
+    // mapping engine refactor.
     FigshareGateway* gateway = new HttpFigshareGateway(
         getter, poster, putter, categoryMapper, &groupMapper
     );
-    
-    vector<string> keywords;
-    keywords.push_back("Bethlehem");
-    keywords.push_back("Crafts");
 
-    vector<string> references;
-    references.push_back("https://www.loc.gov/item/mpc2004001373/PP/");
-
-    vector<int> categories;
-    categories.push_back(1703);
-
-    vector<string> authors;
-    authors.push_back("Freja Howat-Maxted");
-
-    ArticleCreationRequest request(
-        "To Serve Man",
-        "Some description",
-        keywords,
-        references,
-        categories,
-        authors,
-        optional<string>("Some grant number"),
-        ArticleType::FIGURE,
-        1,
-        {},
-        "The Planet Bethlehem Archive",
-        {}
-    );
-
-    ArticleCreationResponse response = gateway->createArticle(request);
+    const string fakeArticle = R"(
+        {
+           "title": "foo"
+        }
+    )";
+    QJsonObject articleObject = deserialize(fakeArticle);
+    ArticleCreationResponse response = gateway->createArticle(articleObject);
 
     ASSERT_THAT(response.location, Eq("http://nonexistent.net/"));
 }

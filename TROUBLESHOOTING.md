@@ -32,5 +32,3 @@ administration panel for custom fields.
 
 Any other errors probably indicate a bug in the program.  Please contact me
 directly or raise an issue on the bug tracker.
-
-

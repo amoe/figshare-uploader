@@ -5,7 +5,6 @@
 #include "mapping_types.hh"
 #include "requests.hh"
 #include "responses.hh"
-#include "article_mapper.hh"
 #include "converter_registry.hh"
 #include "part_preparer.hh"
 #include "interfaces.hh"
@@ -93,14 +92,6 @@ class MockHttpGetter : public HttpGetter {
 public:
     MOCK_METHOD1(request, string(string url));
 };
-
-class MockArticleMapper : public ArticleMapper {
-public:
-    MOCK_METHOD1(mapFromExcel, ArticleCreationRequest(const vector<string> excelRow));
-    MOCK_METHOD1(mapToFigshare, string(ArticleCreationRequest request));
-};
-
-
 
 class MockDriver: public Driver {
 public:
