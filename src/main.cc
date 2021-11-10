@@ -6,7 +6,6 @@
 #include "figshare_gateway.hh"
 #include "part_preparer.hh"
 #include "file_spec_generator.hh"
-#include "article_mapper.hh"
 #include "view.hh"
 #include "presenter.hh"
 #include "logging.hh"
@@ -69,7 +68,6 @@ int main(int argc, char **argv) {
     MappingEngineImpl mappingEngine(&converterRegistry);
 
 
-    ArticleTypeMapper typeMapper;
     HttpFigshareGateway gateway(
         &httpGetter, &httpPoster, &httpPutter, categoryMapper, &groupMapper
     );
