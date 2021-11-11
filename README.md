@@ -1,15 +1,15 @@
 # figshare-uploader
 
-_figshare-uploader_ is a bulk upload tool for the research archiving & storage
-provider, Figshare.
+_figshare-uploader_ is a bulk upload program for the research archiving &
+storage provider, Figshare.
 
 **This is an unofficial tool and is not developed by Figshare-the-company.**
 
 It will accept spreadsheets in `.xlsx` format as input, upload the files listed
 therein, with their associated metadata.
 
-It is a GUI program that works on Windows, Mac, and Linux.  It supports uploading
-files of unlimited size.
+It is a small GUI program that works on Windows, Mac, and Linux.  It supports
+uploading files of unlimited size.
 
 A personal token is required to access your Figshare account.  Please read the
 [instructions](doc/creating_personal_token.md) for getting one.
