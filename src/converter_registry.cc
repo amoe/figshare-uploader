@@ -197,9 +197,19 @@ LookupRegistryImpl::LookupRegistryImpl(
 ) {
     // There may be more.
     definedTypeMap.insert({"Figure", "figure"});
-    definedTypeMap.insert({"Dataset", "dataset"});
     definedTypeMap.insert({"Media", "media"});
+    definedTypeMap.insert({"Dataset", "dataset"});
     definedTypeMap.insert({"Poster", "poster"});
+    definedTypeMap.insert({"Journal Contribution", "journal contribution"});
+    definedTypeMap.insert({"Presentation", "presentation"});
+    definedTypeMap.insert({"Thesis", "thesis"});
+    definedTypeMap.insert({"Software", "software"});
+    definedTypeMap.insert({"Online Resource", "online resource"});
+    definedTypeMap.insert({"Preprint", "preprint"});
+    definedTypeMap.insert({"Book", "book"});
+    definedTypeMap.insert({"Conference Contribution", "conference contribution"});
+
+    // These seem to be deprecated, but we still support them just in case.
     definedTypeMap.insert({"Paper", "paper"});
     definedTypeMap.insert({"Fileset", "fileset"});
 

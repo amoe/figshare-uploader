@@ -106,6 +106,34 @@ TEST_F(MappingEngineTest, DefinedTypeLookupListCheck) {
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
 
+TEST_F(MappingEngineTest, DefinedTypeOnlineResourceCheck) {
+    vector<string> theDocument = {
+        "Online Resource"
+    };
+    MappingScheme theScheme = {default_field_encoders::DEFINED_TYPE_ENCODER};
+
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::DEFINED_TYPE, "Online Resource")
+    ).WillOnce(Return(QJsonValue("online resource")));
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    // Expect an empty article object because we haven't defined any other
+    // converters.
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
+
+    const string expectedResult = R"(
+        {
+           "defined_type": "online resource"
+        }
+    )";
+
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
 TEST_F(MappingEngineTest, DiscardConverterCheck) {
     MappingScheme theScheme = {default_field_encoders::DISCARD_ENCODER};
     vector<string> theDocument = {"foo"};
