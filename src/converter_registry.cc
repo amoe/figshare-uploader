@@ -81,13 +81,11 @@ IntermediateMappingOutput LookupValueConverter::applyConversion(string input, Op
     return result;
 }
 
-// NB: Note that we don't support the delimiter here, even though we provide it
-// as an option on the default field encoders for some reason.   This is probably
-// a bug.
 IntermediateMappingOutput LookupListConverter::applyConversion(
     string input, OptionsMap options
 ) {
     string resourceName = options.at("resourceName").value();
+    optional<string> delimiter = options.at("delimiter");
     LookupType type = LOOKUP_TYPE_NAMES.at(resourceName);
 
     vector<string> producedPaths;
@@ -95,18 +93,26 @@ IntermediateMappingOutput LookupListConverter::applyConversion(
     using std::cout;
     cout << "in here" << endl;
 
-    if (input.empty() || isWhitespaceOnly(input)) {
-        // In our domain this really doesn't make sense.  So just silently
-        // discard the input and move on.
-        spdlog::debug("LookupList: discarding blank input");
-    } else {
-        QJsonValue mappedResult = registry->lookupByString(type, input);
-    
-        if (mappedResult.isNull()) {
-            // We don't want to produce nulls in general.
-            spdlog::warn("LookupList: mapped value result was null, eliding");
+    vector<string> inputValues{input};
+    if (delimiter.has_value()) {
+        string delimiterRegex = delimiter.value();
+        inputValues = splitByRegexp(input, delimiterRegex);
+    }
+
+    for (string categoryName: inputValues) {
+        if (categoryName.empty() || isWhitespaceOnly(categoryName)) {
+            // In our domain this really doesn't make sense.  So just silently
+            // discard the input and move on.
+            spdlog::debug("LookupList: discarding blank input");
         } else {
-            producedValue.append(mappedResult);
+            QJsonValue mappedResult = registry->lookupByString(type, categoryName);
+    
+            if (mappedResult.isNull()) {
+                // We don't want to produce nulls in general.
+                spdlog::warn("LookupList: mapped value result was null, eliding");
+            } else {
+                producedValue.append(mappedResult);
+            }
         }
     }
 
