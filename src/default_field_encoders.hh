@@ -49,7 +49,7 @@ namespace default_field_encoders {
         optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
         ConverterName::LOOKUP_LIST,
         {},
-        {{"delimiter", nullopt},
+        {{"delimiter", optional<string>(",\\s*")},
          {"resourceName", optional<string>("category")}}
     );
 

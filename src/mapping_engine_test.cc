@@ -235,8 +235,6 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
 
     MappingOutput result = this->engine->convert(theDocument, theScheme);
 
-    // Expect an empty article object because we haven't defined any other
-    // converters.
     QJsonObject expectedArticle;
     vector<string> expectedSourcePaths = {};
 
@@ -250,6 +248,34 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
     ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
     ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
 }
+
+TEST_F(MappingEngineTest, CategoryEncoderMultipleValuesCheck) {
+    MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+    vector<string> theDocument = {"North American History, Biochemistry"};
+
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::CATEGORY, "North American History")
+    ).WillOnce(Return(QJsonValue(1703)));
+    EXPECT_CALL(
+        lookups, lookupByString(LookupType::CATEGORY, "Biochemistry")
+    ).WillOnce(Return(QJsonValue(42)));
+
+    MappingOutput result = this->engine->convert(theDocument, theScheme);
+
+    QJsonObject expectedArticle;
+    vector<string> expectedSourcePaths = {};
+
+    const string expectedResult = R"(
+        {
+           "categories": [1703, 42]
+        }
+    )";
+
+
+    ASSERT_THAT(result.getArticleObject(), Eq(deserialize(expectedResult)));
+    ASSERT_THAT(result.getSourcePaths(), Eq(expectedSourcePaths));
+}
+
 
 TEST_F(MappingEngineTest, HandlesBlankCategories) {
     MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
