@@ -250,15 +250,8 @@ TEST_F(MappingEngineTest, CategoryEncoderCheck) {
 }
 
 TEST_F(MappingEngineTest, CategoryEncoderMultipleValuesCheck) {
-    const FieldEncoder categoryEncoderWithDelimiter(
-        optional<TargetField>(TargetField(TargetFieldType::STANDARD, "categories")),
-        ConverterName::LOOKUP_LIST,
-        {},
-        {{"delimiter", optional<string>(";\\s*")},
-         {"resourceName", optional<string>("category")}}
-    );
-    MappingScheme theScheme = {categoryEncoderWithDelimiter};
-    vector<string> theDocument = {"North American History; Biochemistry"};
+    MappingScheme theScheme = {default_field_encoders::CATEGORY_ENCODER};
+    vector<string> theDocument = {"North American History, Biochemistry"};
 
     EXPECT_CALL(
         lookups, lookupByString(LookupType::CATEGORY, "North American History")

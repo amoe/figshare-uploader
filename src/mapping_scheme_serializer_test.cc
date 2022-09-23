@@ -77,7 +77,7 @@ const string expectedResultForCategoryEncoder = R"(
                 "name": "LookupList",
                 "validationRules": [],
                 "options": {
-                    "delimiter": null,
+                    "delimiter": ",\\s*",
                     "resourceName": "category"
                 }
             }
