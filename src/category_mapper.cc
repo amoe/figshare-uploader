@@ -23,7 +23,7 @@ int CategoryMapper::mapTitle(const string title) {
 
     auto it = lookup.find(title);
     if (it == lookup.end()) {
-        throw std::runtime_error("category title not found");
+        throw std::runtime_error("category title not found: " + title);
     } else {
         return it->second;
     }
