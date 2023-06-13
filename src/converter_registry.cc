@@ -90,8 +90,6 @@ IntermediateMappingOutput LookupListConverter::applyConversion(
 
     vector<string> producedPaths;
     QJsonArray producedValue;
-    using std::cout;
-    cout << "in here" << endl;
 
     vector<string> inputValues{input};
     if (delimiter.has_value()) {
