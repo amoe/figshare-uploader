@@ -11,4 +11,5 @@ response = requests.get('https://api.figshare.com/v2/categories')
 data = response.json()
 
 for datum in data:
-    print(datum['id'], datum['title'])
+    if datum['is_selectable']:
+        print(datum['id'], datum['title'])
