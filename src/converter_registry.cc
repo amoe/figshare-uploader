@@ -116,7 +116,7 @@ IntermediateMappingOutput LookupListConverter::applyConversion(
         }
     }
 
-    qDebug() << producedValue << endl;
+    qDebug() << producedValue << Qt::endl;
 
     IntermediateMappingOutput result(
         producedValue, producedPaths, CombinationOperation::CONJOIN
