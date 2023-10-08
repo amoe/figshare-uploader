@@ -11,7 +11,9 @@ To clean: `scons -c`
 You need scons and xlnt installed.
 
 To install scons, use `pip3 install scons`, or use your distro's copy of scons.
-The build process was tested with SCons versions 2.5.1 and 3.0.1.
+The build process was tested with SCons v4.5.2.  There are definitely some API
+breaks in a certain SCons version so I wouldn't attempt to use it with any
+earlier version.
 
 It's easier to use a systemwide copy of xlnt; xlnt is not packaged yet for
 Debian, so you'll also need cmake.  You can also use the copy under `ext`
