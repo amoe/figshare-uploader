@@ -42,9 +42,13 @@ the workbook will be ignored at present.  Only the first one will be handled.)
 
 ## Install
 
-Currently there's a .dmg file for Mac, a portable zip for Windows, and Linux
-users have to build it yourselves.  Linux is the primary testing and development
-platform.
+* *Mac*: There is currently a .dmg file.  This is built on an Intel Mac.
+There's no native build for Apple Silicon yet, I do not have access to this
+hardware.
+* There's a portable .zip file for Windows machines.
+* Linux users must build it yourself.
+
+Linux is the primary testing and development platform.
 
 ## Limitations
 
