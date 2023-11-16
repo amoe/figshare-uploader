@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <limits>
 
 #include <detail/default_case.hpp>
 #include <detail/number_format/number_formatter.hpp>
