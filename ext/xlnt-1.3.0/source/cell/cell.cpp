@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <cmath>
 #include <sstream>
+#include <limits>
 
 #include <detail/implementations/cell_impl.hpp>
 #include <detail/implementations/format_impl.hpp>
