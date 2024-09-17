@@ -26,6 +26,10 @@ derivatives.
 Once you have these, run `scons` to build.
 You should get a binary produced `./build/main`.
 
+To build in strict mode where warnings become errors, pass the `--strict` option:
+
+    scons --strict
+
 ## Building on Mac
 
 Tested on Mojave (10.14).

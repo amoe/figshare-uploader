@@ -2,6 +2,8 @@ import os
 import subprocess
 import osxbundle
 
+AddOption('--strict', action='store_true', default=False)
+
 VERSION_FILE_PATH = '#version'
 
 def get_version():
@@ -122,9 +124,12 @@ else:
         '-fPIC', 
         '-std=c++11',
         '-Wall',
-#        '-Werror',
         '-pedantic'
     ]
+
+    if GetOption('strict'):
+        ccflags.append('-Werror')
+    
     libs = ['pthread', 'xlnt']
 
 
