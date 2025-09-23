@@ -17,7 +17,13 @@ earlier version.
 
 It's easier to use a systemwide copy of xlnt; xlnt is not packaged yet for
 Debian, so you'll also need cmake.  You can also use the copy under `ext`
-directory.
+directory.  xlnt builds using CMake.  The process for building xlnt is just:
+
+```
+cmake .
+make
+sudo make install
+```
 
 You also need the appropriate Qt5 dev packages for your distribution.  This is
 provided by the top level package `qtbase5-dev` in Debian bullseye and
