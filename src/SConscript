@@ -78,7 +78,6 @@ if (qt5_dir is None):
 subsystem = ARGUMENTS.get('subsystem', 'windows')
 
 general_ext_include_path = '#ext'
-xlnt_include_path = "#ext/xlnt-1.3.0/include"
 
 linkflags = []
 ccflags = []
@@ -88,7 +87,7 @@ libs = []
 env = Environment(
     tools=['default', 'qt5'],
     QT5DIR=qt5_dir,
-    CPPPATH=googletest_include_paths + [xlnt_include_path, general_ext_include_path]
+    CPPPATH=googletest_include_paths + [general_ext_include_path]
 )
 
 print("Running on platform '%s'" % env['PLATFORM'])

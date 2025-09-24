@@ -16,14 +16,26 @@ breaks in a certain SCons version so I wouldn't attempt to use it with any
 earlier version.
 
 It's easier to use a systemwide copy of xlnt; xlnt is not packaged yet for
-Debian, so you'll also need cmake.  You can also use the copy under `ext`
-directory.  xlnt builds using CMake.  The process for building xlnt is just:
+Debian, so you'll also need cmake.
+
+xlnt is no longer bundled.  You should install _and clone_ xlnt using [the
+instructions on the xlnt-community
+repo](https://github.com/xlnt-community/xlnt).  It looks roughly like this:
 
 ```
-cmake .
+git clone https://github.com/xlnt-community/xlnt.git xlnt --recurse-submodules
+cd xlnt
+mkdir build
+cd build
+cmake ..
 make
 sudo make install
 ```
+
+I have run and tested the uploader built against the following xlnt commit:
+`dab6894cb7244e2ec91bad48d3c2dce219c4e997`.
+I strongly recommend running the unit tests (`./build/unit_tests`) after
+building, to check that regressions in library usage do not occur.
 
 You also need the appropriate Qt5 dev packages for your distribution.  This is
 provided by the top level package `qtbase5-dev` in Debian bullseye and
