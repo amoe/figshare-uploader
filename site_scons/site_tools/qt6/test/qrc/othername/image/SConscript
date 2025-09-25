@@ -1,0 +1,11 @@
+Import('qtEnv')
+
+env = qtEnv.Clone()
+env.EnableQt6Modules(['QtCore','QtWidgets'])
+
+source_files = Glob('*.cpp')
+source_files.append(env.Qrc6('icons'))
+
+env['QT6_QRCFLAGS'] = ['-name', 'othername']
+
+env.Program('main', source_files)

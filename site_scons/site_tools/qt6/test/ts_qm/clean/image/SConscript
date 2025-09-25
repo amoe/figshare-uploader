@@ -1,0 +1,6 @@
+Import("qtEnv")
+
+qtEnv['QT6_CLEAN_TS']=1
+
+qtEnv.Ts6('my_en.ts', Glob('*.cpp'))
+qtEnv.Qm6('my_en','my_en')

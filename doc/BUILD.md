@@ -37,8 +37,8 @@ I have run and tested the uploader built against the following xlnt commit:
 I strongly recommend running the unit tests (`./build/unit_tests`) after
 building, to check that regressions in library usage do not occur.
 
-You also need the appropriate Qt5 dev packages for your distribution.  This is
-provided by the top level package `qtbase5-dev` in Debian bullseye and
+You also need the appropriate Qt6 dev packages for your distribution.  This is
+provided by the top level package `qt6-base-dev` in Debian bullseye and
 derivatives.
 
 Once you have these, run `scons` to build.
@@ -78,7 +78,7 @@ need to have cmake though, which you can install using `cmake`.
 You need to export the correct environment variables for pkg-config to work:
 
     amoe@somemac $ export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
-    amoe@somemac $ scons qt5_dir=/usr/local/opt/qt
+    amoe@somemac $ scons qt_dir=/usr/local/opt/qt
 
 You should automatically get an OSX 'bundle' built under the `build`
 subdirectory.
@@ -144,7 +144,7 @@ Then make sure that you quote it when you use it, like `"$SCONS"`.
 
 Once you have this you do:
 
-    scons qt5_dir=C:\Qt\5.9.3\msvc2017_64
+    scons qt_dir=C:\Qt\6.8.2\msvc2017_64
 
 Using the correct directory for your Qt installation.  scons has no way to detect
 the root of the Qt installation in Windows (it can do so in Linux).
