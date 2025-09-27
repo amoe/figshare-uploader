@@ -1002,8 +1002,8 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
         self.PrependUnique(LIBS=[lib+debugSuffix for lib in modules if lib in staticModules])
         if 'QtOpenGL' in modules:
             self.AppendUnique(LIBS=['opengl32'])
-        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/'])
-        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/'+module for module in modules])
+        self.AppendUnique(CPPPATH=[ '$QT6DIR/x86_64-linux-gnu/include/'])
+        self.AppendUnique(CPPPATH=[ '$QT6DIR/x86_64-linux-gnu/include/'+module for module in modules])
         if crosscompiling :
             self["QT6_MOCCPPPATH"] = [
                 path.replace('$QT6DIR', transformedQtdir)
