@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <QRegularExpression>
 #include <QString>
 #include <QStringList>
 #include <QJsonDocument>
@@ -47,7 +48,7 @@ bool containsKey(const string input, const string key) {
 vector<string> splitByRegexp(const string input, const string regexp) {
     auto qInput = QString::fromStdString(input);
 
-    QRegExp separator(QString::fromStdString(regexp));
+    QRegularExpression separator(QString::fromStdString(regexp));
 
     QStringList items = qInput.split(separator);
     
