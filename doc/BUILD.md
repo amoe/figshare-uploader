@@ -85,9 +85,11 @@ subdirectory.
 
 ## Building on Windows
 
-The build on Windows is rather elaborate.
+The build on Windows is rather elaborate.  I've tested with VS19 (
 
 There are several steps:
+
+## Install xlnt
 
 ### Build the bundled xlnt
 
@@ -96,13 +98,13 @@ Files\CMake\bin\cmake.exe`.  You can set a shell variable to this path as such:
 
     CMAKE="/c/Program Files/CMake/bin/cmake.exe"
 
-You do this something like so:
+You do this something like this, note that this assumes the use of Git Bash:
 
-    cd ext/xlnt-1.3.0
-    md build
+    cd xlnt
+    mkdir build
     cd build
-    cmake -G "Visual Studio 15 2017 Win64" ..
-    cmake --build . --config Release
+    "$CMAKE" -G ..
+    "$CMAKE" --build . --config Release
 
 Now you will find the files you are looking for under `source/Release`
 directory.
@@ -114,6 +116,8 @@ tree -- the same directory as this README file.  I found files
 
 ### Build this program 
 
+Qt 5.15.15 or greater is required
+
 Now to build this program, you need to already have the Qt developer version
 installed.  It's normally installed to a directory that looks something like this
 `C:\Qt\5.9.3\msvc2017_64`.
@@ -121,8 +125,10 @@ installed.  It's normally installed to a directory that looks something like thi
 You also need Python 3 (any version, but 3 is needed) and SCons 3.0.1.  You must
 use that SCons version as that's the only one that supports Python 3.
 
-You should install scons using pip.
-Before you install SCons, you should upgrade the following packages:
+You should install scons using pip.  Before you install SCons, you should
+upgrade the following packages.  These are part of the Python toolchain.  You
+need to run all of these commands as administrator, so you might not be able to
+do this in Git Bash.
 
     python -m pip install -U pip
     pip install -U setuptools
