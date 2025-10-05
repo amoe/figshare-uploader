@@ -8,7 +8,7 @@ REM %scons_path% -c qt5_dir=%qt5_dir%
 
 echo %windeployqt_path%
 
-call %scons_path% qt_dir=%qt5_dir% subsystem=windows || exit /b
+call %scons_path% qt_dir=%qt_dir% subsystem=windows || exit /b
 
 rmdir /s /q package
 call %windeployqt_path% --dir package --release build/main.exe

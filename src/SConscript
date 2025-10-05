@@ -59,7 +59,7 @@ def get_qt_install_prefix():
     return qt_dir
 
 
-qt_dir = ARGUMENTS.get('qt6_dir')
+qt_dir = ARGUMENTS.get('qt_dir')
 
 
 if (qt_dir is None):
