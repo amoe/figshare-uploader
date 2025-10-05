@@ -1,5 +1,5 @@
-SET scons_path="C:/Program Files/Python37/Scripts/scons.bat"
-SET qt5_dir=C:/Qt/5.12.2/msvc2017_64
+SET scons_path="C:/Program Files/Python39/Scripts/scons.bat"
+SET qt5_dir=C:/Qt/6.8.3/msvc2022_64
 SET windeployqt_path=%qt5_dir%/bin/windeployqt.exe
 SET openssl_path=C:\OpenSSL-Win64
 
