@@ -111,8 +111,9 @@ env.EnableQt6Modules(['QtCore', 'QtWidgets', 'QtNetwork', 'QtGui'])
 
 if env['PLATFORM'] == 'win32':
     ccflags = [
-        '/EHsc',    # unbreak exceptions
-        '/MD'       # dynamically link against VC++ CRT
+        '/EHsc',        # unbreak exceptions
+        '/MD',          # dynamically link against VC++ CRT
+        '/std:c++17'    # required for Qt6
     ]
     print("Using subsystem:", subsystem)
     linkflags = [
