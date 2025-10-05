@@ -392,6 +392,35 @@ class _Automoc:
 AutomocShared = _Automoc('SharedObject')
 AutomocStatic = _Automoc('StaticObject')
 
+def _detect_include_path(env):
+    qt_dir = env['QT6DIR']
+    qmake6 = env.WhereIs('qmake6', [f'{qt_dir}/bin'])
+
+    if not qmake6:
+        # Retry in global PATH.
+        qmake6 = env.WhereIs('qmake6')
+    
+    if qmake6:
+        output = subprocess.check_output([qmake6, '-query'])
+        decoded_output = output.decode('UTF-8')
+        data = {}
+        for line in decoded_output.split('\n'):
+            # Blank line terminates output.
+            if not line:
+                continue
+            
+            values = line.split(':', maxsplit=1)
+            if len(values) != 2:
+                raise Exception('no')
+
+            data[values[0]] = values[1]
+
+        header_path = data['QT_INSTALL_HEADERS']
+        print("detected", header_path)
+        return header_path
+    else:
+        raise Exception('qmake6 not found')
+
 def _detect(env):
     """Not really safe, but fast method to detect the Qt6 library"""
     try: return env['QT6DIR']
@@ -753,6 +782,8 @@ def generate(env):
     Builder = SCons.Builder.Builder
 
     env['QT6DIR']  = _detect(env)
+    # Depends on the previous detection call.
+    env['QT6_INCLUDE_PATH'] = _detect_include_path(env)
     # TODO: 'Replace' should be 'SetDefault'
     env.SetDefault(
 #    env.Replace(
@@ -1002,8 +1033,8 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
         self.PrependUnique(LIBS=[lib+debugSuffix for lib in modules if lib in staticModules])
         if 'QtOpenGL' in modules:
             self.AppendUnique(LIBS=['opengl32'])
-        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/x86_64-linux-gnu/qt6/'])
-        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/x86_64-linux-gnu/qt6/'+module for module in modules])
+        self.AppendUnique(CPPPATH=['$QT6_INCLUDE_PATH'])
+        self.AppendUnique(CPPPATH=['$QT6_INCLUDE_PATH/'+module for module in modules])
         if crosscompiling :
             self["QT6_MOCCPPPATH"] = [
                 path.replace('$QT6DIR', transformedQtdir)
