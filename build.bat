@@ -1,5 +1,5 @@
 SET scons_path="C:/Program Files/Python39/Scripts/scons.exe"
-SET qt5_dir=C:/Qt/6.8.3/msvc2022_64
+SET qt_dir=C:/Qt/6.8.3/msvc2022_64
 SET windeployqt_path=%qt5_dir%/bin/windeployqt.exe
 SET openssl_path=C:\OpenSSL-Win64
 
@@ -8,7 +8,7 @@ REM %scons_path% -c qt5_dir=%qt5_dir%
 
 echo %windeployqt_path%
 
-call %scons_path% qt5_dir=%qt5_dir% subsystem=windows
+call %scons_path% qt_dir=%qt5_dir% subsystem=windows || exit /b
 
 rmdir /s /q package
 call %windeployqt_path% --dir package --release build/main.exe
