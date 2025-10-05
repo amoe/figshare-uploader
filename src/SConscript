@@ -115,7 +115,9 @@ if env['PLATFORM'] == 'win32':
         '/MD',          # dynamically link against VC++ CRT
         # These two are required for C++17 support in Qt6.
         '/std:c++17',
-        '/Zc:__cplusplus'
+        '/Zc:__cplusplus',
+        '/permissive-'
+        
     ]
     print("Using subsystem:", subsystem)
     linkflags = [
