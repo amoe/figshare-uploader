@@ -70,7 +70,7 @@ print("Using Qt directory:", qt_dir)
     
 if (qt_dir is None):
     raise Exception(
-        "Unable to locate the Qt directory, try using qt5_dir=THEDIR on the "
+        "Unable to locate the Qt directory, try using qt_dir=THEDIR on the "
         + "command line."
     )
 
@@ -310,7 +310,7 @@ def do_bundle():
         subst_dict=subst_dict, resources=[icon_file]
     )
 
-    macdeployqt_path = os.path.join(qt5_dir, 'bin', 'macdeployqt')
+    macdeployqt_path = os.path.join(qt_dir, 'bin', 'macdeployqt')
 
     initial_dmg_output_path = "%s.dmg" % application_name
     final_dmg_output_path = "figshare_uploader-%s.dmg" % get_version()

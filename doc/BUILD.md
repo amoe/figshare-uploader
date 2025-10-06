@@ -48,6 +48,28 @@ To build in strict mode where warnings become errors, pass the `--strict` option
 
     scons --strict
 
+## Building on Mac (Updates 2025)
+
+Tested on Sequoia (15.6.1).
+
+You need:
+
+* Macports (2.11.5 verified)
+* pkg-config
+* scons (user install from Pip, 4.10.0)
+* Python version 3.10.18 (from macports)
+* Qt6, 6.8.3
+* Xcode (I installed this using kandji)
+
+I'm assuming that Qt has been installed into a user path,
+e.g. `/Users/someone/Qt`.  This is the default for the Qt6 online installer.  Do
+a custom install and only install Qt itself, the Desktop component.  You don't
+need any of the other platforms, and you don't need any of the stuff under the
+'Additional Libraries' section.
+
+So the build step should look something like this;
+
+
 ## Building on Mac
 
 Tested on Mojave (10.14).
@@ -62,7 +84,7 @@ You need:
 * xlnt
 * SCons - `pip3 install scons`
 * Qt5 - `brew install qt5` -- 5.15.1
-* pkg-config - `brew install pkg-config`
+* pkg-config
 
 By default, Brew will install qt5 to `/usr/local/opt/qt`.  Take a note of this
 path.
