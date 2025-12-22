@@ -133,7 +133,8 @@ else:
         '-fPIC', 
         '-std=c++17',
         '-Wall',
-        '-pedantic'
+        '-pedantic',
+        '--target=arm64-apple-macos14.0'
     ]
 
     if GetOption('strict'):
