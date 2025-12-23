@@ -89,10 +89,12 @@ libs = []
 env = Environment(
     tools=['default', 'qt6'],
     QT6DIR=qt_dir,
-    QT6_MOC='/usr/lib/qt6/libexec/moc',   # does it make more sense to set qt6 dir to the subdir of lib
+#    QT6_MOC='/usr/lib/qt6/libexec/moc',
+    QT6_MOC=f'{qt_dir}/libexec/moc',
     CPPPATH=googletest_include_paths + [general_ext_include_path],
     CPPDEFINES={'QT_DISABLE_DEPRECATED_UP_TO': '0x050F00'},
     FRAMEWORKPATH=[qt_dir + '/lib'],
+    FRAMEWORKS=['QtCore', 'QtWidgets', 'QtNetwork', 'QtGui']
 )
 
 print("Running on platform '%s'" % env['PLATFORM'])
