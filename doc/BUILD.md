@@ -108,7 +108,8 @@ subdirectory.
 ## Building on Windows
 
 The build on Windows is rather elaborate.  I've tested with VS19, the Community
-Edition version.  Make sure that you have "Windows Universal C Runtime" installed.
+Edition version.  Make sure that you have "Windows Universal C Runtime"
+installed, and also "Windows 10 SDK".
 
 There are several steps:
 
