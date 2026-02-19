@@ -133,8 +133,7 @@ else:
         '-fPIC', 
         '-std=c++17',
         '-Wall',
-        '-pedantic',
-        '--target=arm64-apple-macos14.0'
+        '-pedantic'
     ]
 
     if GetOption('strict'):
@@ -143,10 +142,11 @@ else:
     libs = ['pthread', 'xlnt']
 
 
-# Earliest supported mac version should be Yosemite.
+# Earliest supported mac version should be Sonoma.
 # GCC and Clang both interpret this environment variable.
 if env['PLATFORM'] == 'darwin':
-    env['ENV']['MACOSX_DEPLOYMENT_TARGET'] = "10.10"
+    env['ENV']['MACOSX_DEPLOYMENT_TARGET'] = '14.0'
+    ccflags.append('--target=arm64-apple-macos14.0')
 
 env.Append(CCFLAGS=ccflags)
 env.Append(LIBS=libs)
