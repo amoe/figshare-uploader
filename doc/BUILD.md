@@ -48,7 +48,7 @@ To build in strict mode where warnings become errors, pass the `--strict` option
 
     scons --strict
 
-## Building on Mac (Updates 2025)
+## Building on Mac (Updates 2025/2026)
 
 Tested on Sequoia (15.6.1).
 
@@ -67,7 +67,11 @@ a custom install and only install Qt itself, the Desktop component.  You don't
 need any of the other platforms, and you don't need any of the stuff under the
 'Additional Libraries' section.
 
+When installing xlnt, it installs under /usr/local/lib.
+
 So the build step should look something like this;
+
+
 
 
 ## Building on Mac

@@ -94,7 +94,9 @@ env = Environment(
     CPPPATH=googletest_include_paths + [general_ext_include_path],
     CPPDEFINES={'QT_DISABLE_DEPRECATED_UP_TO': '0x050F00'},
     FRAMEWORKPATH=[qt_dir + '/lib'],
-    FRAMEWORKS=['QtCore', 'QtWidgets', 'QtNetwork', 'QtGui']
+    FRAMEWORKS=['QtCore', 'QtWidgets', 'QtNetwork', 'QtGui'],
+#    LINKFLAGS=['-rpath', f'{qt_dir}/lib'],
+#    LINKFLAGS=['-rpath', f'{qt_'],
 )
 
 print("Running on platform '%s'" % env['PLATFORM'])
@@ -142,6 +144,9 @@ else:
         ccflags.append('-Werror')
     
     libs = ['pthread', 'xlnt']
+
+    # xxx: this is required for macos but might be macos only
+    linkflags = ['-rpath', '/usr/local/lib']
 
 
 # Earliest supported mac version should be Sonoma.
