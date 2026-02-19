@@ -1,4 +1,3 @@
-
 """SCons.Tool.qt6
 
 Tool-specific initialization for Qt6.
@@ -33,6 +32,7 @@ selection method.
 #
 from __future__ import print_function
 
+import pdb
 import os.path
 import re
 import subprocess
@@ -391,35 +391,6 @@ class _Automoc:
 
 AutomocShared = _Automoc('SharedObject')
 AutomocStatic = _Automoc('StaticObject')
-
-def _detect_include_path(env):
-    qt_dir = env['QT6DIR']
-    qmake6 = env.WhereIs('qmake6', [f'{qt_dir}/bin'])
-
-    if not qmake6:
-        # Retry in global PATH.
-        qmake6 = env.WhereIs('qmake6')
-    
-    if qmake6:
-        output = subprocess.check_output([qmake6, '-query'])
-        decoded_output = output.decode('UTF-8')
-        data = {}
-        for line in decoded_output.split('\n'):
-            # Blank line terminates output.
-            if not line:
-                continue
-            
-            values = line.split(':', maxsplit=1)
-            if len(values) != 2:
-                raise Exception('no')
-
-            data[values[0]] = values[1]
-
-        header_path = data['QT_INSTALL_HEADERS']
-        print("detected", header_path)
-        return header_path
-    else:
-        raise Exception('qmake6 not found')
 
 def _detect(env):
     """Not really safe, but fast method to detect the Qt6 library"""
@@ -782,8 +753,6 @@ def generate(env):
     Builder = SCons.Builder.Builder
 
     env['QT6DIR']  = _detect(env)
-    # Depends on the previous detection call.
-    env['QT6_INCLUDE_PATH'] = _detect_include_path(env)
     # TODO: 'Replace' should be 'SetDefault'
     env.SetDefault(
 #    env.Replace(
@@ -997,6 +966,8 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
         try : self.AppendUnique(CPPDEFINES=moduleDefines[module])
         except: pass
     debugSuffix = ''
+    # this was originally the part that's meant to apply to all platforms except win32
+    # i think it's disabled because it runs pkg-config, which was no longer used.
     if sys.platform in [] and not crosscompiling :
         if debug : debugSuffix = '_debug'
         for module in modules :
@@ -1012,10 +983,10 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
             self.AppendUnique(CPPPATH=[os.path.join("$QT6DIR","include","Qt6Assistant")])
             pcmodules.remove("Qt6Assistant")
             pcmodules.append("Qt6AssistantClient")
-        self.AppendUnique(RPATH=[os.path.join("$QT6DIR","lib")])
         self.ParseConfig('pkg-config %s --libs --cflags'% ' '.join(pcmodules))
         self["QT6_MOCCPPPATH"] = self["CPPPATH"]
         return
+    # this was originally a win32-or-crosscompiling clause
     if sys.platform in ["win32", "darwin", "linux2", "linux"] or crosscompiling :
         if crosscompiling:
             transformedQtdir = transformToWinePath(self['QT6DIR'])
@@ -1029,12 +1000,22 @@ def enable_modules(self, modules, debug=False, crosscompiling=False) :
             modules.remove("QtAssistant")
             modules.append("QtAssistantClient")
         #if sys.platform == "win32": self.AppendUnique(LIBS=['qtmain'+debugSuffix])
-        self.AppendUnique(LIBS=[lib.replace("Qt","Qt6")+debugSuffix for lib in modules if lib not in staticModules])
-        self.PrependUnique(LIBS=[lib+debugSuffix for lib in modules if lib in staticModules])
-        if 'QtOpenGL' in modules:
-            self.AppendUnique(LIBS=['opengl32'])
-        self.AppendUnique(CPPPATH=['$QT6_INCLUDE_PATH'])
-        self.AppendUnique(CPPPATH=['$QT6_INCLUDE_PATH/'+module for module in modules])
+#        self.AppendUnique(LIBS=[lib.replace("Qt","Qt6")+debugSuffix for lib in modules if lib not in staticModules])
+#        self.PrependUnique(LIBS=[lib+debugSuffix for lib in modules if lib in staticModules])
+#        if 'QtOpenGL' in modules:
+#            self.AppendUnique(LIBS=['opengl32'])
+        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/'])
+        self.AppendUnique(CPPPATH=[ '$QT6DIR/include/'+module for module in modules])
+        
+#        print("setting rpath")
+# unclear whether this does anything on mac
+#        self.AppendUnique(RPATH=[os.path.join("$QT6DIR","lib")])
+
+        self.Append(LINKFLAGS=['-rpath', os.path.join("$QT6DIR","lib")])
+
+        for module in modules:
+            self.AppendUnique(CPPPATH=[os.path.join("$QT6DIR", "lib", f'{module}.framework', 'Headers')])
+        
         if crosscompiling :
             self["QT6_MOCCPPPATH"] = [
                 path.replace('$QT6DIR', transformedQtdir)
