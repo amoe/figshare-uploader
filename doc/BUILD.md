@@ -37,8 +37,8 @@ I have run and tested the uploader built against the following xlnt commit:
 I strongly recommend running the unit tests (`./build/unit_tests`) after
 building, to check that regressions in library usage do not occur.
 
-You also need the appropriate Qt5 dev packages for your distribution.  This is
-provided by the top level package `qtbase5-dev` in Debian bullseye and
+You also need the appropriate Qt6 dev packages for your distribution.  This is
+provided by the top level package `qt6-base-dev` in Debian bullseye and
 derivatives.
 
 Once you have these, run `scons` to build.
@@ -47,6 +47,32 @@ You should get a binary produced `./build/main`.
 To build in strict mode where warnings become errors, pass the `--strict` option:
 
     scons --strict
+
+## Building on Mac (Updates 2025/2026)
+
+Tested on Sequoia (15.6.1).
+
+You need:
+
+* Macports (2.11.5 verified)
+* pkg-config
+* scons (user install from Pip, 4.10.0)
+* Python version 3.10.18 (from macports)
+* Qt6, 6.8.3
+* Xcode (I installed this using kandji)
+
+I'm assuming that Qt has been installed into a user path,
+e.g. `/Users/someone/Qt`.  This is the default for the Qt6 online installer.  Do
+a custom install and only install Qt itself, the Desktop component.  You don't
+need any of the other platforms, and you don't need any of the stuff under the
+'Additional Libraries' section.
+
+When installing xlnt, it installs under /usr/local/lib.
+
+So the build step should look something like this;
+
+
+
 
 ## Building on Mac
 
@@ -62,7 +88,7 @@ You need:
 * xlnt
 * SCons - `pip3 install scons`
 * Qt5 - `brew install qt5` -- 5.15.1
-* pkg-config - `brew install pkg-config`
+* pkg-config
 
 By default, Brew will install qt5 to `/usr/local/opt/qt`.  Take a note of this
 path.
@@ -78,16 +104,20 @@ need to have cmake though, which you can install using `cmake`.
 You need to export the correct environment variables for pkg-config to work:
 
     amoe@somemac $ export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig
-    amoe@somemac $ scons qt5_dir=/usr/local/opt/qt
+    amoe@somemac $ scons qt_dir=/usr/local/opt/qt
 
 You should automatically get an OSX 'bundle' built under the `build`
 subdirectory.
 
 ## Building on Windows
 
-The build on Windows is rather elaborate.
+The build on Windows is rather elaborate.  I've tested with VS19, the Community
+Edition version.  Make sure that you have "Windows Universal C Runtime"
+installed, and also "Windows 10 SDK".
 
 There are several steps:
+
+## Install xlnt
 
 ### Build the bundled xlnt
 
@@ -96,13 +126,13 @@ Files\CMake\bin\cmake.exe`.  You can set a shell variable to this path as such:
 
     CMAKE="/c/Program Files/CMake/bin/cmake.exe"
 
-You do this something like so:
+You do this something like this, note that this assumes the use of Git Bash:
 
-    cd ext/xlnt-1.3.0
-    md build
+    cd xlnt
+    mkdir build
     cd build
-    cmake -G "Visual Studio 15 2017 Win64" ..
-    cmake --build . --config Release
+    "$CMAKE" -G ..
+    "$CMAKE" --build . --config Release
 
 Now you will find the files you are looking for under `source/Release`
 directory.
@@ -114,6 +144,8 @@ tree -- the same directory as this README file.  I found files
 
 ### Build this program 
 
+Qt 5.15.15 or greater is required
+
 Now to build this program, you need to already have the Qt developer version
 installed.  It's normally installed to a directory that looks something like this
 `C:\Qt\5.9.3\msvc2017_64`.
@@ -121,8 +153,10 @@ installed.  It's normally installed to a directory that looks something like thi
 You also need Python 3 (any version, but 3 is needed) and SCons 3.0.1.  You must
 use that SCons version as that's the only one that supports Python 3.
 
-You should install scons using pip.
-Before you install SCons, you should upgrade the following packages:
+You should install scons using pip.  Before you install SCons, you should
+upgrade the following packages.  These are part of the Python toolchain.  You
+need to run all of these commands as administrator, so you might not be able to
+do this in Git Bash.
 
     python -m pip install -U pip
     pip install -U setuptools
@@ -144,7 +178,7 @@ Then make sure that you quote it when you use it, like `"$SCONS"`.
 
 Once you have this you do:
 
-    scons qt5_dir=C:\Qt\5.9.3\msvc2017_64
+    scons qt_dir=C:\Qt\6.8.2\msvc2017_64
 
 Using the correct directory for your Qt installation.  scons has no way to detect
 the root of the Qt installation in Windows (it can do so in Linux).

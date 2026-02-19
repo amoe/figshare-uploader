@@ -1,0 +1,21 @@
+Import("qtEnv")
+qtEnv["QT6_DEBUG"]=1
+sources = ['aaa.cpp', 'bbb.cpp', 'ddd.cpp', 'eee.cpp', 'main.cpp']
+
+qtEnv.EnableQt6Modules(['QtCore','QtGui'])
+
+# normal invocation
+sources.append(qtEnv.Moc6('include/aaa.h'))
+sources.append(qtEnv.Moc6('ui/ccc.h'))
+qtEnv.Moc6('bbb.cpp')
+qtEnv.Uic6('ui/ccc.ui')
+
+# manual target specification
+sources.append(qtEnv.ExplicitMoc6('moc-ddd.cpp','include/ddd.h'))
+qtEnv.ExplicitMoc6('moc_eee.cpp','eee.cpp')
+qtEnv.ExplicitUic6('include/uic_fff.hpp','ui/fff.ui')
+
+qtEnv.Program(target='aaa',
+              source=sources,
+              CPPPATH=['$CPPPATH', './include'],
+              QT6_AUTOSCAN=0)
