@@ -21,7 +21,6 @@ int main(int argc, char** argv) {
     dumpSslInformation();
     QMainWindow mainWindow;
     QWidget* centralWidget = new QWidget;
-    QVBoxLayout* vbox = new QVBoxLayout(centralWidget);
     mainWindow.setCentralWidget(centralWidget);
     mainWindow.show();
     return app.exec();
