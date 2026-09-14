@@ -1,0 +1,9 @@
+Import("qtEnv")
+
+env = qtEnv.Clone()
+env['QT6_GOBBLECOMMENTS']=1
+env['QT6_DEBUG']=1
+env.EnableQt6Modules(['QtCore','QtWidgets'])
+
+env.Program('main', Glob('*.cpp'))
+

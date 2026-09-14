@@ -1,0 +1,8 @@
+Import("qtEnv")
+
+env = qtEnv.Clone()
+env.EnableQt6Modules(['QtCore','QtWidgets'])
+env.Append(CPPPATH=['include'])
+
+env.Program('main', Glob('src/*.cpp'))
+

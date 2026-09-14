@@ -1,0 +1,6 @@
+Import("qtEnv")
+
+qtEnv.Ts6('my_en', Glob('*.cpp'))
+qtEnv.Ts6('a','MyFile.cpp')
+qtEnv.Ts6('b','bbb.cpp')
+qtEnv.Qm6('my_en',['a','b'])

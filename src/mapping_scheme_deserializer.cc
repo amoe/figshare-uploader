@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QDebug>
+#include <QFile>
 #include "qt_utility.hh"
 
 using std::runtime_error;
